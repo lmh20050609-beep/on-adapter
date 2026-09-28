@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from .config import ROOT,matrix,job_id,MAIN,DOMAINS
 from .util import metrics,write_json
 from .data import load_data
+from .audit import audit_all,AuditError
 
 LABEL={'numeric_add':'Numeric adapter','text_add':'Text addition','full':'iAdapter','no_text_gradient':'No text gradients','no_route_text_gradient':'No routing text gradients','no_decisiveness':'No decisiveness','homogeneous':'Five MLP experts','no_text':'No text (same MoE)','no_numeric_gradient':'No numeric gradients','no_distribution':'No distribution descriptor','uniform':'Uniform fusion'}
 plt.rcParams.update({'font.size':10,'font.family':'DejaVu Sans','axes.spines.top':False,'axes.spines.right':False,'savefig.bbox':'tight','savefig.dpi':300,'pdf.fonttype':42})
@@ -33,7 +34,11 @@ def main_figure(pairs,figs):
     axes[0].invert_yaxis(); fig.tight_layout(); savefig(fig,figs/'main_paired_effects')
 
 def main():
+    audit=audit_all()
+    if audit['status']!='passed':
+        raise AuditError('Original CSV audit failed; reports were not regenerated: '+json.dumps(audit['failures']))
     out=ROOT/'reports'; figs=out/'figures'; figs.mkdir(parents=True,exist_ok=True)
+    write_json(out/'original_csv_audit.json',audit)
     rows=[]; refs={}; stream_refs={}; states=[]; routing=[]
     for job in matrix():
         directory=ROOT/'runs'/job_id(job)
@@ -120,7 +125,7 @@ def main():
     for name,caption in zip(['main_paired_effects','mechanism_Energy','mechanism_SocialGood'],captions):
         includes.append('\\begin{figure*}[t]\n\\centering\n\\includegraphics[width=0.98\\textwidth]{figures/'+name+'.pdf}\n\\caption{'+caption.replace('_','\\_').replace('%','\\%').replace('±',r'\(\pm\)')+'}\n\\label{fig:'+name+'}\n\\end{figure*}\n')
     (figs/'latex_includes.tex').write_text('\n'.join(includes))
-    write_json(out/'validation.json',{'planned_runs':190,'completed_runs':len(frame),'unique_backbones':len(refs),'all_saved_metrics_recomputed':True,'all_comparisons_same_origins_targets_masks_checkpoint':True,'all_mature_origins_once_only':True,'code_commit':frame.commit.iloc[0],'p_values_computed':False})
+    write_json(out/'validation.json',{'planned_runs':190,'completed_runs':len(frame),'unique_backbones':len(refs),'all_saved_metrics_recomputed':True,'original_csv_audit_passed':audit['passed'],'original_csv_audit_report':'original_csv_audit.json','all_comparisons_same_origins_targets_masks_checkpoint':True,'all_mature_origins_once_only':True,'code_commit':frame.commit.iloc[0],'p_values_computed':False})
     (out/'stats-appendix.md').write_text('# Statistical scope\n\nFive seeds measure training/optimization variability conditional on each fixed dataset and chronological split. Comparisons share each seed-specific pretrained backbone and identical forecast origins and observed target masks. Means and sample SDs are descriptive. Overlapping windows, target variables and horizons are not counted as independent repeats. No significance claims, p-values or unstable five-seed bootstrap intervals are reported. Relative effects are computed within matched seeds; raw MSE values are not pooled across domains. All 190 planned runs are included. State-change groups use validation tertiles of historical half-window mean/scale differences; missing test groups are omitted, not imputed. Group labels are descriptive and their valid-element counts are reported.\n')
     print('ANALYSIS_VALIDATED 190/190',flush=True)
 

@@ -29,3 +29,15 @@ The report explicitly preserves these negative/limiting results.
 Original GPT4MTS/VoT matched comparison, ten-domain/multiple-backbone tables,
 actual publication timestamps and original LaTeX sources remain unavailable.
 The delivered package does not certify those claims or include a compiled full paper.
+
+## Follow-up audit and queue repair — 2026-09-29
+
+- Full original/revision backup created and tar-compared before these changes (docs/BACKUP.md).
+- 22 unittest cases passed, including independently changed target/mask/origin evidence and report-gate rejection.
+- Independent original-CSV audit passed all 190 runs and 35 checkpoints.
+- Completed campaign can be inspected after reporting commits without retraining or rewriting finished_at.
+- Analysis regenerates tables only after the source audit passes; writing regenerated from those tables.
+- Queue bytes and all 1,755 run/checkpoint/cache file sizes and modification times remained unchanged.
+- Current coverage and unresolved-source requirements are in docs/REVIEW_COVERAGE.md.
+- Full command outputs and checks are in reports/tests-review-completion.txt,
+  original_csv_audit.json and review_completion_validation.json.
