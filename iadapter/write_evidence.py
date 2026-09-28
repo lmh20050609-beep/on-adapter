@@ -7,6 +7,7 @@ from .analyze import LABEL,md_table
 def main():
     out=ROOT/'reports'
     valid=json.loads((out/'validation.json').read_text()); assert valid['completed_runs']==190
+    assert valid.get('original_csv_audit_passed')==190, 'Run iadapter.analyze before generating manuscript evidence'
     summary=pd.read_csv(out/'summary.csv'); paired=pd.read_csv(out/'paired_summary.csv')
     eff=json.loads((out/'efficiency.json').read_text()); assert len(eff)==6
     main=summary[(summary.horizon==6)&summary.variant.isin(MAIN)]
@@ -24,7 +25,23 @@ def main():
     ab.to_csv(out/'component_verdicts.csv',index=False)
     no_route=ab[ab.variant=='no_route_text_gradient']
     n_route_better=int(no_route.simpler_better_mean_mse.sum())
+    pairwise=pd.read_csv(out/'main_pairwise_summary.csv')
+    text_effects=pairwise[(pairwise.horizon==6)&(pairwise.candidate=='text_add')&(pairwise.control=='numeric_add')]
+    text_mse_wins=int((text_effects.delta_mse_mean<0).sum())
+    text_mae_wins=int((text_effects.delta_mae_mean<0).sum())
+    (out/'main_pairwise_analysis.md').write_text('# All main-method paired contrasts\n\nDelta = candidate minus control; negative values favor candidate. Five matched seeds share a backbone and scoring targets. SD is computed over seed differences. Improved-seed counts do not imply significance.\n\n'+md_table(pairwise.round(6))+'\n',encoding='utf-8')
+    (out/'method_appendix.md').write_text((ROOT/'docs/METHOD_APPENDIX.md').read_text(encoding='utf-8'),encoding='utf-8')
     routing=pd.read_csv(out/'routing_summary.csv')
+    seed_pairs=pd.read_csv(out/'main_pairwise.csv')
+    failure_pool=seed_pairs[(seed_pairs.horizon==6)&(seed_pairs.candidate=='full')&(seed_pairs.control=='numeric_add')]
+    failures=failure_pool.loc[failure_pool.groupby('dataset').delta_mse.idxmax()].copy()
+    failures=failures.merge(routing[(routing.horizon==6)&(routing.variant=='full')],on=['dataset','horizon','seed'],validate='one_to_one')
+    names=['Zero-init','Low-rank','Spectral','Fluctuation','TextFiLM']
+    expert_cols=[f'expert_{i}_mean_weight' for i in range(5)]
+    failures['dominant_expert']=failures[expert_cols].idxmax(axis=1).map({col:name for col,name in zip(expert_cols,names)})
+    failures['dominant_mean_weight']=failures[expert_cols].max(axis=1)
+    failure_table=failures[['dataset','seed','delta_mse','delta_mae','dominant_expert','dominant_mean_weight']]
+    (out/'failure_cases.md').write_text('# Failure-case audit\n\nFor each H6 dataset, this table selects the seed with the largest full-minus-numerical MSE difference among all five registered seeds. This is explicitly a post-hoc adverse-case selection, not a representative random sample or a model-selection rule. Positive differences mean degradation. No selected run is removed from the main table.\n\n'+md_table(failure_table.round(6))+'\n\nThe dominant-expert column describes concurrent average routing concentration. It does not establish why a run failed: the learned backbone/adapter, optimization randomness, feedback and gate can interact. A route-disabled or matched-seed ablation changes the learning trajectory and is not a controlled intervention on an otherwise identical final model. Report the paired mean and SD alongside these cases, and do not explain every small difference as either noise or negative transfer.\n\nThe primary all-seed contrasts and improvement counts are in main_pairwise_analysis.md. The near-single-expert mechanism figures use fixed seed 2023 and were not chosen from this adverse-case table. Upstream text provenance remains insufficient to diagnose source-level semantic causes.\n',encoding='utf-8')
     routed=routing[(routing.variant=='full')&(routing.horizon==6)]
     concentrated=int((routed[[f'expert_{i}_mean_weight' for i in range(5)]].max(axis=1)>.99).sum())
     small=main.copy()
@@ -58,6 +75,14 @@ def main():
 {md_table(comparison)}
 
 delta_mse_mean = iAdapter MSE − 对照 MSE，负值有利于 iAdapter；相对改善先在共享骨干的配对 seed 内计算，再取平均。不同域的原始 MSE 不直接混合平均。逐 seed 百分比的平均与原始 MSE 均值的相对变化不是同一个统计量，可能出现符号不同；主表最优计数始终按原始 MSE/MAE 均值判断。
+
+### 文本本身是否有帮助
+
+简单文本加法相较数值加法，在 H6 的 {text_mse_wins}/5 个域降低平均 MSE、{text_mae_wins}/5 个域降低平均 MAE。三种主方法的全部配对差值见 main_pairwise_analysis.md；逐 seed 数据见 main_pairwise.csv。这个结果不能用于预设文本一定有益。
+
+低/中/高历史状态变化组内的配对差值另见 state_paired_analysis.md。每组比较同 seed、同原点、同有效目标集合；分组分数和验证集阈值已对照原始 CSV 核验。分组解释属于描述性分析，不能据此选择正式模型或声称文本/漂移因果机制。
+
+各域最不利 seed 的明确事后案例见 failure_cases.md；它们按完整模型相对数值加法的 MSE 增量选择，全部仍在主结果中。路由集中与误差并列展示，不被解释为已经证实的失败原因。
 
 ## 消融结论
 
@@ -107,6 +132,8 @@ We study text-assisted online adaptation of a frozen time-series forecaster unde
 
 A forecast origin is the end of the currently observed numerical aggregation period. The input contains the preceding L observations, and the target comprises the following H observations. The system first emits and records its forecast. It then consumes each previously unused origin whose entire target period has elapsed. Each pending record stores an origin identifier, the selected text record identifiers, the frozen numerical representation and detached numerical/textual feedback snapshots. During replay, the current adapter parameters operate on this saved origin context. A zero-residual probe provides numerical feedback, while the prediction loss provides sensitivity with respect to the projected text representation. After the adapter update, the numerical cache is updated with an exponential average and the latest text feedback is stored for subsequent origins. New feedback is not substituted into the replay that produced it. The final H pending origins are not flushed after the last evaluated forecast.
 
+The complete expert computations, gate equations, eight-dimensional descriptor, optimizer chronology and precise ablation boundaries are provided in method_appendix.md for direct manuscript integration. In particular, the spectral operation and feature centering act along latent coordinates; their names do not establish temporal seasonal or fluctuation decomposition. The zero-initialized expert remains trainable, and all five experts are evaluated under soft routing.
+
 ## Related-work addition: Dynamic TMoE
 
 Dynamic TMoE couples drift detection, heterogeneous experts and temporal memory routing, with expert-pool evolution restricted to training. Our revised setting instead evaluates text-assisted parameter updates during deployment, with a frozen numerical backbone and delayed target availability. The presence of heterogeneous experts or historical routing information alone is therefore not treated as a unique contribution. We include a homogeneous expert-pool control and distinguish structural biases from demonstrated semantic specialization. Reference: [Dynamic TMoE, Sections 3.6 and Appendix I](https://arxiv.org/html/2605.20678v1).
@@ -124,6 +151,8 @@ We use Economy, Energy, Security, SocialGood and Climate, with chronological 60/
 Table R1 reports mean and sample standard deviation across five matched runs for numerical additive adaptation, additive text fusion and iAdapter. The numerical method is an ADAPT-Z-style controlled adapter and is not presented as a reproduction of the original method's complete recipe. At H=6, iAdapter has the lowest mean MSE on {mse_wins}/5 datasets and lowest mean MAE on {mae_wins}/5 datasets. Gains and degradations are both retained. Table R2 isolates text feedback, numerical feedback, the distribution descriptor, entropy regularization, expert heterogeneity and learned fusion. Removing routing text gradients lowers mean MSE on {n_route_better}/3 evaluated domains; this evidence does not support a universal necessity claim for that component. Additional H=12 results cover Economy and Energy only. We make no statistical significance or universal robustness claim from these experiments.
 
 Routing diagnostics show that {concentrated} of 25 full-model H6 runs assign more than 99% average weight to one expert. This post-hoc descriptive threshold is not used for model selection. The representative mechanism plots therefore illustrate strongly concentrated routing rather than demonstrating adaptive temporal specialization.
+
+The additive text control lowers mean MSE on {text_mse_wins}/5 H6 domains and mean MAE on {text_mae_wins}/5 relative to the numerical additive control. All three pairwise contrasts are reported with mean and sample standard deviation of matched-seed differences. Historical state-change groups use validation-only thresholds, and group comparisons retain the same forecast origins and valid targets within each seed. These descriptive contrasts test whether gains occur within measured regimes; they do not establish the semantic usefulness of a particular text type.
 
 ## Efficiency and limitations
 
@@ -168,6 +197,8 @@ We separated removal of all text gradients from removal of routing-only text gra
 
 We provide fixed expert/update hyperparameters, original-context replay, explicit maturity queues and saved per-origin traces. During verification we found a historical text/numerical replay misalignment and differences between stored code variants; the new implementation corrects these issues and is evaluated independently of historical CSVs. Input preprocessing is causal under a fixed training-fitted scaler and invalid original targets are masked. Complete contextual BERT is used. We report parameter counts, cached-text and fresh-text latency, update latency, GPU allocation and replay/text cache memory. Record end_date is an availability proxy, not a verified publication timestamp. Evidence: PROTOCOL.md, DECISIONS.md, validation.json, efficiency.json, text_encoding.json.
 
+The accompanying method_appendix.md now specifies each branch's affine dimensions, activations, initialization, gate inputs, entropy sign and origin-level pseudocode. Its spectral transform is explicitly along latent coordinates, not the time axis. The source audit additionally verifies historical-window state scores and validation-only grouping thresholds.
+
 ## Reviewer LCo1
 
 ### W1 / P3 — small and inconsistent improvements
@@ -185,6 +216,8 @@ Each method uses the same forecast-origin timeline and valid target set. Forecas
 ### W4 — useful textual signals and routing under shifts
 
 We add descriptive low/medium/high state-change analyses using historical-window scores and thresholds selected from validation data, plus full-stream Energy/SocialGood routing figures with fixed seed 2023. These figures align first-step forecasts, historical state-change scores, text availability and expert weights. They do not establish semantic causality or prove that any particular type of text is universally useful. Finer text-content interventions remain outside this limited revision package. Evidence: state_groups.csv, figure-catalog.md, mechanism figures.
+
+For each state group we additionally report all three matched-seed contrasts, including additive text versus numerical adaptation, with paired-difference standard deviations and the number of improving seeds (state_paired_analysis.md). Across all H6 origins, additive text improves mean MSE on {text_mse_wins}/5 domains and mean MAE on {text_mae_wins}/5 (main_pairwise_analysis.md). We therefore do not assume that access to the supplied text is beneficial by itself.
 
 The diagnostics also reveal strong routing concentration: {concentrated} of 25 full-model H6 runs assign more than 99% mean weight to one expert. We therefore do not use these visualizations as evidence of adaptive temporal specialization. This is a limitation of the measured configuration, not a successful mechanism claim.
 

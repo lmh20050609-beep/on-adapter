@@ -52,7 +52,19 @@ def original_reference(dataset,data_root=DATA_ROOT):
     target=np.zeros_like(values)
     target[observed]=((values-mean)/scale)[observed]
     texts,ids=text_rows(frame)
-    return dict(source=str(path),columns=columns,rows=n,train_end=train_end,val_end=val_end,mean=mean,scale=scale,target=target,valid=observed,texts=texts,text_ids=ids,dates=[str(d) for d in dates],input_missing=~observed)
+    return dict(source=str(path),columns=columns,rows=n,train_end=train_end,val_end=val_end,mean=mean,scale=scale,x=(filled-mean)/scale,target=target,valid=observed,texts=texts,text_ids=ids,dates=[str(d) for d in dates],input_missing=~observed)
+
+def historical_state_reference(ref,lookback):
+    cache=ref.setdefault('historical_state',{})
+    if lookback not in cache:
+        scores=np.zeros(ref['rows'],dtype=np.float32)
+        for s in range(lookback-1,ref['rows']):
+            window=ref['x'][s-lookback+1:s+1]
+            first,last=window[:lookback//2],window[lookback//2:]
+            scores[s]=np.mean(np.abs(first.mean(0)-last.mean(0))+np.abs(first.std(0)-last.std(0)))
+        thresholds=np.quantile(scores[max(lookback-1,ref['train_end']-1):ref['val_end']-1],[1/3,2/3])
+        cache[lookback]=(scores,thresholds)
+    return cache[lookback]
 
 def expected_arrays(ref,c,split='test'):
     start,end=(ref['val_end']-1,ref['rows']) if split=='test' else (c.lookback-1,ref['train_end'])
@@ -94,6 +106,7 @@ def audit_run(directory,job,reference,check_checkpoint=True,checkpoint_cache=Non
     require(meta['missing_targets']==int((~ref['valid']).sum()),'Raw missing-target count mismatch')
     path=directory/'predictions.npz'; require(path.is_file(),f'Missing required file: {path}')
     origin,expected_y,expected_mask=expected_arrays(ref,c)
+    state_scores,state_thresholds=historical_state_reference(ref,c.lookback)
     with np.load(path,allow_pickle=False) as saved:
         same(saved['origins'],origin,'Forecast origins differ from prescribed split',exact=True)
         same(saved['targets'],expected_y,'Saved targets differ from original CSV')
@@ -110,7 +123,10 @@ def audit_run(directory,job,reference,check_checkpoint=True,checkpoint_cache=Non
         available=np.array([bool(ref['texts'][s]) and c.uses_text for s in origin])
         same(saved['text_available'],available,'Text availability mismatch',exact=True)
         feedback=saved['feedback_origins'].copy()
+        same(saved['state_change_scores'],state_scores[origin],'State-change score differs from historical source windows')
+        same(saved['state_change_group'],np.digitize(state_scores[origin],state_thresholds),'State-change groups differ from validation-only thresholds',exact=True)
     context=read_json(directory/'prediction_context.json')
+    same(context['group_thresholds_validation'],state_thresholds,'State-change thresholds differ from validation-only reference')
     same(context['origin_ids'],origin,'Context origin mismatch',exact=True)
     require(context['text_ids']==[ref['text_ids'][s] if c.uses_text else [] for s in origin],'Prediction text IDs mismatch')
     require(context['dates']==[ref['dates'][s] for s in origin],'Origin timestamps differ from source end dates')
@@ -151,7 +167,7 @@ def audit_all(root=ROOT,jobs=None,data_root=DATA_ROOT):
             checked.append(audit_run(Path(root)/'runs'/job_id(job),job,references[job['dataset']],checkpoint_cache=checkpoints))
         except (AuditError,KeyError,ValueError,OSError,RuntimeError) as error:
             failures.append({'job_id':job_id(job),'error':str(error)})
-    return {'status':'passed' if not failures else 'failed','planned':len(jobs),'passed':len(checked),'failed':len(failures),'datasets_checked':len(references),'checkpoints_checked':len(checkpoints),'checks':['original CSV target values','original missing-target masks','training-prefix scaler','configured chronological split','matched origin/text IDs','once-only mature updates','feedback provenance and reset markers','backbone configuration and revision','prediction-derived MSE/MAE'],'limits':['Text end_date remains an availability proxy, not verified publication time.','Snapshot tensor values were not serialized in old runs; their numerical equality is supported by implementation tests, not reconstructed from trace IDs.','This does not recover missing original-paper baseline experiments.'],'failures':failures,'runs':checked}
+    return {'status':'passed' if not failures else 'failed','planned':len(jobs),'passed':len(checked),'failed':len(failures),'datasets_checked':len(references),'checkpoints_checked':len(checkpoints),'checks':['original CSV target values','original missing-target masks','training-prefix scaler','configured chronological split','matched origin/text IDs','once-only mature updates','feedback provenance and reset markers','historical-window state scores and validation-only thresholds','backbone configuration and revision','prediction-derived MSE/MAE'],'limits':['Text end_date remains an availability proxy, not verified publication time.','Snapshot tensor values were not serialized in old runs; their numerical equality is supported by implementation tests, not reconstructed from trace IDs.','This does not recover missing original-paper baseline experiments.'],'failures':failures,'runs':checked}
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(); p.add_argument('--output',type=Path)

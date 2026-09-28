@@ -10,6 +10,7 @@ from .config import ROOT,matrix,job_id,MAIN,DOMAINS
 from .util import metrics,write_json
 from .data import load_data
 from .audit import audit_all,AuditError
+from .paired import paired_effects
 
 LABEL={'numeric_add':'Numeric adapter','text_add':'Text addition','full':'iAdapter','no_text_gradient':'No text gradients','no_route_text_gradient':'No routing text gradients','no_decisiveness':'No decisiveness','homogeneous':'Five MLP experts','no_text':'No text (same MoE)','no_numeric_gradient':'No numeric gradients','no_distribution':'No distribution descriptor','uniform':'Uniform fusion'}
 plt.rcParams.update({'font.size':10,'font.family':'DejaVu Sans','axes.spines.top':False,'axes.spines.right':False,'savefig.bbox':'tight','savefig.dpi':300,'pdf.fonttype':42})
@@ -71,6 +72,9 @@ def main():
         assert all(e['origin']==e['text_origin']==e['state_origin'] and e['mature_at']<=e['update_at'] for e in updates)
         rows.append(dict(job,**recalculated,seconds=saved['seconds'],trainable_parameters=saved['trainable_parameters'],commit=saved['code']['commit'],run_dir=str(directory)))
     frame=pd.DataFrame(rows); frame.to_csv(out/'runs.csv',index=False)
+    main_pairs,main_pair_summary=paired_effects(frame)
+    main_pairs.to_csv(out/'main_pairwise.csv',index=False)
+    main_pair_summary.to_csv(out/'main_pairwise_summary.csv',index=False)
     pd.DataFrame(routing).to_csv(out/'routing_summary.csv',index=False)
     assert len(frame)==190 and len(set(frame.commit))==1
     grouped=frame.groupby(['dataset','horizon','variant'],sort=False)
@@ -88,6 +92,11 @@ def main():
     ps=pairs.groupby(['dataset','horizon','variant'],sort=False).agg(n=('seed','count'),delta_mse_mean=('delta_mse','mean'),delta_mse_sd=('delta_mse','std'),delta_mae_mean=('delta_mae','mean'),delta_mae_sd=('delta_mae','std'),mse_reduction_mean=('mse_reduction_percent','mean'),mse_reduction_sd=('mse_reduction_percent','std')).reset_index()
     ps.to_csv(out/'paired_summary.csv',index=False)
     state_frame=pd.DataFrame(states); state_frame.to_csv(out/'state_groups.csv',index=False)
+    state_pairs,state_pair_summary=paired_effects(state_frame[state_frame.horizon==6],grouped=True)
+    state_pairs.to_csv(out/'state_paired_differences.csv',index=False)
+    state_pair_summary.to_csv(out/'state_paired_summary.csv',index=False)
+    description='# Paired effects by historical state change\n\nDelta = candidate minus control; negative values favor the candidate. Groups 0/1/2 use validation tertiles of historical-window scores. Each row reports five matched seeds on the same valid target elements; SD is across seed differences, not windows. Improved-seed counts are descriptive, not significance tests. Empty test groups are omitted. No concept-drift ground truth or semantic text causality is assumed.\n\n'
+    (out/'state_paired_analysis.md').write_text(description+md_table(state_pair_summary.round(6))+'\n',encoding='utf-8')
     state_summary=state_frame[(state_frame.horizon==6)&state_frame.variant.isin(MAIN)].groupby(['dataset','group','variant']).agg(n=('seed','count'),mse_mean=('mse','mean'),mse_sd=('mse','std'),mae_mean=('mae','mean'),mae_sd=('mae','std'),valid_elements=('valid_elements','first')).reset_index()
     state_summary.to_csv(out/'state_group_summary.csv',index=False)
     main_table=summary[summary.variant.isin(MAIN)].copy()
@@ -110,14 +119,19 @@ def main():
         for v,color,style in [('numeric_add','#999999',':'),('text_add','#0072B2','--'),('full','#D55E00','-')]: axes[0].plot(origins,records[v]['predictions'][:,0,sensor],color=color,ls=style,lw=1,label=LABEL[v])
         axes[0].set_ylabel('First-step target\n(standardized)'); axes[0].legend(loc='upper center',bbox_to_anchor=(.5,1.25),ncol=4,frameon=False,fontsize=8)
         axes[1].plot(origins,full['state_change_scores'],color='#009E73'); axes[1].set_ylabel('State-change\nscore')
-        available=full['text_available']; axes[1].plot(origins[available],np.zeros(available.sum()),'|',color='#0072B2',alpha=.3,label='Text available (proxy)'); axes[1].legend(loc='upper left',fontsize=8,frameon=False)
+        arrivals=np.array([any(int(rid.split(':')[0])==int(t) for rid in data.text_ids[t]) for t in origins])
+        update_events=[json.loads(line) for line in (ROOT/'runs'/f'{dataset}_h6_s2023_full'/'updates.jsonl').read_text().splitlines()]
+        maturity=np.array([e['update_at'] for e in update_events])
+        axes[1].plot(origins[arrivals],np.full(arrivals.sum(),.03),'|',transform=axes[1].get_xaxis_transform(),color='#0072B2',alpha=.4,label='New text row (proxy)')
+        axes[1].plot(maturity,np.full(len(maturity),.10),'|',transform=axes[1].get_xaxis_transform(),color='#CC79A7',alpha=.4,label='Queued target matures')
+        axes[1].legend(loc='upper left',fontsize=8,frameon=False,ncol=2)
         gate=full['gate_weights'].mean(1)
         axes[2].stackplot(origins,gate.T,labels=['Zero-init','Low-rank','Spectral','Fluctuation','TextFiLM'],alpha=.85)
         axes[2].set_ylabel('Mean expert weight'); axes[2].set_xlabel('Forecast origin (sorted row index)'); axes[2].set_ylim(0,1); axes[2].legend(loc='upper center',bbox_to_anchor=(.5,-.28),ncol=5,frameon=False,fontsize=8)
         for ax in axes: ax.axvline(origins[0]+6,color='.3',ls='--',lw=.8)
         fig.tight_layout(); savefig(fig,figs/f'mechanism_{dataset}')
         dominant=int(gate.mean(0).argmax()); names=['Zero-init','Low-rank','Spectral','Fluctuation','TextFiLM']
-        captions.append(f'{dataset}: fixed seed 2023, H=6, complete test stream; plots the first horizon step of target {data.columns[sensor]}. Expert weights average over variables. The dominant {names[dominant]} branch has mean weight {gate.mean(0)[dominant]:.5f}; this near-single-expert example does not demonstrate temporal specialization. Dashed vertical line is the first test-label maturity. Text ticks indicate availability under end_date proxy, not verified publication times. Missing targets are omitted from the ground-truth curve. No favorable event selection.')
+        captions.append(f'{dataset}: fixed seed 2023, H=6, complete test stream; plots the first horizon step of target {data.columns[sensor]}. Expert weights average over variables. The dominant {names[dominant]} branch has mean weight {gate.mean(0)[dominant]:.5f}; this near-single-expert example does not demonstrate temporal specialization. Dashed vertical line is the first test-label maturity. Blue rug ticks mark a newly selected informative merged row at its end_date proxy, not verified publication time; magenta ticks mark queued-target maturity after that origin\'s forecast. Rugs use fixed vertical axis fractions, not score units. Missing targets are omitted from the ground-truth curve. No favorable event selection.')
         for rec in records.values(): rec.close()
     captions.insert(0,'Paired H=6 MSE reductions: each percentage is 100 x (baseline MSE - iAdapter MSE) / baseline MSE. Dots are five matched seed/backbone runs per dataset; diamonds and whiskers show mean ± one sample SD of those paired percentages, not a confidence interval. Positive values favor iAdapter. Mean paired percentages need not have the same sign as the difference of mean raw MSEs. All predefined datasets and seeds are shown.')
     (out/'figure-catalog.md').write_text('# Figure catalog\n\n'+'\n\n'.join(captions)+'\n',encoding='utf-8')

@@ -37,11 +37,22 @@ campaign 是按实验提交固定的已完成队列。默认命令现会对已�
 不因后续分析提交改变而报错，也不重新训练或修改完成时间。--status 只读完成标记；
 --audit-completed 对照原始 CSV 验证全部单元。未完成队列仍禁止混合代码版本。
 analyze 在通过原始 CSV 审计前不生成新表图。详见 original_csv_audit.json。
-本轮共 22 项协议与审计检查，包括对篡改目标、掩码、原点和反馈的拒绝测试及报告生成前的审计门禁。
+当前共 28 项协议与审计检查通过，包括篡改目标、掩码、原点、反馈和状态分组的拒绝测试，
+配对 seed/目标数核验及报告生成前的审计门禁；原始输出见 reports/tests-review-finishing.txt。
 完整备份与恢复方式见 docs/BACKUP.md；逐项审稿覆盖见 docs/REVIEW_COVERAGE.md。
 要单独复核一个配置，使用 `python -m iadapter.run` 并给一个新的 `--run_dir`；
 不要把复核结果混入原 190 次结果。预处理和模型配置见 docs/PROTOCOL.md 与
 docs/DECISIONS.md。
+
+## 补齐的可直接使用材料
+
+- reports/method_appendix.md：五专家、门控、描述符、正则与原点级伪代码；明确潜在维度操作的语义边界。
+- reports/main_pairwise_analysis.md：三种主方法的全部配对比较，包含文本加法对数值加法。
+- reports/state_paired_analysis.md：历史状态变化组内的配对差值和标准差，阈值通过原始 CSV 审计。
+- reports/failure_cases.md：每域最不利 seed 的明确事后案例，保留在主表中，不推断路由因果。
+- 机制图蓝色刻度为代理新文本行，紫色刻度为队列目标成熟；二者均与预测原点对齐。
+
+这些材料由已有预测生成，没有增加训练或选择新的最佳模型。简单文本加法在 H6 的 0/5 个域降低平均 MSE、1/5 个域降低平均 MAE，不能假定文本本身稳定有益。
 
 ## 论文结论必须保留的限制
 

@@ -41,3 +41,15 @@ The delivered package does not certify those claims or include a compiled full p
 - Current coverage and unresolved-source requirements are in docs/REVIEW_COVERAGE.md.
 - Full command outputs and checks are in reports/tests-review-completion.txt,
   original_csv_audit.json and review_completion_validation.json.
+
+## Review deliverable completion pass — 2026-09-29
+
+- 28 tests passed; new checks reject modified state scores/validation thresholds,
+  missing paired seeds, duplicated method cells and mismatched valid-target counts.
+- Original-CSV audit still passes all 190 runs, now including state grouping.
+- Added all-main-method and within-state-group paired differences, explicit adverse cases,
+  and an implementation-aligned method/algorithm appendix.
+- Re-rendered and visually inspected Energy/SocialGood mechanism figures with distinct
+  proxy text-arrival and mature-target markers; no clipping or legend overlap found.
+- Regenerated manuscript and response drafts; raw data/runs/checkpoints/cache unchanged.
+- No new experiments, model selection, external messages or training were performed.

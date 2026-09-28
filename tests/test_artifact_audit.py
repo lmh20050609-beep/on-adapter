@@ -50,6 +50,13 @@ class EvidenceAuditTests(unittest.TestCase):
     def test_future_feedback_rejected(self):
         self.change_arrays(lambda a:a['feedback_origins'].__setitem__((0,0),500))
         with self.assertRaisesRegex(AuditError,'Feedback ages'): self.verify()
+    def test_changed_state_score_rejected(self):
+        self.change_arrays(lambda a:a['state_change_scores'].__setitem__(0,10000.))
+        with self.assertRaisesRegex(AuditError,'State-change score'): self.verify()
+    def test_changed_state_threshold_rejected(self):
+        p=self.run/'prediction_context.json'; d=json.loads(p.read_text())
+        d['group_thresholds_validation']=[0.,10000.]; p.write_text(json.dumps(d))
+        with self.assertRaisesRegex(AuditError,'State-change thresholds'): self.verify()
     def state(self,status='completed'):
         d={'code':{'commit':'old','dirty':False},'finished_at':1234,'jobs':{job_id(JOB):dict(JOB,status=status)}}
         path=self.root/'queue_state.json'; path.write_text(json.dumps(d)); return path

@@ -22,9 +22,14 @@
 | 论文替换文本、逐点回复、未解决清单 | 已证实完成 | manuscript_replacements.md、reviewer_responses.md、claim_changes.md 及本文件 |
 
 总计 190 次评估、35 个共享骨干，实验源提交 f68027fc8dc6a091cfc2d80d6896f67660f54651。
-22 项 unittest 全部通过；原始 CSV 审计 190/190 通过。输出在 reports/tests-review-completion.txt、
+28 项 unittest 全部通过；原始 CSV 审计 190/190 通过。输出在 reports/tests-review-finishing.txt、
 reports/original_csv_audit.json、reports/review_completion_validation.json。
 这次补强没有更改正式预测、模型配置或旧结果，也没有追加测试集调参实验。
+
+后续对照 review 补齐：main_pairwise_analysis.md 覆盖三种主方法的全部配对差值；
+state_paired_analysis.md 覆盖历史状态组内配对结果；method_appendix.md 给出完整五专家/门控结构及
+原点级算法；failure_cases.md 明确每域事后最不利 seed 的选择方式；机制图标出新文本代理行和每次队列成熟。
+历史分组分数及验证阈值也已纳入独立原始 CSV 审计。此次复核未改变 1,755 个原始运行/权重/缓存文件。
 
 ## 审稿问题与允许的结论
 

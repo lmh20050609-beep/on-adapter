@@ -42,3 +42,9 @@ establish true text publication times or recover original-paper baseline runs.
 
 See `docs/BACKUP.md` for the verified full backup and restore command, and
 `docs/REVIEW_COVERAGE.md` for the requirement-by-requirement delivery status.
+
+The complete method/pseudocode appendix is `reports/method_appendix.md`.
+`main_pairwise_analysis.md` includes all three main-method contrasts;
+`state_paired_analysis.md` gives within-group matched-seed differences, and
+`failure_cases.md` preserves explicitly selected adverse cases. State-change
+scores and validation thresholds are checked against the original CSVs.
