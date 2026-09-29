@@ -1,0 +1,11 @@
+{
+  "claim_supported": "partial",
+  "broad_positive_claims": "no",
+  "bounded_research_question_answered": "yes",
+  "confidence": "high",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "integrity_status": "unavailable",
+  "pending_external_review": true,
+  "routing_action": "Finalize bounded mixed/negative evidence package; no further tuning or failed-gate branch expansion; preserve unresolved upstream and independent-confirmation obligations."
+}

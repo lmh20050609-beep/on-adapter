@@ -1,5 +1,11 @@
 # iAdapter revision evidence package
 
+Current delivery: [review decisions](refine-logs/review_delivery/REVIEW_DECISIONS.md),
+[consolidated responses](refine-logs/review_delivery/REVIEW_RESPONSE.md),
+[replacement manuscript text](refine-logs/review_delivery/MANUSCRIPT_REPLACEMENTS.md),
+and [current coverage](docs/REVIEW_COVERAGE_CURRENT.md).
+Earlier stage reports are historical; protocols and counts must remain separate.
+
 Independent revision implementation based on the outer IG-SMoE source. Original
 files and historical results are not modified. This package does not reproduce
 the original ten-domain/multiple-backbone results.

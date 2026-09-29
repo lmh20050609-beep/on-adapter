@@ -1,0 +1,22 @@
+{
+  "Climate": {
+    "mse": "numeric_static",
+    "mae": "numeric_static"
+  },
+  "Economy": {
+    "mse": "gpt4mts_static",
+    "mae": "gpt4mts_static"
+  },
+  "Energy": {
+    "mse": "numeric_static",
+    "mae": "numeric_static"
+  },
+  "Security": {
+    "mse": "gpt4mts_static",
+    "mae": "iadapter_static"
+  },
+  "SocialGood": {
+    "mse": "gpt4mts_static",
+    "mae": "gpt4mts_static"
+  }
+}

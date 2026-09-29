@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "online_cells": 75,
+  "static_cells": 75,
+  "unique_cells": 150,
+  "source_code": {
+    "commit": "5fe3c5fc8d876bff70a5d6ba7ca0bcb8dd2584e6",
+    "dirty": false
+  },
+  "copied_source_sha256": {
+    "experiments/external_online_20260929/reports/validation.json": "091c522eab0084324dff3b07a62e9e6abf721f6f405961d59c0f0aed1e825100",
+    "experiments/external_online_20260929/reports/runs.csv": "02c60183b14a73dd0593d04f83e5d47ac3522a42d4afe5f1b695a701c59baf3b",
+    "experiments/external_online_20260929/reports/paired_runs.csv": "dc8714bab1804945cfa2d84905062e2ba8778ed83b2c85a4dbf39aa4326b186f",
+    "experiments/external_online_20260929/reports/RESULTS.md": "dc37ec0845d2521da349ed48d0ea94c6fbab5bd0ab9d3dc0a71b90d9723bdd17",
+    "experiments/external_online_20260929/reports/paired_summary.csv": "3bd968f40d9466d0c3a0dbda6ed853ef5fd7a736f8253afc6623505c6371520b",
+    "experiments/external_online_20260929/reports/online_minus_static.csv": "fbb12d7c49ecf1dcece06d9a736c0d95721ba4070bc219fe26cd66694d3a7f4b",
+    "experiments/external_online_20260929/reports/summary.csv": "d9125817bc272d54e868a22dbc2174a89d17fd3f7342f84c6c615b1d2678434a"
+  },
+  "scope": "OT H6 development, five optimization seeds; descriptive, not independent-data confirmation",
+  "validation": "Recomputed all 150 saved-prediction metrics; original CSV/maturity audit is separately preserved in validation.json"
+}

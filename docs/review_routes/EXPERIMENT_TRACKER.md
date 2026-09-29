@@ -13,10 +13,12 @@
 | C-02/03 | 未触发 | 依照 C1 门槛不追加渠道变体/接入网络 |
 | E 成本测量 | 完成 | 两域×五方法×三轮=30 组；缓存/更新/新文本分开计量 |
 | E-01 投影压缩 | 完成，候选未通过两域门槛 | 新跑12次、复用12次；投影参数80160→6856。仅投影压缩Energy MSE+2.37%；压缩+单MLP SocialGood MSE+1.32%。追加24组同轮成本完成；不扩宽度/seed搜索。见 `refine-logs/review_compression/REVIEW_FINDINGS.md` |
-| D-01 | 条件性待执行 | 未新增延迟或年龄机制，不声称已有鲁棒性证据 |
+| D-01 | 未触发，当前分支收束 | 不以延迟鲁棒性为已证实贡献；未新增延迟或年龄模块 |
 | A-01/02/03/04 | 三方法五域五seed静态表75/75完成；VoT仍缺 | 72新增+3复用，25组原CSV审计通过；静态iAdapter平均MSE最低0/5域、MAE最低1/5域。文本消费/训练阶段差异明确披露，静态不代表在线效果。见 `refine-logs/external_baselines/STATIC_MATRIX_FINDINGS.md`。原四方法100单元未完成 |
 | F-01 | 尚未完成 | 五 seed 仍是开发数据，不能替代独立数据确认 |
-| W-01 | 逐点回复草稿已更新 | 最新 `REVIEW_RESPONSES_FIVE_SEED.md`；未集成整篇 LaTeX |
+| W-01 | 综合回复与替换文本完成 | 最新 `refine-logs/review_delivery/`；整篇LaTeX未集成或提交 |
+
+补充A2：共同延迟协议在线扩展75/75完成，同权重静态75保留；参见 `refine-logs/external_baselines/online_evidence/`。结论核对partial，不支持广义优越性；完成限定证据包无需追加调参。F-01独立确认、VoT来源与原Table2恢复仍缺，不能改标完成。
 
 ## 最初计划记录
 
