@@ -25,8 +25,8 @@ def timed(call,device,warmup,repeats):
 def evidence_stamp(base):
     return {str(p.relative_to(base)):(p.stat().st_size,p.stat().st_mtime_ns) for name in ['runs','checkpoints'] for p in (base/name).rglob('*') if p.is_file()}
 
-def profile_case(base,dataset,variant,round_index,warmup,repeats):
-    directory=base/'runs'/f'{dataset}_h6_s2023_{variant}'
+def profile_case(base,dataset,variant,round_index,warmup,repeats,directory_override=None,adapter_factory=None):
+    directory=Path(directory_override) if directory_override is not None else base/'runs'/f'{dataset}_h6_s2023_{variant}'
     assert json.loads((directory/'status.json').read_text())['status']=='completed'
     scientific=json.loads((directory/'metrics.json').read_text())
     c=Config(**{f.name:scientific['config'][f.name] for f in fields(Config)})
@@ -36,7 +36,7 @@ def profile_case(base,dataset,variant,round_index,warmup,repeats):
     model=Backbone(c.lookback,c.horizon,N,d_model=c.d_model,e_layers=c.e_layers,dropout=c.dropout).to(c.device).eval()
     checkpoint=torch.load(scientific['backbone_checkpoint'],map_location='cpu',weights_only=True)
     model.load_state_dict(checkpoint['model']);model.requires_grad_(False)
-    ad=Adaptation(c,N).to(c.device)
+    ad=(adapter_factory(c,N) if adapter_factory is not None else Adaptation(c,N)).to(c.device)
     warmed=torch.load(directory/'warm_adapter.pt',map_location='cpu',weights_only=True);ad.load_state_dict(warmed)
     origin=data.origins('test',c.lookback,c.horizon)[0]
     x,y,mask=data.window(origin,c.lookback,c.horizon)

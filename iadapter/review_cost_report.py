@@ -9,7 +9,7 @@ from .analyze import md_table
 
 PHASES=['prediction_cached','update_fixed_record','prediction_fresh_text']
 
-def main(path):
+def main(path,reference='full'):
     path=Path(path);status=json.loads((path/'status.json').read_text());config=json.loads((path/'config.json').read_text());raw=json.loads((path/'raw.json').read_text())
     assert status['status']=='completed' and status['scientific_artifacts_unchanged']
     expected={(d,v,r) for d in config['datasets'] for v in config['variants'] for r in range(config['rounds'])}
@@ -39,10 +39,10 @@ def main(path):
     summary=pd.DataFrame(summary);summary.to_csv(path/'summary.csv',index=False)
     relative=[]
     for d,block in summary.groupby('dataset'):
-        ref=block.set_index('variant').loc['full']
+        ref=block.set_index('variant').loc[reference]
         for _,r in block.iterrows():
             relative.append({'dataset':d,'variant':r.variant,'parameter_reduction_percent':100*(1-r.trainable_parameters/ref.trainable_parameters),**{phase+'_latency_reduction_percent':100*(1-r[phase+'_median_ms']/ref[phase+'_median_ms']) for phase in PHASES}})
-    relative=pd.DataFrame(relative);relative.to_csv(path/'relative_to_full.csv',index=False)
+    relative=pd.DataFrame(relative);relative.to_csv(path/f'relative_to_{reference}.csv',index=False)
     display=summary[['dataset','variant','trainable_parameters','backbone_parameters']].copy()
     for phase in PHASES:
         display[phase+' ms (range)']=[f'{r[phase+"_median_ms"]:.3f} ({r[phase+"_round_min_ms"]:.3f}–{r[phase+"_round_max_ms"]:.3f})' for _,r in summary.iterrows()]
@@ -50,13 +50,15 @@ def main(path):
     p95=summary[['dataset','variant']+[phase+'_p95_ms' for phase in PHASES]]
     text=f'''# 候选在线成本：独立微基准
 
-硬件：{config['hardware']}；PyTorch {config['torch']}。两个域、五方法、seed2023预热权重副本；每方法{config['rounds']}轮、每轮{config['warmup']}次预热/{config['repeats']}次测量。统计量为轮内中位数的中位数，括号是各轮中位数范围，单位毫秒。不同轮按固定seed轮换方法顺序，不能将600个调用视为600个独立科研重复。
+硬件：{config['hardware']}；PyTorch {config['torch']}。{len(config['datasets'])}个域、{len(config['variants'])}种设置、seed2023预热权重副本；每方法{config['rounds']}轮、每轮{config['warmup']}次预热/{config['repeats']}次测量。统计量为轮内中位数的中位数，括号是各轮中位数范围，单位毫秒。不同轮按固定seed轮换方法顺序，不能将重复调用视为独立科研重复。
+
+{config.get('setting_definitions','')}
 
 ## 参数与计时
 
 {md_table(display)}
 
-参数与测量使用同一实际模型实现。full和no_decisiveness参数相同，移除正则并不减少模型参数。缓存预测不含BERT；新文本预测包含tokenizer、完整冻结12层BERT、CPU缓存格式转换、投影和数值预测。有限性检查与设备同步纳入计时。
+参数与测量使用同一实际模型实现。删除损失正则本身不减少参数；不同结构的实际参数量见表。缓存预测不含BERT；新文本预测包含tokenizer、完整冻结12层BERT、CPU缓存格式转换、投影和数值预测。有限性检查与设备同步纳入计时。
 
 ## P95
 
@@ -70,26 +72,19 @@ def main(path):
 
 GPU列为本进程PyTorch峰值allocated，非整卡占用或reserved。缓存路径峰值覆盖预测与更新，包括Adam状态；fresh路径在恢复预热权重、移除微基准Adam状态后计量，包含BERT。微基准只放一个活动窗口/文本向量，原在线执行器的全流GPU张量不全部计入这里；原开发运行峰值保存在summary.csv的original_development_peak_allocated_bytes。CPU缓存、队列及梯度字节不代表完整Python进程内存，队列数字不含对象管理开销。
 
-## 相对完整模型
+## 相对参考设置 {reference}
 
-正值表示参数/延迟减少；仅比较同域、同阶段，基准为三轮中位数的中位数。小幅差异若与轮间波动相近，不认定为稳定加速。
+正值表示参数/延迟减少；仅比较同域、同阶段，基准为本次{config['rounds']}轮中位数的中位数。小幅差异若与轮间波动相近，不认定为稳定加速。sanity计时不进入正式成本结论。
 
 {md_table(relative.round(2))}
 
 ## 测量边界
 
-固定第一个开发原点，使用真实成熟记录作重复更新微基准。每轮恢复相同预热权重；新文本阶段再次恢复，避免用反复优化后的局部权重测量。更新包含task loss、反馈梯度探针、熵项（若启用）、梯度裁剪、Adam和反馈缓存刷新；不含队列调度、日志和磁盘写入。微基准中的重复更新仅用于计时，不产生新的性能结果。正式42次实验文件和queue均未改变。
+固定第一个开发原点，使用真实成熟记录作重复更新微基准。每轮恢复相同预热权重；新文本阶段再次恢复，避免用反复优化后的局部权重测量。更新包含task loss、反馈梯度探针、熵项（若启用）、梯度裁剪、Adam和反馈缓存刷新；不含队列调度、日志和磁盘写入。微基准中的重复更新仅用于计时，不产生新的性能结果。源科学实验文件和queue均未改变。
 
-## 计量代码变更
+## 复核入口
 
-| 文件 | 变更 | 内容 |
-|---|---|---|
-| iadapter/review_cost.py | 新增 | 隔离权重、三轮顺序轮换、三个计时阶段、参数/内存记录、正式文件不变性核对 |
-| iadapter/review_cost_report.py | 新增 | 重算原始逐次时长的中位数/P95并生成对照表 |
-| refine-logs/review_sprint/COST_PLAN.md | 新增 | 运行前固定的测量口径 |
-| .gitignore | 修改 | profile_output/作为本地产物目录 |
-
-这些独立脚本不修改模型训练逻辑，后续可以保留用于重测；删除profile_output只会删除计量产物，不影响科学运行，但本次保留全部原始计时。
+config.json记录设置、轮数、计时源码提交与硬件；raw.json保留全部逐次时长。review_cost.py执行隔离测量，review_cost_report.py重算中位数/P95；E-01由review_compression_cost.py提供设置、源目录与模型工厂。计时脚本不修改科学训练状态，本次保留全部原始计时。
 '''
     (path/'REPORT.md').write_text(text,encoding='utf-8')
     print('COST_REPORT_VALIDATED',len(raw),'round-cases',path,flush=True)
