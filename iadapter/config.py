@@ -7,7 +7,7 @@ BERT_ARCHIVE = ROOT / 'weights/bert-base-uncased.zip'
 DOMAINS = ['Economy','Energy','Security','SocialGood','Climate']
 MAIN = ['numeric_add','text_add','full']
 ABLATIONS = ['no_text_gradient','no_route_text_gradient','no_decisiveness','homogeneous','no_text','no_numeric_gradient','no_distribution','uniform']
-VARIANTS = MAIN + ABLATIONS
+VARIANTS = MAIN + ABLATIONS + ['no_route_no_decisiveness','single_mlp']
 
 @dataclass
 class Config:
@@ -40,6 +40,10 @@ class Config:
     def text_feedback(self): return self.variant not in {'numeric_add','text_add','no_text','no_text_gradient'}
     @property
     def numeric_feedback(self): return self.variant != 'no_numeric_gradient'
+    @property
+    def route_text_feedback(self): return self.text_feedback and self.variant not in {'no_route_text_gradient','no_route_no_decisiveness'}
+    @property
+    def use_entropy(self): return self.variant not in {'uniform','no_decisiveness','no_route_no_decisiveness','single_mlp'}
     def to_dict(self): return dict(asdict(self), lookback=self.lookback, z_loc=2, online_batch=1, text_encoder='bert-base-uncased contextual 12 layers', text_max_length=64)
 
 def matrix():

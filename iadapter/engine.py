@@ -37,7 +37,7 @@ class Stream:
     def __init__(self,cfg,data,backbone,adaptation):
         self.cfg=cfg; self.data=data; self.backbone=backbone; self.adaptation=adaptation
         self.device=cfg.device
-    def run(self,split,origins=None,trace=True):
+    def run(self,split,origins=None,trace=True,observer=None):
         c=self.cfg; d=self.data; model=self.backbone; ad=self.adaptation; device=self.device
         N=len(d.columns); L=c.lookback; H=c.horizon
         model.eval()
@@ -70,6 +70,8 @@ class Stream:
             feedback_origins.append([numerical_age_origin if numerical_age_origin is not None else -1,text_age_origin if text_age_origin is not None else -1])
             item=Replay(t,t+H,feat.detach(),mu.detach(),sigma.detach(),offset.detach(),hg.detach().clone(),ge.detach().clone(),pooled,available,selected)
             queue.push(item)
+            if observer is not None:
+                observer(self,item,pred.detach(),residual.detach())
             maximum_queue_bytes=max(maximum_queue_bytes,sum(sum(tensor_bytes(getattr(r,name)) for name in ['feature','mu','sigma','offset','hg','ge'])+len(str(r.text_ids).encode()) for r in queue.pending))
             for rec in queue.pop_ready(t):
                 assert rec.mature<=t

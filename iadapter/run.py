@@ -12,9 +12,9 @@ from .util import seed_all,write_json,revision,masked_loss,metrics,sync
 def backbone_config(c,data):
     return dict(dataset=c.dataset,lookback=c.lookback,horizon=c.horizon,seed=c.seed,d_model=c.d_model,e_layers=c.e_layers,d_ff=128,heads=4,dropout=c.dropout,pretrain_epochs=c.pretrain_epochs,batch=c.pretrain_batch,patience=c.patience,lr=c.lr,columns=data.columns,train_end=data.train_end,val_end=data.val_end,protocol=c.protocol)
 
-def fit_backbone(c,data):
+def fit_backbone(c,data,checkpoint_dir=None):
     expected=backbone_config(c,data)
-    directory=ROOT/'checkpoints'; directory.mkdir(exist_ok=True)
+    directory=Path(checkpoint_dir) if checkpoint_dir is not None else ROOT/'checkpoints'; directory.mkdir(parents=True,exist_ok=True)
     path=directory/f'{c.dataset}_h{c.horizon}_s{c.seed}.pt'
     seed_all(c.seed)
     model=Backbone(c.lookback,c.horizon,len(data.columns),d_model=c.d_model,e_layers=c.e_layers,dropout=c.dropout).to(c.device)

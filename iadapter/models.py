@@ -42,7 +42,7 @@ class SoftMoE(nn.Module):
         self.grad_mod_z=nn.Linear(D,5); self.grad_mod_t=nn.Linear(T,5)
         self.alpha=nn.Parameter(torch.tensor(.1)); self.last_gate=None; self.aux_loss=None
 
-    def forward(self,feature,hg,e,ge,offset):
+    def condition(self,feature,hg,e,ge):
         c=self.cfg; B,N,D=feature.shape
         if not c.uses_text: e=torch.zeros_like(e); ge=torch.zeros_like(ge)
         if not c.text_feedback: ge=torch.zeros_like(ge)
@@ -52,20 +52,40 @@ class SoftMoE(nn.Module):
         txt=e*(1+self.txt_lr*ge/(ge.norm()+1e-6)).unsqueeze(0) if c.text_feedback else e
         t_h=torch.relu(self.t_proj(txt.unsqueeze(1).expand(-1,N,-1)))
         h=self.drop(torch.relu(self.trunk(torch.cat([f_h,g_h,t_h],-1))))
+        return f_h,g_h,txt,h,g
+
+    def forward(self,feature,hg,e,ge,offset):
+        c=self.cfg; B,N,D=feature.shape
+        if not c.uses_text: e=torch.zeros_like(e); ge=torch.zeros_like(ge)
+        if not c.text_feedback: ge=torch.zeros_like(ge)
+        f_h,g_h,txt,h,g=self.condition(feature,hg,e,ge)
         outputs=torch.stack([expert(h,feature,g_h,txt,f_h) for expert in self.experts],2)
         if c.variant=='uniform':
             w=feature.new_full((B,N,5),.2)
         else:
-            routing_text=e if c.variant=='no_route_text_gradient' else txt
+            routing_text=e if not c.route_text_feedback else txt
             dist=torch.relu(self.gate_o(self.offset_norm(offset))).unsqueeze(1).expand(-1,N,-1)
             if c.variant=='no_distribution': dist=torch.zeros_like(dist)
             gh=torch.cat([torch.relu(self.gate_f(feature)),torch.relu(self.gate_p(feature.mean(1,keepdim=True).expand(-1,N,-1))),torch.relu(self.gate_g(g)),torch.relu(self.gate_t(routing_text.unsqueeze(1).expand(-1,N,-1))),dist],-1)
             bias=self.grad_mod_z(g.mean(1)) if c.numeric_feedback else feature.new_zeros((B,5))
-            if c.text_feedback and c.variant!='no_route_text_gradient': bias=bias+self.grad_mod_t(ge.unsqueeze(0).expand(B,-1))
+            if c.route_text_feedback: bias=bias+self.grad_mod_t(ge.unsqueeze(0).expand(B,-1))
             w=torch.softmax((self.gate_net(gh)+self.alpha*bias.unsqueeze(1))/c.temperature,-1)
         self.last_gate=w.detach()
-        self.aux_loss= -(w*(w+1e-9).log()).sum(-1).mean()*c.entropy_weight if c.variant not in {'uniform','no_decisiveness'} else feature.new_zeros(())
+        self.aux_loss= -(w*(w+1e-9).log()).sum(-1).mean()*c.entropy_weight if c.use_entropy else feature.new_zeros(())
         return (outputs*w.unsqueeze(-1)).sum(2)
+
+class SingleMLP(SoftMoE):
+    """Same conditioner; one predeclared generic MLP, no gate or expert pool."""
+    def __init__(self,cfg,N):
+        super().__init__(cfg,N)
+        for name in ['experts','offset_norm','gate_f','gate_p','gate_g','gate_t','gate_o','gate_net','grad_mod_z','grad_mod_t','alpha']:
+            delattr(self,name)
+        self.body=nn.Sequential(nn.Linear(cfg.hidden,cfg.hidden),nn.GELU(),nn.Linear(cfg.hidden,cfg.d_model))
+        self.expert_matching={'actual_parameters':sum(p.numel() for p in self.body.parameters()),'expert_count':1}
+    def forward(self,feature,hg,e,ge,offset):
+        _,_,_,h,_=self.condition(feature,hg,e,ge)
+        self.last_gate=None; self.aux_loss=feature.new_zeros(())
+        return self.body(h)
 
 class Adaptation(nn.Module):
     def __init__(self,cfg,N):
@@ -75,6 +95,7 @@ class Adaptation(nn.Module):
         else: self.project=None
         if cfg.variant in {'numeric_add','text_add'}:
             self.adapter=AddFusionAdapter(cfg.d_model,(1,N,cfg.d_model),text_dim=cfg.text_dim,hidden=cfg.hidden,dropout=cfg.dropout,use_text=cfg.uses_text,use_text_grad=False)
+        elif cfg.variant=='single_mlp': self.adapter=SingleMLP(cfg,N)
         else: self.adapter=SoftMoE(cfg,N)
     def text(self,pooled,available,device):
         if self.project is None: return torch.zeros(1,self.cfg.text_dim,device=device)

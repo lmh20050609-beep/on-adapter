@@ -12,3 +12,4 @@ submission/archives/
 submission/documents/
 submission/code/data/
 submission/code/*.pth
+experiments/
