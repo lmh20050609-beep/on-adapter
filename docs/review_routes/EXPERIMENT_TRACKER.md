@@ -14,7 +14,7 @@
 | E 成本测量 | 完成 | 两域×五方法×三轮=30 组；缓存/更新/新文本分开计量 |
 | E-01 投影压缩 | 完成，候选未通过两域门槛 | 新跑12次、复用12次；投影参数80160→6856。仅投影压缩Energy MSE+2.37%；压缩+单MLP SocialGood MSE+1.32%。追加24组同轮成本完成；不扩宽度/seed搜索。见 `refine-logs/review_compression/REVIEW_FINDINGS.md` |
 | D-01 | 条件性待执行 | 未新增延迟或年龄机制，不声称已有鲁棒性证据 |
-| A-01/02/03/04 | 作者来源已固定；GPT4MTS接入通过，性能比较未完成 | 官方GPT4MTS六层GPT2完成batch2原/修前向一致、batch1修复、真实OT单次更新；VoT十份prior来源审计完成，目录错误已复现，生成与时间元数据仍缺。共同静态任务尚未跑完，不计主表。见 `refine-logs/external_baselines/INTEGRATION_REPORT.md` |
+| A-01/02/03/04 | Economy静态pilot 3/3完成；多seed主表未完成 | 同OT/L36/H6/seed2023、37原点/222有效目标；GPT4MTS MSE最低、数值适配MAE最低，静态iAdapter未领先。文本消费与训练阶段差异明确披露；原CSV审计通过。VoT来源缺口仍在。见 `refine-logs/external_baselines/STATIC_PILOT_RESULTS.md` |
 | F-01 | 尚未完成 | 五 seed 仍是开发数据，不能替代独立数据确认 |
 | W-01 | 逐点回复草稿已更新 | 最新 `REVIEW_RESPONSES_FIVE_SEED.md`；未集成整篇 LaTeX |
 

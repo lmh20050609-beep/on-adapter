@@ -1,0 +1,4 @@
+method,seed,origins,valid_elements,mse,mae,epochs,best_epoch,backbone_optimizer_steps,adapter_warm_updates,trainable_parameters_before_static_freeze,total_parameters_excluding_BERT,total_seconds,evaluation_seconds,static_peak_allocated_MiB,text_interface
+numeric_static,2023,37,222,0.08008636985364863,0.2207592290800971,6,1,84,206,10496,37350,4.486636757006636,0.06589950500347186,17.44970703125,none
+iadapter_static,2023,37,222,0.11635318724705282,0.28458834634170876,6,1,84,206,166832,193686,3.2138112139946315,0.17450547199405264,18.6689453125,current selected text masked-mean64
+gpt4mts_static,2023,37,222,0.07893446695888366,0.22664352445989042,6,1,84,0,1445384,82551560,6.515274249992217,0.17576603499765042,341.43310546875,historical sequence of CLS512

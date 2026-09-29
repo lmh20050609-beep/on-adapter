@@ -1,0 +1,10 @@
+BACKBONE Economy h=6 seed=2023 epochs=6
+STATIC_COMPLETE numeric_static mse=0.080086 mae=0.220759 seconds=4.5
+STATIC_COMPLETE iadapter_static mse=0.116353 mae=0.284588 seconds=3.2
+NATIVE_EPOCH 1 selection_mse=0.116823 steps=14
+NATIVE_EPOCH 2 selection_mse=0.232981 steps=28
+NATIVE_EPOCH 3 selection_mse=0.267884 steps=42
+NATIVE_EPOCH 4 selection_mse=0.135313 steps=56
+NATIVE_EPOCH 5 selection_mse=0.318349 steps=70
+NATIVE_EPOCH 6 selection_mse=0.180086 steps=84
+STATIC_COMPLETE gpt4mts_static mse=0.078934 mae=0.226644 seconds=6.5

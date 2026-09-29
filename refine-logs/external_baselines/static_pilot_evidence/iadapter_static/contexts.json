@@ -1,0 +1,446 @@
+[
+  {
+    "origin": 295,
+    "text_ids": [
+      "294:fact",
+      "294:preds",
+      "295:fact",
+      "295:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 296,
+    "text_ids": [
+      "295:fact",
+      "295:preds",
+      "296:fact",
+      "296:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 297,
+    "text_ids": [
+      "296:fact",
+      "296:preds",
+      "297:fact",
+      "297:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 298,
+    "text_ids": [
+      "297:fact",
+      "297:preds",
+      "298:fact",
+      "298:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 299,
+    "text_ids": [
+      "298:fact",
+      "298:preds",
+      "299:fact",
+      "299:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 300,
+    "text_ids": [
+      "299:fact",
+      "299:preds",
+      "300:fact",
+      "300:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 301,
+    "text_ids": [
+      "300:fact",
+      "300:preds",
+      "301:fact",
+      "301:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 302,
+    "text_ids": [
+      "301:fact",
+      "301:preds",
+      "302:fact",
+      "302:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 303,
+    "text_ids": [
+      "302:fact",
+      "302:preds",
+      "303:fact",
+      "303:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 304,
+    "text_ids": [
+      "303:fact",
+      "303:preds",
+      "304:fact",
+      "304:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 305,
+    "text_ids": [
+      "304:fact",
+      "304:preds",
+      "305:fact",
+      "305:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 306,
+    "text_ids": [
+      "305:fact",
+      "305:preds",
+      "306:fact",
+      "306:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 307,
+    "text_ids": [
+      "306:fact",
+      "306:preds",
+      "307:fact",
+      "307:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 308,
+    "text_ids": [
+      "307:fact",
+      "307:preds",
+      "308:fact",
+      "308:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 309,
+    "text_ids": [
+      "308:fact",
+      "308:preds",
+      "309:fact",
+      "309:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 310,
+    "text_ids": [
+      "309:fact",
+      "309:preds",
+      "310:fact",
+      "310:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 311,
+    "text_ids": [
+      "310:fact",
+      "310:preds",
+      "311:fact",
+      "311:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 312,
+    "text_ids": [
+      "311:fact",
+      "311:preds",
+      "312:fact",
+      "312:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 313,
+    "text_ids": [
+      "312:fact",
+      "312:preds",
+      "313:fact",
+      "313:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 314,
+    "text_ids": [
+      "313:fact",
+      "313:preds",
+      "314:fact",
+      "314:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 315,
+    "text_ids": [
+      "314:fact",
+      "314:preds",
+      "315:fact",
+      "315:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 316,
+    "text_ids": [
+      "315:fact",
+      "315:preds",
+      "316:fact",
+      "316:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 317,
+    "text_ids": [
+      "316:fact",
+      "316:preds",
+      "317:fact",
+      "317:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 318,
+    "text_ids": [
+      "317:fact",
+      "317:preds",
+      "318:fact",
+      "318:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 319,
+    "text_ids": [
+      "318:fact",
+      "318:preds",
+      "319:fact",
+      "319:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 320,
+    "text_ids": [
+      "319:fact",
+      "319:preds",
+      "320:fact",
+      "320:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 321,
+    "text_ids": [
+      "320:fact",
+      "320:preds",
+      "321:fact",
+      "321:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 322,
+    "text_ids": [
+      "321:fact",
+      "321:preds",
+      "322:fact",
+      "322:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 323,
+    "text_ids": [
+      "322:fact",
+      "322:preds",
+      "323:fact",
+      "323:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 324,
+    "text_ids": [
+      "323:fact",
+      "323:preds",
+      "324:fact",
+      "324:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 325,
+    "text_ids": [
+      "324:fact",
+      "324:preds",
+      "325:fact",
+      "325:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 326,
+    "text_ids": [
+      "325:fact",
+      "325:preds",
+      "326:fact",
+      "326:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 327,
+    "text_ids": [
+      "326:fact",
+      "326:preds",
+      "327:fact",
+      "327:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 328,
+    "text_ids": [
+      "327:fact",
+      "327:preds",
+      "328:fact",
+      "328:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 329,
+    "text_ids": [
+      "328:fact",
+      "328:preds",
+      "329:fact",
+      "329:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 330,
+    "text_ids": [
+      "329:fact",
+      "329:preds",
+      "330:fact",
+      "330:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  },
+  {
+    "origin": 331,
+    "text_ids": [
+      "330:fact",
+      "330:preds",
+      "331:fact",
+      "331:preds"
+    ],
+    "numeric_feedback_origin": -1,
+    "text_feedback_origin": -1,
+    "updated_after_prediction": false
+  }
+]

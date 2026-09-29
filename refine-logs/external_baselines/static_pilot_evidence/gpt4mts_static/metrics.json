@@ -1,0 +1,128 @@
+{
+  "mse": 0.07893446695888366,
+  "mae": 0.22664352445989042,
+  "valid_elements": 222,
+  "config": {
+    "dataset": "Economy",
+    "horizon": 6,
+    "lookback": 36,
+    "seed": 2023,
+    "protocol": "development_60_10_10_static_ot_v1",
+    "device": "cuda",
+    "method": "gpt4mts_static",
+    "data": {
+      "dataset": "Economy",
+      "source": "/home/wuwa/projects/research/iadapter/data/Economy.csv",
+      "columns": [
+        "OT"
+      ],
+      "rows": 338,
+      "train_end": 253,
+      "val_end": 296,
+      "mean": [
+        -31514.2578125
+      ],
+      "scale": [
+        22563.63671875
+      ],
+      "missing_targets": 0,
+      "origin_time_convention": "end of observed numeric aggregation period: end_date, not date/start_date",
+      "text_availability": "merged end_date proxy; not verified publication time"
+    },
+    "boundaries": {
+      "raw_rows": 423,
+      "train_end": 253,
+      "backbone_selection_end": 296,
+      "development_end": 338,
+      "scope": "exploratory development; old test not evaluated"
+    },
+    "code": {
+      "commit": "6b93caf96fdb5f680fe026d182529af664cae904",
+      "dirty": false
+    },
+    "evaluation": "static weights; no development updates",
+    "feedback": "none",
+    "text_interface": "historical sequence of CLS512",
+    "model": {
+      "is_gpt": 1,
+      "revin": true,
+      "patch_size": 8,
+      "pretrain": 1,
+      "stride": 4,
+      "seq_len": 36,
+      "gpt_layers": 6,
+      "freeze": 1,
+      "d_model": 768,
+      "pred_len": 6
+    },
+    "training_budget": {
+      "max_epochs": 30,
+      "batch_size": 16,
+      "lr": 0.001,
+      "patience": 5,
+      "backbone_weight_decay": 0,
+      "backbone_grad_clip": null
+    },
+    "text_max_length": 512
+  },
+  "training": {
+    "history": [
+      {
+        "epoch": 1,
+        "train_mse": 0.19013209331710385,
+        "val_mse": 0.11682308765879848,
+        "steps": 14
+      },
+      {
+        "epoch": 2,
+        "train_mse": 0.11428563388169936,
+        "val_mse": 0.23298124263161107,
+        "steps": 28
+      },
+      {
+        "epoch": 3,
+        "train_mse": 0.0862411359711638,
+        "val_mse": 0.2678842230847007,
+        "steps": 42
+      },
+      {
+        "epoch": 4,
+        "train_mse": 0.08809843926497225,
+        "val_mse": 0.1353128437410321,
+        "steps": 56
+      },
+      {
+        "epoch": 5,
+        "train_mse": 0.07436379284228918,
+        "val_mse": 0.3183489389586867,
+        "steps": 70
+      },
+      {
+        "epoch": 6,
+        "train_mse": 0.08060127243680774,
+        "val_mse": 0.1800858598006399,
+        "steps": 84
+      }
+    ],
+    "best_epoch": 1,
+    "best_val_mse": 0.11682308765879848,
+    "optimizer_steps": 84,
+    "seconds": 1.8403302429942414,
+    "lr": 0.001,
+    "weight_decay": 0.0,
+    "lr_schedule": "constant",
+    "grad_clip": null,
+    "selection": "masked MSE on60-70 percent only",
+    "frozen_parameters_unchanged": true
+  },
+  "backbone_checkpoint": "/home/wuwa/projects/research/iadapter/experiments/external_static_pilot_20260929/runs/gpt4mts_static/selected_native.pt",
+  "warmup": null,
+  "total_seconds": 6.515274249992217,
+  "static_evaluation_seconds": 0.17576603499765042,
+  "static_evaluation_peak_allocated_bytes": 358018560,
+  "static_parameters_unchanged": true,
+  "development_updates": 0,
+  "trainable_parameters_before_static_freeze": 1445384,
+  "total_parameters": 82551560,
+  "prediction_count": 37
+}

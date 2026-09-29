@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "completed": 3,
+  "seed_count": 1,
+  "origin_count": 37,
+  "valid_target_elements": 222,
+  "original_csv_targets_masks": true,
+  "shared_internal_OT_backbone": true,
+  "static_evaluation_no_updates": true,
+  "selection_uses_60_70_prefix": true,
+  "text_ids_historical_only": true,
+  "text_consumption_identical": false,
+  "code": {
+    "commit": "6b93caf96fdb5f680fe026d182529af664cae904",
+    "dirty": false
+  },
+  "scope": "single-seed exploratory common-OT static development; not original Table2 reproduction"
+}
