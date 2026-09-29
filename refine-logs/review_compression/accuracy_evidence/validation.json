@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "new_runs": 12,
+  "reused_runs": 12,
+  "combined_cells": 24,
+  "original_csv_targets_masks": true,
+  "feedback_maturity_verified": true,
+  "initial_compatible_tensors_equal": true,
+  "backbones_reused": true,
+  "projection_parameters": 6856,
+  "experiment_commit": "354090c19527ba337507f7a1397cc05cdba916da",
+  "scope": "exploratory development only; three seeds for formal matrix",
+  "training_matches_commit": "e2146677640df0e85354722d5ca61a32f12520f3",
+  "method": "AST equality of model/data/stream/training modules and development cell functions; queue/report changes allowed"
+}
