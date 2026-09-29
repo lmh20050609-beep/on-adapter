@@ -66,3 +66,11 @@ The complete method/pseudocode appendix is `reports/method_appendix.md`.
 `state_paired_analysis.md` gives within-group matched-seed differences, and
 `failure_cases.md` preserves explicitly selected adverse cases. State-change
 scores and validation thresholds are checked against the original CSVs.
+
+## New review development sprint
+
+`refine-logs/review_sprint/EXPERIMENT_RESULTS.md` reports the completed 42-cell
+development experiment and 48 same-state text interventions. These results use
+the 70%-80% development interval, not the original test table. Exact commands,
+plan, code review and tracker are in the same directory. Raw artifacts are under
+`experiments/review_sprint_20260929/`; the original 190-run campaign is unchanged.
