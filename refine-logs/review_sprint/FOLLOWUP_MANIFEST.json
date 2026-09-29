@@ -1,0 +1,92 @@
+{
+  "copied_reports": [
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/five_seed_runs.csv",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/five_seed_runs.csv",
+      "sha256": "385cb7c20658b9a85bc9c7bf8188e07d2bff98edb9ad65d1b0fd31e8ef2198dd"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/five_seed_summary.csv",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/five_seed_summary.csv",
+      "sha256": "e19b4a67bcc47c1927b4fa0d40aadd414e849bc5d74d7a1ea2acf1eeb30ec446"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/five_seed_paired_runs.csv",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/five_seed_paired_runs.csv",
+      "sha256": "572aa194c4e4ce80e352910d429b5df3b00d6c4c22fa6b68211216184adaf3a5"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/five_seed_paired_summary.csv",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/five_seed_paired_summary.csv",
+      "sha256": "45921f7c243fc2a25b097a8b33f7a2b067ea306f1786787d5c2cb78a76b6a932"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/five_seed_text_probe_runs.csv",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/five_seed_text_probe_runs.csv",
+      "sha256": "124fe2c3dfa950ed8904d489680098a463d378d5d271ed34945621eda79ce610"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/five_seed_text_probe_summary.csv",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/five_seed_text_probe_summary.csv",
+      "sha256": "87d30de6a2ec4193c81d991d48ade3d56d0291d4e2fbc8b3875dfc538474b60f"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/candidate_decisions.csv",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/candidate_decisions.csv",
+      "sha256": "f6bd674ba50302b7d248ee85d87fc20198b2e0026808172ef7a92f211dedef7f"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/STABILITY_AND_COST.md",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/STABILITY_AND_COST.md",
+      "sha256": "88d79370cc77068ed963fdf7779374738a9def3402d94c4c00043cb4c30cd10c"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/combined_validation.json",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/combined_validation.json",
+      "sha256": "3bf4619bec64ff87776842ebd3560eb219fa0ffa652e9ea3219e9d604c68789b"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/validation.json",
+      "copy": "refine-logs/review_sprint/five_seed_evidence/validation.json",
+      "sha256": "142f60aab7cc0e79ea8fac52c9e03a7fc147f28d510510fbcd69e9104aa7ec81"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/profile_output/review_sprint_cost_20260929/REPORT.md",
+      "copy": "refine-logs/review_sprint/cost_evidence/REPORT.md",
+      "sha256": "3fa649c845ec0fa0efa27fd3c738ff94d07716438ba608932a2bbaedb4a221cd"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/profile_output/review_sprint_cost_20260929/summary.csv",
+      "copy": "refine-logs/review_sprint/cost_evidence/summary.csv",
+      "sha256": "9ab7f3021ce890fc441da78a4d63d3cf224a2f190b4ea7855765b181156780b8"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/profile_output/review_sprint_cost_20260929/rounds.csv",
+      "copy": "refine-logs/review_sprint/cost_evidence/rounds.csv",
+      "sha256": "19111faa56afc743ec46d996be49134ff6e4c1376ce69a10f00c1aa5009e77b8"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/profile_output/review_sprint_cost_20260929/relative_to_full.csv",
+      "copy": "refine-logs/review_sprint/cost_evidence/relative_to_full.csv",
+      "sha256": "a095f4e9e837beccb27b84659c6b20e2786e1bf293eae054c7a36f7960afdc23"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/profile_output/review_sprint_cost_20260929/status.json",
+      "copy": "refine-logs/review_sprint/cost_evidence/status.json",
+      "sha256": "665bab2519e891a8ee8e4bdfbd48f0c3141a7bc996f02ee59aa0143567d28e1f"
+    },
+    {
+      "source": "/home/wuwa/projects/research/iadapter/profile_output/review_sprint_cost_20260929/config.json",
+      "copy": "refine-logs/review_sprint/cost_evidence/config.json",
+      "sha256": "ea794de5a987a7da90ccdc88ac1d1746d9a948079d1c4f7dea5cfef0e47b5e3f"
+    }
+  ],
+  "derived_cohort_table": {
+    "source": "/home/wuwa/projects/research/iadapter/experiments/review_stability_20260929/reports/five_seed_paired_runs.csv",
+    "sha256": "572aa194c4e4ce80e352910d429b5df3b00d6c4c22fa6b68211216184adaf3a5",
+    "definition": "candidate minus full; initial seeds 2023-2025 vs additional 2026-2027; descriptive only"
+  },
+  "accuracy_training_commit": "d332751203ad02cc88b2e8208a53c5f927b05f5a",
+  "cost_commit": "eb50b5a",
+  "no_training_launched_by_packaging": true
+}

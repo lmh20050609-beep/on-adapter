@@ -1,5 +1,7 @@
 # Review sprint artifacts
 
+Latest follow-up: `REVIEW_UPDATE_FIVE_SEED.md` (Chinese decisions), `REVIEW_RESPONSES_FIVE_SEED.md` (English reviewer draft), `five_seed_evidence/` (validated five-seed tables and cohort reversals), `cost_evidence/` (30 timing round-cases). These supplement, rather than replace, the original three-seed record below. Follow-up raw data: `experiments/review_stability_20260929/`; timing raw data: `profile_output/review_sprint_cost_20260929/`. `FOLLOWUP_MANIFEST.json` records copied report checksums and source paths.
+
 Experiment commit: e2146677640df0e85354722d5ca61a32f12520f3
 
 | Artifact | Purpose |

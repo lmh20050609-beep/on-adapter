@@ -1,5 +1,7 @@
 # Review sprint experiment tracker
 
+Update: the table below preserves the initial 42-run, three-seed study. Another 20/20 runs now extend the five fixed candidates to five seeds (50 candidate cells after reusing 30 initial cells; 62 unique development runs overall). Same-state text probes total 80; 30 isolated timing round-cases are complete. See `REVIEW_UPDATE_FIVE_SEED.md` and `five_seed_evidence/combined_validation.json`. The full factorial remains three seeds.
+
 42/42 development runs completed; 2/2 separate sanity runs completed.
 All 48 same-state text probe sequences completed. Original CSV audit passed.
 
