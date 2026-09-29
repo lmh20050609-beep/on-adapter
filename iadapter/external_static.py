@@ -23,8 +23,8 @@ def ot_data(dataset='Economy',with_embeddings=False):
     k=d.columns.index('OT');sl=slice(k,k+1)
     return replace(d,x=d.x[:,sl].copy(),target=d.target[:,sl].copy(),valid=d.valid[:,sl].copy(),input_missing=d.input_missing[:,sl].copy(),columns=['OT'],mean=d.mean[sl].copy(),scale=d.scale[sl].copy()),bounds
 
-def pilot_config(variant='full',device='cuda'):
-    return Config('Economy',6,2023,variant,protocol='development_60_10_10_static_ot_v1',pretrain_batch=16,device=device)
+def pilot_config(variant='full',device='cuda',dataset='Economy',seed=2023):
+    return Config(dataset,6,seed,variant,protocol='development_60_10_10_static_ot_v1',pretrain_batch=16,device=device)
 
 def encode_cls(data,base,device='cuda'):
     path=base/'gpt4mts_cls512.npz';meta=base/'gpt4mts_cls512.json'
@@ -116,16 +116,17 @@ def train_native(data,c,embeddings,directory):
     model.zero_grad(set_to_none=True);del optimizer,frozen;gc.collect();torch.cuda.empty_cache()
     return model,info,checkpoint
 
-def run_method(method,base):
+def run_method(method,base,dataset='Economy',seed=2023,cache_dir=None):
     directory=base/'runs'/method;directory.mkdir(parents=True,exist_ok=False);write_json(directory/'status.json',{'status':'running'})
     start=time.perf_counter()
     try:
-        c=pilot_config('numeric_add' if method=='numeric_static' else 'full')
-        data,bounds=ot_data(with_embeddings=method=='iadapter_static')
+        c=pilot_config('numeric_add' if method=='numeric_static' else 'full',dataset=dataset,seed=seed)
+        data,bounds=ot_data(dataset=dataset,with_embeddings=method=='iadapter_static')
         config=dict(dataset=c.dataset,horizon=c.horizon,lookback=c.lookback,seed=c.seed,protocol=c.protocol,device=c.device,method=method,data=data.metadata(),boundaries=bounds,code=revision(),evaluation='static weights; no development updates',feedback='none' if method=='gpt4mts_static' else 'reset to zero and never refreshed during evaluation',text_interface='none' if method=='numeric_static' else ('current selected text masked-mean64' if method=='iadapter_static' else 'historical sequence of CLS512'),model=vars(native_config(c.lookback,c.horizon)) if method=='gpt4mts_static' else c.to_dict(),training_budget=dict(max_epochs=c.pretrain_epochs,batch_size=c.pretrain_batch,lr=c.lr,patience=c.patience,backbone_weight_decay=0,backbone_grad_clip=None),text_max_length=None if method=='numeric_static' else (512 if method=='gpt4mts_static' else 64))
         write_json(directory/'config.json',config);adapter=None;cls=None;warm_stats=None
         if method=='gpt4mts_static':
-            cls=encode_cls(data,base,c.device);model,training,checkpoint=train_native(data,c,cls,directory)
+            text_base=Path(cache_dir) if cache_dir is not None else base;text_base.mkdir(parents=True,exist_ok=True)
+            cls=encode_cls(data,text_base,c.device);model,training,checkpoint=train_native(data,c,cls,directory)
         else:
             model,checkpoint,training=fit_backbone(c,data,base/'checkpoints');model.zero_grad(set_to_none=True)
             adapter=initialize_adapter(c,1);seed_all(c.seed+11000)
@@ -147,7 +148,7 @@ def run_method(method,base):
     except Exception:
         write_json(directory/'status.json',{'status':'failed','error':traceback.format_exc()});raise
 
-def main(base=OUTPUT):
+def main(base=OUTPUT,dataset='Economy',seed=2023,cache_dir=None):
     torch.set_num_threads(1);base=Path(base);base.mkdir(parents=True,exist_ok=True);code=revision()
     if code['dirty']:raise RuntimeError('Commit source before starting pilot')
     state_path=base/'queue_state.json'
@@ -161,7 +162,7 @@ def main(base=OUTPUT):
         if entry['status']!='pending':raise RuntimeError('Unresolved prior cell '+method)
         entry.update(status='running',started_at=time.time());write_json(state_path,state)
         try:
-            stats=run_method(method,base);entry.update(status='completed',mse=stats['mse'],mae=stats['mae'])
+            stats=run_method(method,base,dataset=dataset,seed=seed,cache_dir=cache_dir);entry.update(status='completed',mse=stats['mse'],mae=stats['mae'])
         except Exception:
             entry.update(status='failed',error=traceback.format_exc());write_json(state_path,state);raise
         write_json(state_path,state)
