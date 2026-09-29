@@ -13,3 +13,4 @@ submission/documents/
 submission/code/data/
 submission/code/*.pth
 experiments/
+profile_output/
