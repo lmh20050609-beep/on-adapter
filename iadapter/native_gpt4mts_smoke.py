@@ -1,5 +1,6 @@
 """Integration evidence only: not a baseline accuracy evaluation."""
-import gc,json,time,types
+import argparse,gc,json
+from pathlib import Path
 import numpy as np
 import torch
 from einops import EinopsError
@@ -12,8 +13,9 @@ from .util import seed_all,masked_loss,revision,write_json
 
 OUTPUT=ROOT/'experiments/native_gpt4mts_smoke_20260929'
 
-def main():
-    OUTPUT.mkdir(parents=True,exist_ok=False);write_json(OUTPUT/'status.json',{'status':'running'})
+def main(output=OUTPUT):
+    output=Path(output)
+    output.mkdir(parents=True,exist_ok=False);write_json(output/'status.json',{'status':'running'})
     try:
         torch.set_num_threads(1);seed_all(2023);device='cuda'
         data,bounds=development_data('Economy',False)
@@ -55,10 +57,12 @@ def main():
         assert all(torch.isfinite(p.grad).all() for p in model.parameters() if p.grad is not None)
         optimizer.step();assert not torch.equal(before,model.out_layer.weight)
         proof={'status':'passed','purpose':'integration only, one update is not performance evidence','upstream_commit':COMMIT,'weight_source':json.loads((WEIGHTS/'SOURCE.json').read_text()),'code':revision(),'model_config':vars(native_config(L,H)),'dataset':'Economy','column':'OT','origins':[t,t+1],'boundaries':bounds,'batch2_exact_forward_equivalence':True,'batch1_fixed_shape':list(single.shape),'upstream_batch1_error':failure,'real_target_masked_update':True,'valid_target_elements':int(mask.sum()),'bert_layers':12,'text_embedding':'frozen eval CLS, max_length512; data.text_rows preprocessing (up to3 clauses per field, current+previous row,1200-character limit), not entire raw documents','frozen_parameter_gradients_absent':True,'trainable_parameter_names':trainable,'trainable_parameters':sum(p.numel() for p in model.parameters() if p.requires_grad),'total_parameters':sum(p.numel() for p in model.parameters()),'peak_cuda_allocated_bytes':torch.cuda.max_memory_allocated()}
-        write_json(OUTPUT/'validation.json',proof);write_json(OUTPUT/'status.json',{'status':'completed'})
+        write_json(output/'validation.json',proof);write_json(output/'status.json',{'status':'completed'})
         print('NATIVE_GPT4MTS_SMOKE_PASSED',proof['trainable_parameters'],proof['batch1_fixed_shape'],flush=True)
     except Exception:
         import traceback
-        write_json(OUTPUT/'status.json',{'status':'failed','error':traceback.format_exc()});raise
+        write_json(output/'status.json',{'status':'failed','error':traceback.format_exc()});raise
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=OUTPUT)
+    main(parser.parse_args().output)
