@@ -19,7 +19,7 @@
 
 ## 复核与重生成
 
-工作目录 `/home/wuwa/projects/research/iadapter_revision`，解释器
+工作目录 `/home/wuwa/projects/research/iadapter`，解释器
 `/home/wuwa/miniconda3/envs/llm/bin/python`。
 
 ```bash

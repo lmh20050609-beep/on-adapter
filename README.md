@@ -5,7 +5,24 @@ files and historical results are not modified. This package does not reproduce
 the original ten-domain/multiple-backbone results.
 
 Python: `/home/wuwa/miniconda3/envs/llm/bin/python`.
-Working directory: `/home/wuwa/projects/research/iadapter_revision`.
+Working directory: `/home/wuwa/projects/research/iadapter`.
+
+The former `iadapter_revision` path is a compatibility symlink for historical
+absolute paths. The canonical project directory is now `iadapter`.
+
+## Imported submission materials
+
+- `submission/code/`: all 215 files from the supplied code/data ZIP, including
+  GPT4MTS_z, VoT_z, the data directory and original scripts.
+- `submission/archives/`: unchanged original ZIP.
+- `submission/documents/`: technical supplement and reproducibility checklist PDFs.
+- `submission/audit/REPORT.md`: findings about baseline identities and protocol differences.
+- `docs/review_routes/EXPERIMENT_PLAN.md`: five proposed revision routes.
+- `submission/IMPORT_MANIFEST.json`: file-copy verification and migration record.
+
+The verified revision implementation remains in `iadapter/`; its raw results
+remain in `runs/`. Submission source is preserved separately for inspection and
+selective integration. See `docs/DIRECTORY_LAYOUT.md` for paths and commands.
 
 ```bash
 /home/wuwa/miniconda3/envs/llm/bin/python -m unittest discover -s tests -v

@@ -1,0 +1,6 @@
+seq_len: 36
+pred_len: 6
+finetune_lr: 0.001
+adapter_lr: 0.0012
+online_lr: 0.0001
+adp_online_lr: 0.0012

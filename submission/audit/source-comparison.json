@@ -1,0 +1,74 @@
+[
+  {
+    "path": "adapt_z_multimodal.py",
+    "bytes": 181544,
+    "outer": "different",
+    "inner": "different"
+  },
+  {
+    "path": "adapt_z.py",
+    "bytes": 30233,
+    "outer": "different",
+    "inner": "different"
+  },
+  {
+    "path": "models/VoT_z.py",
+    "bytes": 13908,
+    "outer": "missing",
+    "inner": "missing"
+  },
+  {
+    "path": "models/GPT4MTS_z.py",
+    "bytes": 10233,
+    "outer": "missing",
+    "inner": "missing"
+  },
+  {
+    "path": "models/GPT4MTS.py",
+    "bytes": 7502,
+    "outer": "missing",
+    "inner": "missing"
+  },
+  {
+    "path": "data/Economy.csv",
+    "bytes": 980532,
+    "outer": "missing",
+    "inner": "identical"
+  },
+  {
+    "path": "data/Energy.csv",
+    "bytes": 782513,
+    "outer": "missing",
+    "inner": "identical"
+  },
+  {
+    "path": "data/Security.csv",
+    "bytes": 730623,
+    "outer": "missing",
+    "inner": "identical"
+  },
+  {
+    "path": "data/SocialGood.csv",
+    "bytes": 2138956,
+    "outer": "missing",
+    "inner": "identical"
+  },
+  {
+    "path": "data/Climate.csv",
+    "bytes": 765520,
+    "outer": "missing",
+    "inner": "identical"
+  },
+  {
+    "path": "data/textual/Economy/Economy_report.csv",
+    "bytes": 470997,
+    "outer": "missing",
+    "inner": "identical"
+  },
+  {
+    "path": "data/textual/Economy/Economy_search.csv",
+    "bytes": 1142141,
+    "outer": "missing",
+    "inner": "identical"
+  }
+]

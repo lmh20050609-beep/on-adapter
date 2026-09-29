@@ -1,0 +1,4 @@
+seq_len: 192       # 两个年周期
+adapter_lr: 5.0e-4
+adp_online_lr: 5.0e-4
+online_lr: 5.0e-4

@@ -1,0 +1,106 @@
+{
+  "time": "2026-09-29T05:33:07.381637+00:00",
+  "source_directory": "/home/wuwa/projects/research/iadapter_revision",
+  "canonical_directory": "/home/wuwa/projects/research/iadapter",
+  "legacy_path_is_compatibility_symlink": true,
+  "unchanged_evidence_files": 1760,
+  "queue_bytes_unchanged": true,
+  "zip_extracted_files": 215,
+  "copied_files": [
+    {
+      "source": "/mnt/c/Users/18452/Downloads/31817_iAdapter_Adaptive_lightw_Code And Data Supplement.zip",
+      "destination": "submission/archives/Code And Data Supplement.zip",
+      "bytes": 6760464,
+      "sha256": "7cd6b124dd234fe77b5f55dce19093c87bc7945da071cc4fa2dff67ef0ccaadc"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Desktop/31817_iAdapter_Adaptive_lightw_Technical Supplement.pdf",
+      "destination": "submission/documents/Technical Supplement.pdf",
+      "bytes": 1642340,
+      "sha256": "31f00d3dd21bbc9960bb675855fad3aaded3cbc83c8f4ba8b3d67805ea68866b"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Desktop/31817_iAdapter_Adaptive_lightw_Reproducibility Checklist.pdf",
+      "destination": "submission/documents/Reproducibility Checklist.pdf",
+      "bytes": 96708,
+      "sha256": "eb1f6521a6048be1b8b133f4023bd74c51c62b2453ed06e4c9cc208f69a60d41"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-submission-audit-20260929/REPORT.md",
+      "destination": "submission/audit/REPORT.md",
+      "bytes": 13793,
+      "sha256": "0352b2022367644b4dfa6f7dd07b85b98d0cd459d7656b296a3e5bd1bbdd84ba"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-submission-audit-20260929/zip-inventory.json",
+      "destination": "submission/audit/zip-inventory.json",
+      "bytes": 27524,
+      "sha256": "2cae381503287c4f745f05eb28012d0b6e6fb54a315d512de01e8c11430d2729"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-submission-audit-20260929/source-comparison.json",
+      "destination": "submission/audit/source-comparison.json",
+      "bytes": 1453,
+      "sha256": "6c115ced8aac8916ca5206212182ae3d1405ca2ae8d815a01a73ea4f7f4eb82a"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-submission-audit-20260929/data-inventory.json",
+      "destination": "submission/audit/data-inventory.json",
+      "bytes": 11258,
+      "sha256": "99d03939c6f017b44ec629dd6005cf111fedcb019c62f012c0792a38e159b6c0"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-submission-audit-20260929/audit-summary.json",
+      "destination": "submission/audit/audit-summary.json",
+      "bytes": 470,
+      "sha256": "afd22760506dff0a6e8e75c6bba46ebec3e38ec767171ec84093605dc5e67fcc"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-submission-audit-20260929/buffer-index-witness.json",
+      "destination": "submission/audit/buffer-index-witness.json",
+      "bytes": 3840,
+      "sha256": "3bbde3d1115d588891ca59a797b2ef3d245b75d82504d3154ec9597fcb353931"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-submission-audit-20260929/technical.txt",
+      "destination": "submission/audit/technical.txt",
+      "bytes": 13209,
+      "sha256": "8faa5e25608cb9edf4184f861914405bc9c321031a92f9773610577e3d111d4f"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-submission-audit-20260929/checklist.txt",
+      "destination": "submission/audit/checklist.txt",
+      "bytes": 5486,
+      "sha256": "859aea4db37c8592ee2499ec8e916f1f2beac0df75b2fc8f3a18ff0670b9bfdf"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-review-routes-20260929/refine-logs/EXPERIMENT_PLAN.md",
+      "destination": "docs/review_routes/EXPERIMENT_PLAN.md",
+      "bytes": 31425,
+      "sha256": "0ddd2c753b896264bf11ff0264acb839351a9201aa0e447ea1ba2d0c9d56fe24",
+      "source_sha256": "3e8105af30237ab1d86a668cfd1f628a54a3f37ad69af5e77b5d3dfb0cba0667",
+      "import_adjustment": "Relative evidence links adapted to WSL project layout"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-review-routes-20260929/refine-logs/EXPERIMENT_PLAN_20260929_120555.md",
+      "destination": "docs/review_routes/EXPERIMENT_PLAN_20260929_120555.md",
+      "bytes": 31425,
+      "sha256": "0ddd2c753b896264bf11ff0264acb839351a9201aa0e447ea1ba2d0c9d56fe24",
+      "source_sha256": "3e8105af30237ab1d86a668cfd1f628a54a3f37ad69af5e77b5d3dfb0cba0667",
+      "import_adjustment": "Relative evidence links adapted to WSL project layout"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-review-routes-20260929/refine-logs/EXPERIMENT_TRACKER.md",
+      "destination": "docs/review_routes/EXPERIMENT_TRACKER.md",
+      "bytes": 4044,
+      "sha256": "dafa0d2ce0859d76a5f390a31659bac5cd09e65e88be36b177f4934813f0b5d0"
+    },
+    {
+      "source": "/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/output/iadapter-review-routes-20260929/refine-logs/EXPERIMENT_TRACKER_20260929_120555.md",
+      "destination": "docs/review_routes/EXPERIMENT_TRACKER_20260929_120555.md",
+      "bytes": 4044,
+      "sha256": "dafa0d2ce0859d76a5f390a31659bac5cd09e65e88be36b177f4934813f0b5d0"
+    }
+  ],
+  "training_started": false
+}

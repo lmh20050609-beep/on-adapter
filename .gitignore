@@ -8,3 +8,7 @@ reports/
 logs/
 queue_state.json
 .aris/
+submission/archives/
+submission/documents/
+submission/code/data/
+submission/code/*.pth

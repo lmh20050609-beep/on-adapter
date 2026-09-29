@@ -1,0 +1,16 @@
+{
+  "status": "static_inspection_complete",
+  "zip_crc_first_bad_entry": null,
+  "python_sources": 122,
+  "syntax_errors": 0,
+  "csv_files": 40,
+  "models_executed": false,
+  "training_started": false,
+  "dependency_import_validation": false,
+  "source_revision_known": false,
+  "limits": [
+    "Static syntax is not runtime validation",
+    "Local proxy methods are not original-method reproduction",
+    "Old result tables have not been recovered"
+  ]
+}
