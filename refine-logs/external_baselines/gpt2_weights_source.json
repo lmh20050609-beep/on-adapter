@@ -1,0 +1,7 @@
+{
+  "repository": "https://huggingface.co/openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "weight_file": "model.safetensors",
+  "bytes": 548105171,
+  "safetensors_structure_valid": true
+}
