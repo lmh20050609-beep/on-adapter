@@ -7,8 +7,9 @@ the original ten-domain/multiple-backbone results.
 Python: `/home/wuwa/miniconda3/envs/llm/bin/python`.
 Working directory: `/home/wuwa/projects/research/iadapter`.
 
-The former `iadapter_revision` path is a compatibility symlink for historical
-absolute paths. The canonical project directory is now `iadapter`.
+The canonical project directory is `iadapter`. Historical absolute paths in
+experiment records are resolved through the checksum-verified mappings in
+`docs/PATH_MIGRATION.json`; obsolete project directories are no longer required.
 
 ## Imported submission materials
 

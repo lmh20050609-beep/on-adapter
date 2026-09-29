@@ -6,6 +6,7 @@ Windows 文件管理器入口：`\\wsl.localhost\Ubuntu\home\wuwa\projects\resea
 ```text
 iadapter/
 ├── iadapter/                  已验证的修订 Python 包
+├── data -> submission/code/data  当前数据入口（项目内部链接）
 ├── tests/                     协议及结果核查测试
 ├── runs/                      190 次正式运行与原始预测
 ├── checkpoints/               35 个共享骨干
@@ -26,13 +27,21 @@ iadapter/
     └── IMPORT_MANIFEST.json   复制校验和目录迁移记录
 ```
 
-原 `iadapter_revision` 目录已改名。旧路径现在只是指向主目录的符号链接，
-用于兼容历史结果中的绝对 checkpoint 路径及已有文件链接，不是第二份代码副本。
+按用户要求，旧 `adaptz_paper_work` 项目目录与 `iadapter_revision` 兼容链接已清理，
+研究目录只保留当前 `iadapter` 项目。原始完整归档仍保留在项目外的备份目录。
 
-原始 `adaptz_paper_work/ADAPT-Z-main` 保留。现有修订配置的 DATA_ROOT 仍指向该目录内的
-历史数据源，保留 190 次实验的来源一致性；本次同步没有改训练配置、数据划分或预测。
-投稿数据的独立副本位于 `submission/code/data`。两者不应仅因目录名称相同就混用，
-尤其是 merged 与 raw Climate 数据存在字段和任务差异。
+DATA_ROOT 现在使用本项目的 `data`，指向已导入的 `submission/code/data`。
+旧数据的 39 个文件与对应投稿文件逐字节一致；投稿包额外提供 new_metr.csv。
+迁移没有改变模型配置、划分或预测。merged/raw Climate 依然是不同材料，不能混用。
+
+历史运行 JSON 中原始来源路径不改写。`docs/PATH_MIGRATION.json` 保存 39 个数据文件
+和 35 个 checkpoint 的旧路径、当前相对路径及 SHA-256；审计和效率工具通过
+`iadapter/evidence_paths.py` 校验内容后解析旧记录。这样不再依赖旧目录或外部兼容链接。
+旧聊天中的绝对文件链接可能已失效，应使用本页的新主目录。
+
+完整 BERT 文件已在 `weights/bert-base-uncased`；预处理直接复用这些文件，不再要求
+旧目录的压缩包。需要恢复缺失权重时可使用保留的完整备份，或提供
+`weights/bert-base-uncased.zip`。
 
 常用入口：
 

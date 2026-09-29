@@ -11,6 +11,11 @@ from .util import write_json,seed_all,sync
 def weight_directory():
     target=ROOT/'weights/bert-base-uncased'; target.mkdir(parents=True,exist_ok=True)
     required=['config.json','model.safetensors','tokenizer.json','tokenizer_config.json','vocab.txt']
+    if all((target/name).is_file() for name in required):
+        return target
+    if not BERT_ARCHIVE.is_file():
+        missing=[name for name in required if not (target/name).is_file()]
+        raise FileNotFoundError(f'Incomplete local BERT weights at {target}: {missing}; optional recovery archive: {BERT_ARCHIVE}')
     with zipfile.ZipFile(BERT_ARCHIVE) as archive:
         for name in required:
             out=target/name

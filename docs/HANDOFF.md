@@ -37,8 +37,11 @@ campaign 是按实验提交固定的已完成队列。默认命令现会对已�
 不因后续分析提交改变而报错，也不重新训练或修改完成时间。--status 只读完成标记；
 --audit-completed 对照原始 CSV 验证全部单元。未完成队列仍禁止混合代码版本。
 analyze 在通过原始 CSV 审计前不生成新表图。详见 original_csv_audit.json。
-当前共 28 项协议与审计检查通过，包括篡改目标、掩码、原点、反馈和状态分组的拒绝测试，
-配对 seed/目标数核验及报告生成前的审计门禁；原始输出见 reports/tests-review-finishing.txt。
+当前共 32 项协议与审计检查通过，包括篡改目标、掩码、原点、反馈和状态分组的拒绝测试，
+配对 seed/目标数核验、历史路径内容校验及本地 BERT 无压缩包复用；最新输出见 reports/cleanup-tests.txt。
+旧项目目录和旧名称链接已按用户要求删除，运行数据与权重均使用当前项目内部路径。
+历史运行记录保留原始来源字符串，通过 docs/PATH_MIGRATION.json 校验解析；删除后的
+190 次结果审计仍通过，见 reports/cleanup-after-delete-audit.txt。
 完整备份与恢复方式见 docs/BACKUP.md；逐项审稿覆盖见 docs/REVIEW_COVERAGE.md。
 要单独复核一个配置，使用 `python -m iadapter.run` 并给一个新的 `--run_dir`；
 不要把复核结果混入原 190 次结果。预处理和模型配置见 docs/PROTOCOL.md 与

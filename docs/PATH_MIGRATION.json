@@ -1,0 +1,377 @@
+{
+  "reason": "User requested removal of old ADAPT-Z directories; preserve historical recorded paths and metrics without rewriting runs",
+  "backup_archive": "/home/wuwa/backups/iadapter/20260929-003818/original-and-revision-before-review-changes.tar",
+  "old_project_backup_compare_exit": 0,
+  "file_mappings": {
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/SocialGood.csv": {
+      "relative_path": "submission/code/data/SocialGood.csv",
+      "sha256": "54c270f0236b088eccc397d56ac9b5d826add34db2da1c911955effeab93b48b",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Traffic.csv": {
+      "relative_path": "submission/code/data/Traffic.csv",
+      "sha256": "82439ff69196789968f48245d8bce699ac09a566f24f027dabd6b99333417311",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Environment.csv": {
+      "relative_path": "submission/code/data/Environment.csv",
+      "sha256": "3bcda88e0831294678d412807fa2eac2022c5665a9f1f044cd23cff65657a0d6",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Agriculture.csv": {
+      "relative_path": "submission/code/data/Agriculture.csv",
+      "sha256": "41203f1af2c4fd9f3207ec286f0a1462df146b5ae8b6d9cdcec6cb569c57a0be",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Energy.csv": {
+      "relative_path": "submission/code/data/Energy.csv",
+      "sha256": "fdef4b4f58ab319656b60e49c96d1dc4158d2c5b17467456d4d12d746ff55cd5",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Health.csv": {
+      "relative_path": "submission/code/data/Health.csv",
+      "sha256": "88a81d443533991b8e2b55da8db0a6496d68fc510077b1c0f568d6f186394cf8",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Security.csv": {
+      "relative_path": "submission/code/data/Security.csv",
+      "sha256": "adea376a0e6858979b2d42cde6f3901d7d60639bb78cd64eec6f58e2e85ed23c",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Climate.csv": {
+      "relative_path": "submission/code/data/Climate.csv",
+      "sha256": "4096994d5e8691de404b15d16ab9e2a98d69b03eb1d4eafa4283ea44ead0e51b",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Economy.csv": {
+      "relative_path": "submission/code/data/Economy.csv",
+      "sha256": "c35325f0181a426a78c35b9172d8908f64639796a535c5fdc8b082b538030e5d",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Energy/Energy_search.csv": {
+      "relative_path": "submission/code/data/textual/Energy/Energy_search.csv",
+      "sha256": "f9023e6fcb635731a74f248dcf5ceb8aeca48870f3fc559f2173b7aae790b595",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Energy/Energy_report.csv": {
+      "relative_path": "submission/code/data/textual/Energy/Energy_report.csv",
+      "sha256": "36fa229dca003f40d4fb8c816a8ddfde2e020fca1f14572b3ce81a368e948fe8",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Environment/Environment_report.csv": {
+      "relative_path": "submission/code/data/textual/Environment/Environment_report.csv",
+      "sha256": "48363ad20d81b671133cdee290a6f5f6a29fe2622c72942ace34efe8f3fdbcc5",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Environment/Environment_search.csv": {
+      "relative_path": "submission/code/data/textual/Environment/Environment_search.csv",
+      "sha256": "afe47dda61eab150ce60e7dd2b36a398d315fbe07df2116678b037a6e1c0aa38",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Traffic/Traffic_search.csv": {
+      "relative_path": "submission/code/data/textual/Traffic/Traffic_search.csv",
+      "sha256": "11c812b792fd631f67319eb60e418c04af1d99fe66a885c39da415fbb7fab02b",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Traffic/Traffic_report.csv": {
+      "relative_path": "submission/code/data/textual/Traffic/Traffic_report.csv",
+      "sha256": "a9e05c4e4666e4c055ac45064d37e564f1681d9ba336418ae03aa02e71df7240",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Security/Security_report.csv": {
+      "relative_path": "submission/code/data/textual/Security/Security_report.csv",
+      "sha256": "06ae50073bf7ad68f8eeb571c9f68c3be5eb6801acaa9ae4d5648133010894ff",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Security/Security_search.csv": {
+      "relative_path": "submission/code/data/textual/Security/Security_search.csv",
+      "sha256": "1364f7a936d73f9f53626ca0bc47e3ba902ea37af5bc419ae9ddb2f2c2269f68",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Health_AFR/Health_AFR_report.csv": {
+      "relative_path": "submission/code/data/textual/Health_AFR/Health_AFR_report.csv",
+      "sha256": "661ae01f963459a3b4a9eaca9f07ca2cab3b8e141f44782c92f16f15bc8436ee",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Health_AFR/Health_AFR_search.csv": {
+      "relative_path": "submission/code/data/textual/Health_AFR/Health_AFR_search.csv",
+      "sha256": "8c700b0e87967d9ea0b7d91063c5ab84a4733eb2985ef07274ba299f6ccfc206",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Agriculture/Agriculture_report.csv": {
+      "relative_path": "submission/code/data/textual/Agriculture/Agriculture_report.csv",
+      "sha256": "9357e6de5b485612649b9d76ae0dd3e22d179f9fadd954e2f53bb4fe22cf3acb",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Agriculture/Agriculture_search.csv": {
+      "relative_path": "submission/code/data/textual/Agriculture/Agriculture_search.csv",
+      "sha256": "9fdb09cbfa6a0274c54f84b134a3fbaf177b2675f4e412cb3478f80828c11a62",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Health_US/Health_US_search.csv": {
+      "relative_path": "submission/code/data/textual/Health_US/Health_US_search.csv",
+      "sha256": "b561a152ea1345c8dd179c87aaf9653ce42d3e80225bb4148e312501cbc2e5a8",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Health_US/Health_US_report.csv": {
+      "relative_path": "submission/code/data/textual/Health_US/Health_US_report.csv",
+      "sha256": "95d935dfb6b5c6ce068bbea8c1b51b8927437152996750e6481b63ce4f1ae42d",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Economy/Economy_search.csv": {
+      "relative_path": "submission/code/data/textual/Economy/Economy_search.csv",
+      "sha256": "f7bd7a4220e02c2124d04ecf9be6c9d4049a6233474c1ab61c21f7c8996c0465",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Economy/Economy_report.csv": {
+      "relative_path": "submission/code/data/textual/Economy/Economy_report.csv",
+      "sha256": "df620d0d72b0307920c641ad8d070acf0b6333ffbdd95deeba9f05c47cd05bee",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/SocialGood/SocialGood_report.csv": {
+      "relative_path": "submission/code/data/textual/SocialGood/SocialGood_report.csv",
+      "sha256": "03cd9729fd5c475b789b26abca9114b84bc20a77d9b5d993d0713d2da56b959f",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/SocialGood/SocialGood_search.csv": {
+      "relative_path": "submission/code/data/textual/SocialGood/SocialGood_search.csv",
+      "sha256": "d7eb3dd520d42e424dc5cbd1c8c7ad2d343825b10419973485ec140a60fe830c",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Climate/Climate_search.csv": {
+      "relative_path": "submission/code/data/textual/Climate/Climate_search.csv",
+      "sha256": "c6577ae52ebb75913342158c20444fa92e5c06bcfef59b9bc1a8d1d9b8b08b68",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/textual/Climate/Climate_report.csv": {
+      "relative_path": "submission/code/data/textual/Climate/Climate_report.csv",
+      "sha256": "18ef5dba5b2e24e4c7161d8231757ec259cd900b2962c78cc5cbf030b9659100",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/Energy/Energy.csv": {
+      "relative_path": "submission/code/data/numerical/Energy/Energy.csv",
+      "sha256": "94313cefb3459f04b58ec814da5d817a694e767cc52de0ce09d4de4efdad02ee",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/Environment/Environment.csv": {
+      "relative_path": "submission/code/data/numerical/Environment/Environment.csv",
+      "sha256": "ec2ac594525f77628f728d7ee87b156a934780960d206659a642d0d51459ca47",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/Traffic/Traffic.csv": {
+      "relative_path": "submission/code/data/numerical/Traffic/Traffic.csv",
+      "sha256": "1b014c153fb2d0d88bb2e455b67aa34b83d733872b119f0062ac932d7a443335",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/Security/Security.csv": {
+      "relative_path": "submission/code/data/numerical/Security/Security.csv",
+      "sha256": "b61c53c3879c65c908831f12fb16169b6ba528d4ad7393d3f00b75fdc1b92c0e",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/Health_AFR/Health_AFR.csv": {
+      "relative_path": "submission/code/data/numerical/Health_AFR/Health_AFR.csv",
+      "sha256": "1cefb1f0f5ec197926cf39a1e6e5a231e91aff0edade738f06939065e20ce88a",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/Agriculture/Agriculture.csv": {
+      "relative_path": "submission/code/data/numerical/Agriculture/Agriculture.csv",
+      "sha256": "33ea6b862f5c699d43e1535c9654bfb508b297ce357c161ace9e464f8da16766",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/Health_US/Health_US.csv": {
+      "relative_path": "submission/code/data/numerical/Health_US/Health_US.csv",
+      "sha256": "ea8a8ae5b11b2088e1d112c12f702a12da70ac3c2ceae37033adc8fbfccf2055",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/Economy/Economy.csv": {
+      "relative_path": "submission/code/data/numerical/Economy/Economy.csv",
+      "sha256": "b6a5d18fef4d0ef20425e7704a4831a93cce69e3ead766f47880e90e1ae693a5",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/SocialGood/SocialGood.csv": {
+      "relative_path": "submission/code/data/numerical/SocialGood/SocialGood.csv",
+      "sha256": "a80fb07bc82c23b39c60340c6190701c6e8b20738c0342dd9c2b153828323c40",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/numerical/Climate/Climate.csv": {
+      "relative_path": "submission/code/data/numerical/Climate/Climate.csv",
+      "sha256": "ce88789bfa03635bd7311250c6532ac8d0213b99b1a4dc2ff99d5ac62aeeb647",
+      "kind": "dataset"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Security_h6_s2025.pt": {
+      "relative_path": "checkpoints/Security_h6_s2025.pt",
+      "sha256": "a094c451724346f8aba9371a4fd58a0e5488901ab02573633f1d79f1f9369c2e",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Security_h6_s2027.pt": {
+      "relative_path": "checkpoints/Security_h6_s2027.pt",
+      "sha256": "a7060b26b8d96e9fa3dee526ea9e91bb0ce841fc1702fe04fcc317cd193c508a",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Security_h6_s2026.pt": {
+      "relative_path": "checkpoints/Security_h6_s2026.pt",
+      "sha256": "602cdb065a10fc9541ca942e458d658332643284357799ea893c82c6e4a1f766",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Climate_h6_s2024.pt": {
+      "relative_path": "checkpoints/Climate_h6_s2024.pt",
+      "sha256": "7ce5af08c5d038fd9368f952186c5505a31bc1b40653ae1efa502ef12470c3be",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h12_s2024.pt": {
+      "relative_path": "checkpoints/Energy_h12_s2024.pt",
+      "sha256": "2db25ddbba9d7156356c08957ab8ad900c5474f1551a451cf21e7fafe6f1e961",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h6_s2027.pt": {
+      "relative_path": "checkpoints/Energy_h6_s2027.pt",
+      "sha256": "b7cd96ce83db054d353d12ef1e7f45a7d0dc4020273352ed2e392a8b6944ff0a",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Climate_h6_s2023.pt": {
+      "relative_path": "checkpoints/Climate_h6_s2023.pt",
+      "sha256": "2e4b795cbd5457033a6efe8f0480487a0beba2b2888ca0345d7ac89aa8330642",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h12_s2025.pt": {
+      "relative_path": "checkpoints/Energy_h12_s2025.pt",
+      "sha256": "c3cdfe6d0f69e5db8e1b0ed3bca59e74195f87c25082681fa64ce2f1da80ff49",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h6_s2027.pt": {
+      "relative_path": "checkpoints/Economy_h6_s2027.pt",
+      "sha256": "5d1412c0abe605154ca986c2676d2aaaa50f1cb73582dbd0943d36e9afeaf99d",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h12_s2026.pt": {
+      "relative_path": "checkpoints/Energy_h12_s2026.pt",
+      "sha256": "df861bb97ee27d4dbea00154b940c87ca49bd8d3ff76a6eeaacc83c5320d576a",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Climate_h6_s2027.pt": {
+      "relative_path": "checkpoints/Climate_h6_s2027.pt",
+      "sha256": "d228f0f52718b53001543afe183937f0a6d9f39a184c79adcaaf03a6fb9a50d1",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/SocialGood_h6_s2026.pt": {
+      "relative_path": "checkpoints/SocialGood_h6_s2026.pt",
+      "sha256": "cffe0af5e3cae61a1399e8d19fa930c0594e57707bacc93d8786d3ee7e7f4d42",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/SocialGood_h6_s2023.pt": {
+      "relative_path": "checkpoints/SocialGood_h6_s2023.pt",
+      "sha256": "8ac1aca881f35ad6e1d2106282b06ec4ed034976e530a553cda797c74183ce16",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Security_h6_s2023.pt": {
+      "relative_path": "checkpoints/Security_h6_s2023.pt",
+      "sha256": "69d253a6627ebb7d9c7d1c835d835e6933d6194b4a88e7fad19fc0531633aa71",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h12_s2023.pt": {
+      "relative_path": "checkpoints/Economy_h12_s2023.pt",
+      "sha256": "1f3ef3fa3c88a2797ce1d2414ce3044fdd753d99bd075fcfa9b8a354c41aad28",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h12_s2027.pt": {
+      "relative_path": "checkpoints/Economy_h12_s2027.pt",
+      "sha256": "317316d214bc7a9cd8f7b927477401f7379da90085dc8db474636792e2d35d22",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h6_s2025.pt": {
+      "relative_path": "checkpoints/Energy_h6_s2025.pt",
+      "sha256": "6927989c06410c5f81e5b7421f09807be38e214dbf0a14553dd36223a3610735",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h6_s2023.pt": {
+      "relative_path": "checkpoints/Energy_h6_s2023.pt",
+      "sha256": "86f9c11fa054520ffe1cc0eb945b8880e4abd0d5f43c99dd07d97c31d84cc1f9",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/SocialGood_h6_s2025.pt": {
+      "relative_path": "checkpoints/SocialGood_h6_s2025.pt",
+      "sha256": "0e3d34ca91ea30e77642b678a7377dbb952e0664d2e68dc0987d99667ae22686",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h12_s2024.pt": {
+      "relative_path": "checkpoints/Economy_h12_s2024.pt",
+      "sha256": "86b2f5cae0591dba1ef9e2e65a4ffed89edf09d3a16d0ebed9d6ba2b00bfb16f",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h6_s2026.pt": {
+      "relative_path": "checkpoints/Economy_h6_s2026.pt",
+      "sha256": "2581ab3491ca416ac5969db673d398e35a1dcdc959fa4e4baf18cdec6ebe9ab1",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/SocialGood_h6_s2024.pt": {
+      "relative_path": "checkpoints/SocialGood_h6_s2024.pt",
+      "sha256": "51320a240e30a0e7c7d84356571224bd7638fd4f4e7548b339405dff07519567",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h6_s2026.pt": {
+      "relative_path": "checkpoints/Energy_h6_s2026.pt",
+      "sha256": "39e5de7b375783a1ffdcbee2747b4129d5d4c1e0bc9e5eb71c3b56e69378eb91",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h6_s2024.pt": {
+      "relative_path": "checkpoints/Economy_h6_s2024.pt",
+      "sha256": "7ed0a253e9773f7b59ec2b061add2c2d2a138f1be292914dcd5b081499c60a1b",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h6_s2024.pt": {
+      "relative_path": "checkpoints/Energy_h6_s2024.pt",
+      "sha256": "6b0c7abc2007773344e780c7fdc88f5c4c08cb4c15c4df18e64951b6429afe62",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h12_s2025.pt": {
+      "relative_path": "checkpoints/Economy_h12_s2025.pt",
+      "sha256": "a53f3accbe44a153f25ed26f98235265cb1090cdfcf16175352e18574805625e",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Climate_h6_s2025.pt": {
+      "relative_path": "checkpoints/Climate_h6_s2025.pt",
+      "sha256": "0c0544aecbc626c08dce64a7d780500fdbd5f51426031a3f40fde2cb68e4ce18",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h12_s2026.pt": {
+      "relative_path": "checkpoints/Economy_h12_s2026.pt",
+      "sha256": "e2932f6db9edf01e33798bcf80d3d6f734bacbf4b26068cb05d03b774f03ec20",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h6_s2025.pt": {
+      "relative_path": "checkpoints/Economy_h6_s2025.pt",
+      "sha256": "6e06c3a4f6ca62d3db2cda112fb7fbc225446dbefa72bc1d6b0ec23b6077e11d",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/SocialGood_h6_s2027.pt": {
+      "relative_path": "checkpoints/SocialGood_h6_s2027.pt",
+      "sha256": "3195ecf8362872248879c47cd6087275af0b16eaccf52881b121a36a72edb416",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Security_h6_s2024.pt": {
+      "relative_path": "checkpoints/Security_h6_s2024.pt",
+      "sha256": "054a566e8cb785dd43e9912cff21898be4ca0c35112167b860f1162458522b3c",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h12_s2023.pt": {
+      "relative_path": "checkpoints/Energy_h12_s2023.pt",
+      "sha256": "416540a226269fc5ecfe5d230af2f4957448d19b0bb383f0399b9f0f723378b1",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Climate_h6_s2026.pt": {
+      "relative_path": "checkpoints/Climate_h6_s2026.pt",
+      "sha256": "1f17372115da22cc550a1c1203eaff44f41f854380eb33dcc254fdebac00955b",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Energy_h12_s2027.pt": {
+      "relative_path": "checkpoints/Energy_h12_s2027.pt",
+      "sha256": "8e8ae2b67cb3579f5be4d1157fd1fa8144ccdd14488a66b373bc2a81b71a281d",
+      "kind": "checkpoint"
+    },
+    "/home/wuwa/projects/research/iadapter_revision/checkpoints/Economy_h6_s2023.pt": {
+      "relative_path": "checkpoints/Economy_h6_s2023.pt",
+      "sha256": "0a095f4c93a11a89a3f494a22fc60a013735af5bd62035303ef575886a77461a",
+      "kind": "checkpoint"
+    }
+  }
+}

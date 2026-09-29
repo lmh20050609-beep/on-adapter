@@ -2,8 +2,8 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_ROOT = Path('/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data')
-BERT_ARCHIVE = DATA_ROOT.parent / 'bert-base-uncased.zip'
+DATA_ROOT = ROOT / 'data'
+BERT_ARCHIVE = ROOT / 'weights/bert-base-uncased.zip'
 DOMAINS = ['Economy','Energy','Security','SocialGood','Climate']
 MAIN = ['numeric_add','text_add','full']
 ABLATIONS = ['no_text_gradient','no_route_text_gradient','no_decisiveness','homogeneous','no_text','no_numeric_gradient','no_distribution','uniform']

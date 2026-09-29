@@ -1,0 +1,16 @@
+{
+  "time": "2026-09-29T05:47:16.212173+00:00",
+  "deleted": [
+    "/home/wuwa/projects/research/adaptz_paper_work",
+    "/home/wuwa/projects/research/iadapter_revision"
+  ],
+  "remaining_projects": [
+    "iadapter"
+  ],
+  "backup_retained": "/home/wuwa/backups/iadapter/20260929-003818/original-and-revision-before-review-changes.tar",
+  "verified_path_mappings": 74,
+  "post_delete_audit_passed": true,
+  "unchanged_evidence_files": 1760,
+  "queue_bytes_unchanged": true,
+  "training_started": false
+}

@@ -11,6 +11,7 @@ import torch
 from .config import ROOT,DATA_ROOT,Config,matrix,job_id
 from .data import text_rows
 from .util import write_json
+from .evidence_paths import resolve_evidence_path
 
 class AuditError(ValueError): pass
 
@@ -98,7 +99,7 @@ def audit_run(directory,job,reference,check_checkpoint=True,checkpoint_cache=Non
     require(cfg['code']==result['code'] and not result['code']['dirty'],'Run revision mismatch or dirty experiment code')
     require(len(result['code']['commit'])==40,'Missing experiment commit identity')
     meta=cfg['data']; ref=reference
-    require(Path(meta['source']).resolve()==Path(ref['source']).resolve(),'Dataset source mismatch')
+    require(resolve_evidence_path(meta['source'])==Path(ref['source']).resolve(),'Dataset source mismatch')
     for key in ['columns','rows','train_end','val_end']:
         require(meta[key]==ref[key],f'Dataset metadata differs from original CSV: {key}')
     same(meta['mean'],ref['mean'],'Training-only scaler mean mismatch')
@@ -146,7 +147,7 @@ def audit_run(directory,job,reference,check_checkpoint=True,checkpoint_cache=Non
     for filename in ['warm_adapter.pt','final_adapter.pt']:
         require((directory/filename).is_file(),f'Missing required file: {directory/filename}')
     if check_checkpoint:
-        path=Path(result['backbone_checkpoint']); require(path.is_file(),f'Missing backbone: {path}')
+        path=resolve_evidence_path(result['backbone_checkpoint']); require(path.is_file(),f'Missing backbone: {path}')
         cache=checkpoint_cache if checkpoint_cache is not None else {}
         if str(path) not in cache: cache[str(path)]=torch.load(path,map_location='cpu',weights_only=True)
         checkpoint=cache[str(path)]; bc=checkpoint['config']

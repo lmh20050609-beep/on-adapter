@@ -8,6 +8,7 @@ from .data import load_data
 from .models import Backbone,Adaptation,compute_offset_features
 from .util import write_json,masked_loss,sync,seed_all
 from .prepare import weight_directory,contextual_pool
+from .evidence_paths import resolve_evidence_path
 
 def measure(call,device,warmup=50,repeats=200):
     for _ in range(warmup): call()
@@ -25,7 +26,7 @@ def main():
             scientific=json.loads((directory/'metrics.json').read_text())
             data=load_data(dataset,with_embeddings=c.uses_text); N=len(data.columns)
             model=Backbone(c.lookback,6,N,d_model=32,e_layers=2).to(c.device).eval()
-            checkpoint=torch.load(scientific['backbone_checkpoint'],map_location=c.device,weights_only=True)
+            checkpoint=torch.load(resolve_evidence_path(scientific['backbone_checkpoint']),map_location=c.device,weights_only=True)
             model.load_state_dict(checkpoint['model'])
             for p in model.parameters(): p.requires_grad_(False)
             ad=Adaptation(c,N).to(c.device)
