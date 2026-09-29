@@ -10,9 +10,11 @@ from .review_sprint import DEFAULT_RUN,VARIANTS,CONDITIONS,matrix
 from .util import metrics,write_json
 from .analyze import md_table
 
-def analyze(base,sanity=False):
+def analyze(base,sanity=False,jobs_override=None,factorial=True):
     base=Path(base);state=json.loads((base/'queue_state.json').read_text());rows=[];probes=[];refs={};checkpoints={};shared={};paired_streams={}
-    for job in matrix(sanity):
+    jobs=matrix(sanity) if jobs_override is None else jobs_override
+    require(state['planned_jobs']==jobs,'Analysis job list differs from registered queue')
+    for job in jobs:
         key=job_id(dict(job,horizon=6));directory=base/'runs'/key
         require(state['jobs'][key]['status']=='completed',f'Incomplete queue cell: {key}')
         require(json.loads((directory/'status.json').read_text())['status']=='completed',f'Incomplete run: {key}')
@@ -96,19 +98,21 @@ def analyze(base,sanity=False):
     if not sanity:
         for (dataset,seed),block in frame.groupby(['dataset','seed']):
             by=block.set_index('variant')
-            require(set(by.index)==set(VARIANTS),'Missing method in factorial cell')
-            for candidate in VARIANTS:
+            expected_methods={j['variant'] for j in jobs if j['dataset']==dataset and j['seed']==seed}
+            require(set(by.index)==expected_methods,'Missing method in paired cell')
+            if factorial:require(set(by.index)==set(VARIANTS),'Missing method in factorial cell')
+            for candidate in by.index:
                 for control in ['full','numeric_add','text_add']:
                     if candidate==control:continue
                     paired.append(dict(dataset=dataset,seed=int(seed),candidate=candidate,control=control,delta_mse=float(by.loc[candidate,'mse']-by.loc[control,'mse']),delta_mae=float(by.loc[candidate,'mae']-by.loc[control,'mae'])))
-            for metric in ['mse','mae']:
+            for metric in (['mse','mae'] if factorial else []):
                 interaction.append(dict(dataset=dataset,seed=int(seed),metric=metric,route_off_when_entropy_on=float(by.loc['no_route_text_gradient',metric]-by.loc['full',metric]),route_off_when_entropy_off=float(by.loc['no_route_no_decisiveness',metric]-by.loc['no_decisiveness',metric]),entropy_off_when_route_on=float(by.loc['no_decisiveness',metric]-by.loc['full',metric]),entropy_off_when_route_off=float(by.loc['no_route_no_decisiveness',metric]-by.loc['no_route_text_gradient',metric]),interaction=float(by.loc['no_route_no_decisiveness',metric]-by.loc['no_route_text_gradient',metric]-by.loc['no_decisiveness',metric]+by.loc['full',metric])))
         pairs=pd.DataFrame(paired);pairs.to_csv(out/'paired_runs.csv',index=False)
         pairs.groupby(['dataset','candidate','control']).agg(n=('seed','count'),delta_mse_mean=('delta_mse','mean'),delta_mse_sd=('delta_mse','std'),delta_mae_mean=('delta_mae','mean'),delta_mae_sd=('delta_mae','std'),mse_improved_seeds=('delta_mse',lambda s:int((s<0).sum()))).reset_index().to_csv(out/'paired_summary.csv',index=False)
-        pd.DataFrame(interaction).to_csv(out/'factorial_interaction.csv',index=False)
-    proof={'status':'passed','completed':len(frame),'planned':len(matrix(sanity)),'unique_backbones':len(checkpoints),'original_csv_targets_and_masks':True,'development_boundaries_60_70_80':True,'once_only_mature_updates':True,'shared_factorial_initialization':True,'probe_sequences':len(probe),'future_donors':False,'test_80_100_evaluated':False,'experiment_commit':state['code']['commit'],'total_cell_seconds':float(frame.seconds.sum()),'scope':'development-only; three seeds in full campaign; no significance claim'}
+        if factorial:pd.DataFrame(interaction).to_csv(out/'factorial_interaction.csv',index=False)
+    proof={'status':'passed','completed':len(frame),'planned':len(jobs),'unique_backbones':len(checkpoints),'original_csv_targets_and_masks':True,'development_boundaries_60_70_80':True,'once_only_mature_updates':True,'shared_factorial_initialization':True,'probe_sequences':len(probe),'future_donors':False,'test_80_100_evaluated':False,'experiment_commit':state['code']['commit'],'total_cell_seconds':float(frame.seconds.sum()),'scope':'development-only; seed counts are stated per table; no significance claim'}
     write_json(out/'validation.json',proof)
-    text='# 开发实验结果（不属于未见测试集确认）\n\n'+md_table(summary.round(6))+'\n\n## 文本内容干预\n\n差值为控制文本减正确文本，正值表示正确文本误差更低。只比较有历史长度匹配 donor 的共同原点；零臂保留历史反馈，只去掉当前文本。差值小或预测变化小不能自动证明原始文本无信息。\n\n'+md_table(probe_summary.round(6))+'\n\n原始差值、交互和每 seed 记录分别保存在 paired_runs.csv、factorial_interaction.csv、text_probe_runs.csv。n=3 的跨seed波动只作开发诊断，不作显著性保证；sanity 的 n=1 不估计 SD。\n'
+    text='# 开发实验结果（不属于未见测试集确认）\n\n'+md_table(summary.round(6))+'\n\n## 文本内容干预\n\n差值为控制文本减正确文本，正值表示正确文本误差更低。只比较有历史长度匹配 donor 的共同原点；零臂保留历史反馈，只去掉当前文本。差值小或预测变化小不能自动证明原始文本无信息。\n\n'+md_table(probe_summary.round(6))+'\n\n原始配对差值和每seed诊断分别保存在 paired_runs.csv、text_probe_runs.csv；完整2×2设计另存factorial_interaction.csv。n按表记录，跨seed波动只作开发诊断，不作显著性保证；sanity的n=1不估计SD。\n'
     (out/'RESULTS.md').write_text(text,encoding='utf-8')
     print('SPRINT_VALIDATED',json.dumps(proof),flush=True)
     return proof

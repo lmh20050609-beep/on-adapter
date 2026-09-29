@@ -122,8 +122,8 @@ def matrix(sanity=False):
     if sanity:return [dict(dataset='Economy',seed=2023,variant=v) for v in ['numeric_add','full']]
     return [dict(dataset=d,seed=s,variant=v) for d in ['Energy','SocialGood'] for s in [2023,2024,2025] for v in VARIANTS]
 
-def campaign(base,sanity=False,limit=None):
-    base=Path(base);base.mkdir(parents=True,exist_ok=True);jobs=matrix(sanity);path=base/'queue_state.json';code=revision()
+def campaign(base,sanity=False,limit=None,jobs_override=None):
+    base=Path(base);base.mkdir(parents=True,exist_ok=True);jobs=matrix(sanity) if jobs_override is None else jobs_override;path=base/'queue_state.json';code=revision()
     if code['dirty']:raise RuntimeError('Commit source before running development experiments')
     if path.exists():
         state=json.loads(path.read_text())
