@@ -1,0 +1,18 @@
+{
+  "python": "3.10",
+  "existing_core": {
+    "torch": "2.6.0+cu124",
+    "transformers": "4.57.6",
+    "numpy": "2.2.5",
+    "pandas": "2.3.3"
+  },
+  "addition": {
+    "einops": "0.8.1"
+  },
+  "install": "python -m pip install --no-deps /home/wuwa/projects/research/iadapter/external/dependencies/einops-0.8.1-py3-none-any.whl",
+  "weights": {
+    "bert": "/home/wuwa/projects/research/iadapter/weights/bert-base-uncased",
+    "gpt2": "/home/wuwa/projects/research/iadapter/weights/gpt2"
+  },
+  "witness": "/home/wuwa/miniconda3/envs/llm/bin/python -m iadapter.witness"
+}
