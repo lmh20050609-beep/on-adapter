@@ -65,9 +65,135 @@
     "original_csv_verified_score_sequences": 24,
     "scope": "exploratory frozen residual readout; no semantic causality or unseen-data confirmation"
   },
-  "b3_status": "stopped_groundedness",
   "b3_preflight_seconds": 7.646915407000051,
   "b3_peak_allocated_bytes": 1016387072,
   "b3_invalid": 0,
-  "b3_samples": 30
+  "b3_samples": 30,
+  "b3_original_quality_status": "stopped_groundedness",
+  "b3_generation": {
+    "status": "completed",
+    "generated_unique": 1538,
+    "planned": 1538,
+    "invalid": 0,
+    "seconds": 95.92718096899989,
+    "peak_allocated_bytes": 1016280064,
+    "code": {
+      "commit": "9c0d6584cebc0bdfde5db980744d324b32ee75e4",
+      "dirty": false
+    },
+    "encoder_batch": 1,
+    "total_input_tokens": 264669,
+    "total_output_tokens": 3275,
+    "cumulative_budget_seconds": 114.58459520799967,
+    "admission": "user_revised_exploratory_imperfect_prior",
+    "original_quality_status": "stopped_groundedness"
+  },
+  "b3_budget": {
+    "limit_seconds": 3600,
+    "used_seconds": 114.58969390200015,
+    "scope": "preflight plus all generation invocations, including model load/tokenization",
+    "failed_attempt_runtime_accounting": "First batch failure not timed internally; charged full observed tool wall time7.8693406sec conservatively."
+  },
+  "b3_exploratory_gates": [
+    {
+      "dataset": "Energy",
+      "candidate": "LLM5",
+      "control": "raw_BERT_PCA5",
+      "mse_change_percent": 1.4360673606373051,
+      "mae_change_percent": 0.7014880777783228,
+      "mse_improved_seeds": 2,
+      "candidate_donor_minus_correct_mse": 0.0005638399221752,
+      "passes": false
+    },
+    {
+      "dataset": "Energy",
+      "candidate": "LLM5",
+      "control": "rule5",
+      "mse_change_percent": 1.5026871199008918,
+      "mae_change_percent": 0.6773322561050454,
+      "mse_improved_seeds": 2,
+      "candidate_donor_minus_correct_mse": 0.0005638399221752,
+      "passes": false
+    },
+    {
+      "dataset": "Energy",
+      "candidate": "LLM5",
+      "control": "metadata_P1",
+      "mse_change_percent": -1.114865192813819,
+      "mae_change_percent": -0.2365801968341019,
+      "mse_improved_seeds": 3,
+      "candidate_donor_minus_correct_mse": 0.0005638399221752,
+      "passes": false
+    },
+    {
+      "dataset": "Energy",
+      "candidate": "rule5",
+      "control": "raw_BERT_PCA5",
+      "mse_change_percent": -0.0656334932147006,
+      "mae_change_percent": 0.0239933072638587,
+      "mse_improved_seeds": 1,
+      "candidate_donor_minus_correct_mse": -0.0002103010807933,
+      "passes": false
+    },
+    {
+      "dataset": "Energy",
+      "candidate": "rule5",
+      "control": "metadata_P1",
+      "mse_change_percent": -2.5788010022066765,
+      "mae_change_percent": -0.9077638754017792,
+      "mse_improved_seeds": 2,
+      "candidate_donor_minus_correct_mse": -0.0002103010807933,
+      "passes": false
+    },
+    {
+      "dataset": "SocialGood",
+      "candidate": "LLM5",
+      "control": "raw_BERT_PCA5",
+      "mse_change_percent": 3.504167467538011,
+      "mae_change_percent": 2.6192958405606426,
+      "mse_improved_seeds": 0,
+      "candidate_donor_minus_correct_mse": -0.0053058125390784,
+      "passes": false
+    },
+    {
+      "dataset": "SocialGood",
+      "candidate": "LLM5",
+      "control": "rule5",
+      "mse_change_percent": 4.136726889271958,
+      "mae_change_percent": 2.050240734170883,
+      "mse_improved_seeds": 0,
+      "candidate_donor_minus_correct_mse": -0.0053058125390784,
+      "passes": false
+    },
+    {
+      "dataset": "SocialGood",
+      "candidate": "LLM5",
+      "control": "metadata_P1",
+      "mse_change_percent": 5.469565705974122,
+      "mae_change_percent": 2.754064933339984,
+      "mse_improved_seeds": 0,
+      "candidate_donor_minus_correct_mse": -0.0053058125390784,
+      "passes": false
+    },
+    {
+      "dataset": "SocialGood",
+      "candidate": "rule5",
+      "control": "raw_BERT_PCA5",
+      "mse_change_percent": -0.6074316339964692,
+      "mae_change_percent": 0.5576225026965753,
+      "mse_improved_seeds": 2,
+      "candidate_donor_minus_correct_mse": -0.0008742107727706,
+      "passes": false
+    },
+    {
+      "dataset": "SocialGood",
+      "candidate": "rule5",
+      "control": "metadata_P1",
+      "mse_change_percent": 1.2798931333028785,
+      "mae_change_percent": 0.6896840165252272,
+      "mse_improved_seeds": 0,
+      "candidate_donor_minus_correct_mse": -0.0008742107727706,
+      "passes": false
+    }
+  ]
 }

@@ -1,6 +1,18 @@
 {
-  "status": "not_started_groundedness_gate",
-  "actual_preflight_texts": 30,
-  "full_generation": 0,
-  "readout_tasks": 0
+  "status": "completed",
+  "generated_unique": 1538,
+  "planned": 1538,
+  "invalid": 0,
+  "seconds": 95.92718096899989,
+  "peak_allocated_bytes": 1016280064,
+  "code": {
+    "commit": "9c0d6584cebc0bdfde5db980744d324b32ee75e4",
+    "dirty": false
+  },
+  "encoder_batch": 1,
+  "total_input_tokens": 264669,
+  "total_output_tokens": 3275,
+  "cumulative_budget_seconds": 114.58459520799967,
+  "admission": "user_revised_exploratory_imperfect_prior",
+  "original_quality_status": "stopped_groundedness"
 }

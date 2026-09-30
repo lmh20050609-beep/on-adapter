@@ -1,0 +1,18 @@
+B3_READOUT Energy 2023 [('raw_BERT_PCA5', 0.018182), ('rule5', 0.0180877), ('LLM5', 0.0178429), ('LLM5_donor', 0.0180721), ('rule5_donor', 0.0178247), ('metadata_P1', 0.0178732)]
+B3_READOUT Energy 2024 [('raw_BERT_PCA5', 0.0192975), ('rule5', 0.0193281), ('LLM5', 0.0205471), ('LLM5_donor', 0.0213823), ('rule5_donor', 0.019034), ('metadata_P1', 0.0208696)]
+B3_READOUT Energy 2025 [('raw_BERT_PCA5', 0.0201282), ('rule5', 0.0201541), ('LLM5', 0.020045), ('LLM5_donor', 0.0206721), ('rule5_donor', 0.0200802), ('metadata_P1', 0.0203509)]
+B3_READOUT SocialGood 2023 [('raw_BERT_PCA5', 0.1284336), ('rule5', 0.1274023), ('LLM5', 0.1323383), ('LLM5_donor', 0.1292991), ('rule5_donor', 0.1270417), ('metadata_P1', 0.1266197)]
+B3_READOUT SocialGood 2024 [('raw_BERT_PCA5', 0.1378096), ('rule5', 0.1357906), ('LLM5', 0.1416477), ('LLM5_donor', 0.1334203), ('rule5_donor', 0.1341782), ('metadata_P1', 0.1344038)]
+B3_READOUT SocialGood 2025 [('raw_BERT_PCA5', 0.1245318), ('rule5', 0.1252084), ('LLM5', 0.1304823), ('LLM5_donor', 0.1258315), ('rule5_donor', 0.1245586), ('metadata_P1', 0.1224694)]
+B3_VALIDATED
+   dataset candidate       control  mse_change_percent  mae_change_percent  mse_improved_seeds  candidate_donor_minus_correct_mse  passes
+    Energy      LLM5 raw_BERT_PCA5            1.436067            0.701488                   2                           0.000564   False
+    Energy      LLM5         rule5            1.502687            0.677332                   2                           0.000564   False
+    Energy      LLM5   metadata_P1           -1.114865           -0.236580                   3                           0.000564   False
+    Energy     rule5 raw_BERT_PCA5           -0.065633            0.023993                   1                          -0.000210   False
+    Energy     rule5   metadata_P1           -2.578801           -0.907764                   2                          -0.000210   False
+SocialGood      LLM5 raw_BERT_PCA5            3.504167            2.619296                   0                          -0.005306   False
+SocialGood      LLM5         rule5            4.136727            2.050241                   0                          -0.005306   False
+SocialGood      LLM5   metadata_P1            5.469566            2.754065                   0                          -0.005306   False
+SocialGood     rule5 raw_BERT_PCA5           -0.607432            0.557623                   2                          -0.000874   False
+SocialGood     rule5   metadata_P1            1.279893            0.689684                   0                          -0.000874   False

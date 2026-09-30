@@ -1,0 +1,19 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Traceback (most recent call last):
+  File "/home/wuwa/miniconda3/envs/llm/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/wuwa/miniconda3/envs/llm/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/wuwa/projects/research/iadapter/iadapter/task_text_prior.py", line 194, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,default=OUTPUT);p.add_argument('--stage',choices=['preflight','generate','generate_exploratory','readouts','analyze'],required=True);a=p.parse_args();globals()[a.stage](a.output)
+  File "/home/wuwa/projects/research/iadapter/iadapter/task_text_prior.py", line 179, in generate_exploratory
+    return generate(base,exploratory=True)
+  File "/home/wuwa/projects/research/iadapter/iadapter/task_text_prior.py", line 106, in generate
+    batch=pending[begin:begin+8];results=classify_batch(batch,tok,model,config)
+  File "/home/wuwa/miniconda3/envs/llm/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/wuwa/projects/research/iadapter/iadapter/task_text_prior.py", line 60, in classify_batch
+    require(bool(result.scores) and all(torch.isfinite(score).all().item() for score in result.scores),'Nonfinite generated logits')
+  File "/home/wuwa/projects/research/iadapter/iadapter/audit.py", line 19, in require
+    if not condition: raise AuditError(message)
+iadapter.audit.AuditError: Nonfinite generated logits

@@ -1,5 +1,6 @@
 {
   "limit_seconds": 3600,
-  "used_seconds": 7.646915407000051,
-  "scope": "preflight plus all generation invocations, including model load/tokenization"
+  "used_seconds": 114.58969390200015,
+  "scope": "preflight plus all generation invocations, including model load/tokenization",
+  "failed_attempt_runtime_accounting": "First batch failure not timed internally; charged full observed tool wall time7.8693406sec conservatively."
 }

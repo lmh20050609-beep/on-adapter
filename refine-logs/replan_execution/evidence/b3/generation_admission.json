@@ -1,0 +1,13 @@
+{
+  "status": "user_revised_exploratory_imperfect_prior",
+  "original_quality_status": "stopped_groundedness",
+  "original_preflight_code": {
+    "commit": "7f5081d11a495a441f37ce076af9feb4983adaef",
+    "dirty": false
+  },
+  "generation_code": {
+    "commit": "9c0d6584cebc0bdfde5db980744d324b32ee75e4",
+    "dirty": false
+  },
+  "purpose": "Exploratory prediction utility of an imperfect fixed prior; not verified semantic correctness"
+}
