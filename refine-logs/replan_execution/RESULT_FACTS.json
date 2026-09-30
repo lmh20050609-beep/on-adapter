@@ -1,0 +1,73 @@
+{
+  "b1_gates": [
+    {
+      "claim": "C1_feedback",
+      "dataset": "Energy",
+      "mse_change_percent": 1.5766321221624802,
+      "mae_change_percent": 0.6594605228158246,
+      "mse_improved_seeds": 1,
+      "passes": false
+    },
+    {
+      "claim": "C1_feedback",
+      "dataset": "SocialGood",
+      "mse_change_percent": 0.4679380004168676,
+      "mae_change_percent": 0.1503995149106263,
+      "mse_improved_seeds": 0,
+      "passes": false
+    },
+    {
+      "claim": "C2_initial_text",
+      "dataset": "Energy",
+      "mse_change_percent": 2.208981070267657,
+      "mae_change_percent": 0.9546013604549984,
+      "mse_improved_seeds": 1,
+      "passes": false
+    },
+    {
+      "claim": "C2_initial_text",
+      "dataset": "SocialGood",
+      "mse_change_percent": -0.8541705341104766,
+      "mae_change_percent": -0.5748548781748131,
+      "mse_improved_seeds": 2,
+      "passes": false
+    }
+  ],
+  "b2_gates": [
+    {
+      "dataset": "Energy",
+      "mse_change_percent": -4.425529779668313,
+      "mae_change_percent": -2.4382920368160144,
+      "mse_improved_seeds": 3,
+      "donor_minus_correct_mse": 0.0005838210720865,
+      "passes": true
+    },
+    {
+      "dataset": "SocialGood",
+      "mse_change_percent": 6.694200266941408,
+      "mae_change_percent": 4.29859758060227,
+      "mse_improved_seeds": 0,
+      "donor_minus_correct_mse": 0.0021958827614813,
+      "passes": false
+    }
+  ],
+  "b1_counts": {
+    "status": "passed",
+    "new_evaluations": 30,
+    "reused_evaluations": 30,
+    "original_csv_verified_cells": 60
+  },
+  "b2_counts": {
+    "status": "passed",
+    "selection_tasks": 18,
+    "lambda_configurations": 54,
+    "donor_intervention_sequences": 6,
+    "original_csv_verified_score_sequences": 24,
+    "scope": "exploratory frozen residual readout; no semantic causality or unseen-data confirmation"
+  },
+  "b3_status": "stopped_groundedness",
+  "b3_preflight_seconds": 7.646915407000051,
+  "b3_peak_allocated_bytes": 1016387072,
+  "b3_invalid": 0,
+  "b3_samples": 30
+}

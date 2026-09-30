@@ -1,0 +1,3 @@
+dataset,mse_change_percent,mae_change_percent,mse_improved_seeds,donor_minus_correct_mse,passes
+Energy,-4.425529779668313,-2.4382920368160144,3,0.0005838210720865468,True
+SocialGood,6.694200266941408,4.29859758060227,0,0.002195882761481305,False

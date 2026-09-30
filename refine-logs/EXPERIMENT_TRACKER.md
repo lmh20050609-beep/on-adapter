@@ -1,6 +1,6 @@
 # iAdapter 下一轮计划跟踪表
 
-2026-09-30。执行中。M0/B1/B2已完成，30新评价+30复用控制与18读出任务通过审计；B1两项两域门槛未通过，B2仅Energy内容门槛通过，因此B3触发。当前B3源代码审查已通过，30条训练文本preflight待执行。历史结果保持原状态。
+2026-09-30。执行中。M0/B1/B2已完成，30新评价+30复用控制与18读出任务通过审计；B1两项两域门槛未通过，B2仅Energy内容门槛通过，因此B3触发。B3预检格式通过、原质量门停止；用户要求后增加显式探索准入，保持原模型/输入/提示词继续预测检验。历史结果保持原状态。
 
 | Run ID | Milestone | Purpose | System / Variant | Split | Metrics | Priority | Status | Notes |
 |---|---|---|---|---|---|---|---|---|
@@ -12,7 +12,7 @@
 | R005 | M2 | 剩余强简单控制 | 两域三seed裸骨干/text_add两mode | 同上 | 误差与失败域 | MUST | DONE | 含R001–3共18新评价；6warm |
 | R006 | M3 | 可用性与内容 | P0/P1/P2 Ridge选择 | 同上 | MSE/MAE/配对方向 | MUST | DONE | 18选择任务、至多54lambda fits |
 | R007 | M3 | 正确内容干预 | P2历史donor，metadata不改 | 同上 | 相对正确content误差 | MUST | DONE | 6序列，无另拟合 |
-| R008 | M4 | 小模型资源与格式 | Qwen0.5B训练文本30条 | 只用训练文本 | 格式/领域/生成成本 | CONDITIONAL | READY_FOR_PREFLIGHT | B2失败后才考虑；模型当前缺失 |
+| R008 | M4 | 小模型资源与格式 | Qwen0.5B训练文本30条 | 只用训练文本 | 格式/领域/生成成本 | CONDITIONAL | DONE_FORMAT_STRICT_QUALITY_STOP | 30条格式全有效，2条明确目标误判；原始质量报告保留 |
 | R009 | M4 | 新表示检验 | BERT-PCA5/规则/LLM | 同上开发 | 三表示读出误差 | CONDITIONAL | NOT_TRIGGERED | 18选择任务、至多54fits；生成≤1543 |
 | R010 | M4 | 新内容干预 | LLM表示历史donor | 同上 | 内容效果 | CONDITIONAL | NOT_TRIGGERED | 6序列，无另拟合 |
 | R011 | M5 | 部署验证 | 同结构raw/candidate×static/online | 两域三seed OT H6 | 全部控制误差/位移 | CONDITIONAL | NOT_TRIGGERED | 至多24评价、12warm；raw路线通过可复用B1 |
@@ -23,3 +23,10 @@
 | R016 | M7 | 修订与主张判断 | 更新正文/回复/证据缺口 | 所有已触发块 | claim/evidence对应 | MUST | PLANNED | 负结果也可交付；不预设正面 |
 
 默认新评价30（含R001–R005，不能把R001–3再加一次），6warm；B2 18选择任务；6干预。条件性上限104评价/48warm/10骨干/36读出选择任务/24干预/1543生成/18计时轮，类别不混计。
+
+## 用户要求后的探索工作
+
+| E ID | 工作 | 状态 | 边界 |
+|---|---|---|---|
+| E001 | 同固定小模型全量表示生成 | READY_AFTER_CODE_REVIEW | 原预算累计3600秒/≤1543unique；保留原stopped_groundedness |
+| E002 | 规则/raw/LLM与metadata及历史donor读出 | PLANNED | 局部小收益也作为进展，未声称稳定显著 |

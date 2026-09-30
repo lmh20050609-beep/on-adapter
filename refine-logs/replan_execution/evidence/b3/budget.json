@@ -1,0 +1,5 @@
+{
+  "limit_seconds": 3600,
+  "used_seconds": 7.646915407000051,
+  "scope": "preflight plus all generation invocations, including model load/tokenization"
+}

@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "selection_tasks": 18,
+  "lambda_configurations": 54,
+  "donor_intervention_sequences": 6,
+  "original_csv_verified_score_sequences": 24,
+  "scope": "exploratory frozen residual readout; no semantic causality or unseen-data confirmation"
+}

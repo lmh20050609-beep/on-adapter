@@ -82,11 +82,24 @@ def preflight(base=OUTPUT):
     write_json(out/'cache.json',cache);write_json(out/'preflight.json',proof);write_json(out/'budget.json',dict(limit_seconds=3600,used_seconds=seconds,scope='preflight plus all generation invocations, including model load/tokenization'))
     del model,tok;gc.collect();torch.cuda.empty_cache();print('PRIOR_PREFLIGHT_STATUS',proof['status'],invalid,'/30',flush=True);return proof
 
-def generate(base=OUTPUT):
-    base=Path(base);out=base/'b3';proof=json.loads((out/'preflight.json').read_text());require(proof['status']=='passed','Format gate failed')
-    quality=json.loads((out/'quality_review.json').read_text());require(quality['status']=='passed','Groundedness/domain check did not pass')
+def generation_admission(proof,quality,exploratory=False):
+    require(proof['status']=='passed','Format gate failed')
+    require(not revision()['dirty'],'Commit source before generation')
+    if not exploratory:
+        require(quality['status']=='passed','Groundedness/domain check did not pass')
+        require(proof['code']==revision(),'B3 code changed between preflight/generation')
+        return 'original_strict_gate'
+    require(quality['status'] in ['passed','stopped_groundedness'],'Unrecognized quality result')
+    require(proof['prompt']==SYSTEM and proof['domain_context']==DOMAIN and proof['label_options']==LABELS,'Preflight input contract changed')
+    require(proof['greedy'] and proof['max_new_tokens']==8 and proof['repetition_penalty']==1. and proof['finite_generation_logits_checked'] and proof['frozen_parameters'],'Preflight inference contract changed')
+    require(proof['source']==json.loads((WEIGHTS/'SOURCE.json').read_text()),'Different model source')
+    return 'user_revised_exploratory_imperfect_prior'
+
+def generate(base=OUTPUT,exploratory=False):
+    base=Path(base);out=base/'b3';proof=json.loads((out/'preflight.json').read_text())
+    quality=json.loads((out/'quality_review.json').read_text());admission=generation_admission(proof,quality,exploratory)
     cache=json.loads((out/'cache.json').read_text());pool={x['key']:x for x in records(base)};require(len(pool)<=1543,'Exceeded unique-input plan cap')
-    require(proof['code']==revision() and not revision()['dirty'],'B3 code changed between preflight/generation')
+    write_json(out/'generation_admission.json',dict(status=admission,original_quality_status=quality['status'],original_preflight_code=proof['code'],generation_code=revision(),purpose='Exploratory prediction utility of an imperfect fixed prior; not verified semantic correctness'))
     pending=[x for k,x in pool.items() if k not in cache];budget=json.loads((out/'budget.json').read_text());require(budget['used_seconds']<3600,'Accumulated generation budget exhausted')
     seed_all(2023);start=time.perf_counter();tok,model,config=load_model();torch.cuda.reset_peak_memory_stats();last=start
     for begin in range(0,len(pending),8):
@@ -95,7 +108,7 @@ def generate(base=OUTPUT):
         write_json(out/'cache.json',cache);now=time.perf_counter();budget['used_seconds']+=now-last;last=now;write_json(out/'budget.json',budget)
         if begin%160==0:print('PRIOR_GENERATED',len(cache),'/',len(pool),flush=True)
         if budget['used_seconds']>3600:write_json(out/'generation_status.json',dict(status='stopped_resource_budget',completed=len(cache),planned=len(pool)));del model;torch.cuda.empty_cache();return
-    torch.cuda.synchronize();write_json(out/'generation_status.json',dict(status='completed',generated_unique=len(cache),planned=len(pool),invalid=sum(not x['valid'] for x in cache.values()),seconds=time.perf_counter()-start,peak_allocated_bytes=torch.cuda.max_memory_allocated(),code=revision(),encoder_batch=8,total_input_tokens=sum(x['input_tokens'] for x in cache.values()),total_output_tokens=sum(x['output_tokens'] for x in cache.values()),cumulative_budget_seconds=budget['used_seconds']))
+    torch.cuda.synchronize();write_json(out/'generation_status.json',dict(status='completed',generated_unique=len(cache),planned=len(pool),invalid=sum(not x['valid'] for x in cache.values()),seconds=time.perf_counter()-start,peak_allocated_bytes=torch.cuda.max_memory_allocated(),code=revision(),encoder_batch=8,total_input_tokens=sum(x['input_tokens'] for x in cache.values()),total_output_tokens=sum(x['output_tokens'] for x in cache.values()),cumulative_budget_seconds=budget['used_seconds'],admission=admission,original_quality_status=quality['status']))
     del model,tok;gc.collect();torch.cuda.empty_cache()
 
 def prior_arrays(data,d,provenance,cache):
@@ -162,6 +175,9 @@ def analyze(base=OUTPUT):
     pd.DataFrame(gates).to_csv(out/'gates.csv',index=False);write_json(out/'validation.json',dict(status='passed',selection_tasks=18,lambda_configurations=54,donor_intervention_sequences=6,original_csv_verified_score_sequences=36,donor_conditions_per_sequence=2,reused_metadata_sequences=6,all_content_inputs_same_M0_visible_budget=True,scope='exploratory small-model trend-prior readout; not causal or publication-time validation'))
     (out/'RESULTS.md').write_text('# B3 fixed task text prior\n\n'+md_table(summary.round(6))+'\n\n'+md_table(pd.DataFrame(gates).round(6))+'\n\nGreedy frozen0.5B, exact M0 visible excerpts. Small-model inference is not causal identification; fixed-stream development only.\n');print('B3_VALIDATED',flush=True);print(pd.DataFrame(gates).to_string(index=False),flush=True);return gates
 
+def generate_exploratory(base=OUTPUT):
+    return generate(base,exploratory=True)
+
 def readouts(base=OUTPUT):
     base=Path(base);require(not revision()['dirty'],'Commit source');require(json.loads((base/'b3/generation_status.json').read_text())['status']=='completed','Priors incomplete');torch.set_num_threads(1)
     for d in ['Energy','SocialGood']:
@@ -175,4 +191,4 @@ def readouts(base=OUTPUT):
     return analyze(base)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,default=OUTPUT);p.add_argument('--stage',choices=['preflight','generate','readouts','analyze'],required=True);a=p.parse_args();globals()[a.stage](a.output)
+    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,default=OUTPUT);p.add_argument('--stage',choices=['preflight','generate','generate_exploratory','readouts','analyze'],required=True);a=p.parse_args();globals()[a.stage](a.output)

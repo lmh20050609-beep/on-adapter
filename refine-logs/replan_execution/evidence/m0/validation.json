@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "rows_reconstructed": true,
+  "token_offsets_verified": true,
+  "character_crop_verified": true,
+  "content_token_fraction_denominator": "all visible content tokens; labels/separators and CLS/SEP excluded; dated anchors in content retained",
+  "availability": "end_date proxy only",
+  "code": {
+    "commit": "28b3944cdaa5dfaa76f14d8bbc70e4161b025921",
+    "dirty": false
+  }
+}

@@ -20,7 +20,7 @@ experiment records are resolved through the checksum-verified mappings in
 
 ## Repository contents and setup
 
-本仓库同步投稿代码、当前修订实现、实验改进、测试与review证据。最新结论见上方交付入口；TiMi启发目前仅为讨论，尚未作为实现或实验结果纳入。
+本仓库同步投稿代码、当前修订实现、实验改进、测试与review证据。最新结论见上方交付入口；TiMi启发已形成一个固定0.5B趋势表示探索；当前不称完整TiMi复现，预检误判与预测检验分开报告。
 
 - Current executable revision: `iadapter/`; preserved submission code: `submission/code/`.
 - Published aggregate results and figures: `reports/` and `refine-logs/`.

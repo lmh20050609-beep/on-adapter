@@ -1,0 +1,651 @@
+{
+  "status": "stopped_groundedness",
+  "review_type": "independent qualitative input/output target-relevance and grounding check",
+  "scope": "All 30 saved training excerpts and enum labels only; no evaluation targets, future numerical labels, scores or readout results were consulted.",
+  "admission_decision": "Do not proceed to full generation or B3 readouts under this fixed attempt.",
+  "decision_basis": "At least two explicit target mismatches produce directional labels: Philippines unemployment is mapped to U.S. unemployment, and rice/generic long-term energy text is mapped to six-week U.S. retail gasoline. This rejects semantic admissibility, not enum formatting or measured predictive accuracy.",
+  "samples_reviewed": 30,
+  "label_counts": {
+    "UNKNOWN": 26,
+    "DECREASE": 4
+  },
+  "format_gate": {
+    "status": "passed",
+    "samples": 30,
+    "invalid": 0,
+    "invalid_fraction": 0.0,
+    "all_raw_outputs_exact_enum": true,
+    "unknown_handling": "26 valid UNKNOWN abstentions; zero invalid-format fallbacks were used. UNKNOWN is permitted; its prevalence does not establish usefulness."
+  },
+  "runtime_witness": {
+    "actual_model_inference_completed": true,
+    "finite_generation_logits_checked": true,
+    "frozen_parameters": true,
+    "seconds": 7.646915407000051,
+    "peak_allocated_bytes": 1016387072,
+    "exec_session_id": 78522,
+    "exit_code": 0,
+    "actual_linux_pid": "not observed before completion; tracked by exec session instead",
+    "primary_log": "experiments/replan_20260930/b3_preflight.log"
+  },
+  "launch_history": [
+    {
+      "attempt": 1,
+      "stage": "process_wrapper_failure_before_any_saved_model_output",
+      "command": "wsl.exe -d Ubuntu -- bash -lc with background PID/wait wrapper",
+      "observed_errors": [
+        "WITNESS_PID empty; WITNESS_EXIT empty",
+        "bash: wait: empty argument is not a pid or valid job spec",
+        "bash: exit: empty argument requires a numeric value"
+      ],
+      "wrapper_exit_code": 1,
+      "log_bytes_after_failure": 0,
+      "preflight_and_cache_absent": true,
+      "residual_model_process_found": false,
+      "model_exit_code": "unobserved",
+      "interpretation": "This wrapper failure was not a model format-gate result."
+    },
+    {
+      "attempt": 2,
+      "command": "wsl.exe -d Ubuntu --cd /home/wuwa/projects/research/iadapter -- bash -lc '/home/wuwa/miniconda3/envs/llm/bin/python -u -m iadapter.task_text_prior --stage preflight > experiments/replan_20260930/b3_preflight.log 2>&1'",
+      "observation": "Foreground process observed through the same exec session 78522, then completed with exit code 0. No source, model, prompt, sampling setting or input was changed.",
+      "difference_from_documented_witness": "-u only enables unbuffered stdout/stderr; working directory and preflight behavior are unchanged. Parent explicitly authorized this launcher repair after checking absent outputs/processes."
+    }
+  ],
+  "doc_vs_reality": {
+    "python": "/home/wuwa/miniconda3/envs/llm/bin/python",
+    "torch": "2.6.0+cu124",
+    "transformers": "4.57.6",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "dtype": "float16",
+    "device": "cuda",
+    "greedy": true,
+    "max_new_tokens": 8,
+    "environment_and_runtime_spec_match": true,
+    "semantic_gate_passed": false,
+    "warning": "torch_dtype deprecation warning; execution completed."
+  },
+  "input_budget": {
+    "training_only_exact_M0_matches": 30,
+    "all_available": true,
+    "visible_source_rows_at_or_before_origin": true,
+    "m0_token_cap": 64,
+    "m0_tokens_min": 26,
+    "m0_tokens_max": 64,
+    "qwen_input_tokens_total": 5240,
+    "qwen_output_tokens_total": 64,
+    "note": "64-token cap is M0 BERT visibility; Qwen token counts include the unchanged system/target/chat wrappers. No extra content was supplied."
+  },
+  "cumulative_budget": {
+    "limit_seconds": 3600,
+    "used_seconds": 7.646915407000051,
+    "scope": "preflight plus all generation invocations, including model load/tokenization"
+  },
+  "blocking_cases": [
+    {
+      "dataset": "Energy",
+      "origin": 696,
+      "split": "train",
+      "key": "e417e0cc20337be347af270ab4fefc95a86e4eb7431e9556febc6d752672313b",
+      "label": "DECREASE",
+      "output": "DECREASE",
+      "visible_text": "Facts. The price of rice increased in 2008, with Thailand's price quotes and U.S. Embassy agricultural counselor's Weekly Rice Price Update showing the rise Outlook. In the long-term, the trend towards renewable energy sources and decreasing reliance on fossil fuels may lead to a decrease in energy prices.",
+      "assessment": "blocking_product_and_horizon",
+      "reason": "The fact concerns rice prices. The only decreasing-price outlook concerns generic energy prices in the long term, without naming U.S. retail gasoline or the next six weeks. DECREASE overextends evidence to the declared target.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "695:fact",
+        "695:preds"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 475,
+      "split": "train",
+      "key": "7d42c795ee30f6cb5c5fedd641a7f4c3ad71b0b70503c7aa74902532466dcf51",
+      "label": "DECREASE",
+      "output": "DECREASE",
+      "visible_text": "the decline in real rates and the administration's goals 1989-07-24: The long-term economic prospects of the Philippines appear promising, with a potential for sustained economic growth and development Given the positive trend, it is likely that the unemployment rate in the Philippines will continue to decline in the short term Facts",
+      "assessment": "blocking_geography",
+      "reason": "The explicit decline forecast is for unemployment in the Philippines. The declared target is U.S. unemployment. DECREASE transfers a direction across countries without excerpt support; UNKNOWN was required for the declared target.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "474:preds"
+      ]
+    }
+  ],
+  "additional_questionable_cases": [
+    {
+      "dataset": "Energy",
+      "origin": 379,
+      "split": "train",
+      "key": "74df77080f4a1f893d6e4147ee6ea24fddcf8b87187dda863ef0f2bce842e2ae",
+      "label": "DECREASE",
+      "output": "DECREASE",
+      "visible_text": "Facts. The price of oil fell sharply on April 1, 2003, due to news about Iraq Outlook. In the long term, the development of alternative energy sources and more fuel-efficient vehicles may lead to a decrease in dependence on oil and a more stable energy market In the short term, oil prices are likely",
+      "assessment": "questionable_product_and_horizon",
+      "reason": "DECREASE can be associated with the stated historical oil fall, but the excerpt does not explicitly connect it to U.S. retail gasoline. The outlook is long-term, and the short-term oil sentence is truncated before its direction. This is not sufficient evidence of a six-week gasoline decrease.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "378:fact",
+        "378:preds"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 526,
+      "split": "train",
+      "key": "68ad88ef29015fb4f717250ebda9afd44c7f520ceae87054eeb6d1e3c3d85961",
+      "label": "DECREASE",
+      "output": "DECREASE",
+      "visible_text": " the short-term, it is likely that unemployment rates will continue to be a concern in these regions, potentially leading to social and economic instability Facts. 1993-11-01: The unemployment rate in the United States in 1993 was 13% 1993-11-08: The unemployment rate in the United States dropped",
+      "assessment": "descriptive_target_match_horizon_unverified",
+      "reason": "The excerpt explicitly says U.S. unemployment dropped, so DECREASE matches the observed target direction. It does not establish continuation over the next six months; it must not be treated as a verified forecast.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "525:preds",
+        "526:fact"
+      ]
+    }
+  ],
+  "all_sample_reviews": [
+    {
+      "dataset": "Energy",
+      "origin": 0,
+      "split": "train",
+      "key": "22aa0ca181df9d09f76aa15281cfeb566f723dc3be2806bd79011d53c8821b30",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The United States Federal regulation of domestic petroleum prices induces overconsumption of crude oil and causes underproduction Outlook. In the long term, the deregulation of domestic petroleum prices could lead to a more balanced oil market, potentially resulting in more stable gasoline prices",
+      "assessment": "acceptable_unknown",
+      "reason": "The excerpt mentions potential long-term gasoline stability, but gives no near-term target direction; UNKNOWN is a conservative abstention.",
+      "m0_tokens": 58,
+      "visible_ids": [
+        "0:fact",
+        "0:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 63,
+      "split": "train",
+      "key": "a8eda7e0b5ac57009384186cd22fffb87020503564dacd4db420c3f33c8bdf83",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The Clean Air Act Amendments of 1990 addressed air quality problems in the United States and affected the retail price of gasoline Outlook. The long-term future of US gasoline prices and oil prices will likely be influenced by factors such as environmental regulations, global demand, and production levels Facts. The average price level of",
+      "assessment": "acceptable_unknown",
+      "reason": "Gasoline regulation and generic long-term determinants are named without a direction; the next fact is cut off.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "62:fact",
+        "62:preds",
+        "63:fact"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 126,
+      "split": "train",
+      "key": "91a0b537a609ea52f13398b224a1622584d1c4166e0fc3531073baf5c2fd8b1e",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The price of oil has experienced shocks in the past, such as the drop in oil prices in the early 1980s",
+      "assessment": "acceptable_unknown",
+      "reason": "A historical early-1980s oil-price drop does not specify current U.S. retail gasoline pressure.",
+      "m0_tokens": 26,
+      "visible_ids": [
+        "125:fact"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 189,
+      "split": "train",
+      "key": "53b03a9494b0bc5f60dd021a8254cfe04f033ecb3eb71e44b6d1c499d76f62a0",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The upper end of the range of crude oil prices in December 1998 exceeded $100 per barrel Outlook. In the long term, it is possible that changes in global energy markets, such as shifts in supply and demand or changes in production levels, could lead to sustained changes in crude oil prices and, subsequently",
+      "assessment": "acceptable_unknown",
+      "reason": "The oil-price statement and generic supply/demand outlook give no completed target direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "188:fact",
+        "188:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 253,
+      "split": "train",
+      "key": "2641175db979ff1ba514d1ebbc05362b26cdccb7fd870e51dabee978473ef747",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The price of crude oil was high in November 2000, with a decade-high price mentioned in one article Facts. The price of crude oil and fluctuations in exchange rates are factors that could affect actual results",
+      "assessment": "acceptable_unknown",
+      "reason": "High crude-oil levels and exchange-rate risks do not establish an increase or decrease for the specified gasoline target.",
+      "m0_tokens": 44,
+      "visible_ids": [
+        "252:fact",
+        "253:fact"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 316,
+      "split": "train",
+      "key": "5081b4f72a3413ed025af777f028506a4d722f81c93fdcebe28ce60ea483139a",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The price of crude oil plummeted 50% in 1986, and the demand for fuel oil was weakened in the United States due to unusually warm winter weather in 2001 Outlook. In the long-term, the trend of oil prices and gasoline prices may be influenced by factors such as global demand, supply",
+      "assessment": "acceptable_unknown",
+      "reason": "A historical oil-price decline and generic long-term determinants do not establish the specified target direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "315:fact",
+        "315:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 379,
+      "split": "train",
+      "key": "74df77080f4a1f893d6e4147ee6ea24fddcf8b87187dda863ef0f2bce842e2ae",
+      "label": "DECREASE",
+      "output": "DECREASE",
+      "visible_text": "Facts. The price of oil fell sharply on April 1, 2003, due to news about Iraq Outlook. In the long term, the development of alternative energy sources and more fuel-efficient vehicles may lead to a decrease in dependence on oil and a more stable energy market In the short term, oil prices are likely",
+      "assessment": "questionable_product_and_horizon",
+      "reason": "DECREASE can be associated with the stated historical oil fall, but the excerpt does not explicitly connect it to U.S. retail gasoline. The outlook is long-term, and the short-term oil sentence is truncated before its direction. This is not sufficient evidence of a six-week gasoline decrease.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "378:fact",
+        "378:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 443,
+      "split": "train",
+      "key": "e7058111ecb43d652f20e590d7912df81c9896391e76a4c4e97c72f7ce77d27d",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The Consumer Price Index (CPI) is the most widely used measure of inflation in the US, and food and fuel prices constitute the majority of the CPI Outlook. In the long term, the increasing focus on alternative energy sources, such as hydrogen and biodiesel, may lead to a shift away from",
+      "assessment": "acceptable_unknown",
+      "reason": "CPI composition and a truncated long-term alternative-energy outlook do not state gasoline direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "442:fact",
+        "442:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 506,
+      "split": "train",
+      "key": "d0be1257ab0c9d295bc11fc505b8f1765bbf3d25b0514eda140b37e006667b46",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. Hurricane Katrina caused severe damage to U.S. refinery and production capacity in the Gulf of Mexico, leading to increased oil prices Outlook. In the long term, the development and deployment of bioenergy sources, such as sugarcane ethanol, may help reduce dependence on fossil fuels and mitigate the impact of",
+      "assessment": "acceptable_unknown",
+      "reason": "The excerpt describes an oil-price increase after refinery damage and a truncated long-term bioenergy outlook; UNKNOWN avoids asserting a gasoline forecast from an incomplete passage.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "505:fact",
+        "505:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 569,
+      "split": "train",
+      "key": "9532481dd96e1af84022e847b3586ff1250e1c17fcc434f9cae0b9b4f52da472",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. Regular gasoline retail prices in the US were tracked by the U.S. Energy Information Administration Outlook. In the long-term, it is likely that the US will continue to focus on increasing the efficiency of gasoline production from oil, and that the price of gasoline will continue to be influenced by global crude",
+      "assessment": "acceptable_unknown",
+      "reason": "Tracking U.S. gasoline prices and generic determinants provide no explicit direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "568:fact",
+        "568:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 632,
+      "split": "train",
+      "key": "499bcf422b6df7117dfecf2b072a87f48c8f41ff7f559f6f1016388e6b1ad84e",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The price of gasoline increased by $1.03 in the United States Outlook. In the long term, the development of alternative energy sources and increased fuel efficiency may help to reduce the economy's reliance on oil and mitigate the impact of high prices In the short term, oil prices are likely to",
+      "assessment": "acceptable_unknown",
+      "reason": "A past U.S. gasoline increase appears, but the future outlook is generic and truncated; UNKNOWN is conservative. This may discard descriptive directional information, not fabricate a forecast.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "631:fact",
+        "631:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 696,
+      "split": "train",
+      "key": "e417e0cc20337be347af270ab4fefc95a86e4eb7431e9556febc6d752672313b",
+      "label": "DECREASE",
+      "output": "DECREASE",
+      "visible_text": "Facts. The price of rice increased in 2008, with Thailand's price quotes and U.S. Embassy agricultural counselor's Weekly Rice Price Update showing the rise Outlook. In the long-term, the trend towards renewable energy sources and decreasing reliance on fossil fuels may lead to a decrease in energy prices.",
+      "assessment": "blocking_product_and_horizon",
+      "reason": "The fact concerns rice prices. The only decreasing-price outlook concerns generic energy prices in the long term, without naming U.S. retail gasoline or the next six weeks. DECREASE overextends evidence to the declared target.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "695:fact",
+        "695:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 759,
+      "split": "train",
+      "key": "4ca54172e6c3dcf81f9d07b8ab40fd0fe475de5d0bd60158a6b3cd716482a841",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The global economy and energy situation is affected by gasoline prices, with patterns of consumption and production influenced by price subsidies and changes Outlook. In the long term, the economy and energy sector may need to transition towards more sustainable and efficient energy sources, driven by changing consumer behavior and government policies In the short term",
+      "assessment": "acceptable_unknown",
+      "reason": "Consumption/production patterns and a long-term energy transition give no specified gasoline-price direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "758:fact",
+        "758:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 822,
+      "split": "train",
+      "key": "8c37d858e51125ded4b0576aed47aef13d5367254c870b9a684082f0c9397340",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. As of 2011, global natural gas prices vary considerably, with the United States having lower prices compared to other countries Outlook. In the long-term, the United States may need to reassess its energy policies to address the issue of energy poverty and ensure a more stable economic future In the short-",
+      "assessment": "acceptable_unknown",
+      "reason": "The excerpt concerns natural-gas price levels and energy policy, not a directional outlook for retail gasoline.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "821:fact",
+        "821:preds"
+      ]
+    },
+    {
+      "dataset": "Energy",
+      "origin": 886,
+      "split": "train",
+      "key": "9356937eb8686861e0e84655005a9931ef1c44dc573f8b32dfa1cd1261fb42a1",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. The United States has been importing less energy, with most of it being products derived from crude oil Outlook. In the long term, the growth of fossil fuel consumption and the increasing carbon emissions will likely lead to stricter environmental regulations and a shift towards cleaner energy sources, potentially affecting the global energy landscape",
+      "assessment": "acceptable_unknown",
+      "reason": "Lower energy imports and a generic fossil-fuel/regulation outlook do not specify gasoline direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "885:fact",
+        "885:preds"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 360,
+      "split": "train",
+      "key": "38d2b029196f89b6cfa9da50e3751d86946e924730445c249e00b286292b1f08",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "Facts. 1979-12-31: The unemployment rate in the United States rose in 1979, but not as sharply as expected 1980-01-14: The United States unemployment rate was 7.1% in 1980 1980-01-21: The summer of 1979 saw a 20% decline in gasoline sales compared",
+      "assessment": "acceptable_unknown",
+      "reason": "The passage gives past U.S. unemployment changes/levels and an unrelated gasoline fact; UNKNOWN avoids extrapolating a six-month future direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "360:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 372,
+      "split": "train",
+      "key": "836ff75b47bc98107b073275ebb8f7747a443f06aa24fb2627bfb890ea499fe6",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "the United States began to be kept in 1820 Outlook. 1980-12-15: The high interest rate and tight monetary policy may lead to a slowdown in economic growth and potentially higher unemployment rates in the coming months Facts. 1980-12-29: The minimum wage rate in Connecticut was increased from 60 cents",
+      "assessment": "conservative_possible_underextraction",
+      "reason": "The passage says high interest rates and tight policy may cause higher unemployment in coming months. UNKNOWN is cautious but may omit relevant stated trend pressure; this is not an unsupported directional assertion.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "371:fact",
+        "371:preds",
+        "372:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 385,
+      "split": "train",
+      "key": "3ba3e050ab9a4d5bf21777cec6fea13f1ca6527bed8cf10bad7ee9df32a46043",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "to address high unemployment rates and stimulate economic growth, potentially leading to improved labor market outcomes In the short term, it is likely that unemployment rates will remain high, and economic growth may be slow Facts. 1982-02-08: The real gross national product per capita grew at an annual rate of 2.8",
+      "assessment": "acceptable_unknown",
+      "reason": "The excerpt mixes potential improved labor-market outcomes with unemployment remaining high and a GDP fact; no unambiguous target change is established.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "384:preds",
+        "385:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 398,
+      "split": "train",
+      "key": "4f26bae6d7ae9e36c6ee150d4e205e1964482be0d2ba6ad279e9afb9948f2254",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "stimulate job growth 1983-02-21: The high unemployment rate may lead to a decrease in consumer spending and a subsequent slowdown in economic growth Facts. 1983-03-07: The 7th Summit Conference of Heads of State or Government of the Non-Aligned Movement took place on March 12, 1983, and",
+      "assessment": "acceptable_unknown",
+      "reason": "A decrease in consumer spending is not a decrease in unemployment; UNKNOWN preserves that distinction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "397:preds",
+        "398:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 411,
+      "split": "train",
+      "key": "329cfdfc0151e2f74a08ee32d0223b2f92ffcd7271f96f2688d2c8c892171b54",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "in economic growth, potentially affecting consumer spending and business investments 1984-03-12: Long-term predictions : NA Short-term predictions : NA Facts. 1984-03-26: Objective facts about the Economics situation: Unemployment rates in the Pacific are very high, with average youth unemployment rates being particularly high 1984",
+      "assessment": "acceptable_unknown",
+      "reason": "The excerpt includes NA predictions and unemployment in the Pacific/youth populations, without a U.S. aggregate direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "410:preds",
+        "411:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 423,
+      "split": "train",
+      "key": "a9d11e582317dd8e9c857b9b32630d9e120cb02e8d537056b40b13d53a45c0ec",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "unemployment rates may continue to rise, particularly in industries affected by foreign imports 1985-03-18: In the short term, it is possible that the exchange rate fluctuations may continue, leading to potential impacts on trade and investment decisions Facts. 1985-04-08: The unemployment rate was a concern in the 1980s",
+      "assessment": "conservative_possible_underextraction",
+      "reason": "The passage says unemployment may continue to rise in affected industries, but geography and aggregate applicability are not supplied. UNKNOWN abstains rather than extending subgroup evidence to the U.S. aggregate.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "422:preds",
+        "423:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 436,
+      "split": "train",
+      "key": "45c6a5a2da5dcd0f0358a2552e21b0433fd3fa5009c7ce0af9da8a620f263e4e",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "rate among women in the rural South may continue to be a significant issue without targeted economic interventions. Unemployment rates may fluctuate, but the underlying social tensions around job competition are likely to persist Predictions for the short-term future : NA Facts. 1986-05-05: The number of drilling rigs at",
+      "assessment": "acceptable_unknown",
+      "reason": "Women in the rural South, fluctuations, and persistent job competition do not establish the aggregate U.S. direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "435:preds",
+        "436:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 449,
+      "split": "train",
+      "key": "ecdcb5865013efa7753cc4130745c804c9654bcf2c028a803acd291eb40b9e61",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "rate was a concern in 1987, with high unemployment rates being a danger to be overcome in some states Outlook. 1987-04-27: In the short term, interest rates may continue to be manipulated to protect the American currency, potentially leading to a temporary stabilization of the economy 1987-05-11: In",
+      "assessment": "acceptable_unknown",
+      "reason": "A high unemployment level and temporary economic stabilization do not specify unemployment change.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "448:fact",
+        "448:preds"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 462,
+      "split": "train",
+      "key": "664544b06729bb50edabcef75695bb6aeddde2f40f746aa419df2e1168f9f04a",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "unemployment rates, particularly among certain demographics, unless there are significant changes in economic policies or global factors. The Soviet Union's economic growth may continue to slow down unless it addresses the impact of the arms race and other global factors on its economy Facts. 1988-07-11: The unemployment rate in Liverpool,",
+      "assessment": "acceptable_unknown",
+      "reason": "The passage includes demographic unemployment, the Soviet Union, and Liverpool; UNKNOWN avoids applying those to the U.S. aggregate.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "461:preds",
+        "462:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 475,
+      "split": "train",
+      "key": "7d42c795ee30f6cb5c5fedd641a7f4c3ad71b0b70503c7aa74902532466dcf51",
+      "label": "DECREASE",
+      "output": "DECREASE",
+      "visible_text": "the decline in real rates and the administration's goals 1989-07-24: The long-term economic prospects of the Philippines appear promising, with a potential for sustained economic growth and development Given the positive trend, it is likely that the unemployment rate in the Philippines will continue to decline in the short term Facts",
+      "assessment": "blocking_geography",
+      "reason": "The explicit decline forecast is for unemployment in the Philippines. The declared target is U.S. unemployment. DECREASE transfers a direction across countries without excerpt support; UNKNOWN was required for the declared target.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "474:preds"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 487,
+      "split": "train",
+      "key": "b22146f8eea0e29f99df77c1d17866926b3fbacf5c5e023aba96d089d6c2c8ee",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "continue, and the economy may continue to expand, but poverty rates and income inequality may persist if underlying issues are not addressed 1990-07-16: If left unaddressed, the high unemployment rate and banking system stress may lead to long-term economic instability and potential widespread social unrest In the short term,",
+      "assessment": "acceptable_unknown",
+      "reason": "High unemployment and banking stress have no explicit supported unemployment direction for the U.S. aggregate.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "486:preds"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 500,
+      "split": "train",
+      "key": "bc7dee37c9a90aa196ee4a961c949c86fe21b6fd657822e6fc9b7b8994227033",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": "high rates of unemployment Outlook. 1991-07-29: Long-term predictions : NA Short-term predictions : NA 1991-08-12: The high unemployment rates may lead to increased government spending on social programs and job creation initiatives to address the issue Facts. 1991-09-09: Objective facts about",
+      "assessment": "acceptable_unknown",
+      "reason": "NA predictions and possible government spending/job creation do not state a U.S. unemployment trend.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "499:fact",
+        "499:preds",
+        "500:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 513,
+      "split": "train",
+      "key": "0f26c23f8d1465794ad917e110e6060c6ea4c655e573f2836dd3d29c5ef9531f",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": " percent Outlook. 1992-08-31: In the short-term, the high unemployment rate may continue to be a challenge for the economy, potentially leading to further economic stagnation 1992-09-14: Long-term predictions : NA Short-term predictions : NA Facts. 1992-10-05",
+      "assessment": "acceptable_unknown",
+      "reason": "Continued high unemployment is a level/challenge, not a completed directional forecast.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "512:fact",
+        "512:preds",
+        "513:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 526,
+      "split": "train",
+      "key": "68ad88ef29015fb4f717250ebda9afd44c7f520ceae87054eeb6d1e3c3d85961",
+      "label": "DECREASE",
+      "output": "DECREASE",
+      "visible_text": " the short-term, it is likely that unemployment rates will continue to be a concern in these regions, potentially leading to social and economic instability Facts. 1993-11-01: The unemployment rate in the United States in 1993 was 13% 1993-11-08: The unemployment rate in the United States dropped",
+      "assessment": "descriptive_target_match_horizon_unverified",
+      "reason": "The excerpt explicitly says U.S. unemployment dropped, so DECREASE matches the observed target direction. It does not establish continuation over the next six months; it must not be treated as a verified forecast.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "525:preds",
+        "526:fact"
+      ]
+    },
+    {
+      "dataset": "SocialGood",
+      "origin": 539,
+      "split": "train",
+      "key": "20e7ef72d1d6362b21f0f5b7a9fcd08c4cd0c559cbeb610400ddaf854d3b8e03",
+      "label": "UNKNOWN",
+      "output": "UNKNOWN",
+      "visible_text": " revenues and economic growth in the long term, but this would depend on successful implementation of policies and management of tax rates Facts. 1994-11-28: The unemployment rate in the United States was around 11-16% in 1994 1994-12-05: The United States had significant events on December 8,",
+      "assessment": "acceptable_unknown",
+      "reason": "The excerpt supplies a U.S. unemployment level and generic economic growth, without target direction.",
+      "m0_tokens": 64,
+      "visible_ids": [
+        "538:preds",
+        "539:fact"
+      ]
+    }
+  ],
+  "limitations": [
+    "This is not an accuracy calculation or a verification of true future trends.",
+    "Only the fixed 30 informative training samples were reviewed; no full-stream generalization conclusion follows.",
+    "Input availability is the existing end_date proxy, not verified publication-time availability.",
+    "Source excerpt factual claims were not externally verified; no historical numerical correction or pretrained knowledge was used.",
+    "26/30 UNKNOWN outputs indicate limited directional extraction in this sample; no usefulness or predictive-power claim is made.",
+    "Passing finite inference and enum formatting establishes runtime execution, while this semantic failure keeps B3 admission stopped."
+  ],
+  "source_code": {
+    "commit": "7f5081d11a495a441f37ce076af9feb4983adaef",
+    "dirty": false
+  },
+  "source_file": "iadapter/task_text_prior.py",
+  "source_sha256": "396c35f3b73763174d01d312329a077862ee040a1765b38c83f922c81d0e94d6",
+  "cache_sha256": "d66aa1d3792e528e6fa6bcfcb2658ad10641ce366426b11f879152ca2d607ca8",
+  "preflight_sha256": "d10d2a80c57586681936e2148792d57c4eee272cfeef1cb85133f0cebc6a7162",
+  "reviewer": "fresh qwen_environment_witness agent; same-family provisional qualitative review"
+}
