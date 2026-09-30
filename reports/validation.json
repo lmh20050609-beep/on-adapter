@@ -1,0 +1,12 @@
+{
+  "planned_runs": 190,
+  "completed_runs": 190,
+  "unique_backbones": 35,
+  "all_saved_metrics_recomputed": true,
+  "original_csv_audit_passed": 190,
+  "original_csv_audit_report": "original_csv_audit.json",
+  "all_comparisons_same_origins_targets_masks_checkpoint": true,
+  "all_mature_origins_once_only": true,
+  "code_commit": "f68027fc8dc6a091cfc2d80d6896f67660f54651",
+  "p_values_computed": false
+}

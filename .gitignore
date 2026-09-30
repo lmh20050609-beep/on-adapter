@@ -4,7 +4,6 @@ cache/
 weights/
 checkpoints/
 runs/
-reports/
 logs/
 queue_state.json
 .aris/
@@ -15,3 +14,10 @@ submission/code/*.pth
 experiments/
 profile_output/
 external/
+
+# Local credentials and machine configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key

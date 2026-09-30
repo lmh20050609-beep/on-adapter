@@ -1,0 +1,20 @@
+{
+  "status": "completed",
+  "planned": 190,
+  "pending": 0,
+  "running": 0,
+  "completed": 190,
+  "failed": 0,
+  "artifact_errors": [],
+  "experiment_code": {
+    "commit": "f68027fc8dc6a091cfc2d80d6896f67660f54651",
+    "dirty": false
+  },
+  "finished_at": 1790611664.9604945,
+  "process": {
+    "recorded_pid": null,
+    "verified_campaign_process": false,
+    "liveness": "not_recorded"
+  },
+  "evidence_validation": "markers_only; --audit-completed verifies original CSVs"
+}

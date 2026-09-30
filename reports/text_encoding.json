@@ -1,0 +1,185 @@
+{
+  "Economy": {
+    "data": {
+      "dataset": "Economy",
+      "source": "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Economy.csv",
+      "columns": [
+        "Exports",
+        "Imports",
+        "OT"
+      ],
+      "rows": 423,
+      "train_end": 253,
+      "val_end": 338,
+      "mean": [
+        59830.203125,
+        91344.4609375,
+        -31514.2578125
+      ],
+      "scale": [
+        21131.302734375,
+        42370.953125,
+        22563.63671875
+      ],
+      "missing_targets": 0,
+      "text_availability": "merged end_date proxy; not verified publication time"
+    },
+    "contextual_layers": 12,
+    "max_length": 64,
+    "batch_size": 8,
+    "device": "cuda",
+    "encoding_seconds": 1.5052198080011294,
+    "encoded_rows": 423,
+    "seconds_per_encoded_row": 0.0035584392624140176,
+    "cache_direct_max_error": 9.5367431640625e-07,
+    "peak_cuda_allocated_bytes": 466480128,
+    "weights": "/home/wuwa/projects/research/iadapter_revision/weights/bert-base-uncased"
+  },
+  "Energy": {
+    "data": {
+      "dataset": "Energy",
+      "source": "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Energy.csv",
+      "columns": [
+        "OT",
+        "Weekly East Coast All Grades All Formulations Retail Gasoline Prices  (Dollars per Gallon)",
+        "Weekly New England (PADD 1A) All Grades All Formulations Retail Gasoline Prices  (Dollars per Gallon)",
+        "Weekly Central Atlantic (PADD 1B) All Grades All Formulations Retail Gasoline Prices  (Dollars per Gallon)",
+        "Weekly Lower Atlantic (PADD 1C) All Grades All Formulations Retail Gasoline Prices  (Dollars per Gallon)",
+        "Weekly Midwest All Grades All Formulations Retail Gasoline Prices  (Dollars per Gallon)",
+        "Weekly Gulf Coast All Grades All Formulations Retail Gasoline Prices  (Dollars per Gallon)",
+        "Weekly Rocky Mountain All Grades All Formulations Retail Gasoline Prices  (Dollars per Gallon)",
+        "Weekly West Coast All Grades All Formulations Retail Gasoline Prices  (Dollars per Gallon)"
+      ],
+      "rows": 1479,
+      "train_end": 887,
+      "val_end": 1183,
+      "mean": [
+        2.1273674964904785,
+        2.1222548484802246,
+        2.168903112411499,
+        2.16576886177063,
+        2.082181453704834,
+        2.0817947387695312,
+        2.0335681438446045,
+        2.121215343475342,
+        2.3172175884246826
+      ],
+      "scale": [
+        0.8954261541366577,
+        0.9024654030799866,
+        0.8965988159179688,
+        0.9010180830955505,
+        0.9012078046798706,
+        0.8859617710113525,
+        0.857590913772583,
+        0.8544983267784119,
+        0.9359298944473267
+      ],
+      "missing_targets": 0,
+      "text_availability": "merged end_date proxy; not verified publication time"
+    },
+    "contextual_layers": 12,
+    "max_length": 64,
+    "batch_size": 8,
+    "device": "cuda",
+    "encoding_seconds": 4.115870752000774,
+    "encoded_rows": 1479,
+    "seconds_per_encoded_row": 0.0027828740716705704,
+    "cache_direct_max_error": 1.6689300537109375e-06,
+    "peak_cuda_allocated_bytes": 466611200,
+    "weights": "/home/wuwa/projects/research/iadapter_revision/weights/bert-base-uncased"
+  },
+  "Security": {
+    "data": {
+      "dataset": "Security",
+      "source": "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Security.csv",
+      "columns": [
+        "OT"
+      ],
+      "rows": 297,
+      "train_end": 178,
+      "val_end": 237,
+      "mean": [
+        349405472.0
+      ],
+      "scale": [
+        323096864.0
+      ],
+      "missing_targets": 0,
+      "text_availability": "merged end_date proxy; not verified publication time"
+    },
+    "contextual_layers": 12,
+    "max_length": 64,
+    "batch_size": 8,
+    "device": "cuda",
+    "encoding_seconds": 0.8269302520056954,
+    "encoded_rows": 297,
+    "seconds_per_encoded_row": 0.002784276942780119,
+    "cache_direct_max_error": 4.76837158203125e-07,
+    "peak_cuda_allocated_bytes": 466480128,
+    "weights": "/home/wuwa/projects/research/iadapter_revision/weights/bert-base-uncased"
+  },
+  "SocialGood": {
+    "data": {
+      "dataset": "SocialGood",
+      "source": "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/SocialGood.csv",
+      "columns": [
+        "OT"
+      ],
+      "rows": 900,
+      "train_end": 540,
+      "val_end": 720,
+      "mean": [
+        5.796666622161865
+      ],
+      "scale": [
+        1.6922119855880737
+      ],
+      "missing_targets": 8,
+      "text_availability": "merged end_date proxy; not verified publication time"
+    },
+    "contextual_layers": 12,
+    "max_length": 64,
+    "batch_size": 8,
+    "device": "cuda",
+    "encoding_seconds": 1.4805288329953328,
+    "encoded_rows": 534,
+    "seconds_per_encoded_row": 0.002772525904485642,
+    "cache_direct_max_error": 8.344650268554688e-07,
+    "peak_cuda_allocated_bytes": 466480128,
+    "weights": "/home/wuwa/projects/research/iadapter_revision/weights/bert-base-uncased"
+  },
+  "Climate": {
+    "data": {
+      "dataset": "Climate",
+      "source": "/home/wuwa/projects/research/adaptz_paper_work/ADAPT-Z-main/ADAPT-Z-main/data/Climate.csv",
+      "columns": [
+        "OT",
+        "Anomaly"
+      ],
+      "rows": 496,
+      "train_end": 297,
+      "val_end": 396,
+      "mean": [
+        2.568720579147339,
+        0.07286195456981659
+      ],
+      "scale": [
+        0.5310389995574951,
+        0.48104217648506165
+      ],
+      "missing_targets": 0,
+      "text_availability": "merged end_date proxy; not verified publication time"
+    },
+    "contextual_layers": 12,
+    "max_length": 64,
+    "batch_size": 8,
+    "device": "cuda",
+    "encoding_seconds": 1.365743880996888,
+    "encoded_rows": 494,
+    "seconds_per_encoded_row": 0.002764663726714348,
+    "cache_direct_max_error": 3.5762786865234375e-07,
+    "peak_cuda_allocated_bytes": 466611200,
+    "weights": "/home/wuwa/projects/research/iadapter_revision/weights/bert-base-uncased"
+  }
+}

@@ -17,6 +17,16 @@ The canonical project directory is `iadapter`. Historical absolute paths in
 experiment records are resolved through the checksum-verified mappings in
 `docs/PATH_MIGRATION.json`; obsolete project directories are no longer required.
 
+
+## Repository contents and setup
+
+本仓库同步投稿代码、当前修订实现、实验改进、测试与review证据。最新结论见上方交付入口；TiMi启发目前仅为讨论，尚未作为实现或实验结果纳入。
+
+- Current executable revision: `iadapter/`; preserved submission code: `submission/code/`.
+- Published aggregate results and figures: `reports/` and `refine-logs/`.
+- Environment and fresh-clone instructions: [GitHub setup and sync scope](docs/GITHUB_SYNC.md), [requirements](requirements.txt).
+- Large datasets, model weights, caches and complete raw runs remain local; restore inputs before running experiments or artifact-dependent tests.
+
 ## Imported submission materials
 
 - `submission/code/`: all 215 files from the supplied code/data ZIP, including
