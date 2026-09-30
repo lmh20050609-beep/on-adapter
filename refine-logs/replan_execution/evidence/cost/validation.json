@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "rounds": 18,
+  "formal_state_files_not_written": true,
+  "frozen_backbones_unchanged": true,
+  "scope": "Fresh warmed copy per round; cached first real development-origin prediction; repeated fixed mature-record optimizer updates with feedback computation/refresh; synchronization included; excludes queue/logging/input loading and encoder/generation. Shared laptop GPU; this is not deployment throughput.",
+  "preprocessing": {
+    "status": "completed",
+    "generated_unique": 1538,
+    "planned": 1538,
+    "invalid": 0,
+    "seconds": 95.92718096899989,
+    "peak_allocated_bytes": 1016280064,
+    "code": {
+      "commit": "9c0d6584cebc0bdfde5db980744d324b32ee75e4",
+      "dirty": false
+    },
+    "encoder_batch": 1,
+    "total_input_tokens": 264669,
+    "total_output_tokens": 3275,
+    "cumulative_budget_seconds": 114.58459520799967,
+    "admission": "user_revised_exploratory_imperfect_prior",
+    "original_quality_status": "stopped_groundedness"
+  },
+  "cumulative_generation_budget": {
+    "limit_seconds": 3600,
+    "used_seconds": 114.58969390200015,
+    "scope": "preflight plus all generation invocations, including model load/tokenization",
+    "failed_attempt_runtime_accounting": "First batch failure not timed internally; charged full observed tool wall time7.8693406sec conservatively."
+  }
+}

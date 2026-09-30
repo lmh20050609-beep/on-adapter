@@ -69,3 +69,42 @@ Evidence: ../review_sprint/REVIEW_UPDATE_FIVE_SEED.md; ../review_compression/REV
 The proposed revision separates four evidence blocks. R1: the original revised five-domain H6 three-method comparison (75 runs), two-domain key ablations plus the Security routing-gradient check (85), and Economy/Energy H12 (30), totaling 190. These use the original revised 60/20/20 chronological protocol. R2: Energy/SocialGood H6 development component/content studies, with 60% training, 60%–70% checkpoint selection and 70%–80% evaluation; the 2×2 study has three seeds, selected candidates five. R3: the same two-domain three-seed projection compression study. R4: five-domain OT-only H6 external static/online comparison with five seeds under the development split, 75 static and 75 online cells. Reused controls are explicitly identified and not counted as new runs. All reports specify numerical target channels; these blocks must not be pooled.
 
 No ten-domain, multiple-backbone, multiple-encoder or arbitrary-delay robustness claim is inferred from this evidence. The original broad-table records, native VoT generation provenance, true text publication-time records and independent new confirmation data remain unresolved. The present delivery contains replacement paragraphs and table/figure sources because the full LaTeX manuscript was not supplied.
+
+
+# 新增review回应段落：按实际证据填入正文
+
+本文件是完整旧回复的追加/替换素材，不是已提交rebuttal。ECmL四点和LCo1五点保持全部覆盖。新小幅收益可正面报告，同时限定对照和范围。
+
+## ECmL F1 / LCo1 P3：小幅和波动提升
+
+We have replaced the broad consistency claim with the observed improvements and their conditions. In the new three-seed OT study, simple additive text lowers SocialGood mean MSE by0.85% relative to numerical online adaptation, with improvements in two seeds; against its own static state, the reduction is2.75% in all three seeds. This is modest positive evidence even though it does not meet the original two-domain engineering screen. Energy instead worsens against the numerical control. Full online adaptation also improves its own warmed static state by28.71% MSE on Energy and2.53% on SocialGood. We now report these improvements directly, alongside stronger controls, all seed outcomes and paired-difference SD. The engineering threshold is distinguished from significance, and no significance test was conducted.
+
+## ECmL F3 / LCo1 P4：反馈增益隔离
+
+A same-start U×F deployment study holds the full architecture and warmed weights fixed. U1F1 has1.58%/0.47% higher mean MSE than U1F0 on Energy/SocialGood, while U0F1 also raises average error over U0F0. Thus the joint online-static improvement cannot be assigned to gradient-cache refresh. These findings clarify rather than erase the useful parameter-adaptation effect. They isolate feedback during deployment, not feedback used during training warm-up. The original routing-gradient, descriptor, entropy and homogeneous-expert ablations remain separately reported, without claiming every component is required.
+
+## LCo1 W4：文本信号与接入
+
+We distinguish text availability from readable content. A training-only PCA/Ridge study adds16-dimensional BERT content beyond four availability descriptors. It lowers Energy mean MSE4.43% in all three seeds, with higher error under historical donor substitution, while worsening SocialGood mean MSE6.69%. This is local content evidence, although its Energy error remains higher than the bare numerical backbone. Our input audit also shows that the newest selected record is absent from the actual64-token BERT content in139/148 Energy development origins. The audit therefore motivates a concrete equal-budget recent-record-first follow-up; it does not establish the cause of current forecast errors.
+
+## 固定小模型探索与TiMi
+
+A single fixed0.5B trend-prior attempt uses the same visible excerpt and a fixed target description. All1538 unique outputs are valid five-class labels. We retain two explicit target-grounding failures found in the30 training-text preview; this noisy representation is tested for prediction utility, not presented as verified causal knowledge. After the user requested a broader exploratory policy, full generation proceeded under a separately recorded admission, with model, prompt and content budget unchanged. Energy's LLM readout lowers MSE1.11% relative to metadata alone in all three seeds and is worsened by donor substitution, but remains worse than raw PCA5; SocialGood worsens. These mixed findings motivated the same-capacity simple-fusion follow-up rather than adding MoE components or enlarging the language model.
+
+## ECmL F2 / LCo1 P2：比较协议
+
+The new internal OT controls share origins, valid targets, backbone checkpoint and insertion position. Reused controls are identified and independently scored against the original CSV. Static GPT4MTS is retained because the earlier fixed online extension was worse; it has different text history, encoding and architecture and is labeled a complete-system comparison. We do not claim recovery of original Table2 position statistics or native VoT provenance. No adverse external control is used to inflate the new candidate's ranking.
+
+## ECmL F4 / LCo1 P1：实现及成本
+
+The origin executor first saves the forecast, then consumes each mature record once, using that origin's saved numerical/textual feedback and text identifiers. Missing original targets are masked and the numerical backbone is unchanged. In the new feedback policies, parameter updates and feedback refresh are independently switched; the same original forecasts are scored. Full contextual BERT features remain frozen and cached. Actual model-generation and cache costs are reported separately from online adapter latency. A batched FP16 failure was preserved and corrected by singleton inference with identical weights/prompt; failed and diagnostic runtime remain in the accumulated local budget.
+
+## LCo1 P5：表格范围
+
+The new R5 block contains30 new neural evaluations and30 exact B1 references; B2 and B3 each have18 train/selection readout tasks with54 predefined lambda configurations, rather than independent neural runs. B2 has six donor sequences; B3 shares six donor-origin sequences across two representation conditions. The E003 follow-up has24 neural evaluations and12 warm-ups with12 same-state donor sequences. All use the first60% train,60–70% selection,70–80% development, OT,H6,Energy/SocialGood and three optimization seeds. They remain separate from the original190 evaluation and older five-domain external tables. These periods were already observed during development.
+
+## E003 final results and scope
+
+The follow-up now completes24 evaluations and12 warm-ups. The same five-dimensional LLM representation reduces online mean MSE over raw BERT-PCA5 by3.14% on Energy and1.54% on SocialGood, with mean MAE reductions1.53% and0.80%; two and three seeds improve MSE. Against numerical online adaptation, SocialGood improves2.34% MSE/1.59% MAE, while Energy worsens0.99%/0.39%. Energy static LLM remains better than its online form. We present these as actual restricted gains and retain every adverse outcome. The same-state donor changes are small, limiting semantic-mechanism attribution. New narrow mean-comparison claims are supported by a separate provisional assessment; broader performance and universal component claims remain unestablished. All62 tests and original-CSV checks pass. Eighteen cost rounds use isolated copies; frozen-generation and cache costs are included separately. No response has been submitted.
+
+Evidence: ../replan_execution/evidence/E003/; ../replan_execution/evidence/cost/; ../replan_execution/CLAIMS_FROM_RESULTS.md; ../EXPERIMENT_RESULTS.md.

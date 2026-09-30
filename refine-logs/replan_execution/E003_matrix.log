@@ -1,0 +1,24 @@
+FUSION_COMPLETE Energy_s2024_raw_BERT_PCA5
+FUSION_COMPLETE Energy_s2024_LLM5
+FUSION_COMPLETE Energy_s2025_raw_BERT_PCA5
+FUSION_COMPLETE Energy_s2025_LLM5
+FUSION_COMPLETE SocialGood_s2023_raw_BERT_PCA5
+FUSION_COMPLETE SocialGood_s2023_LLM5
+FUSION_COMPLETE SocialGood_s2024_raw_BERT_PCA5
+FUSION_COMPLETE SocialGood_s2024_LLM5
+FUSION_COMPLETE SocialGood_s2025_raw_BERT_PCA5
+FUSION_COMPLETE SocialGood_s2025_LLM5
+FUSION_QUEUE 12 /12
+   dataset representation             mode  n  mse_mean   mse_sd  mae_mean   mae_sd
+    Energy           LLM5 donor_same_state  3  0.014238 0.000167  0.090381 0.000220
+    Energy           LLM5           online  3  0.014237 0.000164  0.090377 0.000205
+    Energy           LLM5           static  3  0.014138 0.000327  0.090032 0.000785
+    Energy  raw_BERT_PCA5 donor_same_state  3  0.014685 0.000665  0.091735 0.001659
+    Energy  raw_BERT_PCA5           online  3  0.014697 0.000694  0.091779 0.001747
+    Energy  raw_BERT_PCA5           static  3  0.014912 0.001698  0.093366 0.006586
+SocialGood           LLM5 donor_same_state  3  0.130844 0.015160  0.208336 0.012311
+SocialGood           LLM5           online  3  0.130672 0.015281  0.208180 0.012376
+SocialGood           LLM5           static  3  0.132819 0.017523  0.209625 0.014407
+SocialGood  raw_BERT_PCA5 donor_same_state  3  0.132773 0.014102  0.209882 0.011630
+SocialGood  raw_BERT_PCA5           online  3  0.132720 0.014202  0.209849 0.011744
+SocialGood  raw_BERT_PCA5           static  3  0.133779 0.016167  0.210152 0.013364

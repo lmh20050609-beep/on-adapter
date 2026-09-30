@@ -1,7 +1,7 @@
 {
-  "status": "PLANNED",
+  "status": "COMPLETED_WITH_USER_REVISED_EXPLORATION",
   "date": "2026-09-30",
-  "experiments_launched": 0,
+  "experiments_launched": true,
   "source_commit": "cff31c0f65455a0fd29c1e506ec8d045e3b8f55c",
   "primary_claims": [
     "deployment_feedback_increment",
@@ -26,7 +26,7 @@
       "dataset": "Energy",
       "seed": 2023,
       "system": "frozen_backbone",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -35,7 +35,7 @@
       "dataset": "Energy",
       "seed": 2023,
       "system": "text_add_static",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -44,7 +44,7 @@
       "dataset": "Energy",
       "seed": 2023,
       "system": "text_add_online",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -53,7 +53,7 @@
       "dataset": "Energy",
       "seed": 2023,
       "system": "iadapter_U1F0",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -62,7 +62,7 @@
       "dataset": "Energy",
       "seed": 2023,
       "system": "iadapter_U0F1",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -71,7 +71,7 @@
       "dataset": "Energy",
       "seed": 2024,
       "system": "frozen_backbone",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -80,7 +80,7 @@
       "dataset": "Energy",
       "seed": 2024,
       "system": "text_add_static",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -89,7 +89,7 @@
       "dataset": "Energy",
       "seed": 2024,
       "system": "text_add_online",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -98,7 +98,7 @@
       "dataset": "Energy",
       "seed": 2024,
       "system": "iadapter_U1F0",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -107,7 +107,7 @@
       "dataset": "Energy",
       "seed": 2024,
       "system": "iadapter_U0F1",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -116,7 +116,7 @@
       "dataset": "Energy",
       "seed": 2025,
       "system": "frozen_backbone",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -125,7 +125,7 @@
       "dataset": "Energy",
       "seed": 2025,
       "system": "text_add_static",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -134,7 +134,7 @@
       "dataset": "Energy",
       "seed": 2025,
       "system": "text_add_online",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -143,7 +143,7 @@
       "dataset": "Energy",
       "seed": 2025,
       "system": "iadapter_U1F0",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -152,7 +152,7 @@
       "dataset": "Energy",
       "seed": 2025,
       "system": "iadapter_U0F1",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -161,7 +161,7 @@
       "dataset": "SocialGood",
       "seed": 2023,
       "system": "frozen_backbone",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -170,7 +170,7 @@
       "dataset": "SocialGood",
       "seed": 2023,
       "system": "text_add_static",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -179,7 +179,7 @@
       "dataset": "SocialGood",
       "seed": 2023,
       "system": "text_add_online",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -188,7 +188,7 @@
       "dataset": "SocialGood",
       "seed": 2023,
       "system": "iadapter_U1F0",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -197,7 +197,7 @@
       "dataset": "SocialGood",
       "seed": 2023,
       "system": "iadapter_U0F1",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -206,7 +206,7 @@
       "dataset": "SocialGood",
       "seed": 2024,
       "system": "frozen_backbone",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -215,7 +215,7 @@
       "dataset": "SocialGood",
       "seed": 2024,
       "system": "text_add_static",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -224,7 +224,7 @@
       "dataset": "SocialGood",
       "seed": 2024,
       "system": "text_add_online",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -233,7 +233,7 @@
       "dataset": "SocialGood",
       "seed": 2024,
       "system": "iadapter_U1F0",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -242,7 +242,7 @@
       "dataset": "SocialGood",
       "seed": 2024,
       "system": "iadapter_U0F1",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -251,7 +251,7 @@
       "dataset": "SocialGood",
       "seed": 2025,
       "system": "frozen_backbone",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -260,7 +260,7 @@
       "dataset": "SocialGood",
       "seed": 2025,
       "system": "text_add_static",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -269,7 +269,7 @@
       "dataset": "SocialGood",
       "seed": 2025,
       "system": "text_add_online",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -278,7 +278,7 @@
       "dataset": "SocialGood",
       "seed": 2025,
       "system": "iadapter_U1F0",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -287,7 +287,7 @@
       "dataset": "SocialGood",
       "seed": 2025,
       "system": "iadapter_U0F1",
-      "status": "PLANNED",
+      "status": "DONE",
       "split": "development60_10_10",
       "target": "OT",
       "horizon": 6
@@ -300,7 +300,7 @@
       "system": "numeric_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/Energy_s2023/runs/numeric_static",
       "metrics_sha256": "3a65247b07cdd1786b6e192a982c21c870b5d771c3df3bc42632042f334d6bce",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -308,7 +308,7 @@
       "system": "numeric_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/Energy_s2023/numeric_online",
       "metrics_sha256": "b6a13b1e350ce8dd1dbc6843ef266f010f9faa06a6676362f6e690412655d337",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -316,7 +316,7 @@
       "system": "iadapter_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/Energy_s2023/runs/iadapter_static",
       "metrics_sha256": "21febff2e80e9f5bee557bf4cc65b63c3431a63a2a3274830677e979e088a6c0",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -324,7 +324,7 @@
       "system": "iadapter_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/Energy_s2023/iadapter_online",
       "metrics_sha256": "dd78361e6e4395c1b1f0e550226721081965c5209fa3bc4d56c60bcf89b98453",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -332,7 +332,7 @@
       "system": "gpt4mts_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/Energy_s2023/runs/gpt4mts_static",
       "metrics_sha256": "5f1089e99a9877d03488215b791cfcc56eb927850bdae2781888a5c6729608a8",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -340,7 +340,7 @@
       "system": "numeric_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/Energy_s2024/runs/numeric_static",
       "metrics_sha256": "8d287f1847feb1b613429a9a887d4a56e2363d605562a6cb74cd4059bd467d89",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -348,7 +348,7 @@
       "system": "numeric_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/Energy_s2024/numeric_online",
       "metrics_sha256": "acf066b0a58ffb2d024342bf5f548f53ef7da4e5c517893a9e56fa514c4c1a40",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -356,7 +356,7 @@
       "system": "iadapter_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/Energy_s2024/runs/iadapter_static",
       "metrics_sha256": "1df04f7f44886558817f29b3bce638c4f7a0639bcf5c22b1cf433af966b8af0e",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -364,7 +364,7 @@
       "system": "iadapter_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/Energy_s2024/iadapter_online",
       "metrics_sha256": "8510b0f2f8be74e5e1662ebd05dc6b0790f956c80ea07c20ce02be63cea0a2dc",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -372,7 +372,7 @@
       "system": "gpt4mts_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/Energy_s2024/runs/gpt4mts_static",
       "metrics_sha256": "f09251b1cf58a7fdb042d92094c930d3479e456bb258c330dba63d99f568aa19",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -380,7 +380,7 @@
       "system": "numeric_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/Energy_s2025/runs/numeric_static",
       "metrics_sha256": "1f7080d11cf0378c49eba9ad5595202fa29fc2ee7122c14e21c6fa2464adb822",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -388,7 +388,7 @@
       "system": "numeric_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/Energy_s2025/numeric_online",
       "metrics_sha256": "5b01c269769eaa953be8aa6a20e4c2ecb6014bf1e0cb81e84d110dc6a0e9cf24",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -396,7 +396,7 @@
       "system": "iadapter_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/Energy_s2025/runs/iadapter_static",
       "metrics_sha256": "d4309da0964f324e04f7a98458d64c8cf8431fc3431fb3bdde310850a2411c1e",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -404,7 +404,7 @@
       "system": "iadapter_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/Energy_s2025/iadapter_online",
       "metrics_sha256": "a127925d3046aa872e2dd9b50f413a849478e691d35aa99c18f661ace58c2b52",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "Energy",
@@ -412,7 +412,7 @@
       "system": "gpt4mts_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/Energy_s2025/runs/gpt4mts_static",
       "metrics_sha256": "e011bd38fc6837c249369d18cc36e0c8ed21a6a404e2d74d70bd96c9968daef0",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -420,7 +420,7 @@
       "system": "numeric_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/SocialGood_s2023/runs/numeric_static",
       "metrics_sha256": "70c551f4ee550d62af78cf1b5a0c437a1584b7802e93f8d2f5e48f5af533fb4a",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -428,7 +428,7 @@
       "system": "numeric_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/SocialGood_s2023/numeric_online",
       "metrics_sha256": "5fa2e98199a79c919e2b44e13d8d8cb8c0b77f91ca20ecec05e92a120c3c0955",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -436,7 +436,7 @@
       "system": "iadapter_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/SocialGood_s2023/runs/iadapter_static",
       "metrics_sha256": "543a68792cce65858b5aabcf7ad90f6cdf0546d39b86b1ad294b50ae3c2f107c",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -444,7 +444,7 @@
       "system": "iadapter_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/SocialGood_s2023/iadapter_online",
       "metrics_sha256": "92feefcce72902ad0dd18a0cc29446990cab1f0ac7789edd97797c699ed46428",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -452,7 +452,7 @@
       "system": "gpt4mts_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/SocialGood_s2023/runs/gpt4mts_static",
       "metrics_sha256": "bec51c1763083e5d6e737f64216f1e69ea64e6925dac04c76e5d89c9b096a845",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -460,7 +460,7 @@
       "system": "numeric_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/SocialGood_s2024/runs/numeric_static",
       "metrics_sha256": "490b1e83f50a024b0ca70bbf06bfab7872ad4200a9f3ceac69039a6302cf31e3",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -468,7 +468,7 @@
       "system": "numeric_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/SocialGood_s2024/numeric_online",
       "metrics_sha256": "ebba2da72e67b274e2901675c2cef35a6554a941e3abaf57a1c1aaef39d1c4e9",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -476,7 +476,7 @@
       "system": "iadapter_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/SocialGood_s2024/runs/iadapter_static",
       "metrics_sha256": "4834c658e558dec02560e57334510234fa3edc3fd0a00de8bd00c1be0f994e33",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -484,7 +484,7 @@
       "system": "iadapter_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/SocialGood_s2024/iadapter_online",
       "metrics_sha256": "292dc0e1ed3883bd13dc7cbdd464513abada8615c7a53f7261733ff29e4ab30f",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -492,7 +492,7 @@
       "system": "gpt4mts_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/SocialGood_s2024/runs/gpt4mts_static",
       "metrics_sha256": "2530c1850bb2f4fe617839a493b10c7ce812380f4e7760773c0d0b9066775c95",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -500,7 +500,7 @@
       "system": "numeric_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/SocialGood_s2025/runs/numeric_static",
       "metrics_sha256": "c4982b51577dbbf5e8b1e859fcbb0ffa4214920c4fe162ebcb57d5d6b23048d5",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -508,7 +508,7 @@
       "system": "numeric_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/SocialGood_s2025/numeric_online",
       "metrics_sha256": "a4f604985fa3f00d3b9806b7a93830f3cf55e50edfb176530c7c8ccd268521c7",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -516,7 +516,7 @@
       "system": "iadapter_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/SocialGood_s2025/runs/iadapter_static",
       "metrics_sha256": "7f63b89d176568de15a3e3f7b5c36baac731a70c0b59821d647af06a05220ce8",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -524,7 +524,7 @@
       "system": "iadapter_online",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_online_20260929/groups/SocialGood_s2025/iadapter_online",
       "metrics_sha256": "09db788e046dc0ac3b6d26937d73309672819ecb24c485795cb4e24eabd83f1d",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     },
     {
       "dataset": "SocialGood",
@@ -532,7 +532,7 @@
       "system": "gpt4mts_static",
       "source": "/home/wuwa/projects/research/iadapter/experiments/external_static_matrix_20260929/groups/SocialGood_s2025/runs/gpt4mts_static",
       "metrics_sha256": "1f5ae8407be027d6ff80369c84e36e9f8343eb8c8d68792110578549dc2ab784",
-      "reuse_status": "ELIGIBLE_AFTER_EXACT_CONFIGURATION_CHECK"
+      "reuse_status": "EXACT_CONFIGURATION_AND_ORIGINAL_CSV_VERIFIED"
     }
   ],
   "conditional_b4_cells": [
@@ -1069,6 +1069,194 @@
     "original_Table1-3_source",
     "complete_LaTeX_manuscript"
   ],
-  "plan_sha256": "da0b070409a8015f74e0ea1b4ff7edffd831713440bab554ba0368c63cdedb40",
-  "tracker_sha256": "8d9a960e7dadfae49b13d91d61f6244db84be4b714b7da3b37eb2d7162b3a848"
+  "plan_sha256": "f72b04bd444541f1a2be3ae40d045b37d3b436573e5abd6af824fbfbb4967bd0",
+  "tracker_sha256": "2b3003a1d991d76d062cdf00ca1f1ecdf676a3e32906d279c445ab7a7639f33e",
+  "original_plan_sha256": "da0b070409a8015f74e0ea1b4ff7edffd831713440bab554ba0368c63cdedb40",
+  "original_tracker_sha256": "8d9a960e7dadfae49b13d91d61f6244db84be4b714b7da3b37eb2d7162b3a848",
+  "execution_status": "completed_with_explicit_user_progress_amendment",
+  "execution_counts": {
+    "new_neural_evaluations": 54,
+    "exact_reused_B1_controls": 30,
+    "adapter_warmups": 18,
+    "new_backbones": 0,
+    "readout_selection_tasks": 36,
+    "lambda_configurations": 108,
+    "LLM_unique_inputs": 1538,
+    "donor_sequences": 24,
+    "donor_score_conditions": 30,
+    "cost_rounds": 18,
+    "tests_passed": 62
+  },
+  "user_amendment": "refine-logs/replan_execution/EXPLORATION_AMENDMENT.md",
+  "results": "refine-logs/EXPERIMENT_RESULTS.md",
+  "exploratory_fusion_cells": [
+    {
+      "dataset": "Energy",
+      "seed": 2023,
+      "representation": "raw_BERT_PCA5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2023,
+      "representation": "raw_BERT_PCA5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2023,
+      "representation": "LLM5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2023,
+      "representation": "LLM5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2024,
+      "representation": "raw_BERT_PCA5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2024,
+      "representation": "raw_BERT_PCA5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2024,
+      "representation": "LLM5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2024,
+      "representation": "LLM5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2025,
+      "representation": "raw_BERT_PCA5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2025,
+      "representation": "raw_BERT_PCA5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2025,
+      "representation": "LLM5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "Energy",
+      "seed": 2025,
+      "representation": "LLM5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2023,
+      "representation": "raw_BERT_PCA5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2023,
+      "representation": "raw_BERT_PCA5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2023,
+      "representation": "LLM5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2023,
+      "representation": "LLM5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2024,
+      "representation": "raw_BERT_PCA5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2024,
+      "representation": "raw_BERT_PCA5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2024,
+      "representation": "LLM5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2024,
+      "representation": "LLM5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2025,
+      "representation": "raw_BERT_PCA5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2025,
+      "representation": "raw_BERT_PCA5",
+      "mode": "online",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2025,
+      "representation": "LLM5",
+      "mode": "static",
+      "status": "DONE"
+    },
+    {
+      "dataset": "SocialGood",
+      "seed": 2025,
+      "representation": "LLM5",
+      "mode": "online",
+      "status": "DONE"
+    }
+  ]
 }

@@ -21,3 +21,6 @@ external/
 !.env.example
 *.pem
 *.key
+
+# Publication TIFF exports are delivered locally; vector/PNG sources are synced
+refine-logs/replan_execution/figures/*.tiff

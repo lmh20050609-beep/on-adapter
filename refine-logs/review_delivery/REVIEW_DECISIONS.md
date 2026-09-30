@@ -1,3 +1,5 @@
+Current2026-10-01: see [executed progress report](../EXPERIMENT_RESULTS.md) for completed user-revised exploration. New same-capacity gains are retained and their limits stated; earlier decisions below concern preceding stages.
+
 # iAdapter：当前可交付的 review 修订结论
 
 本轮已把“能否稳定获益、组件是否必要、在线成本多少”变成可追溯的实验与回复材料。**结果支持收紧论文主张，不支持继续写普遍优越、所有组件必要或已证实语义分工。** 完整论文未整合或提交；本目录交付正文替换段落、回复草稿与证据索引。

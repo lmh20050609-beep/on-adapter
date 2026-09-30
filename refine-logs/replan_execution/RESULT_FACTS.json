@@ -195,5 +195,174 @@
       "candidate_donor_minus_correct_mse": -0.0008742107727706,
       "passes": false
     }
+  ],
+  "E003_changes": [
+    {
+      "dataset": "Energy",
+      "control": "raw_online",
+      "mse_change_percent": -3.1356454743572515,
+      "mae_change_percent": -1.5271090843861357
+    },
+    {
+      "dataset": "Energy",
+      "control": "numeric_online",
+      "mse_change_percent": 0.9914731351350792,
+      "mae_change_percent": 0.39133950657364025
+    },
+    {
+      "dataset": "Energy",
+      "control": "LLM_static",
+      "mse_change_percent": 0.697718542513992,
+      "mae_change_percent": 0.3835691714521028
+    },
+    {
+      "dataset": "SocialGood",
+      "control": "raw_online",
+      "mse_change_percent": -1.543111320627244,
+      "mae_change_percent": -0.7951243444654255
+    },
+    {
+      "dataset": "SocialGood",
+      "control": "numeric_online",
+      "mse_change_percent": -2.3357624418858247,
+      "mae_change_percent": -1.5914942431154655
+    },
+    {
+      "dataset": "SocialGood",
+      "control": "LLM_static",
+      "mse_change_percent": -1.6166641933512027,
+      "mae_change_percent": -0.6890675482383535
+    }
+  ],
+  "E003_counts": {
+    "status": "passed",
+    "new_evaluations": 24,
+    "warmups": 12,
+    "donor_sequences": 12,
+    "original_csv_verified_score_sequences": 36,
+    "same_initial_parameters_across_representations": true,
+    "scope": "User-revised post-results local-progress exploration; not independent confirmation"
+  },
+  "E003_summary": [
+    {
+      "dataset": "Energy",
+      "representation": "LLM5",
+      "mode": "donor_same_state",
+      "n": 3,
+      "mse_mean": 0.014237823237471,
+      "mse_sd": 0.0001671277648365,
+      "mae_mean": 0.0903808943324497,
+      "mae_sd": 0.00021969402401
+    },
+    {
+      "dataset": "Energy",
+      "representation": "LLM5",
+      "mode": "online",
+      "n": 3,
+      "mse_mean": 0.014236518205707,
+      "mse_sd": 0.0001636458960498,
+      "mae_mean": 0.0903774399173582,
+      "mae_sd": 0.0002048279957793
+    },
+    {
+      "dataset": "Energy",
+      "representation": "LLM5",
+      "mode": "static",
+      "n": 3,
+      "mse_mean": 0.0141378756259472,
+      "mse_sd": 0.0003274651271834,
+      "mae_mean": 0.0900321045200099,
+      "mae_sd": 0.0007854462495527
+    },
+    {
+      "dataset": "Energy",
+      "representation": "raw_BERT_PCA5",
+      "mode": "donor_same_state",
+      "n": 3,
+      "mse_mean": 0.0146847834755675,
+      "mse_sd": 0.0006654675162932,
+      "mae_mean": 0.0917350945534024,
+      "mae_sd": 0.0016586508002036
+    },
+    {
+      "dataset": "Energy",
+      "representation": "raw_BERT_PCA5",
+      "mode": "online",
+      "n": 3,
+      "mse_mean": 0.0146973758049853,
+      "mse_sd": 0.0006936405479036,
+      "mae_mean": 0.0917790054471001,
+      "mae_sd": 0.0017471071544948
+    },
+    {
+      "dataset": "Energy",
+      "representation": "raw_BERT_PCA5",
+      "mode": "static",
+      "n": 3,
+      "mse_mean": 0.0149121370446455,
+      "mse_sd": 0.0016983056691426,
+      "mae_mean": 0.0933655728329126,
+      "mae_sd": 0.0065862213403703
+    },
+    {
+      "dataset": "SocialGood",
+      "representation": "LLM5",
+      "mode": "donor_same_state",
+      "n": 3,
+      "mse_mean": 0.1308444250033153,
+      "mse_sd": 0.0151598918819387,
+      "mae_mean": 0.2083357684472514,
+      "mae_sd": 0.0123109887526495
+    },
+    {
+      "dataset": "SocialGood",
+      "representation": "LLM5",
+      "mode": "online",
+      "n": 3,
+      "mse_mean": 0.1306718504790396,
+      "mse_sd": 0.0152813791902224,
+      "mae_mean": 0.2081801695024801,
+      "mae_sd": 0.0123764605651105
+    },
+    {
+      "dataset": "SocialGood",
+      "representation": "LLM5",
+      "mode": "static",
+      "n": 3,
+      "mse_mean": 0.1328190891350207,
+      "mse_sd": 0.0175231978531979,
+      "mae_mean": 0.2096246247648511,
+      "mae_sd": 0.0144070978612779
+    },
+    {
+      "dataset": "SocialGood",
+      "representation": "raw_BERT_PCA5",
+      "mode": "donor_same_state",
+      "n": 3,
+      "mse_mean": 0.1327733191852897,
+      "mse_sd": 0.0141020899718226,
+      "mae_mean": 0.2098819512983455,
+      "mae_sd": 0.0116296474713396
+    },
+    {
+      "dataset": "SocialGood",
+      "representation": "raw_BERT_PCA5",
+      "mode": "online",
+      "n": 3,
+      "mse_mean": 0.1327198657521828,
+      "mse_sd": 0.0142019841735587,
+      "mae_mean": 0.2098487278239594,
+      "mae_sd": 0.0117444219654616
+    },
+    {
+      "dataset": "SocialGood",
+      "representation": "raw_BERT_PCA5",
+      "mode": "static",
+      "n": 3,
+      "mse_mean": 0.1337793425983904,
+      "mse_sd": 0.0161673293034012,
+      "mae_mean": 0.2101522257454157,
+      "mae_sd": 0.013363539012351
+    }
   ]
 }

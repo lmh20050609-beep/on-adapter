@@ -27,3 +27,8 @@
 共同延迟协议在线扩展已完成75/75；与静态起始权重一致，25组原CSV和成熟更新核验通过。iAdapter在线相对数值在线平均MSE仅2/5域略低，平均MAE五域均更高。固定GPT4MTS在线扩展25/25单元两指标劣于自身静态，必须保留强静态对照。该扩展不冒称作者原生在线算法。
 
 当前综合入口：[本轮修订结论](../refine-logs/review_delivery/REVIEW_DECISIONS.md)、[逐点回复](../refine-logs/review_delivery/REVIEW_RESPONSE.md)、[正文替换](../refine-logs/review_delivery/MANUSCRIPT_REPLACEMENTS.md)、[结论核对](../refine-logs/review_delivery/CLAIMS_FROM_RESULTS.md)。原生VoT、真实publication time和原Table1–3来源缺口仍未解决。
+
+
+## 2026-10-01 updates
+
+Same-target feedback factorial, metadata/content readout and five-dimensional simple-fusion exploration are now complete. New restricted positive mean comparisons are retained alongside stronger references and failures. Full evidence and limits: ../refine-logs/EXPERIMENT_RESULTS.md. Native VoT, original table reconstruction, true publication-time and complete LaTeX remain unresolved.

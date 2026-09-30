@@ -1,5 +1,7 @@
 # iAdapter revision evidence package
 
+Current 2026-10-01 execution: [ordered results and real progress](refine-logs/EXPERIMENT_RESULTS.md), [progress routes](refine-logs/replan_execution/PROGRESS_AND_NEXT_ROUTES.md).
+
 Current delivery: [review decisions](refine-logs/review_delivery/REVIEW_DECISIONS.md),
 [consolidated responses](refine-logs/review_delivery/REVIEW_RESPONSE.md),
 [replacement manuscript text](refine-logs/review_delivery/MANUSCRIPT_REPLACEMENTS.md),

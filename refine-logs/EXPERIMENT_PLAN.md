@@ -1,6 +1,6 @@
 # iAdapter 重新制定的实验与修订计划
 
-**日期：2026-09-30。状态：执行中。M0/B1/B2完成，B3原质量预检停止，用户要求后继续固定表示探索；详细结果与状态见跟踪表。**
+**制定于2026-09-30，执行完成于2026-10-01。原必做块及用户修订探索均已交付；原条件门槛不改写，追加域未触发。详细状态与结果见跟踪表和EXPERIMENT_RESULTS.md。**
 
 **问题：** 在固定骨干、真实原始目标和逐原点延迟监督下，当前性能受限主要来自文本信息、文本接入，还是在线反馈？
 
@@ -115,7 +115,7 @@ full同一起始warm checkpoint的四种部署策略：
 
 ### B3：一次TiMi式任务表示检验（CONDITIONAL）
 
-**仅当：** B2未显示有效内容增量，M0来源/预算明确，且本地小模型资源就绪。当前只有BERT和GPT2权重，Qwen尚未下载；本轮计划没有安装或推理此模型。
+**仅当：** B2未显示有效内容增量，M0来源/预算明确，且本地小模型资源就绪。制定计划时只有BERT和GPT2权重；执行时已校验并使用固定Qwen0.5B，实际准入与结果见用户修订探索记录。
 
 借鉴TiMi的任务锚定与允许unknown，只判断目标OT在H=6范围内的趋势压力，五类INCREASE/DECREASE/STABLE/MIXED/UNKNOWN。不增加frequency/noise三头，不生成未来数值，不称输出为已识别的因果知识。
 
@@ -203,7 +203,7 @@ TiMi参考：[论文v2](https://arxiv.org/abs/2602.21693v2)，尤其§3与附录
 - `iadapter/task_text_prior.py`：仅B3触发时加入，冻结本地分类、可见token来源、prompt/weights与去重缓存。
 - `iadapter/revision_candidate.py`：仅B4触发时加入同结构5维投影与简单融合。TiMi式双路由暂不实现。
 
-以上路径是拟新增接口，当前不存在，不能声称已经可执行。先提交源代码和固定配置，再运行新目录 `experiments/replan_20260930/`；原runs/cache/checkpoint不覆盖。
+以上为制定时拟新增接口；当前实现状态见执行报告，feedback_factorial/text_signal_probe/task_text_prior/revision_candidate已经实现并运行。先提交源代码和固定配置，再运行新目录 `experiments/replan_20260930/`；原runs/cache/checkpoint不覆盖。
 
 新增必要回归检查：U/F两个switch各自只改变约定对象；四格起始参数相同；未来标签/文本不影响先前预测；成熟消费一次；raw/候选可见记录与token预算一致；PCA/scaler/Ridge只fit训练段；donor严格历史；三候选lambda只用选择段；评分原预测且原CSV有效掩码一致。已有协议检查能直接复用时不重写同义测试。
 

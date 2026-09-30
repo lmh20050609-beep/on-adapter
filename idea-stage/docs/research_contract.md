@@ -31,3 +31,7 @@ PCA/Ridge fits with selection-only lambda choice. Subsequent B3/B4/B5 are condit
 on the declared gates, not a requirement to run all 104 possible evaluations.
 No target substitution, result-based tuning, stronger claims from failed controls,
 or unseen-data/causal/publication-time assertion is authorized by completion.
+
+## User-revised exploration completed2026-10-01
+
+Small and variable improvements are legitimate restricted research progress. The original gates remain recorded, while a separate imperfect-prior exploration and same5dim fusion follow-up were authorized. E003 has lower mean MSE/MAE than raw5 online on both development domains; numerical superiority is local to SocialGood, and online benefit is not present on Energy. This narrow comparison is provisionally supported. Do not attribute the simplified candidate's results to the original five-expert full model. No new independent-data confirmation has been run.
