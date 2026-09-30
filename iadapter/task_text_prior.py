@@ -101,15 +101,22 @@ def generate(base=OUTPUT,exploratory=False):
     cache=json.loads((out/'cache.json').read_text());pool={x['key']:x for x in records(base)};require(len(pool)<=1543,'Exceeded unique-input plan cap')
     write_json(out/'generation_admission.json',dict(status=admission,original_quality_status=quality['status'],original_preflight_code=proof['code'],generation_code=revision(),purpose='Exploratory prediction utility of an imperfect fixed prior; not verified semantic correctness'))
     pending=[x for k,x in pool.items() if k not in cache];budget=json.loads((out/'budget.json').read_text());require(budget['used_seconds']<3600,'Accumulated generation budget exhausted')
-    seed_all(2023);start=time.perf_counter();tok,model,config=load_model();torch.cuda.reset_peak_memory_stats();last=start
-    for begin in range(0,len(pending),8):
-        batch=pending[begin:begin+8];results=classify_batch(batch,tok,model,config)
-        for result in results:cache[result['key']]=result
-        write_json(out/'cache.json',cache);now=time.perf_counter();budget['used_seconds']+=now-last;last=now;write_json(out/'budget.json',budget)
-        if begin%160==0:print('PRIOR_GENERATED',len(cache),'/',len(pool),flush=True)
-        if budget['used_seconds']>3600:write_json(out/'generation_status.json',dict(status='stopped_resource_budget',completed=len(cache),planned=len(pool)));del model;torch.cuda.empty_cache();return
-    torch.cuda.synchronize();write_json(out/'generation_status.json',dict(status='completed',generated_unique=len(cache),planned=len(pool),invalid=sum(not x['valid'] for x in cache.values()),seconds=time.perf_counter()-start,peak_allocated_bytes=torch.cuda.max_memory_allocated(),code=revision(),encoder_batch=8,total_input_tokens=sum(x['input_tokens'] for x in cache.values()),total_output_tokens=sum(x['output_tokens'] for x in cache.values()),cumulative_budget_seconds=budget['used_seconds'],admission=admission,original_quality_status=quality['status']))
-    del model,tok;gc.collect();torch.cuda.empty_cache()
+    seed_all(2023);start=time.perf_counter();last=start;tok=model=None;encoder_batch=1
+    try:
+        tok,model,config=load_model();torch.cuda.reset_peak_memory_stats()
+        for begin in range(0,len(pending),encoder_batch):
+            batch=pending[begin:begin+encoder_batch];results=classify_batch(batch,tok,model,config)
+            for result in results:cache[result['key']]=result
+            write_json(out/'cache.json',cache);now=time.perf_counter();budget['used_seconds']+=now-last;last=now;write_json(out/'budget.json',budget)
+            if begin%160==0:print('PRIOR_GENERATED',len(cache),'/',len(pool),flush=True)
+            if budget['used_seconds']>3600:
+                write_json(out/'generation_status.json',dict(status='stopped_resource_budget',completed=len(cache),planned=len(pool)));return
+        torch.cuda.synchronize();write_json(out/'generation_status.json',dict(status='completed',generated_unique=len(cache),planned=len(pool),invalid=sum(not x['valid'] for x in cache.values()),seconds=time.perf_counter()-start,peak_allocated_bytes=torch.cuda.max_memory_allocated(),code=revision(),encoder_batch=encoder_batch,total_input_tokens=sum(x['input_tokens'] for x in cache.values()),total_output_tokens=sum(x['output_tokens'] for x in cache.values()),cumulative_budget_seconds=budget['used_seconds'],admission=admission,original_quality_status=quality['status']))
+    except Exception:
+        write_json(out/'generation_status.json',dict(status='failed',completed=len(cache),planned=len(pool),error=traceback.format_exc(),admission=admission));raise
+    finally:
+        budget['used_seconds']+=time.perf_counter()-last;write_json(out/'budget.json',budget)
+        del model,tok;gc.collect();torch.cuda.empty_cache()
 
 def prior_arrays(data,d,provenance,cache):
     rule=np.zeros((len(data.x),5),dtype=np.float64);llm=np.zeros_like(rule)

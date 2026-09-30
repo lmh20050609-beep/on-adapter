@@ -35,3 +35,18 @@ dirty_rejection Commit source before generation
 ## 解释边界
 
 原 30 条训练预检的 26 UNKNOWN、4 DECREASE、0 格式无效和两条明确目标错配仍是事实；本次 PASS 只认可用户授权的探索性预测价值检验可以继续，不认可 LLM 语义已正确。后续任何小幅改善都可以作为进一步研究线索，但需按修订报告对 raw / metadata 的均值、逐 seed 方向、配对波动、MAE 与 donor；不得把它自动称为显著或稳定优势。现阶段无需新增提示词、模型、文本或重审机制。
+
+
+## 追加复核：实际批处理 NaN 修复（2026-09-30）
+
+结论：**PASS，可继续 singleton generation**。BLOCKING：无。提交这次修复并使受跟踪工作区干净后，继续 `generate_exploratory` 即可；无需重跑 30 条 preflight、修改模型或提示词。本追加仍为 same-family / provisional，未启动 GPU、未加载模型、未改动源码或真实实验产物。
+
+本次仅复核当前 `git diff -- iadapter/task_text_prior.py`、`EXPLORATION_RUNTIME_FIX.md`、真实 `b3/batch_diagnostic.json` 和现有预算/缓存。
+
+- 实际诊断足以支持最小修复：批 8 的 8 个 generation step 各有 1,063,552 个 NaN、0 个正/负 inf；两条已缓存训练输入各自以 batch 1 推理时，所有 step 全 finite 且输出 UNKNOWN，与原 preflight 一致。此前 30 条 preflight 本身也使用 singleton。将 encoder_batch 改为 1（`iadapter/task_text_prior.py:104`）回到已验证运行路径；FP16、模型、prompt、greedy、max8、输入来源均未改变。它支持恢复运行，不保证尚未运行的每条输入必然成功；原 finite 检查仍会拒绝实际非有限结果。
+- 失败不会写入无效模型结果：`classify_batch` 在有限性检查失败时抛错，`:108` 未返回就不会到达 `:109` 的 cache 更新；新 `:115` 至 `:118` 写 failed 状态、重新抛错并结算未记录耗时。真实 cache 仍为原 30 条且均有效，没有首批 NaN 结果。旧失败发生于补丁前，真实 generation_status 尚不存在，文档与诊断已明确记录该次失败。
+- 累计预算没有重置。真实 `budget.used_seconds = 18.658048241000657`，等于 preflight 7.646915407000051 + 首次失败工具墙钟上界 7.8693406 + 诊断 3.1417922340006044。墙钟上界的性质在预算说明中明示，未伪称精确 GPU 时长。新 `finally` 以 `time.perf_counter() - last` 追加最后一次已结账时刻之后的时间，已写过的批次不会重复收费。
+- CPU 临时目录检查通过：模拟首条失败，cache 保持 30、status=failed、追加 3 秒；模拟一条成功后下一条失败，cache 为 31 且原 30 条逐项不变、失败条目未写入、status=failed、累计仍只追加 3 秒；两种情形实际传给 mock classifier 的 batch 大小均为 1。上述为错误路径单元检查，模拟输出从未写入真实实验目录，不是新增实验结果。
+- 原 4 项 unittest 再次通过（0.002 秒）。原语义 `stopped_groundedness` 继续保留。
+
+NONBLOCKING：`:114` 的 completed 状态所带 `cumulative_budget_seconds` 是 `finally` 最后一次结账前的快照；最终总额应以 `budget.json` 为准。该细小展示差异不影响这次失败记账、缓存保护或继续生成，无需为了恢复运行增加工程。
