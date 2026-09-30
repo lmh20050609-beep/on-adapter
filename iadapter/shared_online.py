@@ -72,11 +72,13 @@ class NativeBackend:
     def after_update(self,record,feedback):pass
 
 class OnlineRunner:
-    def __init__(self,c,data,backend):self.c=c;self.data=data;self.backend=backend
+    def __init__(self,c,data,backend,*,update_parameters=True,refresh_feedback=True):
+        self.c=c;self.data=data;self.backend=backend
+        self.update_parameters=update_parameters;self.refresh_feedback=refresh_feedback
     def run(self,origins=None):
         c=self.c;data=self.data;backend=self.backend
         origins=list(data.origins('test',c.lookback,c.horizon) if origins is None else origins)
-        parameters=backend.parameters();optimizer=torch.optim.Adam(parameters,lr=c.lr,weight_decay=c.weight_decay)
+        parameters=backend.parameters();optimizer=torch.optim.Adam(parameters,lr=c.lr,weight_decay=c.weight_decay) if self.update_parameters else None
         queue=MatureQueue();predictions=[];targets=[];masks=[];gates=[];feedback_ids=[];parameter_ids=[];contexts=[];events=[];predict_seconds=[];update_seconds=[];g_snap=[];q_snap=[]
         last_parameter_origin=-1;peak_queue_bytes=0
         for t in origins:
@@ -97,15 +99,21 @@ class OnlineRunner:
                 mask=torch.from_numpy(data.valid[rec.origin+1:rec.mature+1]).unsqueeze(0).to(c.device)
                 event=dict(update_at=t,origin=rec.origin,mature_at=rec.mature,text_origin=rec.origin,state_origin=rec.origin,text_ids=rec.text_ids,valid_targets=int(mask.sum()),status='updated')
                 if not mask.any():event['status']='skipped_missing_target';events.append(event);continue
-                sync(c.device);start=time.perf_counter();optimizer.zero_grad(set_to_none=True)
+                sync(c.device);start=time.perf_counter()
+                if optimizer is not None:optimizer.zero_grad(set_to_none=True)
                 total,loss,feedback=backend.loss(rec,y,mask)
                 if not torch.isfinite(total):raise FloatingPointError(f'Nonfinite replay update {t}')
-                total.backward();torch.nn.utils.clip_grad_norm_(parameters,c.grad_clip,error_if_nonfinite=True);optimizer.step()
-                backend.after_update(rec,feedback);last_parameter_origin=rec.origin
+                if optimizer is not None:
+                    total.backward();torch.nn.utils.clip_grad_norm_(parameters,c.grad_clip,error_if_nonfinite=True);optimizer.step();last_parameter_origin=rec.origin
+                else:event['status']='feedback_only' if self.refresh_feedback else 'consumed_without_update'
+                if self.refresh_feedback:backend.after_update(rec,feedback)
+                if not (self.update_parameters and self.refresh_feedback):
+                    event['parameter_updated']=self.update_parameters;event['feedback_refreshed']=self.refresh_feedback and backend.has_feedback
                 sync(c.device);update_seconds.append(time.perf_counter()-start);event['loss']=float(loss.detach());events.append(event)
         assert queue.consumed==[t for t in origins if t+c.horizon<=origins[-1]],'Maturity queue lost/repeated origins'
         arrays=dict(origins=np.asarray(origins),predictions=np.stack(predictions),targets=np.stack(targets),valid_mask=np.stack(masks),gate_weights=np.stack(gates),feedback_origins=np.asarray(feedback_ids),parameter_update_origins=np.asarray(parameter_ids),prediction_seconds=np.asarray(predict_seconds),update_seconds=np.asarray(update_seconds))
         if backend.has_feedback:arrays.update(numeric_feedback_snapshots=np.stack(g_snap),text_feedback_snapshots=np.stack(q_snap))
         stats=metrics(arrays['predictions'],arrays['targets'],arrays['valid_mask'])
         stats.update(predictions=len(origins),updated=sum(e['status']=='updated' for e in events),consumed=len(events),pending=len(queue.pending),queue_tensor_and_id_peak_bytes=peak_queue_bytes,online_lr=c.lr,online_weight_decay=c.weight_decay,online_grad_clip=c.grad_clip)
+        if not (self.update_parameters and self.refresh_feedback):stats['feedback_refreshed']=sum(e.get('feedback_refreshed',False) for e in events)
         return arrays,events,contexts,stats

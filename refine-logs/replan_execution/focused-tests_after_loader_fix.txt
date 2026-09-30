@@ -1,0 +1,10 @@
+test_factorial_loader_accepts_matrix_method_key (test_replan.ReplanTests) ... ok
+test_factorial_switches_have_exact_parameter_cache_boundaries (test_replan.ReplanTests) ... ok
+test_pca_fit_excludes_future_and_missing_content_is_zero (test_replan.ReplanTests) ... ok
+test_ridge_ignores_invalid_training_targets (test_replan.ReplanTests) ... ok
+test_text_span_reconstruction_matches_existing_budget (test_replan.ReplanTests) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.079s
+
+OK
