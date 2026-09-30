@@ -9,3 +9,4 @@
 | 2026-09-30 171112 | /experiment-plan | refine-logs/EXPERIMENT_TRACKER_20260930_171112.md | implementation | 2026-09-30 bounded diagnostic plan |
 | 2026-09-30 171112 | /experiment-plan | refine-logs/EXPERIMENT_TRACKER.md | implementation | latest planning copy |
 | 2026-09-30 | /experiment-plan | refine-logs/REPLAN_MANIFEST.json | implementation | source pointers, exact planned counts and conditional gates; no new runs |
+| 2026-09-30 | /experiment-bridge | refine-logs/replan_execution/B3_CODE_REVIEW.md | implementation | same-family provisional code review; prior3-tests and gate corrections |
