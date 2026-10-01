@@ -1,0 +1,7 @@
+{
+  "request": "C0 completed on real calibration inputs: exact330710976 params, singleton/batch2 checks passed, peak1332584960 bytes. Both prior nonblocking fixes implemented and C0 source committed35cd2f5. Before C1 launch, review newly prepared canonical iadapter/foundation_forecasts.py and appended Locked C1 specification in refine-logs/foundation_20261001/EXPERIMENT_PLAN.md. Fixed official frozen numerical-only model, serialbatch1, H6 L48/36, five phases wholeH targets/maturity entirelywithin 60/10/5/5/20 boundaries; no training, no model/context choice by scores, existing numeric-static references only on identical assessment origins. Single deterministic pretrained ledger, not three fake seeds. Original Y/mask after issue, persistence control, records/status/version counters andfailure preserved. Confirm boundary/API/math/fair scoring and actual defects only. Do not run model or change source; save FULL FOUNDATION_C1_CODE_REVIEW.md and exactrequest FOUNDATION_C1_CODE_REVIEW_REQUEST.json in sameWindowsoutputroot. Same-family provisional.",
+  "reviewer": "same-family provisional reviewer",
+  "scope": "read-only C1 review; no model import, instantiation or execution",
+  "canonical_workspace": "/home/wuwa/projects/research/iadapter"
+}
+

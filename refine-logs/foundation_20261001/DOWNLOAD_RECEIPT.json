@@ -1,0 +1,14 @@
+{
+  "status": "verified_transport",
+  "repo_id": "google/timesfm-3.0-pytorch",
+  "revision": "43046b85ec22d584a13f8098c2ed39c889e129c2",
+  "bytes": 1322898824,
+  "sha256": "a7592b0a8432baee54483254e5647856911ce69e09d09a9bb65904b2d98f17da",
+  "transport": "hf-mirror.com pinned revision resolver",
+  "official_metadata": "https://huggingface.co/api/models/google/timesfm-3.0-pytorch",
+  "official_parameter_count": 330710976,
+  "official_metadata_independently_read": true,
+  "official_lfs_digest_independently_fetched": false,
+  "note": "Local file equals mirror advertised LFS digest; official revision/size/parameter metadata separately verified. Model weights noncommercial academic research only; not redistributed to GitHub.",
+  "initial_download_failure": "Resolving timed out; one bounded retry completed"
+}
