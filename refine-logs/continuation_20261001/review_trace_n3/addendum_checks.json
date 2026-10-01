@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "scope": "Follow-up only; synthetic paired data and explicit generation doubles; no model run",
+  "paired_rows": 40,
+  "summary_rows": 8,
+  "matched_seeds": 5,
+  "checks": [
+    "seed-index alignment despite shuffled input",
+    "sample SD ddof=1",
+    "signed candidate-minus-control deltas",
+    "ratio of means for relative change",
+    "strictly negative improved-seed counts",
+    "adverse outcomes retained"
+  ],
+  "rejected_inputs": {
+    "duplicate_cell": "Duplicateextensioncell",
+    "missing_seed": "Incompletepairedseeds",
+    "missing_control": "Incompletepairedseeds",
+    "wrong_seed_set": "Incompletepairedseeds",
+    "unequal_one_cell_target_count": "Unequalpairedtargets",
+    "unequal_control_target_count": "Unequalpairedtargets",
+    "counts_vary_across_seeds": "Unequalpairedtargets"
+  },
+  "generation_schema": "Matches actual classify_batch fields",
+  "generation_double_status": {
+    "status": "completed",
+    "generated_unique": 2,
+    "planned": 2,
+    "invalid": 0,
+    "seconds": 2.0,
+    "peak_allocated_bytes": 123456789,
+    "total_input_tokens": 579,
+    "total_output_tokens": 5,
+    "encoder_batch": 1,
+    "code": {
+      "commit": "review-double",
+      "dirty": false
+    }
+  },
+  "generation_double_budget": {
+    "limit_seconds": 600,
+    "used_seconds": 3.0
+  },
+  "cuda_call_order_double": [
+    "load_model",
+    "reset_peak",
+    "classify_singleton",
+    "synchronize"
+  ],
+  "peak_scope": "After model load, including resident weights; not load transient",
+  "no_torch_imported": true,
+  "runtime_tested": false
+}

@@ -92,3 +92,7 @@ development experiment and 48 same-state text interventions. These results use
 the 70%-80% development interval, not the original test table. Exact commands,
 plan, code review and tracker are in the same directory. Raw artifacts are under
 `experiments/review_sprint_20260929/`; the original 190-run campaign is unchanged.
+
+## Source-reviewed continuation (GPU execution pending)
+
+[Continuation code, audits and manuscript material](refine-logs/continuation_20261001/README.md) adds recent-record-first, locked Agriculture/Health extension and native VoT integration modules. Static reviews pass; new GPU results and native VoT smoke are pending WSL recovery. The original evidence remains unchanged.

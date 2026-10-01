@@ -1,0 +1,125 @@
+{
+  "scope": "Windows bundled Python; original ZIP; no Torch, transformers, WSL or GPU execution",
+  "datasets": [
+    {
+      "dataset": "Agriculture",
+      "source_member": "iAdapter/data/Agriculture.csv",
+      "exact_zip_bytes": true,
+      "rows": 496,
+      "train_end": 297,
+      "val_end": 396,
+      "OT_missing": 0,
+      "original_target_mask": "exact",
+      "mean": 145.78900146484375,
+      "scale": 17.495283126831055,
+      "available_text_rows": 432,
+      "available_training_text_rows": 233,
+      "selected_text_causal": true,
+      "splits": {
+        "train": {
+          "first_origin": 35,
+          "last_origin": 290,
+          "predictions": 256,
+          "consumed": 250,
+          "pending": 6,
+          "first_target": 36,
+          "last_target": 296
+        },
+        "val": {
+          "first_origin": 296,
+          "last_origin": 389,
+          "predictions": 94,
+          "consumed": 88,
+          "pending": 6,
+          "first_target": 297,
+          "last_target": 395
+        },
+        "test": {
+          "first_origin": 395,
+          "last_origin": 489,
+          "predictions": 95,
+          "consumed": 89,
+          "pending": 6,
+          "first_target": 396,
+          "last_target": 495
+        }
+      },
+      "duplicate_calendar_rows": 0
+    },
+    {
+      "dataset": "Health",
+      "source_member": "iAdapter/data/Health.csv",
+      "exact_zip_bytes": true,
+      "rows": 1389,
+      "train_end": 833,
+      "val_end": 1111,
+      "OT_missing": 0,
+      "original_target_mask": "exact",
+      "mean": 1.5170762538909912,
+      "scale": 1.2321656942367554,
+      "available_text_rows": 1389,
+      "available_training_text_rows": 833,
+      "selected_text_causal": true,
+      "splits": {
+        "train": {
+          "first_origin": 35,
+          "last_origin": 826,
+          "predictions": 792,
+          "consumed": 786,
+          "pending": 6,
+          "first_target": 36,
+          "last_target": 832
+        },
+        "val": {
+          "first_origin": 832,
+          "last_origin": 1104,
+          "predictions": 273,
+          "consumed": 267,
+          "pending": 6,
+          "first_target": 833,
+          "last_target": 1110
+        },
+        "test": {
+          "first_origin": 1110,
+          "last_origin": 1382,
+          "predictions": 273,
+          "consumed": 267,
+          "pending": 6,
+          "first_target": 1111,
+          "last_target": 1388
+        }
+      },
+      "duplicate_calendar_rows": 10,
+      "distinct_report_keys": true,
+      "duplicate_calendar_intervals": 5
+    }
+  ],
+  "runtime_training_tested": false,
+  "syntax": "passed",
+  "counts": {
+    "shared_backbones": 10,
+    "evaluations": 50,
+    "warmups": 30
+  },
+  "config_contract": "passed",
+  "train_only_transform_check": "passed; future-input perturbation cannot change train-fitted PCA/scalers",
+  "generation_control_flow": {
+    "failure_records_status_and_budget": {
+      "status": "failed",
+      "used_seconds": 2.0,
+      "error": "review load failure"
+    },
+    "completed_records_status": {
+      "status": "completed",
+      "used_seconds": 3.0,
+      "error": null
+    },
+    "budget_stops_after_current_item": {
+      "status": "stopped_budget",
+      "used_seconds": 602.0,
+      "error": null
+    }
+  },
+  "no_torch_or_transformers_imported": true,
+  "status": "passed"
+}

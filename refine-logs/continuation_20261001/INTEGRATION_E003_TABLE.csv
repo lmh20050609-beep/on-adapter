@@ -1,0 +1,13 @@
+Dataset,Method,MSE ↓ (mean ± SD),MAE ↓ (mean ± SD)
+Energy,frozen_backbone,0.013927 ± 0.000030,0.090502 ± 0.001564
+Energy,numeric_online,0.014097 ± 0.000442,0.090025 ± 0.002486
+Energy,gpt4mts_static,0.015489 ± 0.000557,0.092406 ± 0.001811
+Energy,raw_BERT_PCA5_online,0.014697 ± 0.000694,0.091779 ± 0.001747
+Energy,LLM5_static,0.014138 ± 0.000327,0.090032 ± 0.000785
+Energy,LLM5_online,0.014237 ± 0.000164,0.090377 ± 0.000205
+SocialGood,frozen_backbone,0.133175 ± 0.018801,0.211382 ± 0.015181
+SocialGood,numeric_online,0.133797 ± 0.016984,0.211547 ± 0.015039
+SocialGood,gpt4mts_static,0.088090 ± 0.005238,0.186882 ± 0.002546
+SocialGood,raw_BERT_PCA5_online,0.132720 ± 0.014202,0.209849 ± 0.011744
+SocialGood,LLM5_static,0.132819 ± 0.017523,0.209625 ± 0.014407
+SocialGood,LLM5_online,0.130672 ± 0.015281,0.208180 ± 0.012376
