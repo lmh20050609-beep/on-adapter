@@ -1,0 +1,98 @@
+{
+  "status": "passed",
+  "purpose": "integration only; not a benchmark accuracy evaluation",
+  "dataset": "SocialGood",
+  "seed": 2025,
+  "origins": [
+    7,
+    8
+  ],
+  "config": {
+    "task_name": "long_term_forecast",
+    "seq_len": 8,
+    "pred_len": 6,
+    "enc_in": 1,
+    "d_model": 512,
+    "n_heads": 8,
+    "e_layers": 2,
+    "d_ff": 2048,
+    "factor": 1,
+    "embed": "timeF",
+    "freq": "h",
+    "dropout": 0.1,
+    "activation": "gelu",
+    "output_attention": false,
+    "multimodal": 1,
+    "tr_sea": 1,
+    "clip_t": 0.0,
+    "llm_dim": 768
+  },
+  "upstream_commit": "f769621da9efde3e82a1975f478efdec83dcbd10",
+  "weights_source": {
+    "repository": "https://huggingface.co/openai-community/gpt2",
+    "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+    "weight_file": "model.safetensors",
+    "bytes": 548105171,
+    "safetensors_structure_valid": true
+  },
+  "code": {
+    "commit": "ef22b6716a3f6a069fd99f41f0cf8b80fd1ce496",
+    "dirty": false
+  },
+  "stages": [
+    {
+      "stage": 1,
+      "loss": 1.173362374305725,
+      "update_checked": true,
+      "target": "Original CSV OT"
+    },
+    {
+      "stage": 0,
+      "loss": 1.4114782810211182,
+      "update_checked": true,
+      "target": "Author alignment objective, no future target"
+    },
+    {
+      "stage": 2,
+      "loss": 0.4019101560115814,
+      "update_checked": true,
+      "target": "Original CSV OT"
+    }
+  ],
+  "frozen_gpt2_unchanged": true,
+  "gpt2_layers": 6,
+  "text_features": "Exact author numeric-statistics prompt; frozen GPT2,192tokens",
+  "released_prior_records": [
+    {
+      "origin": 7,
+      "window_start": 0,
+      "released_prior_id": 0,
+      "original_length": 12,
+      "used_length": 6,
+      "truncated": true,
+      "provenance": "Author loader convention only; generation availability unverified"
+    },
+    {
+      "origin": 8,
+      "window_start": 1,
+      "released_prior_id": 1,
+      "original_length": 12,
+      "used_length": 6,
+      "truncated": true,
+      "provenance": "Author loader convention only; generation availability unverified"
+    }
+  ],
+  "prior_provenance_verified": false,
+  "original_rows": 900,
+  "author_rows": 892,
+  "original_train_end": 540,
+  "author_data_policy": "Exact original numeric/date prefix; omitted tail OT missing; original900rows/scaler/mask retained",
+  "row_order_checked": true,
+  "original_target_mask_checked": true,
+  "batch1_and_batch2_shapes_checked": true,
+  "excluded_alignment_parameters_unchanged": true,
+  "author_math_modified": false,
+  "new_benchmark_scores": false,
+  "seconds": 6.241204350000089,
+  "peak_allocated_bytes": 530800640
+}

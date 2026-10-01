@@ -1,0 +1,4 @@
+{
+  "status": "failed",
+  "error": "Missing optional tabulate during Markdown rendering; earlier validation only covered computations. Retry1 uses existing standard formatter, no extra installation."
+}

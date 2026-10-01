@@ -1,3 +1,9 @@
+# Continuation evidence — current status
+
+WSL/CUDA recovered; 65 tests pass. N1/N3 complete and native VoT three-stage integration passes. See [current tracker](CONTINUATION_TRACKER.md), [runtime audit](RUNTIME_STATUS.json), [updated paper text](MANUSCRIPT_INTEGRATED.md) and [new result reports](live_results/). Formal VoT prior provenance and full matched comparison remain open.
+
+The initial source review and deployment material is retained below as history; any pending-GPU statement there is superseded by the current tracker.
+
 # iAdapter 后续修订：代码与证据同步
 
 本提交增加已完成静态检查的近期文本、追加域和原生VoT接入代码，以及论文/回复整合材料。来源基础提交为c62791c9e2700de322ac2a3739ac6a2fd9a31630，既有结果和原方法保留。

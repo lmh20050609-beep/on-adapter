@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "matched_sequences": 32,
+  "new_neural_evaluations": 0,
+  "scope": "Post-results diagnostic on original issued forecasts; uniform blend rule fixed before this script execution; no test hyperparameter selection",
+  "oracle_not_deployable": true,
+  "alpha_initialization_or_calibration_not_tested": true,
+  "no_text_rule": "Numeric forecast only",
+  "original_target_masks_checked": true,
+  "script_sha256": "c2407c4d69b474eacc42dce71d59993a60ebca70050571c4f39a4a0d9a010fc1",
+  "code": {
+    "commit": "ef22b6716a3f6a069fd99f41f0cf8b80fd1ce496",
+    "dirty": false
+  }
+}

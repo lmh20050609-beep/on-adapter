@@ -93,6 +93,19 @@ the 70%-80% development interval, not the original test table. Exact commands,
 plan, code review and tracker are in the same directory. Raw artifacts are under
 `experiments/review_sprint_20260929/`; the original 190-run campaign is unchanged.
 
-## Source-reviewed continuation (GPU execution pending)
+## Completed continuation
 
-[Continuation code, audits and manuscript material](refine-logs/continuation_20261001/README.md) adds recent-record-first, locked Agriculture/Health extension and native VoT integration modules. Static reviews pass; new GPU results and native VoT smoke are pending WSL recovery. The original evidence remains unchanged.
+[Continuation code, audits and manuscript material](refine-logs/continuation_20261001/README.md) records completed recent-record-first and locked Agriculture/Health experiments plus passed native VoT runtime integration. Current outcomes, adverse cases and remaining baseline gaps are summarized below.
+
+## 2026-10-01 completed continuation and first-principles follow-up
+
+N1 completed 12 new evaluations plus 12 reused controls. N3 completed all 50 evaluation cells across Agriculture/Health, with ten shared backbones and thirty warm-ups; all source-target checks pass. Native VoT passes its three-stage real-target integration smoke, while trustworthy prior generation and formal matched comparison remain unfinished.
+
+- [Current execution tracker](refine-logs/continuation_20261001/CONTINUATION_TRACKER.md)
+- [Updated manuscript replacement and separate N1/N3 tables](refine-logs/continuation_20261001/MANUSCRIPT_INTEGRATED.md)
+- [Current runtime/source audit](refine-logs/continuation_20261001/RUNTIME_STATUS.json)
+- [Original forecast archive inventory](refine-logs/continuation_20261001/RAW_FORECAST_ARCHIVE.json)
+- [First-principles method proposal](refine-logs/innovation_20261001/FINAL_PROPOSAL.md)
+- [Exploratory forecast complementarity diagnostic](refine-logs/innovation_20261001/diagnostics/RESULTS.md)
+
+Small and variable improvements, stronger static controls and adverse outcomes are retained. The first-principles adaptive calibration route is planned; its adaptive coefficients have not yet been evaluated. Hindsight oracle values in the diagnostic are explicitly non-deployable. The full iAdapter revision goal remains in progress.

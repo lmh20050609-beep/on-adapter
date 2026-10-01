@@ -1,6 +1,6 @@
 # iAdapter 修订整合稿：实验、讨论及摘要替换
 
-这是基于真实结果的章节替换稿，尚未合入原 LaTeX，也未加入待跑的 N1/N3 数字。原始投稿宽范围表格不会与新实验拼接。本稿保留原 IG-SMoE 作为被验证的方法，同时将低维文本接入作为独立的后续研究。
+这是基于真实结果的章节替换稿，尚未合入原 LaTeX；已加入完成的 N1/N3 数字及 VoT 运行时接入证据。原始投稿宽范围表格不会与新实验拼接。本稿保留原 IG-SMoE 作为被验证的方法，同时将低维文本接入作为独立的后续研究。
 
 ## Compact outline
 
@@ -33,7 +33,7 @@ Backbone training uses the training prefix and checkpoint selection uses validat
 
 The R1 revision evaluates Economy, Energy, Security, SocialGood and Climate under chronological 60/20/20 splits. It uses seeds 2023–2027, H=6, L=48 on Energy and L=36 elsewhere. Its main comparison contains 75 evaluations; eight additional variants on Energy/SocialGood plus the Security routing-gradient check add 85; Economy/Energy H=12 adds 30. The complete 190 evaluations reuse 35 seed/dataset/horizon backbone configurations. All numerical channels selected by the disclosed loader are predicted. MSE and MAE are computed on the same observed target elements within each comparison.
 
-Later OT-only studies use 60% training, 60–70% checkpoint or predeclared readout selection and 70–80% development assessment. These periods have been inspected during development. Their three- and five-seed studies are separate from R1 and from each other. They do not provide untouched-data confirmation. The prospective Agriculture/Health extension uses 60/20/20 with a candidate locked before its test evaluation; it has no forecast results yet.
+Later OT-only studies use 60% training, 60–70% checkpoint or predeclared readout selection and 70–80% development assessment. These periods have been inspected during development. Their three- and five-seed studies are separate from R1 and from each other. They do not provide untouched-data confirmation. The completed Agriculture/Health extension uses 60/20/20 with a candidate locked before its test evaluation and is reported separately below.
 
 Five optimization seeds describe variability conditional on a fixed chronological stream. Overlapping forecast windows are not treated as independent samples. Tables retain all seeds, sample SD and paired seed differences. Relative changes are ratios of dataset-specific mean errors unless otherwise specified. No significance test or cross-domain raw-error pooling is used. A gain below 2% remains an observed improvement; the earlier engineering screen is not a statistical threshold.
 
@@ -85,7 +85,7 @@ The fixed online GPT4MTS policy raises both MSE and MAE relative to its own stat
 
 ## Compact text follow-up — actual local progress
 
-The development input audit finds that the newest selected record supplies no readable content token in 139/148 Energy origins and 16/90 SocialGood origins. This motivates a controlled recent-record-first order study with the same retained characters and token budget; its performance is pending. A train-only PCA/Ridge probe adds content beyond availability metadata and lowers Energy mean MSE by 4.43% in all three seeds, while raising SocialGood mean MSE by 6.69%. Energy's result shows a locally readable signal, although its error remains worse than the bare numerical backbone.
+The development input audit finds that the newest selected record supplies no readable content token in 139/148 Energy origins and 16/90 SocialGood origins. This motivates a controlled recent-record-first order study with the same retained characters and token budget; its completed conditional outcomes are reported below. A train-only PCA/Ridge probe adds content beyond availability metadata and lowers Energy mean MSE by 4.43% in all three seeds, while raising SocialGood mean MSE by 6.69%. Energy's result shows a locally readable signal, although its error remains worse than the bare numerical backbone.
 
 The E003 follow-up feeds raw BERT-PCA5 and fixed LLM5 labels through the same 5→96→64 additive projection with identical initial parameters. The language model is a local frozen 0.5B model with a fixed prompt, greedy generation and five labels. Its 1538 unique outputs have valid formats, while two target-grounding mistakes in a 30-training-text preview are retained. The features are therefore tested as an imperfect representation, not described as verified causal knowledge. No prompt/model search is used. PCA and scaling use only the training prefix; missing features are zeroed after projection.
 
@@ -127,11 +127,70 @@ Original full adapter-plus-projection parameters are 166,896 on Economy and 167,
 
 E003 uses 21,632 trainable parameters per text adapter, compared with 94,880 for the OT simple-text branch with a 768-dimensional input: a 77.20% reduction. This is not an accuracy-preserving comparison to the original full model or proof of lower complete-system cost. Eighteen later measurement rounds report cached prediction/update latency, GPU memory and cache sizes with isolated model copies. The same-capacity raw and LLM branches have the same architecture, and observed timing differences on the shared GPU should not be interpreted as intrinsic architectural speedups. Frozen BERT and approximately 0.99 GB of language-model allocated GPU memory during generation are accounted for separately from online costs.
 
-## Prospective extension — no numbers before execution
+## Recent-record-first study — completed exploratory evidence
 
-[TODO N1] Report the fixed recent-record-first results only after the current-order diagnostic reproduces old forecasts and all new forecasts pass the original-CSV audit. Keep the same budget, selected records, character inventory, warm-up and seed-specific backbone.
+Table 4. N1 uses the same retained character inventory and token budget, a frozen contextual BERT and the same numeric backbones. Current-order replay reproduces the original forecasts. The study contains 12 new static/online evaluations and 12 reused current-order controls on Energy/SocialGood, H=6, seeds 2023–2025. These are inspected development periods, not independent confirmation.
 
-[TODO N3] Add a separate locked-candidate table for Agriculture and Health after all 50 evaluation cells, 10 shared backbones and 30 warm-ups complete. Include frozen, numerical online, raw PCA5 online, LLM static and LLM online controls with five-seed paired differences. Agriculture is monthly U.S. retail broiler composite. Health is national unweighted ILI outpatient percentage; five duplicate calendar intervals contain distinct YEAR/WEEK reports, so H=6 denotes the next six reports. No extension forecast result is presently available.
+| dataset | representation | mode | n | mse_mean | mse_sd | mae_mean | mae_sd |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Energy | current | online | 3 | 0.014408 | 0.000154 | 0.090885 | 0.000563 |
+| Energy | current | static | 3 | 0.014231 | 0.000488 | 0.090432 | 0.001277 |
+| Energy | recent | online | 3 | 0.016154 | 0.001220 | 0.094087 | 0.002458 |
+| Energy | recent | static | 3 | 0.016883 | 0.000960 | 0.098930 | 0.003684 |
+| SocialGood | current | online | 3 | 0.132654 | 0.014026 | 0.210331 | 0.011083 |
+| SocialGood | current | static | 3 | 0.136406 | 0.014624 | 0.212807 | 0.011335 |
+| SocialGood | recent | online | 3 | 0.132326 | 0.014276 | 0.209793 | 0.011195 |
+| SocialGood | recent | static | 3 | 0.134763 | 0.016636 | 0.211205 | 0.013255 |
+
+Recent-first changes online mean MSE by +12.11% on Energy and -0.25% on SocialGood. Energy worsens in all three seeds; SocialGood improves in two of three. The small SocialGood mean gain is retained as exploratory progress. The unchanged character inventory is a budget control, while truncation exposes different tokens; the result does not isolate time relevance from token exposure.
+
+| dataset | mode | n | delta_mse_mean | delta_mse_sd | delta_mae_mean | delta_mae_sd | mse_improved_seeds |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Energy | online | 3 | 0.001745 | 0.001324 | 0.003203 | 0.001949 | 0 |
+| Energy | static | 3 | 0.002652 | 0.001165 | 0.008498 | 0.003413 | 0 |
+| SocialGood | online | 3 | -0.000328 | 0.000804 | -0.000537 | 0.001062 | 2 |
+| SocialGood | static | 3 | -0.001643 | 0.002970 | -0.001602 | 0.003067 | 2 |
+
+## Locked-candidate additional domains — completed
+
+Table 5. Agriculture and Health use original source CSV targets, OT only, chronological 60/20/20, H=6, L=36 and seeds 2023–2027. The E003 LLM5 candidate and generation rules were locked before these evaluations, with no recent-first substitution or test tuning. All 50 evaluation cells reuse ten numeric backbones and thirty adapter warm-ups. Format validation passes for all 1783 unique generated records; this does not prove semantic correctness. Generation takes 72.89 seconds and peaks at 1,016,284,672 allocated GPU bytes, separately from adaptation costs.
+
+Agriculture measures monthly U.S. retail broiler composite price. Health measures national unweighted ILI outpatient percentage and retains five pairs of repeated calendar intervals carrying distinct YEAR/WEEK reports. H=6 denotes six reported rows. This is a locked additional-domain experiment rather than reconstruction of the original submission tables.
+
+| dataset | method | n | mse_mean | mse_sd | mae_mean | mae_sd |
+| --- | --- | --- | --- | --- | --- | --- |
+| Agriculture | LLM5_online | 5 | 0.365011 | 0.024448 | 0.406278 | 0.017353 |
+| Agriculture | LLM5_static | 5 | 0.361745 | 0.031725 | 0.401317 | 0.023022 |
+| Agriculture | frozen_backbone | 5 | 0.354534 | 0.022402 | 0.398093 | 0.018375 |
+| Agriculture | numeric_online | 5 | 0.348593 | 0.023567 | 0.392263 | 0.014610 |
+| Agriculture | raw5_online | 5 | 0.363292 | 0.018837 | 0.406121 | 0.009901 |
+| Health | LLM5_online | 5 | 0.796514 | 0.039084 | 0.568591 | 0.024813 |
+| Health | LLM5_static | 5 | 0.736614 | 0.020849 | 0.519494 | 0.012026 |
+| Health | frozen_backbone | 5 | 0.750280 | 0.046768 | 0.524325 | 0.029341 |
+| Health | numeric_online | 5 | 0.865705 | 0.117777 | 0.586012 | 0.050354 |
+| Health | raw5_online | 5 | 0.847904 | 0.094628 | 0.592960 | 0.051194 |
+
+Table 6. Candidate minus control; negative favors LLM5-online. SD is across paired optimization seeds, conditional on the same stream; it is not a confidence interval over independent forecast windows.
+
+| dataset | candidate | control | n | delta_mse_mean | delta_mse_sd | delta_mae_mean | delta_mae_sd | mse_change_percent | mae_change_percent | mse_improved_seeds | mae_improved_seeds |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Agriculture | LLM5_online | LLM5_static | 5 | 0.003266 | 0.010653 | 0.004961 | 0.011421 | 0.902758 | 1.236191 | 2 | 1 |
+| Agriculture | LLM5_online | frozen_backbone | 5 | 0.010477 | 0.010037 | 0.008185 | 0.011256 | 2.955230 | 2.056031 | 1 | 1 |
+| Agriculture | LLM5_online | numeric_online | 5 | 0.016418 | 0.010650 | 0.014014 | 0.007665 | 4.709694 | 3.572704 | 0 | 0 |
+| Agriculture | LLM5_online | raw5_online | 5 | 0.001719 | 0.010739 | 0.000157 | 0.010102 | 0.473096 | 0.038629 | 2 | 3 |
+| Health | LLM5_online | LLM5_static | 5 | 0.059900 | 0.035643 | 0.049097 | 0.020718 | 8.131777 | 9.450926 | 0 | 0 |
+| Health | LLM5_online | frozen_backbone | 5 | 0.046234 | 0.055946 | 0.044266 | 0.034658 | 6.162286 | 8.442529 | 1 | 0 |
+| Health | LLM5_online | numeric_online | 5 | -0.069191 | 0.125725 | -0.017421 | 0.053468 | -7.992471 | -2.972731 | 3 | 3 |
+| Health | LLM5_online | raw5_online | 5 | -0.051390 | 0.061348 | -0.024368 | 0.029986 | -6.060776 | -4.109622 | 4 | 4 |
+
+Health shows a 7.99% mean MSE reduction against numerical online adaptation (three of five seeds) and 6.06% against raw PCA5 online (four of five). Its LLM5 online MSE is nevertheless 8.13% worse than its own static version, with no improving seed. Agriculture worsens by 4.71% against numerical online adaptation and 0.47% against raw PCA5 online, while the raw comparison has two improving MSE seeds. These outcomes support conditional representation gains and distinguish text usefulness from usefulness of continuous updating. They motivate a subsequent calibration study; they are not evidence that such a future mechanism works.
+
+## Native VoT integration — runtime verification only
+
+The pinned author PatchTST architecture, six-layer frozen GPT-2 numeric-statistics prompt, contrastive alignment and frequency fusion pass three-stage real-target forward/update checks at batch one and two. The smoke uses original SocialGood targets and masks in the shared training prefix and leaves author equations unchanged. The first attempt failed on a missing import dependency, retained as a failure record; installing the pinned dependency permits the successful second run (6.24 s, 530,800,640 peak allocated GPU bytes). These are integration measurements, not deployment benchmarks.
+
+Released priors are truncated explicitly from twelve values to six. The author loader's window-index convention has been checked, but the priors' generation-time availability remains unverified. Therefore this smoke produces no formal VoT benchmark score, no Table 2 ranking, and no claim of a complete replication.
+
 
 ## Limitations and closing discussion
 
@@ -146,9 +205,9 @@ The revised evidence preserves both modest gains and failures. It supports a rep
 | Full joint online/static gains, feedback separation | replan_execution/evidence/b1 | Supported, three-seed development |
 | Same-capacity E003 mean improvement | E003 summary, paired_summary, original-CSV validation | Supported, restricted development comparison |
 | 21,632 parameters and 77.20% reduction | E003/cost config and model parameter counts | Supported for the specified simple branch |
-| Recent-first improves forecasts | No N1 GPU output | Pending, not asserted |
-| Locked candidate extends to Agriculture/Health | No N3 GPU output | Pending, not asserted |
+| Recent-first has conditional gains/regression | N1 complete original-target audit and paired reports | SocialGood small gain; Energy adverse, exploratory |
+| Locked candidate evaluated on Agriculture/Health | N3 50 cells, ten backbones, thirty warm-ups and source audit | Completed, gains depend on control/domain |
 | Fully reproduced native VoT / original Table 2 | Prior provenance and original records missing | Not asserted |
 | True text publication-time causality | No independent publication metadata | Not asserted |
 
-Reverse outline: task and interface → chronology and source truth → separate experiment blocks → main results → component diagnosis → stronger external systems → compact text progress → complete cost → pending confirmation and limits. Definitions of static, online, full and simple-text remain distinct. All new numbers are copied or computed from prior verified evidence; pending stages have explicit TODO markers. This file is an integration draft, not a submitted rebuttal or compiled final paper.
+Reverse outline: task and interface → chronology and source truth → separate experiment blocks → main results → component diagnosis → stronger external systems → compact text progress → complete cost → completed additional domains and limits. Definitions of static, online, full and simple-text remain distinct. All new numbers are copied or computed from prior verified evidence; native VoT formal comparison and original source recovery remain explicit gaps. This file is an integration draft, not a submitted rebuttal or compiled final paper.

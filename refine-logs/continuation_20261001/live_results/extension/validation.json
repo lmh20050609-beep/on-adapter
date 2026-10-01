@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "evaluations": 50,
+  "shared_backbones": 10,
+  "warmups": 30,
+  "source": "OriginalCSVtargets",
+  "scope": "Lockedcandidateadditionaldomains; sourcehealthhas5duplicatecalendarpairs, H6reportedrecords; not originalpaperreconstruction"
+}

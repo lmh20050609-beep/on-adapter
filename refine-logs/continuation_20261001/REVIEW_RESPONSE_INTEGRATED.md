@@ -1,6 +1,6 @@
 # 逐点 review 回复整合稿
 
-这是可合入回复的英文素材，尚未提交。回应对应原 review 的 ECmL 四点及 LCo1 五点。N1/N3 是 code-reviewed pending 实验，不能使用“已取得扩域提升”等措辞。原 Table 1–3 的来源缺口仍显式保留。
+这是可合入回复的英文素材，尚未提交。回应对应原 review 的 ECmL 四点及 LCo1 五点。N1/N3 已完成并通过原预测/目标审计；下文保留成功和退化，VoT 接入检查与正式基线比较明确分开。原 Table 1–3 的来源缺口仍显式保留。
 
 ## ECmL F1 — consistency, significance and small effects
 
@@ -42,7 +42,7 @@ All new internal and GPT4MTS online comparisons use the same maturity executor. 
 
 Author-model GPT4MTS, the submitted GPT4MTS_z proxy and our fixed online extension are named separately. GPT4MTS consumes historical CLS text with up to 512 tokens; internal adapters use selected current mean-pooled text with 64. We therefore describe a complete-system comparison on a common task, not equal architecture or text consumption. Its fixed online extension is worse than its own static form in all 25 runs; the stronger static baseline remains in every relevant table.
 
-Native VoT is still pending. The source audit identifies a released-prior directory mismatch, 70/10/20 versus our 60/20/20 split, an embedding-version difference, and missing origin/text/retrieval generation metadata in published priors. These are concrete replication/alignment requirements, not proof of leakage or failure of VoT. We do not use those priors as ground truth or claim that Table 2 has been recovered.
+The native VoT three-stage runtime integration smoke has passed; its full matched baseline evaluation is still pending. The source audit identifies a released-prior directory mismatch, 70/10/20 versus our 60/20/20 split, an embedding-version difference, and missing origin/text/retrieval generation metadata in published priors. These are concrete replication/alignment requirements, not proof of leakage or failure of VoT. We do not use those priors as ground truth or claim that Table 2 has been recovered.
 
 ## LCo1 P3 — robustness of small improvements
 
@@ -52,14 +52,23 @@ We report both mean effects and matched-seed SD, retaining all outcomes. Low or 
 
 The full component table isolates the specified input and regularization paths and includes parameter-reported homogeneous experts. Removing one path can improve mean error, so universal necessity is not claimed. The spectral branch operates over latent coordinates, and latent centering is not demonstrated temporal decomposition. Strong gate concentration is reported without inferring semantic specialization.
 
-Content probes distinguish availability metadata from readable text. A train-only content residual probe improves Energy over metadata while worsening SocialGood. The fixed LLM5 simple-fusion comparison offers restricted positive evidence, but same-state donor effects are small and mixed and do not prove semantic causation. An input audit shows that Energy's latest selected record is unread by the 64-token encoder in 139/148 development origins. A controlled equal-budget record-order study is code-reviewed and pending. Its motivation is concrete; its forecast benefit has not been asserted.
+Content probes distinguish availability metadata from readable text. A train-only content residual probe improves Energy over metadata while worsening SocialGood. The fixed LLM5 simple-fusion comparison offers restricted positive evidence, but same-state donor effects are small and mixed and do not prove semantic causation. An input audit shows that Energy's latest selected record is unread by the 64-token encoder in 139/148 development origins. The completed equal-budget record-order study shows a small SocialGood mean gain and an Energy regression. It is exploratory evidence, with all seed differences retained.
 
 ## LCo1 P5 — datasets, horizons and table organization
 
-The 190-run R1 block uses five domains, H=6, all disclosed numerical target channels and 60/20/20; H=12 is limited to Economy/Energy. The external OT block uses five domains, five seeds and the inspected 60/10/10 prefix protocol. Later three-seed OT component/readout/E003 studies remain separate. Reused controls are marked and not counted as new trainings. New Agriculture/Health OT H=6 evaluation is prospectively locked at 60/20/20 and still pending. Health contains distinct reports with duplicate calendar intervals, so H denotes the next reports rather than exact calendar weeks at every origin.
+The 190-run R1 block uses five domains, H=6, all disclosed numerical target channels and 60/20/20; H=12 is limited to Economy/Energy. The external OT block uses five domains, five seeds and the inspected 60/10/10 prefix protocol. Later three-seed OT component/readout/E003 studies remain separate. Reused controls are marked and not counted as new trainings. The locked Agriculture/Health OT H=6 evaluation at 60/20/20 has completed all fifty cells with five seeds, ten shared backbones and thirty warm-ups; its separate tables retain the stronger static controls. Health contains distinct reports with duplicate calendar intervals, so H denotes the next reports rather than exact calendar weeks at every origin.
 
 The revision does not restore ten-domain SOTA, arbitrary-delay, multi-backbone or multi-encoder claims from these narrower experiments. Full LaTeX sources, original broad-table provenance, true publication times and a trustworthy native VoT generation chain remain the materials needed to finish the corresponding claims.
 
 ## Coverage and current status
 
-All nine specific questions have a response above. Completed evidence is available and manuscript paragraphs are integrated; new source-reviewed code is staged on Windows because WSL commands and its file share currently fail. No new GPU result, submission action or repository push is claimed in this continuation. Current prose will be updated with N1/N3 numbers only after their saved original forecasts pass the planned checks.
+All nine specific questions have a response above. WSL/CUDA have recovered, code and the locked plan are synchronized through ef22b671, and completed N1/N3 forecasts pass the source-target checks. Their numbers are integrated in separate tables. Native VoT integration passes but trusted prior generation and full comparison remain unfinished. This is replacement text; it has not been submitted.
+
+
+## 2026-10-01 completed continuation evidence
+
+For the concerns about small and inconsistent gains, the additional-domain results retain all controls. LLM5-online lowers Health mean MSE by 7.99% versus numerical online adaptation and 6.06% versus raw PCA5 online, but its own static form is stronger by 8.13%. Agriculture shows adverse mean error. The recent-record-first study retains a small SocialGood gain and Energy regression; it is exploratory. These results sharpen the scope of text-assisted progress and do not restore consistency or significance claims.
+
+For reproducibility and baseline control, all fifty additional-domain cells passed original-CSV target/mask and matched-origin checks, using ten shared backbones and thirty warm-ups. The fixed candidate uses the original text ordering. A native VoT three-stage real-target integration check also passes after the recorded missing dependency was installed, but prior-generation availability remains unknown. No formal VoT performance comparison is claimed from the smoke.
+
+Full tables, paired seed differences, generation costs and the repeated-calendar handling for Health are included in the updated manuscript replacement. The new first-principles calibration route is planned separately and supplies no current performance evidence.

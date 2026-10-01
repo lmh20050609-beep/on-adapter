@@ -1,0 +1,51 @@
+{
+  "checked_at": "2026-10-01T03:53:50.365353+00:00",
+  "runtime": "WSL Ubuntu CUDA recovered and verified",
+  "code_commit": "ef22b6716a3f6a069fd99f41f0cf8b80fd1ce496",
+  "tests": {
+    "passed": 65,
+    "seconds": 4.539,
+    "log": "/home/wuwa/projects/research/iadapter/experiments/continuation_20261001/tests_before_launch.txt"
+  },
+  "N1": {
+    "status": "completed",
+    "new_evaluations": 12,
+    "reused_current_evaluations": 12,
+    "validation": {
+      "status": "passed",
+      "new_evaluations": 12,
+      "reused_current_evaluations": 12,
+      "current_diagnostic_replay_executions": 6,
+      "warmups": 6,
+      "donor_sequences": 12,
+      "scope": "Post-results exploratory input-order study; not independent confirmation"
+    }
+  },
+  "N2": {
+    "status": "passed",
+    "live_source_bytes_match_original_zip": true
+  },
+  "N3": {
+    "status": "completed",
+    "validation": {
+      "status": "passed",
+      "evaluations": 50,
+      "shared_backbones": 10,
+      "warmups": 30,
+      "source": "OriginalCSVtargets",
+      "scope": "Lockedcandidateadditionaldomains; sourcehealthhas5duplicatecalendarpairs, H6reportedrecords; not originalpaperreconstruction"
+    }
+  },
+  "N4": {
+    "status": "integration_smoke_passed",
+    "formal_baseline": false,
+    "prior_provenance_verified": false,
+    "original_author_math_modified": false,
+    "validation": "/home/wuwa/projects/research/iadapter/experiments/native_vot_smoke_20261001_retry1/validation.json"
+  },
+  "not_complete": [
+    "native VoT full matched baseline",
+    "new first-principles innovation pilot",
+    "manuscript final numerical integration"
+  ]
+}

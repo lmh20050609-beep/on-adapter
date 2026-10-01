@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "datasets": [
+    {
+      "dataset": "Agriculture",
+      "exact_submission_bytes": true,
+      "bytes": 709767
+    },
+    {
+      "dataset": "Health",
+      "exact_submission_bytes": true,
+      "bytes": 1053059
+    }
+  ]
+}

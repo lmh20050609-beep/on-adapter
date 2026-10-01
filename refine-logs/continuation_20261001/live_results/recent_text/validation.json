@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "new_evaluations": 12,
+  "reused_current_evaluations": 12,
+  "current_diagnostic_replay_executions": 6,
+  "warmups": 6,
+  "donor_sequences": 12,
+  "scope": "Post-results exploratory input-order study; not independent confirmation"
+}
