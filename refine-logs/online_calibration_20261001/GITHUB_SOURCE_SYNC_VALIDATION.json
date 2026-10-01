@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "remote_commit": "5785203843f3789434ecc41238de787b72633c8f",
+  "local_execution_commit": "3706909132eee80f35b4034702bf1b002cd682ea",
+  "all_local_blob_bytes_equal_remote": 676,
+  "only_remote_extra": "exact local source Git bundle",
+  "file_modes_normalized_to_100644": [
+    "iadapter/calibration_analysis.py",
+    "iadapter/calibration_cost.py",
+    "iadapter/calibration_pilot.py",
+    "iadapter/online_mix.py",
+    "refine-logs/online_calibration_20261001/ASSUMPTIONS.md",
+    "refine-logs/online_calibration_20261001/CODE_REVIEW.md",
+    "refine-logs/online_calibration_20261001/CODE_REVIEW_FOLLOWUP.md",
+    "refine-logs/online_calibration_20261001/CODE_REVIEW_FOLLOWUP_REQUEST.json",
+    "refine-logs/online_calibration_20261001/CODE_REVIEW_REQUEST.json",
+    "refine-logs/online_calibration_20261001/ENVIRONMENT_INVOCATION.md",
+    "refine-logs/online_calibration_20261001/ENVIRONMENT_WITNESS.json",
+    "refine-logs/online_calibration_20261001/ENV_SPEC.json",
+    "refine-logs/online_calibration_20261001/EXPERIMENT_PLAN.md",
+    "refine-logs/online_calibration_20261001/research_contract.md",
+    "tests/test_online_mix.py"
+  ],
+  "invocation": "python -m does not require executable bit; bundle retains exact original modes",
+  "transport": "GitHub connector fallback; host Git unavailable",
+  "local_HEAD_unchanged_during_running_queues": true
+}

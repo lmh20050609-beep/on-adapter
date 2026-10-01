@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "neural_forecast_streams": 96,
+  "assessment_branch_sequences": 42,
+  "mix_assessment_sequences": 216,
+  "original_csv_masks_checked": true,
+  "once_only_maturity_checked": true,
+  "all_failed_runs_excluded": true,
+  "scope": "Exploratory known-period repartition, 3 optimization seeds; no significance/causal/general-SOTA claim"
+}

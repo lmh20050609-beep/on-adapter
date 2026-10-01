@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "read_only_forecast_streams": 54,
+  "max_identity_error": 6.453171330633722e-16,
+  "coefficient_fitting": false,
+  "assessment_tuning": false,
+  "anchor": "same-seed numeric_static",
+  "execution_source": "3706909132eee80f35b4034702bf1b002cd682ea"
+}
