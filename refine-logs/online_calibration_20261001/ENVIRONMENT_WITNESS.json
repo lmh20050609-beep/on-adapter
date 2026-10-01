@@ -1,0 +1,36 @@
+{
+  "witness_type": "fresh_agent_follows_doc",
+  "environment_spec_hash": "47df2a8b",
+  "documentation_paths": [
+    "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-online-calibration-20261001\\ENVIRONMENT_INVOCATION.md",
+    "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-online-calibration-20261001\\ENV_SPEC.json",
+    "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\.agents\\skills\\run-experiment\\SKILL.md"
+  ],
+  "shell": "powershell",
+  "working_directory": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise",
+  "exact_invoked_command": "$taskWitness = @'\nimport torch\ntorch.set_num_threads(1)\ntorch.manual_seed(2023)\nx = torch.arange(16, device='cuda', dtype=torch.float32).reshape(4,4)\ny = x @ x.T\nprint('WITNESS', tuple(y.shape), float(y.sum()), torch.cuda.get_device_name())\n'@\n$taskWitness | wsl.exe -d Ubuntu --cd /home/wuwa/projects/research/iadapter --exec /home/wuwa/miniconda3/envs/llm/bin/python -",
+  "full_output": "WITNESS (4, 4) 3680.0 NVIDIA GeForce RTX 4060 Laptop GPU\n",
+  "exit_code": 0,
+  "tool_result": {
+    "chunk_id": "ff9ed2",
+    "wall_time_seconds": 3.3101131,
+    "exit_code": 0,
+    "original_token_count": 15,
+    "output": "WITNESS (4, 4) 3680.0 NVIDIA GeForce RTX 4060 Laptop GPU\n"
+  },
+  "expected_sentinel": "WITNESS (4, 4) 3680.0 NVIDIA GeForce RTX 4060 Laptop GPU",
+  "actual_sentinel": "WITNESS (4, 4) 3680.0 NVIDIA GeForce RTX 4060 Laptop GPU",
+  "actual_device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "actual_shape": [
+    4,
+    4
+  ],
+  "actual_sum": 3680,
+  "invocation_modified": false,
+  "pass": true,
+  "doc_vs_reality_divergences": [],
+  "verification_scope": "Executed only the documented seeded CUDA matrix witness verbatim. Confirms the sentinel, device, and successful documented invocation. Package versions, weight directories, and prior experimental results were not independently audited.",
+  "training_launched": false,
+  "environment_changed": false,
+  "experiment_code_edited": false
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "tests": 74,
+  "seconds": 3.013,
+  "command": "/home/wuwa/miniconda3/envs/llm/bin/python -m unittest discover -s tests",
+  "new_mix_tests": 9,
+  "code_review": "same-family provisional, no blocking defects",
+  "environment": "existing WSL GPU kernel witness passed",
+  "code_tested": "new modules in working tree before this commit; no functional source edit after suite"
+}
