@@ -5,9 +5,11 @@
 On-Adapter attaches a lightweight adapter to a frozen iTransformer backbone. The adapter fuses numeric and text information and keeps receiving feedback at test time from labels that arrive with a delay. This repository contains:
 
 - a nine-domain multimodal time-series benchmark shared by all methods;
-- a diagnosis of the original On-Adapter;
-- the improved method, **On-Adapter-CV**;
+- a diagnosis of the On-Adapter of the original paper (**Original On-Adapter**);
+- our improved method, **On-Adapter**;
 - a confirmation experiment on 3 training seeds, run after the method was frozen.
+
+> **Naming.** On-Adapter here means our improved version. The method from the original paper is called **Original On-Adapter**, and the ablation without the CVaR tail loss is **On-Adapter w/o CVaR loss**. In code and result files (`results.json`, `PLAN.json`, `confirm.py`) the same three appear as `On-Adapter-CV` (tag `cv`), `On-Adapter` and `On-Adapter-TA` (tag `ta`).
 
 > All results are **exploratory**; see [Limitations](#8-limitations). The full experimental design, statistical definitions and data sources are in [docs/EXPERIMENT_DESIGN_AND_RESULTS.md](docs/EXPERIMENT_DESIGN_AND_RESULTS.md).
 
@@ -34,25 +36,25 @@ On-Adapter attaches a lightweight adapter to a frozen iTransformer backbone. The
 | Method | Type | Main statistic S ↓ | Mean CVaR₉₀ rank ↓ | Mean MAE | Mean MSE | Tasks with lower tail than backbone |
 |---|---|---:|---:|---:|---:|---:|
 | iTransformer | static | **1.000000** | 3.843 | **1.0628** | **11.978** | — |
-| **On-Adapter-CV (ours)** | online · multimodal | 1.000495 | **3.380** | 1.0716 | 12.100 | **22/36** |
-| On-Adapter-TA (ablation: no CVaR loss) | online · multimodal | 1.000108 | 3.481 | 1.0655 | 12.008 | 21/36 |
+| **On-Adapter (ours)** | online · multimodal | 1.000495 | **3.380** | 1.0716 | 12.100 | **22/36** |
+| On-Adapter w/o CVaR loss (ablation) | online · multimodal | 1.000108 | 3.481 | 1.0655 | 12.008 | 21/36 |
 | MM-TSFlib | static · multimodal | 1.014709 | 4.009 | 1.0690 | 12.089 | 16/36 |
 | GPT4MTS | static · multimodal | 1.035984 | 4.000 | 1.0879 | 12.205 | 16/36 |
 | ADAPT-Z | online | 1.049515 | 3.731 | 1.1421 | 13.390 | 18/36 |
 | DSOF | online | 1.050956 | 3.972 | 1.2860 | 13.904 | 15/36 |
-| On-Adapter (original) | online · multimodal | 1.093644 | — | 1.0974 | 12.210 | 17/36 |
+| Original On-Adapter | online · multimodal | 1.093644 | — | 1.0974 | 12.210 | 17/36 |
 | Proceed | online | 1.110804 | 5.065 | 1.1752 | 13.486 | 11/36 |
 
 **Notes on the table:**
 - **Main statistic S:** for each cell, take the ratio of its CVaR₉₀ to the CVaR₉₀ of iTransformer in the same cell; average over the 3 seeds; then take the equally weighted geometric mean over the 36 domain/H tasks. Lower is better; iTransformer is 1 by definition.
-- **Mean rank:** the 7 methods are ranked within each of the 108 domain/H/seed cells and the ranks are averaged. The rank of On-Adapter-TA is computed in its own 7-method table.
+- **Mean rank:** the 7 methods are ranked within each of the 108 domain/H/seed cells and the ranks are averaged. The rank of On-Adapter w/o CVaR loss is computed in its own 7-method table.
 - **Per-seed S:**
-  - On-Adapter-CV: 1.00082 / 1.00118 / 0.99938;
-  - On-Adapter-TA: 1.00192 / 0.99972 / 0.99857.
+  - On-Adapter: 1.00082 / 1.00118 / 0.99938;
+  - On-Adapter w/o CVaR loss: 1.00192 / 0.99972 / 0.99857.
 
 **Per-domain CVaR₉₀ relative to the backbone** (below 1 means better than iTransformer; averaged over the 3 seeds, then geometric mean over the 4 horizons):
 
-| Domain | On-Adapter-CV | On-Adapter-TA | Share of origins using the adapter (CV / TA) |
+| Domain | On-Adapter | w/o CVaR loss | Share of origins using the adapter (ours / w/o CVaR) |
 |---|---:|---:|---:|
 | Environment | **0.990** | 1.002 | 0.60 / 0.40 |
 | Energy | 1.002 | 1.000 | 0.43 / 0.45 |
@@ -70,7 +72,7 @@ Values are rounded to 3 decimals; per-task results are under `per_task` in [resu
 
 ---
 
-## 3. Method: On-Adapter-CV
+## 3. Method: On-Adapter
 
 ```mermaid
 flowchart LR
@@ -96,7 +98,7 @@ flowchart LR
 | Training budget too small | Only 3 epochs; with up to 15, some cells were still improving at epoch 15 |
 | Training loss does not match the evaluation metric | Training uses element-wise MSE; evaluation looks at the tail of per-origin MAE |
 
-**Five changes relative to the original method** (data, backbone, expert structure, text encoding and feedback computation are unchanged):
+**Five changes relative to Original On-Adapter** (data, backbone, expert structure, text encoding and feedback computation are unchanged):
 
 1. **Turn off the VICReg text–numeric alignment term** by setting its weight to 0.
 2. **Raise the epoch cap from 3 to 15.** Early-stopping patience stays at 3, and the checkpoint is still chosen by validation MSE.
@@ -159,7 +161,7 @@ Implemented as `cell_metrics` in [benchmark/score.py](benchmark/score.py):
 | Proceed | SJTU-DMTai/OnlineTSF `0a864619` | Same as above |
 | GPT4MTS | Flora-jia-jfr/GPT4MTS `c85e74b2` | Retrained on V1 |
 | MM-TSFlib | AdityaLab/MM-TSFlib `e789ce78` | Retrained on V1 |
-| On-Adapter (original) | Implementation from the original paper's supplement | Retrained on V1 |
+| Original On-Adapter | Implementation from the original paper's supplement | Retrained on V1 |
 
 **Result files:**
 - V1 main table, 3 seeds × 36 tasks × 7 methods = 756 cells: [results.json](results/benchmark/results.json) and [results.csv](results/benchmark/results.csv);
@@ -191,10 +193,10 @@ python -m benchmark.score
 
 The 432 cells of the 4 methods that do not read text are reused from historical runs under the same protocol. Their hashes are pinned in [legacy_numeric_reuse_manifest.json](benchmark/legacy_numeric_reuse_manifest.json), and their compatibility is checked in two files: [reuse_verification.json](results/benchmark/reuse_verification.json) and [numeric_reuse_equivalence.json](results/benchmark/numeric_reuse_equivalence.json). Their original run directories are not in the repository.
 
-### 5.3 On-Adapter-CV confirmation experiment
+### 5.3 On-Adapter confirmation experiment
 
 ```bash
-# 1) train (for On-Adapter-TA use configs/confirmation_ta.json)
+# 1) train (for the ablation without the CVaR loss use configs/confirmation_ta.json)
 python -m confirmation.runner run --config configs/confirmation_cv.json
 # 2) per-origin online test trajectories
 python confirmation/confirm.py --list cv | while read t d h s; do
@@ -214,8 +216,8 @@ python confirmation/confirm.py --score
 ├── data/                  V1 dataset: one CSV per domain (9 domains)
 ├── data_repair/           code and 348 decision rules that built the V1 text repair
 ├── methods/               implementations of the 7 methods (used in the main experiment)
-├── on_adapter/            final method On-Adapter-CV / TA (a fork of methods/, see FORK.json)
-├── on_adapter_original/   source of the original On-Adapter paper (experts, IG-SMoE adapter, VICReg alignment)
+├── on_adapter/            final method On-Adapter and its ablation (a fork of methods/, see FORK.json)
+├── on_adapter_original/   source of the Original On-Adapter paper (experts, IG-SMoE adapter, VICReg alignment)
 ├── benchmark/             main experiment: scheduling, audit, frozen scoring (score.py), report
 ├── confirmation/          confirmation experiment: training (runner.py), online replay (harness.py),
 │                          gate (round5_gate.py), trajectories and scoring (confirm.py), dispatch.sh
