@@ -1,0 +1,15 @@
+{
+ "round": 5,
+ "title": "On-Adapter-TA: trained adapter (round-3 a0e15) with a backbone-first abstaining gate",
+ "frozen_at": "2026-10-09, after the round-4 seed-2 test (S = 1.008974, not first) and before any round-5 test computation",
+ "exploratory_disclosure": "Motivated by four test post-mortems: validation improvements of calibrations and of the trained adapter reversed on several test tasks. Exploratory iteration on an already observed test period. Validation screens round5/dev/h7_abstain_screen.py and h8_abstain_multi.py were inspected before freezing (the latter showed the original online-update expert fails late in validation and is excluded).",
+ "hypothesis": {
+  "problem": "The trained adapter helps on some test streams and hurts on others, and validation cannot tell which in advance.",
+  "change": "On-Adapter emits its internal frozen-backbone forecast by default and switches to the trained adapter forecast T only while T's gs-discounted mean per-origin MAE over at least 4 fully matured origins is below (1 - mu) x the backbone's (hysteresis: an active T stays while it is below the backbone's); otherwise it abstains back to the backbone.",
+  "falsified_if": "the selected candidate's seed-2 test S is not below every baseline"
+ },
+ "candidates": {"T_alone": "a0e15 forecast without gate", "gate": {"gs": [0.8, 0.9, 1.0], "mu": [0.0, 0.01, 0.03], "kmin": 4}},
+ "selection": "seed-2 validation stream r=0 of the round-3 a0e15 checkpoints; score = max(whole-stream geometric mean over 36 tasks of the CVaR90 ratio to iTransformer, largest per-third geometric mean); argmin; ties toward larger mu, then larger gs",
+ "formal_test": "selected candidate applied once to the existing round-3 a0e15 test trajectories (r=0); frozen cell_metrics against the fixed seed-2 baselines; fraction of origins using the adapter reported per task",
+ "information_boundary": "the gate uses only targets/masks of origins with o + H <= t at forecast time t; the backbone forecast is computed inside On-Adapter from the frozen seed-2 iTransformer checkpoint"
+}

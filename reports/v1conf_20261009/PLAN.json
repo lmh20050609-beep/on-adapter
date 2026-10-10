@@ -1,0 +1,13 @@
+{
+ "title": "Confirmation of frozen On-Adapter variants on the V1 three-seed benchmark (seeds 2025, 2026, 2027)",
+ "frozen_at": "2026-10-09, before any confirmation trajectory (one Traffic H6 seed-2025 smoke training cell of the primary method excepted)",
+ "primary_method": "On-Adapter-CV = round-12 seed-2 validation-selected method: a0e15 recipe (VICReg alignment off, On epochs 15, patience 3, checkpoint by validation MSE) + CVaR90 variational tail loss lambda 0.5 (tau = cross-batch EMA of the batch 90% quantile) + backbone-first abstaining gate (gs 0.9, mu 0, kmin 4); online parameter updates off (lr 0)",
+ "control_method": "On-Adapter-TA = round-5 configuration (a0e15 recipe with MSE loss + the same gate), reported alongside; it cannot replace the primary after the fact",
+ "no_selection": "No hyperparameter, candidate, seed or stream is selected in this confirmation; every choice above was fixed on seed 2 before this plan.",
+ "baselines": "Fixed V1 main table (reports/benchmark_textrepair_v1_20261008/results.json, frozen score.py): iTransformer, ADAPT-Z, DSOF, Proceed (reused legacy text-free cells) and GPT4MTS, MM-TSFlib, original On-Adapter (V1 campaign). Not rerun.",
+ "backbone": "the same V1 legacy iTransformer checkpoints (legacy_numeric_reuse_manifest) per domain/H/seed",
+ "online_entry_state": "python/numpy/torch seeded with 100*s (s = training seed), stream r=0, CPU float32 2 threads",
+ "scoring": "frozen benchmark_textrepair_v1/score.py definitions: per cell CVaR90 / same-cell iTransformer CVaR90, seed mean per domain/H, equal-weight geometric mean over 36 tasks; mean CVaR90 rank over 108 domain/H/seed cells; MAE, MSE, CVaR90, per domain/H; pre-gate and adapter share reported",
+ "success": "primary S strictly below all six other methods",
+ "disclosure": "Seeds 2025-2027 differ only in training randomness; their test time period is the same one used during seed-2 development, so this confirms robustness to training randomness, not generalisation to unseen data. The V1 three-seed main table was produced earlier and has been seen."
+}

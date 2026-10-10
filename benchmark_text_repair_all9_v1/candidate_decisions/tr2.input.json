@@ -1,0 +1,422 @@
+[
+ {
+  "id": "c113",
+  "text": "2007-02-26: Objective facts about the Traffic and Transportation situation:  Traffic volume data is available for certain locations, such as 1,746 vehicles per day on a specific street in North Dumfries Township as of 2015 . Automatic traffic recorder volume counts are available in the form of excel spreadsheets .",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2007-02-26",
+  "described_max": "2007-02-26",
+  "n_rows": 1
+ },
+ {
+  "id": "c114",
+  "text": "2007-09-17: Objective facts about the Traffic and Transportation situation: The U.S. DOT's Freight Analysis Framework (FAF Version 2.2) projects 2035 train volumes based on economic growth and commodity forecasts.  Rapid expansion of the U.S. ethanol industry could increase volumes of ethanol shipments, affecting agricultural transportation.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2007-09-17",
+  "described_max": "2007-09-17",
+  "n_rows": 1
+ },
+ {
+  "id": "c115",
+  "text": "2008-06-09: The number of travel lanes needed to accommodate 2030 traffic volumes can be ascertained by using level of service thresholds based on variations in the future roadway network.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2008-06-09",
+  "described_max": "2008-06-09",
+  "n_rows": 1
+ },
+ {
+  "id": "c116",
+  "text": "2008-10-20: The total traffic volume on Highways 59 and 37 in George West, TX was 11,055 in 2009.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2008-10-20",
+  "described_max": "2008-10-20",
+  "n_rows": 1
+ },
+ {
+  "id": "c117",
+  "text": "2009-02-02: By 2030, national road network intercity traffic projections are expected to increase, based on travel data, freight movement data, and state and territory road traffic data.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2009-02-02",
+  "described_max": "2009-02-02",
+  "n_rows": 1
+ },
+ {
+  "id": "c118",
+  "text": "2009-03-16: The traffic volume is expected to increase, with truck traffic estimated to make up approximately 6 percent of the daily traffic by 2035.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2009-03-16",
+  "described_max": "2009-03-16",
+  "n_rows": 1
+ },
+ {
+  "id": "c119",
+  "text": "2009-04-13: In 2010, the Indiana State Government expanded its traffic data collection to include non-state maintained roads.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2009-04-13",
+  "described_max": "2009-04-13",
+  "n_rows": 1
+ },
+ {
+  "id": "c120",
+  "text": "2009-04-27: Port Everglades exceeded 1 million TEUs (20-foot equivalent units) in Fiscal Year 2023, making it a leading U.S. container port.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2009-04-27",
+  "described_max": "2009-04-27",
+  "n_rows": 1
+ },
+ {
+  "id": "c121",
+  "text": "2009-06-01: Objective facts about the Traffic and Transportation situation: The average daily bi-directional traffic volume for SR-99 in the year 2035 is forecasted to be a certain number.  Over 325 million passengers a year board connecting flights in Asia, Europe, and the United States.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2009-06-01",
+  "described_max": "2009-06-01",
+  "n_rows": 1
+ },
+ {
+  "id": "c122",
+  "text": "2010-03-29: Traffic forecasts for 2030 were developed from the DRCOG regional travel demand model.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2010-03-29",
+  "described_max": "2010-03-29",
+  "n_rows": 1
+ },
+ {
+  "id": "c123",
+  "text": "2010-04-19: The 2016 Annual Average Daily Truck Traffic on the California State Highway System shows that traffic counts are usually taken only once a year, and about one-sixth of the locations are counted.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2010-04-19",
+  "described_max": "2010-04-19",
+  "n_rows": 1
+ },
+ {
+  "id": "c124",
+  "text": "2010-05-03: For the design year 2035, the traffic volume along US 321 is estimated to range between",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2010-05-03",
+  "described_max": "2010-05-03",
+  "n_rows": 1
+ },
+ {
+  "id": "c125",
+  "text": "2010-05-10: Objective facts about the Traffic and Transportation situation: The top 50 U.S. water ports handled a significant amount of tonnage in 2018, with both domestic and foreign waterborne trade contributing to the totals.  In 2025, hourly traffic volume conditions on the I-295 Corridor Study Area were projected to increase.  Traffic volume data is routinely collected by state and local agencies, but pedestrian volume data is not.  NW 7th Avenue is a high-volume regional trip access facility.  Daily traffic counts were taken on Stone Way in Seattle, Washington.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2010-05-10",
+  "described_max": "2010-05-10",
+  "n_rows": 1
+ },
+ {
+  "id": "c126",
+  "text": "2010-08-09: The projected 2040 traffic volumes on State Avenue Interchange are available in graphical representations.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2010-08-09",
+  "described_max": "2010-08-09",
+  "n_rows": 1
+ },
+ {
+  "id": "c127",
+  "text": "2011-05-02: Objective facts about the Traffic and Transportation situation  The City of San Mateo has estimated baseline 2030 traffic volumes based on traffic forecasts.  The San Antonio Bike Plan 2011 aims to reduce traffic volume and/or speed.  A travel time estimation model for emergency vehicles under traffic congestion has been developed.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2011-05-02",
+  "described_max": "2011-05-02",
+  "n_rows": 1
+ },
+ {
+  "id": "c128",
+  "text": "2012-08-20: The City of Cambridge Open Data provides average daily traffic counts from 1972 to 2017.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2012-08-20",
+  "described_max": "2012-08-20",
+  "n_rows": 1
+ },
+ {
+  "id": "c129",
+  "text": "2013-05-13: Objective facts about the Traffic and Transportation situation: The traffic volume data for 18 road diets from four states and Canada, including nine Seattle locations, were provided by Burden and Lagerwey (1999) . According to a 2002 NOACA traffic volume map, approximately 15,850 vehicles travel on US 20 and SR 2 daily . Figure 2.3-1 Projected 2018 AM Peak Hour Traffic Volume shows the analysis relies on data from New York City Department of City Planning (NYCDCP) and the United States . Annual average daily traffic (AADT), Saturday and Sunday volumes represent only 90% of the total volume accommodated on the roadway network .",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2013-05-13",
+  "described_max": "2013-05-13",
+  "n_rows": 1
+ },
+ {
+  "id": "c130",
+  "text": "2013-07-22: The interchange modification in North Carolina is designed to accommodate projected 2035 traffic volumes ranging from 142,000 to 190,000 vehicles per day.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2013-07-22",
+  "described_max": "2013-07-22",
+  "n_rows": 1
+ },
+ {
+  "id": "c131",
+  "text": "2014-02-10: Objective facts about the Traffic and Transportation situation: Traffic volumes for the Bridge of the Americas POE from the U.S. to Mexico are unavailable from CBP.  Currently, the overall traffic volumes in the freeway HOV and general purpose lanes in the Phoenix area are monitored.  Travel forecasts include measures of the overall volume of travel, the modes and facilities used, and the time of day.  Commercial vehicles accounted for 16 percent of the total traffic volume.  The horizon year of the travel demand model is 2030.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2014-02-10",
+  "described_max": "2014-02-10",
+  "n_rows": 1
+ },
+ {
+  "id": "c132",
+  "text": "2014-05-05: The Cape Cod Commission collected traffic counts data in the Summer of 2019 to compare traffic volumes and understand the impacts on travel in the region during the pandemic.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2014-05-05",
+  "described_max": "2014-05-05",
+  "n_rows": 1
+ },
+ {
+  "id": "c133",
+  "text": "2015-04-06: Objective facts about the Traffic and Transportation situation: The Texas Transportation Plan 2040 aims to improve the statewide, multimodal transportation system in Texas over the next 25 years.  Air cargo traffic gathered some strength in the first quarter of 2015, but then remained flat for the rest of the year.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2015-04-06",
+  "described_max": "2015-04-06",
+  "n_rows": 1
+ },
+ {
+  "id": "c134",
+  "text": "2015-07-13: The 2040 No-Build volumes show a 20 percent increase in traffic on US 25E. Extending the Corbin Bypass shifts through traffic away from US 25E and US 25 (10 percent reduction).",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2015-07-13",
+  "described_max": "2015-07-13",
+  "n_rows": 1
+ },
+ {
+  "id": "c135",
+  "text": "2016-01-18: The average domestic airline itinerary fares are ranked by U.S. originating domestic passengers in 2023.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2016-01-18",
+  "described_max": "2016-01-18",
+  "n_rows": 1
+ },
+ {
+  "id": "c136",
+  "text": "2016-10-17: By 2035, the traffic volume on the US 13 Salisbury Bypass is expected to reach 53,000 vehicles per day, up from 36,225 currently.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2016-10-17",
+  "described_max": "2016-10-17",
+  "n_rows": 1
+ },
+ {
+  "id": "c137",
+  "text": "2016-11-14: The ITD Recommended Alternative would provide capacity improvements to accommodate 2045 traffic volumes, improving or exceeding the LOS B standard for the 2045 traffic conditions.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2016-11-14",
+  "described_max": "2016-11-14",
+  "n_rows": 1
+ },
+ {
+  "id": "c138",
+  "text": "2016-11-21: The C-470 Express Lanes project in Colorado expects a 40% increase in traffic volume by 2035.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2016-11-21",
+  "described_max": "2016-11-21",
+  "n_rows": 1
+ },
+ {
+  "id": "c139",
+  "text": "2018-04-02: State Route 500 has a traffic volume of 72,000 in 2019.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2018-04-02",
+  "described_max": "2018-04-02",
+  "n_rows": 1
+ },
+ {
+  "id": "c140",
+  "text": "2018-05-21: Between 1913 and 2022, the number of motor-vehicle deaths in the United States increased 996%, from 4200 deaths in 1913 to 46027 in 2022.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2018-05-21",
+  "described_max": "2018-05-21",
+  "n_rows": 1
+ },
+ {
+  "id": "c141",
+  "text": "2018-07-02: Traffic in 2022 was impacted by the travel restrictions and lockdowns due to the coronavirus pandemic, resulting in lower vehicle miles and traffic levels observed during the pandemic.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2018-07-02",
+  "described_max": "2018-07-02",
+  "n_rows": 1
+ },
+ {
+  "id": "c142",
+  "text": "2019-03-11: The busiest airports in the world by international passenger traffic are listed, with 2023 and 2022 statistics available.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2019-03-11",
+  "described_max": "2019-03-11",
+  "n_rows": 1
+ },
+ {
+  "id": "c143",
+  "text": "2019-03-25: The Parker Road Corridor Plan in Parker, Colorado analyzed the corridor's existing configuration with current traffic volumes and year 2040 projected traffic volumes from the Denver Regional Council of Governments.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2019-03-25",
+  "described_max": "2019-03-25",
+  "n_rows": 1
+ },
+ {
+  "id": "c144",
+  "text": "2019-05-13: Objective facts about the Traffic and Transportation situation: WS DOT provides travel charts for Christmas and Fourth of July holidays.  MnDOT uses Travel Demand Models to forecast traffic volume.  NCBC Access and Mobility Study forecasts traffic volumes from 2018 to 2040 with a 1% annual growth rate.  AAA predicts the second-highest travel volume on record for the 2019 Memorial Day weekend.  Rail coal volumes dominate rail traffic in major coal-producing regions in the United States.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2019-05-13",
+  "described_max": "2019-05-13",
+  "n_rows": 1
+ },
+ {
+  "id": "c145",
+  "text": "2019-06-10: The traffic counts on the 2020 Traffic Flow Map of Kansas State Highway System represent estimates of the Annual Average Daily Traffic (AADT) and Annual Average Daily Truck Traffic (AADTT).",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2019-06-10",
+  "described_max": "2019-06-10",
+  "n_rows": 1
+ },
+ {
+  "id": "c146",
+  "text": "2019-07-22: Objective facts about the Traffic and Transportation situation:  The Madera County Traffic Monitoring Program has developed a 2023 Traffic Volume Report as part of the Fiscal Year 2023/24 Overall Work Program.  Overall wait times at the top 17 international airports indicate higher traffic volume, faster processing, and shorter wait times.  Rush hour traffic volumes on roads servicing HART buses are used to measure the quality of transit service.  Background traffic volume forecasts are considered in transportation impact analyses.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2019-07-22",
+  "described_max": "2019-07-22",
+  "n_rows": 1
+ },
+ {
+  "id": "c147",
+  "text": "2019-10-28: Objective facts about the Traffic and Transportation situation: The Maryland Transportation Authority reported an annual daily traffic volume in FY2020.  The Alaska Marine Highway System released a 2022 Annual Traffic Volume Report.  The Arizona Department of Transportation (ADOT) shares traffic count data, including Average Annual Daily Traffic (AADT) volumes.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2019-10-28",
+  "described_max": "2019-10-28",
+  "n_rows": 1
+ },
+ {
+  "id": "c148",
+  "text": "2020-01-20: Official sites of governments and organizations provide data and systems for managing traffic and transportation, such as the State of New Jersey's Travel Time Systems (TTS) and the City of Springfield's 2035 Transportation System Plan.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2020-01-20",
+  "described_max": "2020-01-20",
+  "n_rows": 1
+ },
+ {
+  "id": "c149",
+  "text": "2021-03-01: The Nevada Department of Transportation will update traffic count data for 2023 in July 2024.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2021-03-01",
+  "described_max": "2021-03-01",
+  "n_rows": 1
+ },
+ {
+  "id": "c150",
+  "text": "2021-11-22: The U.S. Department of Transportation's Bureau of Transportation Statistics (BTS) and Federal Highway Administration (FHWA) predict that freight activity in the U.S. will grow 50% by 2050.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2021-11-22",
+  "described_max": "2021-11-22",
+  "n_rows": 1
+ },
+ {
+  "id": "c151",
+  "text": "2022-01-17: The average daily traffic volume on Route 11 (Old Valley Pike) Bridge over the North Fork of the Shenandoah River is estimated to be 6000 vehicles per day by 2038.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2022-01-17",
+  "described_max": "2022-01-17",
+  "n_rows": 1
+ },
+ {
+  "id": "c152",
+  "text": "2022-09-05: The CMAP will return 2050 forecast volume in the same manner as before. IDOT has completed generating and posting 5 Year Township Functional Classification maps for the whole state.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2022-09-05",
+  "described_max": "2022-09-05",
+  "n_rows": 1
+ },
+ {
+  "id": "c153",
+  "text": "2023-06-26: Objective facts about the Traffic and Transportation situation: Record-breaking travel volumes are expected over the July 4th weekend, with 4.17 million Americans projected to fly to their destinations.  The total U.S. holiday travel volume is forecasted by AAA and SPGMI.  Annual Average Daily Traffic (AADT) identifies the traffic volume on the State Primary system.  Traffic maps display the annual average daily traffic (AADT) on the State Primary system.  US 2 Westbound Traffic Volumes were reported in 2018.  Reports present statistical information on traffic volumes, vehicle classification, and travel on Alberta's highways.  FAA lacks a plan for air traffic control shortage, according to a report.  LAX is expecting a busy travel period over the summer season.  RCTC 91 Express Lanes Toll Policy defines abnormal traffic as when traffic volumes vary from those of a prior period.  The Tennessee Statewide Travel Demand Model produces traffic forecasts for the years 2025, 2035, and 2045.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2023-06-26",
+  "described_max": "2023-06-26",
+  "n_rows": 1
+ },
+ {
+  "id": "c154",
+  "text": "2023-09-25: Global passenger traffic is expected to recover by 2024 and reach 9.4 billion passengers, with a current projection of 8.6 billion passengers in 2023, which is 94.2% of the 2019 level.",
+  "domains": [
+   "Traffic"
+  ],
+  "described_min": "2023-09-25",
+  "described_max": "2023-09-25",
+  "n_rows": 1
+ }
+]

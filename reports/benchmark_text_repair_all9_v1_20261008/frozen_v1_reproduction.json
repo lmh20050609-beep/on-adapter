@@ -1,0 +1,17 @@
+{
+  "Agriculture": {
+    "frozen_sha256": "eed9766319b022c240efcc1b028b699390012daa8c7b27770847698d09b90523",
+    "built_sha256": "eed9766319b022c240efcc1b028b699390012daa8c7b27770847698d09b90523",
+    "identical": true
+  },
+  "Economy": {
+    "frozen_sha256": "1c30e12372d248e875691b45041180fb7673987e00fdc672e900ca25609ba548",
+    "built_sha256": "1c30e12372d248e875691b45041180fb7673987e00fdc672e900ca25609ba548",
+    "identical": true
+  },
+  "Security": {
+    "frozen_sha256": "11df63ad31ef0a0d13448abbb25958d929eef5988f26d53c2ebb097cc1f322ff",
+    "built_sha256": "11df63ad31ef0a0d13448abbb25958d929eef5988f26d53c2ebb097cc1f322ff",
+    "identical": true
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "cells": 756,
+  "summary": {
+    "iTransformer": {
+      "geometric_mean_relative_cvar90": 1.0,
+      "geometric_mean_relative_oracle_cvar90": 1.0840934654865633,
+      "mean_rank_cvar90": 3.712962962962963,
+      "mean_mae": 1.0628202295464573,
+      "mean_mse": 11.978147535776177
+    },
+    "ADAPT-Z": {
+      "geometric_mean_relative_cvar90": 1.0495145414142448,
+      "geometric_mean_relative_oracle_cvar90": 1.1375658339346597,
+      "mean_rank_cvar90": 3.6203703703703702,
+      "mean_mae": 1.142147542653295,
+      "mean_mse": 13.389742854394392
+    },
+    "DSOF": {
+      "geometric_mean_relative_cvar90": 1.0509557072213151,
+      "geometric_mean_relative_oracle_cvar90": 1.1388936649461685,
+      "mean_rank_cvar90": 3.824074074074074,
+      "mean_mae": 1.2859822915551418,
+      "mean_mse": 13.904059563911703
+    },
+    "Proceed": {
+      "geometric_mean_relative_cvar90": 1.1108041576361687,
+      "geometric_mean_relative_oracle_cvar90": 1.203970121297657,
+      "mean_rank_cvar90": 4.888888888888889,
+      "mean_mae": 1.1752014001332536,
+      "mean_mse": 13.485760244164343
+    },
+    "On-Adapter": {
+      "geometric_mean_relative_cvar90": 1.0929669664502755,
+      "geometric_mean_relative_oracle_cvar90": 1.1846069417007965,
+      "mean_rank_cvar90": 4.157407407407407,
+      "mean_mae": 1.0976280995718082,
+      "mean_mse": 12.222456968436756
+    },
+    "GPT4MTS": {
+      "geometric_mean_relative_cvar90": 1.0293160802151762,
+      "geometric_mean_relative_oracle_cvar90": 1.115200668699027,
+      "mean_rank_cvar90": 3.8796296296296298,
+      "mean_mae": 1.0878652086115865,
+      "mean_mse": 12.208639551633372
+    },
+    "MM-TSFlib": {
+      "geometric_mean_relative_cvar90": 1.015545614348449,
+      "geometric_mean_relative_oracle_cvar90": 1.1006219907383552,
+      "mean_rank_cvar90": 3.9166666666666665,
+      "mean_mae": 1.069410456215828,
+      "mean_mse": 12.09039386315275
+    }
+  },
+  "label": "historical reference: legacy periodic-v3/v4 cells, original (V0) fact column and the pre-fix batched text encoder for the three text methods",
+  "not_the_main_table": true
+}

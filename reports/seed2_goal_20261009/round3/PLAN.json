@@ -1,0 +1,23 @@
+{
+ "round": 3,
+ "title": "On-Adapter-T: training-side fix of the offline adapter (auxiliary-loss dominance, zero-start residual, budget)",
+ "frozen_at": "2026-10-09, after rounds 1-2 seed-2 tests (S = 1.014567 and 1.012861, not first) and before any round-3 variant was trained (one Agriculture H6 smoke cell of a0z0e15 excepted)",
+ "exploratory_disclosure": "Rounds 1-2 test post-mortems showed online residual calibrations do not transfer from validation to test; validation thirds confirmed their gains vanish late in the stream (round3/dev/h3_robust_screen.py). This round moves to offline training changes, an exploratory iteration on an already observed test period.",
+ "hypothesis": {
+  "problem": "The offline adapter barely learns forecasting: its training objective is 4-17 while validation MSE is 0.03-3, i.e. the VICReg alignment auxiliary term dominates the gradient; the adapter is near-neutral (seed-2 lr0: validation 0.9934, test 1.0053).",
+  "change": "On-Adapter training variants: VICReg alignment weight scale (1 original, 0 off), optional learnable residual scale initialised at 0 (forecast starts exactly at the backbone), On epoch budget (3 original, 15) with the unchanged patience 3 and validation-MSE checkpoint selection",
+  "falsified_if": "validation selects the original training, or the selected variant's seed-2 test S is not below every baseline"
+ },
+ "candidates": {
+  "orig": "seed-2 campaign On-Adapter checkpoint (align 1, no residual scale, epochs 3)",
+  "a0e3": {"align_scale": 0.0, "res_init": null, "epochs": 3},
+  "a0e15": {"align_scale": 0.0, "res_init": null, "epochs": 15},
+  "a0z0e15": {"align_scale": 0.0, "res_init": 0.0, "epochs": 15},
+  "a1z0e15": {"align_scale": 1.0, "res_init": 0.0, "epochs": 15}
+ },
+ "fixed": "backbone = seed-2 campaign iTransformer checkpoints (frozen); data, text, encoders, L/H, scoring unchanged; online rule for every candidate = lr0 (no online parameter step, hg/ge feedback computed as usual)",
+ "randomness": "training seed 2 as in the worker; online entry seed 200 (stream r=0 only, applied identically to all candidates); for the orig candidate the existing round-1 lr0 r0 trajectories are reused",
+ "selection": "seed-2 validation streams; per task CVaR90 ratio to the iTransformer validation forecast; equal-weight geometric mean over 36 tasks; argmin; ties toward orig, then the order listed; validation thirds reported, not used",
+ "formal_test": "selected candidate: test stream r=0 with lr0, scored against the fixed seed-2 baselines with frozen cell_metrics",
+ "budget": "4 x 36 GPU training cells (serial), 4 x 36 validation trajectories and 36 test trajectories on CPU"
+}

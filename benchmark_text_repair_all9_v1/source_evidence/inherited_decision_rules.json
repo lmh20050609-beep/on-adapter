@@ -1,0 +1,961 @@
+[
+  {
+    "id": "Agriculture_2018-10-01_B_000",
+    "domain": "Agriculture",
+    "field": "fact",
+    "pattern": "2018-10-01: The top four U.S. poultry companies together controlled more than 60 percent of the broiler market in 2022, up from 17 percent in 1977.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": null,
+    "source_urls": [
+      "https://foodprint.org/reports/the-foodprint-of-chicken/",
+      "https://www.forbes.com/sites/chloesorvino/2022/08/05/higher-chicken-prices-expected-after-45-billion-poultry-merger-wins-us-approval/"
+    ],
+    "evidence": "The exact complete statement occurs in the current FoodPrint body, which cites Sorvino (2022-08-05) for the 2022 broiler market share. The current page separately gives initial publication 2018-10-02 and last update 2026-05-08. The specific cited 2022 body version cannot be assigned to 2018. Identified reference lower bound is 2022-08-05; that is not a proven exact FoodPrint update date.",
+    "version_limit": "Exact FoodPrint body availability unknown; no historical original body recovered. Archive availability near 2018-10-31 returned no snapshot; bounded CDX attempt timed out. Do not delay/reinsert at the citation date, which is only a lower bound.",
+    "action": "mask_item",
+    "complete_item_sha256": "8dcd7963c99ddfe8459d45fe738c09b3f41cb3b9f62f7fea1637b9f725124a3e"
+  },
+  {
+    "id": "Agriculture_2011-11-07_B_001",
+    "domain": "Agriculture",
+    "field": "fact",
+    "pattern": "2011-11-07: The top 10 commodities in terms of 2022 market value in Texas include poultry, with a market value of $15.5 billion.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": null,
+    "source_urls": [
+      "https://texasagriculture.gov/About/Texas-Ag-Stats",
+      "https://www.nass.usda.gov/Newsroom/archive/2024/02-13-2024.php"
+    ],
+    "evidence": "The identified Texas Department of Agriculture table explicitly concerns 2022 Census of Agriculture market values; USDA announced publication of the 2022 census on 2024-02-13. It lists cattle $15.5 billion and poultry/eggs $5 billion, so the item also misattributes the amount. This identified later data/version cannot support the 2011 entry.",
+    "version_limit": "Current state page has no exact body-update date; 2024-02-13 is the census release, not proven exact state-page publication. Mask the entire dated item; do not rewrite the commodity or amount.",
+    "action": "mask_item",
+    "complete_item_sha256": "ec950e744bd07eae7d28b70a2fb05e283742bdae04fe413befbdb29b1dcaa228"
+  },
+  {
+    "id": "Economy_2017-09-25_B_002",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2017-09-25: The American wine industry contributed $276 billion to the US economy in 2022.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2022-09-21",
+    "source_urls": [
+      "https://wineamerica.org/economic-impact/press-release-2022/"
+    ],
+    "evidence": "The WineAmerica study press release is explicitly dated 2022-09-21 and announces the new $276 billion 2022 study. Its future-tense forecast wording is a 2022 forecast and provides no proof of 2017 availability.",
+    "version_limit": "The current source is a dated 2022 study release. No equivalent contemporaneous 2017 original body was recovered; mask rather than fabricate a 2017 forecast.",
+    "action": "mask_item",
+    "complete_item_sha256": "2defa1abbb8f69af5de1503dd857f0756f30dba23ebb5739c2ec6395e3c91538"
+  },
+  {
+    "id": "Economy_2020-10-19_B_003",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2020-10-19: Real gross domestic product (GDP) increased at an annual rate of 1.6 percent in the first quarter of 2024.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2024-04-25",
+    "source_urls": [
+      "https://www.bea.gov/news/2024/gross-domestic-product-first-quarter-2024-advance-estimate"
+    ],
+    "evidence": "The identified BEA advance estimate explicitly released at 08:30 EDT 2024-04-25 reports first-quarter 2024 real GDP growth 1.6%. This is the exact later observation in the 2020 item.",
+    "version_limit": "Use this archived advance-estimate vintage, not current revised GDP. No 2020 historical equivalent found.",
+    "action": "mask_item",
+    "complete_item_sha256": "de27f277a5f2d2afff63b14ab41e8078a76de89ce8045e06dee80909062f0597"
+  },
+  {
+    "id": "Economy_2022-12-12_B_004",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2022-12-12: The US real GDP growth in the third quarter of 2023 was 4.9%, up from 2.1% the previous quarter.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2023-10-26",
+    "source_urls": [
+      "https://www.bea.gov/news/2023/gross-domestic-product-third-quarter-2023-advance-estimate"
+    ],
+    "evidence": "The identified BEA advance estimate released 2023-10-26 reports 2023 Q3 real GDP 4.9%, following 2023 Q2 2.1%. Both precise observations appear in the complete 2022-12 item.",
+    "version_limit": "Later GDP vintages are excluded from the evidence comparison.",
+    "action": "mask_item",
+    "complete_item_sha256": "d0cb81c4986c96c6e8aec3a3a580a916c8b209fa9317c571a8d938a05fadcc00"
+  },
+  {
+    "id": "Economy_2023-07-17_B_005",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2023-07-17: Compensation costs for civilian workers in the US increased by 1.2% from December 2023 to March 2024, and 4.5% over the year.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2024-04-30",
+    "source_urls": [
+      "https://www.bls.gov/news.release/archives/eci_04302024.htm"
+    ],
+    "evidence": "The BLS archived ECI March 2024 release has an explicit 2024-04-30 embargo and reports 1.2% compensation increase over December 2023 to March 2024. The complete item placed in July 2023 describes that later measured period. Its stated 4.5% annual figure is also inconsistent with the civilian total of 4.2% in the release.",
+    "version_limit": "The later quarter identity and 1.2% figure are confirmed, while the annual figure is incorrect. No rewriting of the erroneous item.",
+    "action": "mask_item",
+    "complete_item_sha256": "92d113f49ab9e7b69a5c45ce29918999e078ec392dd50e6a6f020da5987d8f6b"
+  },
+  {
+    "id": "Economy_2017-02-13_B_006",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2017-02-13: Guam's real gross domestic product (GDP) increased 5.1 percent in 2022 after increasing 2.1 percent in 2021.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2024-04-15",
+    "source_urls": [
+      "https://www.bea.gov/sites/default/files/2024-04/gugdp0424.pdf",
+      "https://www.bea.gov/data/gdp/gdp-guam"
+    ],
+    "evidence": "BEA 24-15, explicitly released 2024-04-15 at 19:00 EDT, reports Guam 2022 real GDP growth 5.1%, following 2021 growth 2.1%. This exactly identifies both later observations in the 2017 item.",
+    "version_limit": "The release time in Guam is 2024-04-16; the date here records US Eastern release. Either is later than 2017.",
+    "action": "mask_item",
+    "complete_item_sha256": "05159a6a3db200ad2b181054000bc0381b9056b8cc9671c6193776a522657549"
+  },
+  {
+    "id": "Economy_2018-09-10_B_007",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2018-09-10: In 2022, arts and culture added $1.102 Trillion to the U.S. GDP.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2024-03-25",
+    "source_urls": [
+      "https://www.bea.gov/news/2024/arts-and-cultural-production-satellite-account-us-and-states-2022",
+      "https://www.bea.gov/sites/default/files/2024-03/acpsa0324_0.pdf"
+    ],
+    "evidence": "The explicitly dated 2024-03-25 BEA release and table report United States 2022 arts/cultural production value added 1,102,084,995 thousand dollars ($1.102 trillion). This identifies the later measured figure in the 2018 item.",
+    "version_limit": "The source release also revised 2017–2021; no latest-vintage substitution is used.",
+    "action": "mask_item",
+    "complete_item_sha256": "7a9ec00babf3d0340b35a58ef530b672e25748bebf00139a620d8af8485e1a21"
+  },
+  {
+    "id": "Economy_2014-03-24_B_008",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2014-03-24: Nationally, personal consumption expenditures (PCE) in current dollars increased 9.2 percent in 2022.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2023-10-04",
+    "source_urls": [
+      "https://www.bea.gov/sites/default/files/2023-10/pce1023.pdf"
+    ],
+    "evidence": "BEA 23-46 explicitly released 2023-10-04 reports national current-dollar PCE growth 9.2% for 2022, identifying the later observation in the 2014 item.",
+    "version_limit": "The 9.2% is the archived release vintage; the current revised value is different.",
+    "action": "mask_item",
+    "complete_item_sha256": "148117cfe7a2b94e8d16e9314698a3476beeb818e9cdd329113c196e6a3ac2f9"
+  },
+  {
+    "id": "Security_2021-05-03_B_009",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2021-05-03: The United States government has issued proclamations and declarations for disasters and emergencies, including the 2023 Hawaii Wildfires, and has provided federal assistance for recovery efforts.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2023-08-10",
+    "source_urls": [
+      "https://www.federalregister.gov/documents/2023/10/20/2023-23190/hawaii-major-disaster-and-related-determinations",
+      "https://public-inspection.federalregister.gov/2023-23190.pdf"
+    ],
+    "evidence": "The official FEMA Federal Register notice identifies Hawaii disaster FEMA-4724-DR, states the declaration was issued 2023-08-10, and records wildfires beginning 2023-08-08 plus federal assistance. This is the identified event described as already declared/aided in the 2021 item.",
+    "version_limit": "2023-08-10 is the declaration event date; the traced notice body was published 2023-10-20. Either proves later-than-2021 information; the original summarization URL is not available in benchmark CSV.",
+    "action": "mask_item",
+    "complete_item_sha256": "99f6516e0dc0211e8bcd90ad05c7cd6b5039bb52aee0827aa6d6302ab8cfc7b9"
+  },
+  {
+    "id": "Security_2006-05-22_B_010",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2006-05-22: The United States has a history of declaring states of emergency and public health emergencies in response to disasters, such as Governor Murphy's declaration on March 9, 2020.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2020-03-09",
+    "source_urls": [
+      "https://www.nj.gov/health/news/2020/approved/20200309b.shtml"
+    ],
+    "evidence": "The primary New Jersey health press release is explicitly dated 2020-03-09 and records Governor Murphy issuing Executive Order 103 for COVID-19 state/public-health emergencies. It identifies the exact later declaration mentioned in the 2006 item.",
+    "version_limit": "The generic historical clause cannot safely be separated from the dated independent item under the fixed item-boundary policy; mask the entire item.",
+    "action": "mask_item",
+    "complete_item_sha256": "215409324786024cf332b22a20d5b335e7225bec92da3050b36321be8353bb83"
+  },
+  {
+    "id": "Security_2011-12-05_B_011",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2011-12-05: The Sandy Recovery Improvement Act of 2013 authorizes tribes to request a declaration of an emergency or major disaster, as was previously only allowed for states.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2013-01-29",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/PLAW-113publ2/html/PLAW-113publ2.htm"
+    ],
+    "evidence": "Original Public Law 113-2 is explicitly dated 2013-01-29. Division B is the Sandy Recovery Improvement Act; Section 1110 introduced direct tribal major-disaster/emergency declaration requests. This specific later enacted authority identifies the pollution in the 2011 item.",
+    "version_limit": "Evidence uses the enacted original law, not a current amended-code page.",
+    "action": "mask_item",
+    "complete_item_sha256": "d23d615b24778bf9546164317171e304b12625593841415f57f8e8456fa96040"
+  },
+  {
+    "id": "Security_1999-12-27_B_012",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "1999-12-27: The United States government has declared a disaster in Oregon due to severe winter storms in 2024, and has provided emergency disaster relief assistance to Venezuela in 1999.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "B",
+    "available_at": "2024-04-13",
+    "source_urls": [
+      "https://public-inspection.federalregister.gov/2024-10459.pdf",
+      "https://www.oregon.gov/oem/emresources/disasterassist/Pages/DR-4768-OR.aspx"
+    ],
+    "evidence": "The primary Oregon FEMA-4768-DR notice identifies the declaration issued 2024-04-13 for severe winter storms during 2024-01-10 to 2024-01-22. It identifies the 2024 Oregon declaration referred to in the 1999 item.",
+    "version_limit": "The item combines this later declaration with 1999 Venezuela assistance. Safe date-item boundaries cannot preserve the latter independently, so mask the complete item.",
+    "action": "mask_item",
+    "complete_item_sha256": "467b564ffd693afe6636157a58681ba5e4fbf7f0fd9aa7200a49ac9fce319b9d"
+  },
+  {
+    "id": "Security_2000-10-09_A_013",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2000-10-09: The Robert T. Stafford Disaster Relief and Emergency Assistance Act  was signed, giving the Federal Government authority to respond to disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "a3e8033f994317d8af0a721e9a6fa79a422093d3669c9e3941f6673fd1a8c402"
+  },
+  {
+    "id": "Security_2002-01-28_A_014",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2002-01-28: The Stafford Act provides for two types of disaster declarations: Emergency and Major Disaster.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "bc45e81bd13dc361824e5c12bbca2f9af8b5e7b6c79af477fabc8a32ac5695ae"
+  },
+  {
+    "id": "Security_2002-02-04_A_015",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2002-02-04: The Stafford Disaster Relief and Emergency Assistance Act is a federal law that provides assistance to states and local governments in response to disasters and emergencies.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "933fb872b773fe8433d78a0d4875c2fd5a47e1c53eb691fa95dfe6b528ad60da"
+  },
+  {
+    "id": "Security_2002-02-25_A_016",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2002-02-25: The Robert T. Stafford Disaster Relief and Emergency Assistance Act is a federal law that provides assistance to states affected by disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "9d3f2d0e5d7d67611f8f66617c002aec702bbcb6d7e992c880c1b4c486570455"
+  },
+  {
+    "id": "Security_2002-05-13_A_017",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2002-05-13: The Robert T. Stafford Disaster Relief and Emergency Assistance Act is a law that provides assistance to individuals and communities affected by disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "6fdcec51fbd62f3d24c16e8aa1876791dc1d666360c697f6a96c2f30d045f294"
+  },
+  {
+    "id": "Security_2002-07-29_A_018",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2002-07-29: The Robert T. Stafford Disaster Relief and Emergency Assistance Act defines disaster or emergency.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "086a53d681f92fd550b7d1d3148f296bfdc28413c4198ad32e2d302469916037"
+  },
+  {
+    "id": "Security_2002-12-30_A_019",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2002-12-30: The Robert T. Stafford Disaster Relief and Emergency Assistance Act is a federal law that provides assistance to states and individuals affected by disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "08f2b200b239bfda5792a33e81b5a961d650d29a9d870bc3cdcfb1048b9156a5"
+  },
+  {
+    "id": "Security_2004-09-13_A_020",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2004-09-13: The Stafford Disaster Relief and Emergency Assistance Act was enacted to support State and local governments and individuals affected by disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "524263b11dbdb76bf397b8f199aae98f5cc2a216848a05bffb002770f85a9d08"
+  },
+  {
+    "id": "Security_2005-08-01_A_021",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2005-08-01: The Robert T. Stafford Disaster Relief and Emergency Assistance Act (42 U.S.C.) is a federal law that provides assistance to individuals affected by disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "9ef61f88242c07c2a544a728a40b26c0135d0987d3884f694bad049a692090ad"
+  },
+  {
+    "id": "Security_2007-01-15_A_022",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2007-01-15: The Stafford Disaster Relief and Emergency Assistance Act is a law that provides assistance for disaster relief and emergency situations.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "83f7497a9f95200cc54df68c214a5133566af7c08ad32e88d99b9e8aa2c77662"
+  },
+  {
+    "id": "Security_2008-01-14_A_023",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2008-01-14: The Stafford Disaster Relief and Emergency Assistance Act defines an emergency as any occasion or instance that requires Federal assistance, as determined by the President.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "387752c548efcc4d4420d8fbcb0d2f8da365271a7eedf7f073e1c33989748ff7"
+  },
+  {
+    "id": "Security_2008-01-28_A_024",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2008-01-28: The Stafford Act describes the programs and processes by which the Federal Government provides disaster and emergency assistance to State and local governments.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "f186d5b95dceba26f580b1ac37baa8d1e1e840c46574185eb3dbbc11439a3f73"
+  },
+  {
+    "id": "Security_2008-08-25_A_025",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2008-08-25: The Stafford Disaster Relief and Emergency Assistance Act establishes programs and processes for the federal government to provide major disaster and emergency assistance.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "7e105bfcc70876d7d70ba7220fed5c7f5a4c18364786e928789d5fd8a30f85dd"
+  },
+  {
+    "id": "Security_2009-07-06_A_026",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2009-07-06: The Robert T. Stafford Disaster Relief and Emergency Assistance Act is a federal law that allows the President of the United States to declare a disaster, triggering federal assistance.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "c44204aa9d15d5a015149b47b00fd351e446cfac4a0cbf6d0ba89c8d7d0506dd"
+  },
+  {
+    "id": "Security_2010-06-21_A_027",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2010-06-21: The Robert T. Stafford Disaster Relief and Emergency Assistance Act is a law that provides assistance in response to presidentially declared disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "aa805c8f9a5107837aba9d16b64d394f5ead1ffedf044fd052bb5a8858ddcf82"
+  },
+  {
+    "id": "Security_2011-10-03_A_028",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2011-10-03: The Stafford Act provides for two types of declarations: Emergency Declarations and Major Disaster Declarations, which enable federal assistance to affected areas.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "f6a436045181f041b3dd02f4d3524c717af5e7c68d1c8624f8548dd8c38ebe95"
+  },
+  {
+    "id": "Security_2013-03-11_A_029",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2013-03-11: The Stafford Disaster Relief and Emergency Assistance Act (Stafford Act) authorizes the President to provide assistance to State and local governments to support emergency preparedness and response.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "06b75830dfd0478dc4631de23f0204b8265793f52fbd52a34ac8eec1be35e42e"
+  },
+  {
+    "id": "Security_2013-04-01_A_030",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2013-04-01: The Stafford Disaster Relief and Emergency Assistance Act (Stafford Act) is a federal law that provides assistance to states and local governments during disasters and emergencies.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "ba369c1e5945a6dc65f064df53c12ced6e173c020089daf0b4ebd9304d0ced3e"
+  },
+  {
+    "id": "Security_2013-04-22_A_031",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2013-04-22: The Stafford Act is a federal law that provides disaster relief and emergency assistance to affected areas in the United States.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "910c6d45d7526729f17f37cd8e629581d0278567712a656be26fec84312d2815"
+  },
+  {
+    "id": "Security_2013-12-09_A_032",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2013-12-09: The Stafford Disaster Relief and Emergency Assistance Act is a U.S. federal law that provides federal disaster assistance for state and local governments in the event of a disaster.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "c2700badb37458316b763aed3f82547c0b557ba7dd397fa82938d202b039b86a"
+  },
+  {
+    "id": "Security_2014-01-06_A_033",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2014-01-06: The Stafford Disaster Relief and Emergency Assistance Act (the “Stafford Act”) is a federal law that provides assistance to states affected by disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "a4ead7176cee629da3b5f32b57e88fa95c7dc1ed3b0cdf04cb95aa8ddc056845"
+  },
+  {
+    "id": "Security_2014-12-08_A_034",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2014-12-08: The Stafford Disaster Relief and Emergency Assistance Act is a federal funding mechanism to provide assistance in disaster relief and emergency situations.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "16a93ce9fad0dd16d9e50109289e1167d3401251007835fff870d4b3052505ce"
+  },
+  {
+    "id": "Security_2015-03-09_A_035",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2015-03-09: The Stafford Disaster Relief and Emergency Assistance Act (Stafford Act) is a federal law that provides assistance to states and local governments in response to disasters and emergencies.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "3bf7fa05c1b0e9b2d5950a41b3750798ba7de0513a5f37d5625d20a7b414ef32"
+  },
+  {
+    "id": "Security_2015-11-23_A_036",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2015-11-23: The Robert T. Stafford Disaster Relief and Emergency Assistance Act defines disaster and emergency in the United States .",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "e72c07ede0e420e2c5406a819274613431cecff530ac0dbe99e6e5fa63bc5094"
+  },
+  {
+    "id": "Security_2016-01-18_A_037",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2016-01-18: The Stafford Act allows governors to request federal disaster declarations in emergency situations.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "50483522b6b00220c5148d55c25e2877ceadfe6d0f9fbe884de33ce0d2579cca"
+  },
+  {
+    "id": "Security_2016-06-06_A_038",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2016-06-06: The Stafford Disaster Relief and Emergency Assistance Act is a federal law that provides assistance in response to a major disaster or emergency.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "6c1add4fbe71502c401052a6066d53521b36b60b25b0dbfeac609b81353f03f2"
+  },
+  {
+    "id": "Security_2017-03-20_A_039",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2017-03-20: The Stafford Disaster Relief and Emergency Assistance Act is a federal law that provides emergency assistance to states and local governments in the United States.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "5d6e195760c1a8997c2a0ea6522379afaccbb00d2a64bf1c70d6448f51636079"
+  },
+  {
+    "id": "Security_2017-06-05_A_040",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2017-06-05: The Robert T. Stafford Disaster Relief and Emergency Assistance Act is a federal law that provides assistance to states and local governments in responding to disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "48c1965d7a1c6b5c86f35da0e2e465f0ba7eba47b9cab7815764925bc8415905"
+  },
+  {
+    "id": "Security_2018-11-05_A_041",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2018-11-05: The Stafford Disaster Relief and Emergency Assistance Act is a federal law that provides assistance to states affected by disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "c6143241f2eeaffa4cc35d145abf34827c05246a955dce76b77afdaf0f543411"
+  },
+  {
+    "id": "Security_2019-04-01_A_042",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2019-04-01: The Stafford Act gives the President the authority to declare that an emergency or a major disaster exists, provided that the governor of the affected state(s) requests it.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "73686cfc40256144266d2af15b3130eaa81b7be0d372e9781b6302dabad19874"
+  },
+  {
+    "id": "Security_2019-05-13_A_043",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2019-05-13: The Robert T. Stafford Disaster Relief and Emergency Assistance Act is a federal law that authorizes the Federal government to help State and local governments respond to disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "b88d287b88a58b5157ef34b9e6ed5669e643981f30f1afaf7775a7a349472e41"
+  },
+  {
+    "id": "Security_2019-12-16_A_044",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2019-12-16: The Robert T. Stafford Disaster Relief and Emergency Assistance Act defines emergencies and major disasters.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "774658c6e303340e7208cd00525ff37bb0c1c9b0d65a7236e01aea0ee514fec9"
+  },
+  {
+    "id": "Security_2021-04-26_A_045",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2021-04-26: The Stafford Act, as amended, is a federal law that provides disaster relief and emergency assistance to affected individuals and communities.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "1988-11-23",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/STATUTE-102/pdf/STATUTE-102-Pg4689.pdf"
+    ],
+    "evidence": "Original Public Law 100-707, 1988-11-23, renames the Stafford Act and provides the historical major-disaster/emergency definitions and federal assistance framework. Sections 103, 105, 106 and 107 support the complete generic statement about disaster/emergency assistance, declarations or definitions; it contains no later named event, monetary value or amendment-specific authority.",
+    "version_limit": "Complete-item manual white list only. Historical substantive availability is verified; the original Llama summary generation date and individual Google result URL are not recovered. This does not admit all statements containing Stafford/FEMA.",
+    "action": "keep",
+    "complete_item_sha256": "53cfd49654898d87e4a2e07738c403d3d64a7d92e0f2cc027d60aa3536a39f9c"
+  },
+  {
+    "id": "Security_2000-10-30_A_046",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2000-10-30: The Disaster Mitigation Act of 2000 was enacted on October 30, 2000, to provide assistance to states and local governments for disaster or emergency declarations.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "2000-10-30",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/PLAW-106publ390/html/PLAW-106publ390.htm"
+    ],
+    "evidence": "Original Public Law 106-390 is explicitly dated 2000-10-30, carries the Disaster Mitigation Act of 2000 title, and amends the Stafford Act for mitigation/disaster assistance, substantiating the entire independently dated statement.",
+    "version_limit": "Date resolution is one day; no assertion that it was available before signature within 2000-10-30.",
+    "action": "keep",
+    "complete_item_sha256": "b6023f2482c76f096333dae675e878f3b3df23a636e2c979d2b263f181e34527"
+  },
+  {
+    "id": "Security_2020-10-19_A_047",
+    "domain": "Security",
+    "field": "fact",
+    "pattern": "2020-10-19: The Disaster Mitigation Act of 2000 is a federal law that aims to reduce the risk of disaster losses by promoting mitigation planning and activities.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "2000-10-30",
+    "source_urls": [
+      "https://www.govinfo.gov/content/pkg/PLAW-106publ390/html/PLAW-106publ390.htm"
+    ],
+    "evidence": "Original Public Law 106-390 dated 2000-10-30 establishes predisaster mitigation and planning to reduce risks/disaster costs, substantiating the complete statement.",
+    "version_limit": "Historical original law supports substance; individual benchmark search-result source URL is unrecovered.",
+    "action": "keep",
+    "complete_item_sha256": "09767693d9551f723b09d2f9546495a51679076853b80dccc248080cfb584a87"
+  },
+  {
+    "id": "Agriculture_2014-08-04_A_048",
+    "domain": "Agriculture",
+    "field": "fact",
+    "pattern": "2014-08-04: The United States is a major producer of chicken, with a large scale of production to meet domestic and export demand.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "2014-01-08",
+    "source_urls": [
+      "https://www.usitc.gov/sites/default/files/publications/332/poultry1.pdf",
+      "https://www.usitc.gov/publications/332/poultry.htm"
+    ],
+    "evidence": "Marin Weaver, Poultry, Industry & Trade Summary ITS-10 (January 2014), listed as released 2014-01-08 by USITC, documents the large United States poultry industry, domestic production/consumption and exports. The whole generic entry is supported by that historical production/trade account.",
+    "version_limit": "Source is the authored USITC research publication and not a claim of Commission endorsement; benchmark individual Google URL is not recovered.",
+    "action": "keep",
+    "complete_item_sha256": "13a78d0558b66f0317a9df9a258d78077a0327e33fa9f6ae1a26515d2093aee4"
+  },
+  {
+    "id": "Agriculture_2021-01-04_A_049",
+    "domain": "Agriculture",
+    "field": "fact",
+    "pattern": "2021-01-04: The United States is a major producer of agricultural products, including broilers.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "2015-04-30",
+    "source_urls": [
+      "https://esmis.nal.usda.gov/usda-esmis/files/m039k491c/5x21th88r/kw52jb485/PoulProdVa-04-30-2015.pdf"
+    ],
+    "evidence": "USDA NASS Poultry Production and Value 2014 Summary, release 2015-04-30, documents United States broiler production at national scale. It supports the complete nonquantitative statement that the United States produces major agricultural products including broilers.",
+    "version_limit": "Only historical general production fact is admitted. No dated 2021 production quantities/rankings are inferred from the 2014 table.",
+    "action": "keep",
+    "complete_item_sha256": "ea7c6abd47fbfb9f7625a26662cfc53457b1fe9f2cd82c4a91fd71362e91eb9c"
+  },
+  {
+    "id": "Economy_2021-12-13_A_050",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2021-12-13: The United States aims to achieve a 50-52% reduction in greenhouse gas emissions by 2030 and net-zero emissions by midcentury.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "2021-04-22",
+    "source_urls": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2021/04/22/fact-sheet-president-biden-sets-2030-greenhouse-gas-pollution-reduction-target-aimed-at-creating-good-paying-union-jobs-and-securing-u-s-leadership-on-clean-energy-technologies/"
+    ],
+    "evidence": "The original White House 2021-04-22 fact sheet announced a 50–52% economy-wide greenhouse gas reduction target for 2030 and a net-zero-by-2050 trajectory, substantiating both goals in the complete item.",
+    "version_limit": "A policy target is an available historical forecast/goal, not a realized future outcome. Original archived document supports substantive availability; exact benchmark Google result is unrecovered.",
+    "action": "keep",
+    "complete_item_sha256": "ba3c5d7ca1443edf6bc5cf3b09a47f4af3261934fab874ae13561c35ebbfbf7f"
+  },
+  {
+    "id": "Economy_2021-11-15_A_051",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2021-11-15: The United States has set a goal for 100% clean electricity in 2035.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "2021-04-22",
+    "source_urls": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2021/04/22/fact-sheet-president-biden-sets-2030-greenhouse-gas-pollution-reduction-target-aimed-at-creating-good-paying-union-jobs-and-securing-u-s-leadership-on-clean-energy-technologies/"
+    ],
+    "evidence": "The original White House 2021-04-22 fact sheet explicitly sets a carbon-pollution-free power sector goal for 2035, substantiating the complete independent item.",
+    "version_limit": "Preserve the historical future policy goal; do not treat the future year as leakage.",
+    "action": "keep",
+    "complete_item_sha256": "880d4d2f9f5b7a7119ae75e5e8ffecc2603501045fc86b9e84b541a30ef834a3"
+  },
+  {
+    "id": "Economy_2023-04-17_A_052",
+    "domain": "Economy",
+    "field": "fact",
+    "pattern": "2023-04-17: The United States aims to achieve a carbon pollution-free power sector by 2035 and a net zero emissions economy by no later than 2050.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "2021-04-22",
+    "source_urls": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2021/04/22/fact-sheet-president-biden-sets-2030-greenhouse-gas-pollution-reduction-target-aimed-at-creating-good-paying-union-jobs-and-securing-u-s-leadership-on-clean-energy-technologies/"
+    ],
+    "evidence": "The original White House 2021-04-22 fact sheet states the carbon-pollution-free power sector by 2035 and net-zero economy no later than 2050 goals, substantiating the complete independent item.",
+    "version_limit": "No policy achievement is claimed; the future targets were public by 2021.",
+    "action": "keep",
+    "complete_item_sha256": "0a9d7b60e690ae56270cae5e77ace91d73fcc7ac2eca9ee8e440f4e867c8e7ce"
+  },
+  {
+    "id": "Energy_undated_A_053",
+    "domain": "Energy",
+    "field": "fact",
+    "pattern": "The EIA forecasts world crude oil prices to rise gradually, averaging $65 in 2020.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "A",
+    "available_at": "2019-01-16",
+    "source_urls": [
+      "https://www.eia.gov/TODAYINENERGY/detail.php?id=38032"
+    ],
+    "evidence": "The primary EIA Today in Energy article is explicitly dated 2019-01-16 and forecasts world crude oil prices to rise gradually, averaging $65 per barrel in 2020. The entire benchmark fact says it is a forecast. The numeric row runs 2019-01-14 to 2019-01-20 and is therefore available by its weekly record-end input cutoff.",
+    "version_limit": "Counterexample outside the three-domain training matrix. It was not known at weekly start 2019-01-14, but was known by original protocol record end 2019-01-20; preserve at that cutoff.",
+    "action": "keep",
+    "complete_item_sha256": "defe65c1614b5f402a00e8aa85946bed7045ef02200901d826df40f0768fa97a"
+  },
+  {
+    "id": "Agriculture_2017-10-16_C_054",
+    "domain": "Agriculture",
+    "field": "fact",
+    "pattern": "2017-10-16: The U.S. Department of Agriculture's (USDA) forecast for broiler production in 2018 is for a nearly 2 percent or so gain over 2017.",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "C",
+    "available_at": null,
+    "source_urls": [
+      "https://www.fas.usda.gov/sites/default/files/2025-03/Livestock_poultry-October-2017.pdf"
+    ],
+    "evidence": "The identified USDA FAS October 2017 report contains the 2% 2018 US broiler production forecast. The migrated PDF path is 2025-03, while its body says October 2017; the exact original daily release date was not verified before freeze.",
+    "version_limit": "Historical forecast is plausible and must not be deleted for its 2018 year. V1 keep; V2 exclude because exact availability date/version proof remains unresolved.",
+    "action": "keep",
+    "complete_item_sha256": "45d1e14f95e2b08dc20b2be254a6233e48538f78f0aa5a5154a40f36673876ef"
+  },
+  {
+    "id": "Agriculture_2007-09-10_C_055",
+    "domain": "Agriculture",
+    "field": "fact",
+    "pattern": "2007-09-10: The FTC in 2008 threatened to substantially reduce competition in the U.S. market for three popular vaccines used to treat poultry, a staple in American food markets.   All other search results are irrelevant to the United States broiler market. Therefore, I will fill in the remaining parts with \"NA\".",
+    "flag": "literal",
+    "pattern_type": "literal",
+    "classification": "C",
+    "available_at": null,
+    "source_urls": [
+      "https://www.ftc.gov/sites/default/files/documents/reports/annual-report-regarding-operation-hart-scott-rodino-premerger-notification-program-federal-trade/hsrreport.pdf"
+    ],
+    "evidence": "FTC historical records identify the poultry-vaccine merger concern, but the summarized sentence misstates the FTC itself as threatening competition and gives a 2008 year while related enforcement events span 2007/2008. The exact input source/version was not resolved.",
+    "version_limit": "Do not declare B solely from the future year or repair the incorrect summary without a traced original body.",
+    "action": "keep",
+    "complete_item_sha256": "ebbcda184bfb2b175fba64e973c6e19fa00b7ca81f9ef3e9d5ff6d951d0954ec"
+  }
+]

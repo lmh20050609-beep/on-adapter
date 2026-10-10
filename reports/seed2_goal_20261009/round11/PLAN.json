@@ -1,0 +1,13 @@
+{
+ "round": 11,
+ "title": "Online step 2: L2-SP anchoring of online updates to the offline adapter weights",
+ "frozen_at": "2026-10-09, after round 10 (task-only online loss tied with round 6; no test) and before any round-11 trajectory",
+ "exploratory_disclosure": "Exploratory; the seed-2 test period has been used seven times.",
+ "reference": "round 6 (a0e15, lr 3e-5, online loss = task + gate-entropy auxiliary) is the base; round 5 (lr 0 + gate) is the fixed control",
+ "single_change": "online loss = round-6 loss + lambda * ||theta - theta_offline||^2 over all updated adapter parameters (pull toward the offline weights, not toward zero); lambda in {0.01, 0.1, 1}",
+ "hypothesis": "unanchored updates hurt early in the stream (validation first third 0.9941 without gate vs 0.9883 with) and drift; anchoring keeps adaptation while bounding cumulative drift",
+ "candidates": [["r5", true], ["r6", true], ["a0.01", false], ["a0.01", true], ["a0.1", false], ["a0.1", true], ["a1", false], ["a1", true]],
+ "selection": "seed-2 validation r=0 (entry seed 200); robust score = max(whole GM, largest per-third GM); argmin; ties toward r5+gate, then listed order",
+ "reporting": "pre-gate and post-gate scores, adapter share, mean |updated - frozen|, final relative drift",
+ "test_use_policy": "test computed only if the winner is an anchored candidate with robust validation score <= 0.985, and only after user confirmation"
+}

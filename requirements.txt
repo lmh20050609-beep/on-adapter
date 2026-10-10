@@ -1,0 +1,15 @@
+# Environment used for all reported runs: Python 3.9.23, CUDA 12.9 (RTX 4060 Laptop, 8 GB), Windows native Python.
+torch==2.8.0          # +cu129 build was used
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.13.1
+scikit-learn==1.2.1
+transformers==4.57.3
+tokenizers==0.22.1
+safetensors==0.7.0
+huggingface-hub==0.36.0
+einops==0.8.1
+PyYAML==6.0.3
+psutil==7.1.0
+tqdm==4.67.1
+matplotlib==3.9.4

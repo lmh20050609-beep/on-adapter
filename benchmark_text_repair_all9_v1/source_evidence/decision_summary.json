@@ -1,0 +1,30 @@
+{
+  "domains": [
+    "Agriculture",
+    "Climate",
+    "Economy",
+    "Energy",
+    "Environment",
+    "Health_US",
+    "Security",
+    "SocialGood",
+    "Traffic"
+  ],
+  "rules": 348,
+  "classification_counts": {
+    "B": 194,
+    "C": 94,
+    "D": 1,
+    "A": 3
+  },
+  "inherited_rules": 56,
+  "new_rules": 292,
+  "reviewed_candidates": 292,
+  "manual_overrides": {
+    "c007": "C",
+    "c184": "C",
+    "c202": "C"
+  },
+  "sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+  "inherited_sha256": "3d0109e3dd46e5f2a312dc59e8823d9f6d556437e7b06e6246531e5a11813eda"
+}

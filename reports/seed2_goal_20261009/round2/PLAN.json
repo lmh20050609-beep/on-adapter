@@ -1,0 +1,21 @@
+{
+ "round": 2,
+ "title": "On-Adapter-PC: seasonal-phase residual calibration",
+ "frozen_at": "2026-10-09, after the round-1 seed-2 test (S = 1.014567, not first) and before any round-2 selection or test scoring",
+ "exploratory_disclosure": "The phase hypothesis was motivated by the round-1 seed-2 test post-mortem (step-indexed calibration failed on Climate/Energy/Health_US). This round is therefore an exploratory iteration on an already observed test period.",
+ "hypothesis": {
+  "problem": "Step-indexed residual means mix targets of different calendar phases; monthly L8 / weekly L24 windows do not contain an annual cycle, so the backbone's errors keep a seasonal component that a step-indexed mean cannot represent and that shifts between periods.",
+  "change": "b_t[step, var] = gamma-discounted mean of fully matured observed residuals (y - On) whose TARGET row has the same phase as target row t+step; phase = row mod P with P = 12 (monthly), 52 (weekly), 7 (daily); forecast = On + a * b (On = offline adapter, no parameter step, feedback unchanged)",
+  "validation_evidence_before_freeze": "reports/seed2_goal_20261009/round2/dev/h2_phase_screen.py: seed-2 validation 0.9425 (a=.75,g=1) vs 0.9609 step-indexed; seeds 2025-2027 validation 0.9470 vs 0.9656",
+  "falsified_if": "seed-2 validation selects a non-phase candidate, or the selected candidate's seed-2 test S is not below every baseline"
+ },
+ "reuse": "Round-1 lr0 validation and test trajectories (identities in E:/FedNoise/iadapter-baselines/runs/seed2_round1_rc_20261009) are reused unchanged; only the output calibration differs. The 216 seed-2 baseline cells are fixed.",
+ "candidates": [
+  {"family": "none", "note": "lr0 offline On-Adapter (a = 0)"},
+  {"family": "step", "a": [0.25, 0.5, 0.75, 1.0], "gamma": [0.9, 0.97, 1.0], "note": "round-1 family on base lr0"},
+  {"family": "phase", "a": [0.25, 0.5, 0.75, 1.0], "gamma": [0.9, 0.97, 1.0]}
+ ],
+ "selection": "unchanged from round 1: seed-2 validation, CVaR90 ratio to the seed-2 iTransformer validation forecast, arithmetic mean over streams r=0,1,2, equal-weight geometric mean over 36 tasks, one global candidate, ties toward smaller a, then larger gamma, then family order none < step < phase",
+ "formal_test": "selected candidate applied to the existing round-1 lr0 test trajectories, stream r=0 main (r=1,2 robustness); scored with frozen cell_metrics against the fixed seed-2 baselines",
+ "information_boundary": "only residuals of origins with o + H <= t at forecast time t; phase uses row index only (no target values)"
+}

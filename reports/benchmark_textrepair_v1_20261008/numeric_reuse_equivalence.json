@@ -1,0 +1,108 @@
+{
+  "sample": 5,
+  "tolerance": 0,
+  "records": [
+    {
+      "domain": "Agriculture",
+      "horizon": 6,
+      "seed": 2025,
+      "method": "ADAPT-Z",
+      "arrays_identical": {
+        "predictions": true,
+        "targets": true,
+        "mask": true,
+        "origins": true,
+        "target_rows": true
+      },
+      "all_arrays_identical": true,
+      "new_mae": 0.6561619639396667,
+      "old_mae": 0.6561619639396667,
+      "new_mse": 0.9818792939186096,
+      "old_mse": 0.9818792939186096,
+      "mae_identical": true,
+      "mse_identical": true
+    },
+    {
+      "domain": "Agriculture",
+      "horizon": 6,
+      "seed": 2025,
+      "method": "DSOF",
+      "arrays_identical": {
+        "predictions": true,
+        "targets": true,
+        "mask": true,
+        "origins": true,
+        "target_rows": true
+      },
+      "all_arrays_identical": true,
+      "new_mae": 0.9030270576477051,
+      "old_mae": 0.9030270576477051,
+      "new_mse": 1.4766461849212646,
+      "old_mse": 1.4766461849212646,
+      "mae_identical": true,
+      "mse_identical": true
+    },
+    {
+      "domain": "Agriculture",
+      "horizon": 6,
+      "seed": 2025,
+      "method": "iTransformer",
+      "arrays_identical": {
+        "predictions": true,
+        "targets": true,
+        "mask": true,
+        "origins": true,
+        "target_rows": true
+      },
+      "all_arrays_identical": true,
+      "new_mae": 0.657812237739563,
+      "old_mae": 0.657812237739563,
+      "new_mse": 0.9881253242492676,
+      "old_mse": 0.9881253242492676,
+      "mae_identical": true,
+      "mse_identical": true
+    },
+    {
+      "domain": "Agriculture",
+      "horizon": 6,
+      "seed": 2025,
+      "method": "Proceed",
+      "arrays_identical": {
+        "predictions": true,
+        "targets": true,
+        "mask": true,
+        "origins": true,
+        "target_rows": true
+      },
+      "all_arrays_identical": true,
+      "new_mae": 0.6944056153297424,
+      "old_mae": 0.6944056153297424,
+      "new_mse": 1.0514500141143799,
+      "old_mse": 1.0514500141143799,
+      "mae_identical": true,
+      "mse_identical": true
+    },
+    {
+      "domain": "Traffic",
+      "horizon": 12,
+      "seed": 2025,
+      "method": "iTransformer",
+      "arrays_identical": {
+        "predictions": true,
+        "targets": true,
+        "mask": true,
+        "origins": true,
+        "target_rows": true
+      },
+      "all_arrays_identical": true,
+      "new_mae": 0.2869197130203247,
+      "old_mae": 0.2869197130203247,
+      "new_mse": 0.24624866247177124,
+      "old_mse": 0.24624866247177124,
+      "mae_identical": true,
+      "mse_identical": true
+    }
+  ],
+  "status": "passed",
+  "isolation": "one operating-system process per method, matching the campaign"
+}

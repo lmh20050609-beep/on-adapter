@@ -1,0 +1,171 @@
+{
+  "inherited_decision_rules_sha256": "3d0109e3dd46e5f2a312dc59e8823d9f6d556437e7b06e6246531e5a11813eda",
+  "rules_source": "reports/benchmark_text_pair_v1_20261008/source_evidence/decision_rules.json",
+  "text_methods": [
+    "On-Adapter",
+    "GPT4MTS",
+    "MM-TSFlib"
+  ],
+  "numeric_only_methods": [
+    "iTransformer",
+    "ADAPT-Z",
+    "DSOF",
+    "Proceed"
+  ],
+  "text_field": "fact",
+  "never_read_fields": [
+    "preds",
+    "pred",
+    "Final_Output",
+    "Final_Search_8",
+    "Final_Search_16"
+  ],
+  "default_classification": "D",
+  "entries": 30944,
+  "cells": 42518,
+  "domains": {
+    "Environment": {
+      "original_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-submission-audit-20260929\\extracted\\iAdapter\\data\\Environment.csv",
+      "original_file_sha256": "3bcda88e0831294678d412807fa2eac2022c5665a9f1f044cd23cff65657a0d6",
+      "rows": 15248,
+      "fact_nonempty_cells": 15014,
+      "counts": {
+        "fact_cells": 15248,
+        "fact_nonempty_cells": 15014,
+        "preds_cells": 15248,
+        "preds_nonempty_cells": 15213,
+        "fact_entries": 15014,
+        "fact_D": 15014,
+        "fact_future_year_screen_hits": 351
+      }
+    },
+    "Energy": {
+      "original_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-submission-audit-20260929\\extracted\\iAdapter\\data\\Energy.csv",
+      "original_file_sha256": "fdef4b4f58ab319656b60e49c96d1dc4158d2c5b17467456d4d12d746ff55cd5",
+      "rows": 1479,
+      "fact_nonempty_cells": 1478,
+      "counts": {
+        "fact_cells": 1479,
+        "fact_nonempty_cells": 1478,
+        "preds_cells": 1479,
+        "preds_nonempty_cells": 1477,
+        "fact_entries": 1478,
+        "fact_D": 1477,
+        "fact_future_year_screen_hits": 36,
+        "fact_A": 1
+      }
+    },
+    "Health_US": {
+      "original_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-submission-audit-20260929\\extracted\\iAdapter\\data\\Health.csv",
+      "original_file_sha256": "88a81d443533991b8e2b55da8db0a6496d68fc510077b1c0f568d6f186394cf8",
+      "rows": 1389,
+      "fact_nonempty_cells": 1387,
+      "counts": {
+        "fact_cells": 1389,
+        "fact_nonempty_cells": 1387,
+        "preds_cells": 1389,
+        "preds_nonempty_cells": 1388,
+        "fact_entries": 1387,
+        "fact_D": 1387,
+        "fact_future_year_screen_hits": 21
+      }
+    },
+    "Traffic": {
+      "original_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-submission-audit-20260929\\extracted\\iAdapter\\data\\Traffic.csv",
+      "original_file_sha256": "82439ff69196789968f48245d8bce699ac09a566f24f027dabd6b99333417311",
+      "rows": 531,
+      "fact_nonempty_cells": 531,
+      "counts": {
+        "fact_cells": 531,
+        "fact_nonempty_cells": 531,
+        "preds_cells": 531,
+        "preds_nonempty_cells": 531,
+        "fact_entries": 2287,
+        "fact_D": 2287,
+        "fact_future_year_screen_hits": 84
+      }
+    },
+    "SocialGood": {
+      "original_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-submission-audit-20260929\\extracted\\iAdapter\\data\\SocialGood.csv",
+      "original_file_sha256": "54c270f0236b088eccc397d56ac9b5d826add34db2da1c911955effeab93b48b",
+      "rows": 900,
+      "fact_nonempty_cells": 533,
+      "counts": {
+        "fact_cells": 900,
+        "fact_nonempty_cells": 533,
+        "preds_cells": 900,
+        "preds_nonempty_cells": 533,
+        "fact_entries": 4513,
+        "fact_D": 4513,
+        "fact_future_year_screen_hits": 123
+      }
+    },
+    "Security": {
+      "original_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-submission-audit-20260929\\extracted\\iAdapter\\data\\Security.csv",
+      "original_file_sha256": "adea376a0e6858979b2d42cde6f3901d7d60639bb78cd64eec6f58e2e85ed23c",
+      "rows": 297,
+      "fact_nonempty_cells": 297,
+      "counts": {
+        "fact_cells": 297,
+        "fact_nonempty_cells": 297,
+        "preds_cells": 297,
+        "preds_nonempty_cells": 297,
+        "fact_entries": 1288,
+        "fact_D": 1249,
+        "fact_future_year_screen_hits": 9,
+        "fact_B": 4,
+        "fact_A": 35
+      }
+    },
+    "Economy": {
+      "original_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-submission-audit-20260929\\extracted\\iAdapter\\data\\Economy.csv",
+      "original_file_sha256": "c35325f0181a426a78c35b9172d8908f64639796a535c5fdc8b082b538030e5d",
+      "rows": 423,
+      "fact_nonempty_cells": 423,
+      "counts": {
+        "fact_cells": 423,
+        "fact_nonempty_cells": 423,
+        "preds_cells": 423,
+        "preds_nonempty_cells": 423,
+        "fact_entries": 1840,
+        "fact_D": 1830,
+        "fact_future_year_screen_hits": 69,
+        "fact_A": 3,
+        "fact_B": 7
+      }
+    },
+    "Climate": {
+      "original_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-submission-audit-20260929\\extracted\\iAdapter\\data\\Climate.csv",
+      "original_file_sha256": "4096994d5e8691de404b15d16ab9e2a98d69b03eb1d4eafa4283ea44ead0e51b",
+      "rows": 496,
+      "fact_nonempty_cells": 496,
+      "counts": {
+        "fact_cells": 496,
+        "fact_nonempty_cells": 496,
+        "preds_cells": 496,
+        "preds_nonempty_cells": 496,
+        "fact_entries": 1866,
+        "fact_D": 1866,
+        "fact_future_year_screen_hits": 14
+      }
+    },
+    "Agriculture": {
+      "original_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\output\\iadapter-submission-audit-20260929\\extracted\\iAdapter\\data\\Agriculture.csv",
+      "original_file_sha256": "41203f1af2c4fd9f3207ec286f0a1462df146b5ae8b6d9cdcec6cb569c57a0be",
+      "rows": 496,
+      "fact_nonempty_cells": 401,
+      "counts": {
+        "fact_cells": 496,
+        "fact_nonempty_cells": 401,
+        "preds_cells": 496,
+        "preds_nonempty_cells": 472,
+        "fact_entries": 1271,
+        "fact_D": 1265,
+        "fact_future_year_screen_hits": 19,
+        "fact_C": 2,
+        "fact_B": 2,
+        "fact_A": 2
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+ "version": "v1conf",
+ "parent_package": "method_comparison_seed2_onv7_20261009 (method code) + method_comparison_textrepair_v1_20261008 (provenance)",
+ "purpose": "Confirmation of frozen On-Adapter variants on the V1 three-seed benchmark (seeds 2025-2027), baselines fixed from the V1 main table",
+ "changed": [
+  "provenance: V1 legacy numeric backbone manifest (same iTransformer checkpoints as the V1 main table) + On epochs override",
+  "config: seeds 2025-2027, On-Adapter only, 108 cells, protocol multivariate-origin-periodic-seeds3-v1",
+  "process_guard prefix method_comparison_v1conf_",
+  "execution_version v1conf"
+ ]
+}
