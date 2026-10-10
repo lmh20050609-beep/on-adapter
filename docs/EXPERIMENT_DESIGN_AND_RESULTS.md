@@ -7,13 +7,13 @@ Paths are relative to the repository root. Training outputs (checkpoints and per
 
 ## 1. Summary
 
-In the confirmation experiment — **frozen method, 3 independent training seeds (2025/2026/2027), baselines not tuned at all** — the improved On-Adapter (hereafter **On-Adapter-CV**):
+In the confirmation experiment — **frozen method, 3 independent training seeds (2025/2026/2027), baselines not tuned at all** — our improved **On-Adapter** (the method of the original paper is called Original On-Adapter; in code and result files our method is labelled `On-Adapter-CV` and the original `On-Adapter`):
 
 - has **main statistic S = 1.000495**: essentially tied with its frozen static backbone iTransformer (S = 1.000000), 0.05% behind, **not strictly better**; 2nd of 7 methods;
 - has **mean CVaR₉₀ rank 3.380, the best of the 7 methods** (iTransformer 3.843, the others 3.73–5.07);
 - has lower tail risk than the backbone on **22/36** domain/H tasks;
 - **beats all 5 other baselines**: about 1.4% ahead of the third-placed MM-TSFlib (1.0147) and more than 5% ahead of every online method;
-- improves the main statistic by about 8.5% over the original On-Adapter (S = 1.0936), and lowers mean MAE from 1.0974 to 1.0716.
+- improves the main statistic by about 8.5% over Original On-Adapter (S = 1.0936), and lowers mean MAE from 1.0974 to 1.0716.
 
 Almost all of the remaining gap is in Health_US (within-domain ratio 1.029).
 
@@ -63,7 +63,7 @@ Almost all of the remaining gap is in Health_US (within-domain ratio 1.029).
 | Proceed | online | no | SJTU-DMTai/OnlineTSF `0a864619` | Same as above |
 | GPT4MTS | static, multimodal | yes: BERT-base, 512 tokens, CLS pooling | Flora-jia-jfr/GPT4MTS `c85e74b2` | Newly trained in the V1 main experiment |
 | MM-TSFlib | static, multimodal | yes: first 6 layers of GPT-2, 256 tokens | AdityaLab/MM-TSFlib `e789ce78` | Newly trained in the V1 main experiment |
-| On-Adapter (original) | online, multimodal | yes: first 6 layers of BERT-base, 64 tokens, mean pooling | Implementation from the original paper's supplement | Newly trained in the V1 main experiment |
+| Original On-Adapter | online, multimodal | yes: first 6 layers of BERT-base, 64 tokens, mean pooling | Implementation from the original paper's supplement | Newly trained in the V1 main experiment |
 
 - Pretrained weights: `google-bert/bert-base-uncased@86b5e093`, `openai-community/gpt2@607a30d7`.
 - Source manifests: `third_party/code/*/SOURCE.json`, `third_party/weights/*/SOURCE.json`.
@@ -119,7 +119,7 @@ Engineering check: after restoring the entry random state on the GPU, the online
 
 ---
 
-## 6. Algorithmic improvements: the final method On-Adapter-CV
+## 6. Algorithmic improvements: the final method On-Adapter
 
 Compared with the original On-Adapter, only the following 5 things change; everything else (data, backbone, expert structure, text encoding, feedback computation) is unchanged.
 
@@ -174,7 +174,7 @@ Summaries: `results/development/SUMMARY_rounds1-8.md`, `GOAL_STATUS.md`; per-rou
 
 **Design:**
 - plan: `results/confirmation/PLAN.json` (sha256 `ead8c55f…`), frozen before any confirmation trajectory was produced;
-- the primary method was pre-specified as On-Adapter-CV with no selection; the round-5 configuration On-Adapter-TA is reported alongside as a control;
+- the primary method was pre-specified as On-Adapter (labelled `On-Adapter-CV` in the plan) with no selection; the round-5 configuration, i.e. On-Adapter without the CVaR loss (labelled `On-Adapter-TA`), is reported alongside as a control;
 - only On's 108 cells were newly trained; the backbone is the same set of iTransformer checkpoints as in the main table;
 - the online entry random seed is 100 × seed;
 - the baselines are taken directly from the frozen V1 main table.
@@ -184,20 +184,20 @@ Summaries: `results/development/SUMMARY_rounds1-8.md`, `GOAL_STATUS.md`; per-rou
 | Method | Main statistic S | Mean CVaR₉₀ rank | Mean MAE | Mean MSE | Mean CVaR₉₀ | Tasks with lower tail than backbone |
 |---|---:|---:|---:|---:|---:|---:|
 | iTransformer | **1.000000** | 3.843 | 1.0628 | 11.978 | 2.6293 | — |
-| **On-Adapter-CV** | **1.000495** | **3.380** | 1.0716 | 12.100 | 2.6380 | **22/36** |
+| **On-Adapter** | **1.000495** | **3.380** | 1.0716 | 12.100 | 2.6380 | **22/36** |
 | &emsp;before the gate (the adapter alone) | 1.004584 | — | 1.0733 | 12.079 | 2.6484 | 23/36 |
 | MM-TSFlib | 1.014709 | 4.009 | 1.0690 | 12.089 | 2.6775 | 16/36 |
 | GPT4MTS | 1.035984 | 4.000 | 1.0879 | 12.205 | 2.6616 | 16/36 |
 | ADAPT-Z | 1.049515 | 3.731 | 1.1421 | 13.390 | 2.7875 | 18/36 |
 | DSOF | 1.050956 | 3.972 | 1.2860 | 13.904 | 2.7706 | 15/36 |
-| On-Adapter (original) | 1.093644 | — | 1.0974 | 12.210 | 2.7404 | 17/36 |
+| Original On-Adapter | 1.093644 | — | 1.0974 | 12.210 | 2.7404 | 17/36 |
 | Proceed | 1.110804 | 5.065 | 1.1752 | 13.486 | 2.8612 | 11/36 |
 
 **Per-seed main statistic:** 2025 → 1.00082, 2026 → 1.00118, 2027 → **0.99938**.
 
 **Per-domain CVaR₉₀ relative to the backbone** (averaged over 3 seeds, then geometric mean over the 4 horizons):
 
-| Domain | On-Adapter-CV | Before the gate | Share of origins using the adapter |
+| Domain | On-Adapter | Before the gate | Share of origins using the adapter |
 |---|---:|---:|---:|
 | Environment | **0.990** | 0.986 | 0.60 |
 | Energy | 1.002 | 1.002 | 0.43 |
@@ -211,16 +211,16 @@ Summaries: `results/development/SUMMARY_rounds1-8.md`, `GOAL_STATUS.md`; per-rou
 
 Worst tasks: Health_US H48 1.058, H36 1.027, H24 1.022; SocialGood H8 1.016.
 
-**Control On-Adapter-TA (round-5 configuration, no CVaR loss):** completed under the same frozen plan as the primary method.
+**Control: On-Adapter w/o CVaR loss (round-5 configuration):** completed under the same frozen plan as the primary method.
 
 | Method | Main statistic S | Mean CVaR₉₀ rank | Mean MAE | Mean MSE | Tasks with lower tail than backbone | Per-seed S |
 |---|---:|---:|---:|---:|---:|---|
-| On-Adapter-CV (primary) | 1.000495 | **3.380** | 1.0716 | 12.100 | **22/36** | 1.00082 / 1.00118 / 0.99938 |
-| On-Adapter-TA (ablation) | **1.000108** | 3.481 | **1.0655** | **12.008** | 21/36 | 1.00192 / 0.99972 / 0.99857 |
+| On-Adapter (primary) | 1.000495 | **3.380** | 1.0716 | 12.100 | **22/36** | 1.00082 / 1.00118 / 0.99938 |
+| On-Adapter w/o CVaR loss (ablation) | **1.000108** | 3.481 | **1.0655** | **12.008** | 21/36 | 1.00192 / 0.99972 / 0.99857 |
 
-Per-domain comparison (CV / TA):
-- CV better: Environment 0.990 / 1.002, Agriculture 0.995 / 0.998, Traffic 0.983 / 0.985;
-- TA better: Health_US 1.029 / 1.018, SocialGood 1.006 / 1.000, Climate 1.003 / 0.999.
+Per-domain comparison (On-Adapter / w/o CVaR loss):
+- On-Adapter better: Environment 0.990 / 1.002, Agriculture 0.995 / 0.998, Traffic 0.983 / 0.985;
+- w/o CVaR loss better: Health_US 1.029 / 1.018, SocialGood 1.006 / 1.000, Climate 1.003 / 0.999.
 
 The CVaR loss improves the mean rank but does not lower the main statistic, because it worsens the tail on Health_US. Both tie the backbone; neither strictly wins.
 
@@ -232,7 +232,7 @@ Run log: the control's training once left a stale GPU lock after a process inter
 
 1. **Best tail-risk rank.** Mean CVaR₉₀ rank 3.380 is the best of the 7 methods, about 0.46 ranks ahead of the static backbone (3.843). On has lower tail risk than the backbone on 22/36 tasks.
 2. **Beats all 5 other baselines, including every online and every multimodal method.** Main statistic 1.4% ahead of MM-TSFlib, 3.5% ahead of GPT4MTS, and 5%–11% ahead of ADAPT-Z, DSOF and Proceed.
-3. **Large improvement over the original On-Adapter, from interpretable mechanism fixes.** Main statistic from 1.0936 to 1.0005; mean MAE from 1.0974 to 1.0716; tasks with a lower tail than the backbone from 17 to 22.
+3. **Large improvement over Original On-Adapter, from interpretable mechanism fixes.** Main statistic from 1.0936 to 1.0005; mean MAE from 1.0974 to 1.0716; tasks with a lower tail than the backbone from 17 to 22.
 4. **Robustness from "do no harm to the backbone".** The gate lowers the adapter's own tail risk (1.0046) further to 1.0005; on SocialGood, where the adapter is error-prone, it uses the adapter at only 12% of origins.
 5. **Stable across training randomness.** The main statistic of all 3 seeds lies in 0.9994–1.0012; the conclusion does not change once the method is frozen.
 6. **Clear ablation.** Without the CVaR loss, the main statistic is 1.0001 (below 1 on 2 of 3 seeds) and the mean rank is 3.48. The backbone-first gate plus the training fixes alone already reach a tie with the backbone; the CVaR loss buys a better mean rank at the cost of the Health_US tail.
