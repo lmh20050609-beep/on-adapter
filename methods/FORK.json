@@ -1,0 +1,21 @@
+{
+  "version": "textrepair-v1",
+  "parent_package": "method_comparison_text_pair_independent_v2",
+  "purpose": "Frozen nine-domain benchmark evaluation of the confirmed text time-repair (V1)",
+  "data": "data ; only the fact column differs from the original distribution",
+  "encoder_change_inherited": "One model forward per nonempty complete text entry; cache chunks cannot change forward membership",
+  "retained": "Original BERT/GPT2 weights, layer limits, 64/256/512 token limits, pooling, FP32 encode / FP16 cache; numeric model, adapter, loss, online feedback",
+  "changed_relative_to_parent": [
+    "config.DATA_ROOT points at the nine-domain V1 fact table",
+    "config.TEXT_METHODS restricts the matrix to On-Adapter / GPT4MTS / MM-TSFlib",
+    "data.SeriesData carries text_version and source_decisions_sha256 into the frozen encoder descriptor",
+    "provenance.numeric_checkpoint reuses the completed text-free legacy cells through a frozen manifest",
+    "process_guard gates on this campaign's own control file and sequential controller",
+    "worker execution_version = textrepair-v1"
+  ],
+  "reuse": "Only methods whose forward and training path never read the fact column (iTransformer, ADAPT-Z, DSOF, Proceed) reuse legacy cells; each is pinned by benchmark/legacy_numeric_reuse_manifest.json",
+  "new_offline_training_cells": 324,
+  "reused_legacy_cells": 432,
+  "text_version": "V1",
+  "data_version_choice_basis": "Source-based minimal repair of confirmed later-than-description content, never best score"
+}
