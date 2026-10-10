@@ -1,25 +1,25 @@
-# 九域最小文本修复（V1）数据与来源报告
+# Nine-domain minimal text repair (V1): data and source report
 
-2026-10-08。目标：在保持数值数据、划分、目标、mask 与反馈规则不变的前提下，把已确认的文本时间错配最小修复扩展到全部 9 个基准域，并冻结完整实验协议。
+2026-10-08. Goal: with numeric data, splits, targets, masks and feedback rules unchanged, extend the minimal repair of confirmed text timing mismatches to all 9 benchmark domains and freeze the full experimental protocol.
 
-**V1 只屏蔽已确认晚于描述时点的独立条目**；来源分级为 C/D 的条目一律保留并披露，筛查未命中不等于已认证。本报告不读取任何模型成绩。
+**V1 masks only individual entries confirmed to postdate the time they describe**; entries graded C/D by source are always kept and disclosed, and a screening miss does not mean certified. This report reads no model scores.
 
-## 1. 模型实际读取的文本字段
+## 1. Text fields the models actually read
 
-| 方法 | 读 `fact` | 输入路径 |
+| Method | Reads `fact` | Input path |
 |---|---|---|
-| On-Adapter | 是 | `online.ResidualOnline` 经 `data.prepared_text.pooled(origin)`，可视行 (origin-1, origin) 拼接，64 token mean pooling |
-| GPT4MTS | 是 | `multimodal.GPTForecast` 经 `text.gpt(origin, lookback)`，512 token cls |
-| MM-TSFlib | 是 | `multimodal.MMD` 经 `text.tokens(origin)`，GPT2 6 层，256 token |
-| iTransformer / ADAPT-Z / DSOF / Proceed | 否 | 代码路径不访问 `data.texts` / `prepared_text` |
+| On-Adapter | yes | `online.ResidualOnline` via `data.prepared_text.pooled(origin)`, concatenation of visible rows (origin-1, origin), 64 tokens, mean pooling |
+| GPT4MTS | yes | `multimodal.GPTForecast` via `text.gpt(origin, lookback)`, 512 tokens, cls |
+| MM-TSFlib | yes | `multimodal.MMD` via `text.tokens(origin)`, 6 GPT2 layers, 256 tokens |
+| iTransformer / ADAPT-Z / DSOF / Proceed | no | The code path does not access `data.texts` / `prepared_text` |
 
-`preds`、`Final_Output`、`Final_Search_*` 任何方法都不读。
+No method reads `preds`, `Final_Output` or `Final_Search_*`.
 
-## 2. 来源分级与屏蔽
+## 2. Source grading and masking
 
-规则文件 `source_evidence/decision_rules_all9.json`，SHA256 `85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689`；继承 4 域冻结规则 56 条（SHA256 `3d0109e3dd46e5f2a312dc59e8823d9f6d556437e7b06e6246531e5a11813eda`），新增 5 域独立复核 292 条。
+Rule file `source_evidence/decision_rules_all9.json`, SHA256 `85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689`; 56 frozen rules inherited from the 4-domain pilot (SHA256 `3d0109e3dd46e5f2a312dc59e8823d9f6d556437e7b06e6246531e5a11813eda`), plus 292 new rules from independent review of 5 domains.
 
-| 域 | 独立条目 | A | B（屏蔽） | C（保留披露） | D（未核验保留） | 屏蔽条目占该域 | 被改动行数 |
+| Domain | Individual entries | A | B (masked) | C (kept, disclosed) | D (kept, unverified) | Masked share of domain | Modified rows |
 |---|---|---|---|---|---|---|---|
 | Environment | 15014 | 0 | 238 | 126 | 14650 | 1.585% | 238 |
 | Energy | 1478 | 1 | 0 | 0 | 1477 | 0.000% | 0 |
@@ -30,13 +30,13 @@
 | Economy | 1840 | 3 | 7 | 0 | 1830 | 0.380% | 7 |
 | Climate | 1866 | 0 | 9 | 5 | 1852 | 0.482% | 9 |
 | Agriculture | 1271 | 2 | 2 | 2 | 1265 | 0.157% | 2 |
-| **合计** | 30944 | 44 | 413 | 204 | 30283 | 1.335% | 400 |
+| **Total** | 30944 | 44 | 413 | 204 | 30283 | 1.335% | 400 |
 
-屏蔽的是条目出现次数；同一原始文本在多行重复出现时按行分别屏蔽。未删除任何数值行、预测原点或评分目标。
+Masking counts entry occurrences; when the same raw text repeats across rows, it is masked separately in each row. No numeric row, forecast origin or scoring target was deleted.
 
-## 3. 各域各划分覆盖率
+## 3. Coverage per domain and split
 
-| 域 | 划分 | 条目 | A | B | C | D | 屏蔽 | 条目保留率 |
+| Domain | Split | Entries | A | B | C | D | Masked | Entry retention |
 |---|---|---|---|---|---|---|---|---|
 | Environment | train | 8914 | 0 | 126 | 63 | 8725 | 126 | 0.9859 |
 | Environment | val | 3050 | 0 | 91 | 28 | 2931 | 91 | 0.9702 |
@@ -66,11 +66,11 @@
 | Agriculture | val | 401 | 1 | 1 | 0 | 399 | 1 | 0.9975 |
 | Agriculture | test | 433 | 1 | 1 | 1 | 430 | 1 | 0.9977 |
 
-## 4. 实际 token 变化
+## 4. Actual token changes
 
-按每种方法冻结的 tokenizer、token 上限与文本映射规则，比较 V0 与 V1 下每行实际模型输入。
+Using each method's frozen tokenizer, token limit and text mapping rule, the actual model input of every row is compared between V0 and V1.
 
-| 域 | 方法 | 含屏蔽条目的行 | 其中屏蔽条目仍落在 token 窗口内 | 行 token 变化 | test 原点 | test 有 token 变化的原点 |
+| Domain | Method | Rows containing a masked entry | Of those, masked entry inside the token window | Rows with changed tokens | Test origins | Test origins with changed tokens |
 |---|---|---|---|---|---|---|
 | Environment | On-Adapter | 238 | 0 | 261 | 3003 | 23 |
 | Environment | GPT4MTS | 238 | 0 | 231 | 3003 | 21 |
@@ -100,11 +100,11 @@
 | Agriculture | GPT4MTS | 2 | 0 | 2 | 95 | 1 |
 | Agriculture | MM-TSFlib | 2 | 2 | 4 | 95 | 2 |
 
-On-Adapter 的 64-token 窗口在多数域并未包含被屏蔽的条目本身，token 变化主要来自 `clean_fact` 尾部 1200 字符窗口因删除而前移；MM-TSFlib 的 256-token 窗口则会保留其中相当一部分。
+In most domains the 64-token window of On-Adapter does not contain the masked entry itself; its token changes come mainly from the trailing 1200-character window of `clean_fact` shifting after the deletion. The 256-token window of MM-TSFlib keeps a sizeable share of the masked entries.
 
-## 5. 身份与复现
+## 5. Identity and reproduction
 
-| 域 | V1 文件 SHA256 | 非 fact 列全等 |
+| Domain | V1 file SHA256 | Non-fact columns identical |
 |---|---|---|
 | Environment | `8e49bd5a186f2a63f9547e7b6342d4f0…` | True |
 | Energy | `d32f6dca6818cf8cb415c15af77a9d8e…` | True |
@@ -116,12 +116,12 @@ On-Adapter 的 64-token 窗口在多数域并未包含被屏蔽的条目本身�
 | Climate | `2b95bbc4cb16c02872422192bc9086a5…` | True |
 | Agriculture | `eed9766319b022c240efcc1b028b6993…` | True |
 
-Agriculture/Economy/Security 三域 V1 与三域先导冻结文件逐字节一致：True。
+V1 of Agriculture/Economy/Security is byte-identical to the frozen three-domain pilot files: True.
 
-## 6. 必须保留的限制
+## 6. Limitations that must be kept
 
-- 来源复核只覆盖“正文中出现晚于描述时点年份”的候选条目；未命中不代表无问题，也未认证为 A。
-- C/D 条目全部保留在实际数据中，仅作披露；V1 不等于“所有条目均已认证”。
-- 数值仍使用原 `end_date` 可用性代理与回顾性目标 mask 原点网格；不证明真实发布时间与历史修订版本意义上的完整因果性。
-- 来源决定不读取模型成绩，不因结果调整屏蔽规则。
-- 本阶段不扩展到其他 seed 或 SocialGood 主表；SocialGood 的 V1 已包含在本 9 域数据中，但不单列额外先导。
+- Source review covers only candidate entries whose body mentions a year later than the described time; a miss does not mean there is no problem, nor that the entry is certified A.
+- All C/D entries are kept in the actual data and only disclosed; V1 does not mean "every entry is certified".
+- The numeric data still use the original `end_date` availability proxy and the retrospective target-mask origin grid; this does not prove full causality in the sense of real publication times and historical revisions.
+- Source decisions read no model scores; masking rules are not adjusted based on results.
+- This stage does not extend to other seeds or to a SocialGood main table; SocialGood V1 is included in the 9-domain data, but no separate extra pilot is run for it.
