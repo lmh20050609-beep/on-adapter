@@ -1,7 +1,7 @@
 # On-Adapter: experimental design, algorithmic improvements and confirmation results
 
 Compiled 2026-10-09. Every number in this document was recomputed from the saved per-origin forecasts; source paths are given in each section and in section 11.
-Throughout, `…\` stands for `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\`, and training outputs are under `E:\FedNoise\iadapter-baselines\runs\`.
+Paths are relative to the repository root. Training outputs (checkpoints and per-origin forecasts) are not in the repository; on the original machine they were under `E:\FedNoise\iadapter-baselines\runs\`, and `…\` below stands for the original working directory `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\`.
 
 ---
 
@@ -26,9 +26,9 @@ Almost all of the remaining gap is in Health_US (within-domain ratio 1.029).
 - **Source:** Time-MMD multimodal time series (numeric series plus the text `fact` field), taken from the original paper's code and data supplement
   `C:\Users\18452\Downloads\31817_iAdapter_Adaptive_lightw_Code And Data Supplement (1).zip` and the CSV files of its 9 domains.
 - **Text version: V1 minimal repair.** It masks only the individual entries verified against their sources as postdating the time they describe: 413 of 30,944 entries, 1.34%. Numeric columns, targets and masks are byte-identical.
-  - data: `…\reports\benchmark_text_repair_all9_v1_20261008\data\V1\`
-  - rules: `…\benchmark_text_repair_all9_v1\source_evidence\decision_rules_all9.json` (348 rules, sha256 `85152a0e…`)
-  - report: `…\reports\benchmark_text_repair_all9_v1_20261008\REPORT.md`
+  - data: `data/`
+  - rules: `data_repair/source_evidence/decision_rules_all9.json` (348 rules, sha256 `85152a0e…`)
+  - report: `results/data_repair/REPORT.md`
 - **Text encoding:** independent encoding path. Each non-empty text gets its own forward pass with batch size always 1, so other texts in a batch cannot affect the result. Encodings are cached by identity, isolated from historical caches.
 
 ### 2.2 Domains, sampling frequencies and windows (fixed, no resampling)
@@ -49,7 +49,7 @@ Almost all of the remaining gap is in Health_US (within-domain ratio 1.029).
 - the forecast-origin grid and the masks are the same for all methods;
 - feedback rule for online methods: an old origin can be used for an update only when `old_origin + H ≤ current_origin` (all of its labels have matured);
 - checkpoints are selected by validation MSE; nothing is tuned on the test segment.
-- config: `…\configs\method_comparison_textrepair_v1_20261008.json`
+- config: `configs/benchmark.json`
 
 ---
 
@@ -66,18 +66,18 @@ Almost all of the remaining gap is in Health_US (within-domain ratio 1.029).
 | On-Adapter (original) | online, multimodal | yes: first 6 layers of BERT-base, 64 tokens, mean pooling | Implementation from the original paper's supplement | Newly trained in the V1 main experiment |
 
 - Pretrained weights: `google-bert/bert-base-uncased@86b5e093`, `openai-community/gpt2@607a30d7`.
-- Source manifests: `…\external\*\SOURCE.json`, `…\weights\*\SOURCE.json`.
+- Source manifests: `third_party/code/*/SOURCE.json`, `third_party/weights/*/SOURCE.json`.
 - **Baseline main table** (3 seeds × 36 tasks × 7 methods = 756 cells):
-  - the 432 cells of the 4 methods that do not read text are reused from historical cells under the same protocol; see `…\benchmark_textrepair_v1\legacy_numeric_reuse_manifest.json`;
+  - the 432 cells of the 4 methods that do not read text are reused from historical cells under the same protocol; see `benchmark/legacy_numeric_reuse_manifest.json`;
   - the 324 cells of the 3 text-reading methods were retrained on V1 with 0 failures; the audit passed, with 0 changes to 10,846 historical artifacts;
-  - results: `…\reports\benchmark_textrepair_v1_20261008\results.json`, `REPORT.md`.
+  - results: `results/benchmark/results.json`, `REPORT.md`.
 - **No baseline was tuned** in this study.
 
 ---
 
 ## 4. Statistical method (frozen definitions)
 
-Implementation: `cell_metrics` in `…\benchmark_textrepair_v1\score.py`. The confirmation experiment and all development rounds call this function directly.
+Implementation: `cell_metrics` in `benchmark/score.py`. The confirmation experiment and all development rounds call this function directly.
 
 1. **Scoring space:** all observed target elements of all selected numeric variables, on the training-standardized scale.
 2. **Per-origin loss:** for each forecast origin, the MAE over all of its observed target elements.
@@ -105,7 +105,7 @@ Implementation: `cell_metrics` in `…\benchmark_textrepair_v1\score.py`. The co
 - training loss: MSE + gate entropy + VICReg text–numeric alignment;
 - at test time, once an origin's labels mature, the adapter takes one online Adam step (lr 3e-4).
 
-**Problems found by diagnosis** (evidence in `…\reports\hg_scale_diagnostic_20261008\`, `online_replay_consistency_20261008\`, `domain_gap_analysis_20261008\`):
+**Problems found by diagnosis** (evidence on the original machine, not in this repository: `…\reports\hg_scale_diagnostic_20261008\`, `online_replay_consistency_20261008\`, `domain_gap_analysis_20261008\`):
 
 | Problem | Evidence |
 |---|---|
@@ -137,15 +137,15 @@ Information boundary:
 - verified: changing the values of not-yet-matured targets does not change any earlier forecast.
 
 Code:
-- method package: `…\method_comparison_v1conf_20261009\` (`FORK.json` records every difference)
-- gate: `abstain` in `…\scripts\seed2_round5_ta.py`
-- replay harness: `…\scripts\onadapter_harness_20261008.py`
+- method package: `on_adapter/` (`FORK.json` records every difference)
+- gate: `abstain` in `confirmation/round5_gate.py`
+- replay harness: `confirmation/harness.py`
 
 ---
 
 ## 7. Development process (seed = 2, exploratory)
 
-- A full 7-method baseline was built for seed 2 (252/252 cells, 0 failures); see `…\reports\benchmark_seed2_v1_20261009\`.
+- A full 7-method baseline was built for seed 2 (252/252 cells, 0 failures); see `…\reports\benchmark_seed2_v1_20261009\` on the original machine (not in this repository).
 - Each round froze its plan first (`PLAN.json` and its sha256), selected on the validation set only, and computed the test set only once.
 - From round 4 on, selection used a robust score: the worse of the whole-stream geometric mean and the geometric mean of the worst of three time segments.
 - From round 8 on, the test set was used only when the robust validation score was ≤ 0.985.
@@ -166,20 +166,20 @@ Code:
 
 The seed-2 test segment was used 8 times in total; all of the above results are exploratory.
 
-Summaries: `…\reports\seed2_goal_20261009\SUMMARY_rounds1-8.md`, `GOAL_STATUS.md`; per-round details: `…\reports\seed2_goal_20261009\round*\`.
+Summaries: `results/development/SUMMARY_rounds1-8.md`, `GOAL_STATUS.md`; per-round details: `results/development/round*/`.
 
 ---
 
 ## 8. Confirmation experiment and results (seeds 2025 / 2026 / 2027)
 
 **Design:**
-- plan: `…\reports\v1conf_20261009\PLAN.json` (sha256 `ead8c55f…`), frozen before any confirmation trajectory was produced;
+- plan: `results/confirmation/PLAN.json` (sha256 `ead8c55f…`), frozen before any confirmation trajectory was produced;
 - the primary method was pre-specified as On-Adapter-CV with no selection; the round-5 configuration On-Adapter-TA is reported alongside as a control;
 - only On's 108 cells were newly trained; the backbone is the same set of iTransformer checkpoints as in the main table;
 - the online entry random seed is 100 × seed;
 - the baselines are taken directly from the frozen V1 main table.
 
-**Main results** (`…\reports\v1conf_20261009\results.json`):
+**Main results** (`results/confirmation/results.json`):
 
 | Method | Main statistic S | Mean CVaR₉₀ rank | Mean MAE | Mean MSE | Mean CVaR₉₀ | Tasks with lower tail than backbone |
 |---|---:|---:|---:|---:|---:|---:|
@@ -224,7 +224,7 @@ Per-domain comparison (CV / TA):
 
 The CVaR loss improves the mean rank but does not lower the main statistic, because it worsens the tail on Health_US. Both tie the backbone; neither strictly wins.
 
-Run log: the control's training once left a stale GPU lock after a process interruption; after manually confirming that the original process no longer existed, it was resumed from checkpoint. See `reports/v1conf_20261009/recovery/NOTE.txt`.
+Run log: the control's training once left a stale GPU lock after a process interruption; after manually confirming that the original process no longer existed, it was resumed from checkpoint. See `results/confirmation/recovery/NOTE.txt`.
 
 ---
 
@@ -252,9 +252,9 @@ Run log: the control's training once left a stale GPU lock after a process inter
 
 ---
 
-## 11. Reproduction entry points (in WSL, first cd into the baseline directory)
+## 11. Reproduction entry points (from the repository root)
 
-- V1 main table: `./.venv/Scripts/python.exe -m benchmark_textrepair_v1.score`
-- Confirmation: `bash scripts/v1conf_dispatch.sh`; scoring only: `./.venv/Scripts/python.exe scripts/v1conf_20261009.py --score`
+- V1 main table: `python -m benchmark.score`
+- Confirmation: `bash confirmation/dispatch.sh`; scoring only: `python confirmation/confirm.py --score`
 - Per-origin confirmation forecasts (after and before the gate, backbone, targets, masks, origins, gate choices): `E:\FedNoise\iadapter-baselines\runs\v1conf_traj_20261009\final\cv\<domain>\H<h>\seed<s>\predictions.npz`
 - Confirmation checkpoints: `E:\FedNoise\iadapter-baselines\runs\method_comparison_v1conf_cv_20261009\`

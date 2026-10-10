@@ -1,0 +1,224 @@
+{
+  "campaign": "method_comparison_v1conf_cv_20261009",
+  "protocol_version": "multivariate-origin-periodic-seeds3-v1",
+  "datasets": [
+    "Environment",
+    "Energy",
+    "Health_US",
+    "Traffic",
+    "SocialGood",
+    "Security",
+    "Economy",
+    "Climate",
+    "Agriculture"
+  ],
+  "methods": [
+    "On-Adapter"
+  ],
+  "seeds": [
+    2025,
+    2026,
+    2027
+  ],
+  "device": "cuda:0",
+  "minimum_free_gpu_mib": {
+    "default": 2048,
+    "llm": 5500
+  },
+  "target": "all_selected_numeric_columns",
+  "input_features": "same_as_original_multivariate_selection",
+  "split": [
+    0.6,
+    0.2,
+    0.2
+  ],
+  "metric_space": "train_standardized_observed_elements",
+  "epochs": 15,
+  "patience": 3,
+  "batch_size": 16,
+  "learning_rate": 0.0003,
+  "llm_learning_rate": 0.001,
+  "d_model": 64,
+  "n_heads": 4,
+  "e_layers": 2,
+  "d_layers": 1,
+  "d_ff": 256,
+  "dropout": 0.1,
+  "patch_len": 8,
+  "stride": 4,
+  "num_workers": 0,
+  "threads": 2,
+  "llm_model": "GPT2",
+  "llm_layers": 6,
+  "resume": true,
+  "runs_root": "E:/FedNoise/iadapter-baselines/runs",
+  "text_policy": "facts_only; nine-domain minimal time repair V1; per-record end_date availability proxy; no generated preds",
+  "missing_input": "past forward fill, then training mean",
+  "missing_target": "masked, never imputed",
+  "online_origin_batch": 1,
+  "online_learning_rate": 0.0003,
+  "checkpoint_storage": "trainable parameters plus buffers; frozen weights externally referenced",
+  "prior_campaign_reuse": false,
+  "storage_limit_gib": 32,
+  "minimum_disk_free_gib": 20,
+  "implementation_scope": "author components with disclosed common-data/evaluation bridges; not exact author-script replication",
+  "execution": {
+    "version": "v1conf",
+    "gpu_execution_authorized": true,
+    "cache_root": "E:/FedNoise/textrepair_v1_20261008_cache",
+    "control_file": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\results\\confirmation\\campaign_cv\\control.json",
+    "report_root": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\results\\confirmation\\campaign_cv",
+    "text_encoding_batch_size": 16,
+    "checkpoint_every_batches": 64,
+    "checkpoint_every_origins": 64,
+    "checkpoint_reserve_bytes": 536870912,
+    "cache_frozen_numeric": false,
+    "numeric_ram_bytes": 134217728,
+    "cache_budget": {
+      "vector_disk_bytes": 536870912,
+      "token_disk_bytes": 12884901888,
+      "vector_ram_bytes": 134217728,
+      "token_batch_ram_bytes": 268435456
+    },
+    "gpu_validation_authorized": true,
+    "storage_budget_note": "Independent bounded allowance for the nine-domain V1 text-encoding campaign.",
+    "device_data_bytes": 134217728,
+    "parallel_workers": 1,
+    "gpu_headroom_mib": 1536,
+    "ram_headroom_mib": 2048,
+    "worker_ram_reservation_mib": 2048,
+    "gpu_job_reservations_mib": {
+      "GPT4MTS": 1024,
+      "MM-TSFlib": 1024,
+      "iTransformer": 512,
+      "ADAPT-Z": 512,
+      "DSOF": 512,
+      "Proceed": 512,
+      "On-Adapter": 768
+    },
+    "scheduler_poll_seconds": 3,
+    "resume_v1_cells": false,
+    "gpu_compute_workers": 1,
+    "parallel_mode": "single sequential controller; one compute slot",
+    "resume_v2_cells": false,
+    "resume_v3_cells": false,
+    "reuse_periodic_v1": false,
+    "resume_periodic_v1": false,
+    "worker_ram_reservations_mib": {
+      "GPT4MTS": 3072,
+      "MM-TSFlib": 3072
+    },
+    "reservation_evidence": "21 periodic GPU entry checks peak <=633MiB; prior optimized full runs peak <=669MiB. Reserve 1GiB per large model plus global 1.5GiB headroom; CPU admission retains 3GiB large loading peaks. Prior L36 timing is not new-protocol accuracy evidence.",
+    "reuse_periodic_v3": false,
+    "resume_periodic_v3": false
+  },
+  "dataset_windows": {
+    "Environment": {
+      "periodicity": "daily",
+      "lookback": 96,
+      "horizons": [
+        48,
+        96,
+        192,
+        336
+      ]
+    },
+    "Energy": {
+      "periodicity": "weekly",
+      "lookback": 24,
+      "horizons": [
+        12,
+        24,
+        36,
+        48
+      ]
+    },
+    "Health_US": {
+      "periodicity": "weekly",
+      "lookback": 24,
+      "horizons": [
+        12,
+        24,
+        36,
+        48
+      ]
+    },
+    "Traffic": {
+      "periodicity": "monthly",
+      "lookback": 8,
+      "horizons": [
+        6,
+        8,
+        10,
+        12
+      ]
+    },
+    "SocialGood": {
+      "periodicity": "monthly",
+      "lookback": 8,
+      "horizons": [
+        6,
+        8,
+        10,
+        12
+      ]
+    },
+    "Security": {
+      "periodicity": "monthly",
+      "lookback": 8,
+      "horizons": [
+        6,
+        8,
+        10,
+        12
+      ]
+    },
+    "Economy": {
+      "periodicity": "monthly",
+      "lookback": 8,
+      "horizons": [
+        6,
+        8,
+        10,
+        12
+      ]
+    },
+    "Climate": {
+      "periodicity": "monthly",
+      "lookback": 8,
+      "horizons": [
+        6,
+        8,
+        10,
+        12
+      ]
+    },
+    "Agriculture": {
+      "periodicity": "monthly",
+      "lookback": 8,
+      "horizons": [
+        6,
+        8,
+        10,
+        12
+      ]
+    }
+  },
+  "dataset_configuration_source": "User-supplied Table 1 on 2026-10-06",
+  "expected_matrix_cells": 108,
+  "calendar_policy": "Native reported records; no resampling. Health YEAR/WEEK anomalies retained and disclosed.",
+  "calendar_feature_interface": "Preserve existing month/day/weekday/hour features and author interface; periodicity controls L/H, not resampling.",
+  "unavailable_methods": [
+    "VoT",
+    "TiMi"
+  ],
+  "numerical_prerequisite_method": "iTransformer",
+  "text_version": "V1",
+  "reuse_policy": "only text-free methods (iTransformer, ADAPT-Z, DSOF, Proceed) may be reused, each pinned by benchmark/legacy_numeric_reuse_manifest.json",
+  "on_variant": {
+    "align_scale": 0.0,
+    "res_init": null,
+    "epochs": 15,
+    "cvar_lambda": 0.5
+  }
+}

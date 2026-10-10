@@ -28,7 +28,7 @@ On-Adapter attaches a lightweight adapter to a frozen iTransformer backbone. The
 
 **Confirmation setup:**
 - training seeds 2025 / 2026 / 2027;
-- the method and the plan were frozen before any confirmation result was produced; see [PLAN.json](reports/v1conf_20261009/PLAN.json);
+- the method and the plan were frozen before any confirmation result was produced; see [PLAN.json](results/confirmation/PLAN.json);
 - no baseline was tuned.
 
 | Method | Type | Main statistic S ↓ | Mean CVaR₉₀ rank ↓ | Mean MAE | Mean MSE | Tasks with lower tail than backbone |
@@ -64,7 +64,7 @@ On-Adapter attaches a lightweight adapter to a frozen iTransformer backbone. The
 | Climate | 1.003 | **0.999** | 0.25 / 0.34 |
 | Agriculture | **0.995** | **0.998** | 0.58 / 0.56 |
 
-Values are rounded to 3 decimals; per-task results are under `per_task` in [results.json](reports/v1conf_20261009/results.json).
+Values are rounded to 3 decimals; per-task results are under `per_task` in [results.json](results/confirmation/results.json).
 
 **Ablation:** the CVaR tail loss improves the mean rank (3.48 → 3.38) and the results on Environment, Agriculture and Traffic. It also worsens the tail on Health_US (1.018 → 1.029), so the main statistic does not go down. Both versions tie the backbone; neither strictly beats it.
 
@@ -87,7 +87,7 @@ flowchart LR
     G --> Y[Final forecast]
 ```
 
-**Diagnosis of the original method** (evidence in the diagnostic folders under `reports/` and in [docs, section 5](docs/EXPERIMENT_DESIGN_AND_RESULTS.md#5-structure-and-diagnosis-of-the-original-on-adapter)):
+**Diagnosis of the original method** (details in [docs, section 5](docs/EXPERIMENT_DESIGN_AND_RESULTS.md#5-structure-and-diagnosis-of-the-original-on-adapter)):
 
 | Problem | Evidence |
 |---|---|
@@ -112,9 +112,9 @@ flowchart LR
 **Information boundary:** feedback and gating use only matured labels satisfying `old_origin + H ≤ current_origin`; a forecast never reads current or future targets or masks.
 
 **Where the code is:**
-- method package: [method_comparison_v1conf_20261009/](method_comparison_v1conf_20261009/), with the differences from upstream recorded in `FORK.json`;
-- gate: `abstain` in [scripts/seed2_round5_ta.py](scripts/seed2_round5_ta.py);
-- online replay harness: [scripts/onadapter_harness_20261008.py](scripts/onadapter_harness_20261008.py).
+- method package: [on_adapter/](on_adapter/), with the differences from the benchmark package recorded in `FORK.json`;
+- gate: `abstain` in [confirmation/round5_gate.py](confirmation/round5_gate.py);
+- online replay harness: [confirmation/harness.py](confirmation/harness.py).
 
 ---
 
@@ -122,7 +122,7 @@ flowchart LR
 
 ### 4.1 Data
 
-- **Source:** 9 domains of Time-MMD, with numeric series and the text `fact` field.
+- **Source:** 9 domains of Time-MMD, with numeric series and the text `fact` field; one CSV per domain in [data/](data/) (`Health.csv` is Health_US).
 - **Text:** the V1 minimal repair. It masks only entries verified against their sources as postdating the time they describe: 413 entries, 1.34%. Numeric columns are byte-identical.
 - **Text encoding:** independent encoding; each text is passed forward on its own, with batch size always 1.
 
@@ -143,7 +143,7 @@ flowchart LR
 
 ### 4.3 Scoring
 
-Implemented as `cell_metrics` in [benchmark_textrepair_v1/score.py](benchmark_textrepair_v1/score.py):
+Implemented as `cell_metrics` in [benchmark/score.py](benchmark/score.py):
 
 1. For each forecast origin, take the MAE over all observed target elements, on the training-standardized scale.
 2. CVaR₉₀ is the mean loss within the worst 10% of probability mass. The boundary origin enters with a fractional weight. The result is cross-checked against the variational definition, with error below 1e-12.
@@ -162,8 +162,8 @@ Implemented as `cell_metrics` in [benchmark_textrepair_v1/score.py](benchmark_te
 | On-Adapter (original) | Implementation from the original paper's supplement | Retrained on V1 |
 
 **Result files:**
-- V1 main table, 3 seeds × 36 tasks × 7 methods = 756 cells: [results.json](reports/benchmark_textrepair_v1_20261008/results.json) and [results.csv](reports/benchmark_textrepair_v1_20261008/results.csv);
-- protocol: [PROTOCOL.md](reports/benchmark_textrepair_v1_20261008/PROTOCOL.md).
+- V1 main table, 3 seeds × 36 tasks × 7 methods = 756 cells: [results.json](results/benchmark/results.json) and [results.csv](results/benchmark/results.csv);
+- protocol: [PROTOCOL.md](results/benchmark/PROTOCOL.md).
 
 ---
 
@@ -175,55 +175,63 @@ Python 3.9, PyTorch 2.8 (CUDA 12.9). Run every command from the repository root.
 
 ```bash
 pip install -r requirements.txt
-bash scripts/fetch_external.sh      # download the 6 baselines' code at the commits in SOURCE.json and verify each file against MANIFEST.sha256
-python scripts/fetch_weights.py     # download the bert-base-uncased and gpt2 weights at pinned revisions
+bash third_party/fetch_code.sh      # download the 6 baselines' code at the commits in SOURCE.json and verify each file against MANIFEST.sha256
+python third_party/fetch_weights.py # download the bert-base-uncased and gpt2 weights at pinned revisions
 ```
 
-> **Paths must be replaced:** `runs_root`, `cache_root`, `control_file` and `report_root` in the config files, and `B=` in `scripts/v1conf_dispatch.sh`, are paths on the original experiment machine (`E:/FedNoise/...`, `C:/Users/...`). Change them to local paths before use.
+> **Paths must be replaced:** `runs_root`, `cache_root`, `control_file` and `report_root` in the config files, and `B=` in `confirmation/dispatch.sh`, are paths on the original experiment machine (`E:/FedNoise/...`, `C:/Users/.../iadapter-baselines`). Change them to local paths before use.
 
 ### 5.2 V1 benchmark main table
 
 ```bash
-python -m benchmark_textrepair_v1.runner run      # train the 3 text-reading methods × 3 seeds; resumable
-python -m benchmark_textrepair_v1.finalize audit
-python -m benchmark_textrepair_v1.score
+python -m benchmark.runner run      # train the 3 text-reading methods × 3 seeds; resumable
+python -m benchmark.finalize audit
+python -m benchmark.score
 ```
 
-The 432 cells of the 4 methods that do not read text are reused from historical runs under the same protocol. Their hashes are pinned in [legacy_numeric_reuse_manifest.json](benchmark_textrepair_v1/legacy_numeric_reuse_manifest.json), and their compatibility is checked in two files: [reuse_verification.json](reports/benchmark_textrepair_v1_20261008/reuse_verification.json) and [numeric_reuse_equivalence.json](reports/benchmark_textrepair_v1_20261008/numeric_reuse_equivalence.json). Their original run directories are not in the repository.
+The 432 cells of the 4 methods that do not read text are reused from historical runs under the same protocol. Their hashes are pinned in [legacy_numeric_reuse_manifest.json](benchmark/legacy_numeric_reuse_manifest.json), and their compatibility is checked in two files: [reuse_verification.json](results/benchmark/reuse_verification.json) and [numeric_reuse_equivalence.json](results/benchmark/numeric_reuse_equivalence.json). Their original run directories are not in the repository.
 
 ### 5.3 On-Adapter-CV confirmation experiment
 
 ```bash
-# 1) train (for On-Adapter-TA use ..._ta_20261009.json)
-python -m benchmark_v1conf.runner run --config configs/method_comparison_v1conf_cv_20261009.json
+# 1) train (for On-Adapter-TA use configs/confirmation_ta.json)
+python -m confirmation.runner run --config configs/confirmation_cv.json
 # 2) per-origin online test trajectories
-python scripts/v1conf_20261009.py --list cv | while read t d h s; do
-  python scripts/v1conf_20261009.py --traj $t $d $h $s < /dev/null
+python confirmation/confirm.py --list cv | while read t d h s; do
+  python confirmation/confirm.py --traj $t $d $h $s < /dev/null
 done
 # 3) score
-python scripts/v1conf_20261009.py --score
+python confirmation/confirm.py --score
 ```
 
-`scripts/v1conf_dispatch.sh` chains the three steps: training runs serially on the GPU, and test trajectories run in parallel on the CPU.
+`confirmation/dispatch.sh` chains the three steps: training runs serially on the GPU, and test trajectories run in parallel on the CPU.
 
 ---
 
 ## 6. Repository layout
 
 ```
-├── method_comparison_v1conf_20261009/          final method (On-Adapter-CV / TA)
-├── method_comparison_textrepair_v1_20261008/   V1 benchmark package: implementations and bridges for the 7 methods
-├── benchmark_text_repair_all9_v1/              V1 text repair: data-building code and 348 decision rules
-├── benchmark_textrepair_v1/                    V1 main-experiment driver, audit and frozen scoring
-├── benchmark_v1conf/                           three-seed confirmation driver
-├── original-paper-replay/uniform-l36-source/   original On-Adapter source (a dependency of the method code)
-├── scripts/                                    online replay harness, gate, confirmation scoring and dispatch, download scripts
-├── configs/                                    configs for the V1 main experiment and the confirmation
-├── reports/                                    V1 data, main table, confirmation results, frozen plans and hashes, development records
-├── docs/                                       full design and results document
-├── external/  weights/                         pinned sources of third-party code and weights (SOURCE.json and checksum manifest only)
+├── data/                  V1 dataset: one CSV per domain (9 domains)
+├── data_repair/           code and 348 decision rules that built the V1 text repair
+├── methods/               implementations of the 7 methods (used in the main experiment)
+├── on_adapter/            final method On-Adapter-CV / TA (a fork of methods/, see FORK.json)
+├── on_adapter_original/   source of the original On-Adapter paper (experts, IG-SMoE adapter, VICReg alignment)
+├── benchmark/             main experiment: scheduling, audit, frozen scoring (score.py), report
+├── confirmation/          confirmation experiment: training (runner.py), online replay (harness.py),
+│                          gate (round5_gate.py), trajectories and scoring (confirm.py), dispatch.sh
+├── configs/               benchmark.json, confirmation_cv.json, confirmation_ta.json
+├── results/
+│   ├── data_repair/       report of the V1 text repair (coverage, token effects)
+│   ├── benchmark/         7-method main table (756 cells), protocol, checks, frozen hashes
+│   ├── development/       12 development rounds on seed 2: plans, selections, results
+│   └── confirmation/      confirmation plan and results
+├── third_party/           pinned sources of third-party code (code/) and weights (weights/),
+│                          with download scripts fetch_code.sh and fetch_weights.py
+├── docs/                  full design and results document
 └── requirements.txt
 ```
+
+`round1_calibration.py` and `round3_training.py` in `confirmation/` are helper modules carried over from development rounds 1 and 3; the confirmation scripts import them.
 
 ---
 
@@ -245,8 +253,8 @@ The method went through 12 rounds of iteration on a single training seed (seed 2
 | 12 | CVaR tail loss | 1.004 | Best mean rank of the 7 methods; became the final method |
 
 Records:
-- summaries: [SUMMARY_rounds1-8.md](reports/seed2_goal_20261009/SUMMARY_rounds1-8.md), [GOAL_STATUS.md](reports/seed2_goal_20261009/GOAL_STATUS.md);
-- per-round details: `reports/seed2_goal_20261009/round*/`.
+- summaries: [SUMMARY_rounds1-8.md](results/development/SUMMARY_rounds1-8.md), [GOAL_STATUS.md](results/development/GOAL_STATUS.md);
+- per-round details: `results/development/round*/`.
 
 Only the code of the final pipeline is kept; intermediate method packages are not included.
 
@@ -271,7 +279,9 @@ The previous repository contents (the code and data supplement of the original i
 git checkout legacy-iadapter-supplement
 ```
 
+The directory layout was simplified after the experiments (for example, `method_comparison_v1conf_20261009/` became `on_adapter/` and `reports/v1conf_20261009/` became `results/confirmation/`). Frozen records such as `PLAN.json`, `execution_lock.json`, `artifact_manifest.json` and the per-round development scripts keep the original paths, as they were recorded at the time. The renamed code was checked end to end: one confirmation cell rebuilt from `data/` with the new layout reproduces the saved forecasts bit for bit.
+
 The documents, report generators and source comments in this repository were originally written in Chinese and have been translated into English. The Chinese originals are kept in the git history at commit `d1a8759`. Two consequences of the translation:
 
-- the sha256 values recorded in `reports/benchmark_textrepair_v1_20261008/artifact_manifest.json` for `REPORT.md`, `PROTOCOL.md` and `HANDOFF.md` refer to the Chinese originals;
-- in `original-paper-replay/`, only comments, docstrings and messages were translated (the code is unchanged, checked by AST comparison), but the file hashes, and therefore the `source_fingerprint` recorded by the method packages, differ from those of the original runs.
+- the sha256 values recorded in `results/benchmark/artifact_manifest.json` for `REPORT.md`, `PROTOCOL.md` and `HANDOFF.md` refer to the Chinese originals;
+- in `on_adapter_original/`, only comments, docstrings and messages were translated (the code is unchanged, checked by AST comparison), but the file hashes, and therefore the `source_fingerprint` recorded by the method packages, differ from those of the original runs.

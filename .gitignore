@@ -4,11 +4,11 @@ __pycache__/
 *.lock
 *.pid
 .venv/
-# third-party code and weights are fetched by scripts/fetch_external.sh and scripts/fetch_weights.py
-external/*/*
-!external/*/SOURCE.json
-weights/*/*
-!weights/*/SOURCE.json
+# third-party code and weights are fetched by third_party/fetch_code.sh and third_party/fetch_weights.py
+third_party/code/*/*
+!third_party/code/*/SOURCE.json
+third_party/weights/*/*
+!third_party/weights/*/SOURCE.json
 # run outputs and caches live outside the repository (see configs: runs_root, cache_root)
 runs/
 cache/
