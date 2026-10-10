@@ -1,114 +1,114 @@
-# On-Adapter seed=2 九域优化：第 1–7 轮结果与第 8 轮验证方向
+# On-Adapter seed=2 nine-domain optimization: results of rounds 1–7 and the round-8 validation direction
 
-日期：2026-10-09。全部结果属于**探索性迭代**：seed2 的测试时段在第 1–7 轮中被使用了 7 次。
+Date: 2026-10-09. All results are **exploratory iterations**: the seed2 test period was used 7 times during rounds 1–7.
 
-## 1. 固定协议与判定口径
+## 1. Fixed protocol and verdict criteria
 
-- **九个域**，采样频率与窗口固定：
-  - Environment：日频，L96，H = 48 / 96 / 192 / 336；
-  - Energy、Health_US：周频，L24，H = 12 / 24 / 36 / 48；
-  - Traffic、SocialGood、Security、Economy、Climate、Agriculture：月频，L8，H = 6 / 8 / 10 / 12。
-- 单个训练 seed = 2。文本为 V1 最小修复版本，使用独立编码。数值数据、划分、scaler、目标、mask、预测原点与评分口径均不变。
-- **主统计**：
+- **Nine domains**, with fixed sampling frequencies and windows:
+  - Environment: daily, L96, H = 48 / 96 / 192 / 336;
+  - Energy, Health_US: weekly, L24, H = 12 / 24 / 36 / 48;
+  - Traffic, SocialGood, Security, Economy, Climate, Agriculture: monthly, L8, H = 6 / 8 / 10 / 12.
+- A single training seed = 2. The text is the V1 minimal repair with independent encoding. Numeric data, splits, scalers, targets, masks, forecast origins and scoring are all unchanged.
+- **Main statistic:**
 
-  S = exp( 36 个域/H 任务的平均 log( CVaR₉₀(方法) / CVaR₉₀(iTransformer) ) )
+  S = exp( mean over the 36 domain/H tasks of log( CVaR₉₀(method) / CVaR₉₀(iTransformer) ) )
 
-  36 个任务等权，iTransformer 的 S 恒为 1，S 越低越好。
-- **达标条件**：S(On) 严格低于全部 6 个对照，包括 iTransformer。
-- **对照组**：seed2 正式实验 252/252 格完成，0 失败（`method_comparison_seed2_v1_20261009`）。对照结果建立后固定复用，从未重跑。
+  The 36 tasks have equal weight; iTransformer's S is always 1; lower is better.
+- **Success criterion:** S(On) strictly below all 6 baselines, including iTransformer.
+- **Baselines:** the seed2 main experiment finished 252/252 cells with 0 failures (`method_comparison_seed2_v1_20261009`). Once built, the baseline results were reused as fixed and never rerun.
 
-## 2. 结论
+## 2. Conclusion
 
-**未达标。** 最好的是第 5 轮的 On-Adapter-TA，S = **1.003279**，排第 2，比骨干 iTransformer 差 0.33%。它优于其余 5 个对照，在全部在线（动态）方法中排第一；原 On-Adapter 是 1.0757。
+**Goal not met.** The best is round 5's On-Adapter-TA with S = **1.003279**: 2nd place, 0.33% behind the backbone iTransformer. It beats the other 5 baselines and is first among all online (dynamic) methods; the original On-Adapter is 1.0757.
 
-## 3. 最好一轮（第 5 轮）的完整对比表
+## 3. Full comparison table for the best round (round 5)
 
-| 方法 | 主统计 S | CVaR₉₀ 平均名次 | 平均 MAE | 平均 MSE | 平均 CVaR₉₀ | 优于骨干的任务 |
+| Method | Main statistic S | Mean CVaR₉₀ rank | Mean MAE | Mean MSE | Mean CVaR₉₀ | Tasks better than backbone |
 |---|---:|---:|---:|---:|---:|---:|
-| iTransformer（静态） | **1.000000** | **3.472** | 1.0621 | 12.076 | 2.6345 | — |
-| **On-Adapter-TA（第 5 轮）** | **1.003279** | 3.556 | 1.0688 | 12.130 | 2.6504 | 17/36 |
-| GPT4MTS（静态，文本） | 1.019648 | 3.778 | 1.0815 | 12.178 | 2.6334 | 17/36 |
-| MM-TSFlib（静态，文本） | 1.021796 | 4.194 | 1.0760 | 12.237 | 2.7067 | 13/36 |
-| DSOF（在线） | 1.057524 | 3.889 | 1.2977 | 13.983 | 2.7857 | 17/36 |
-| ADAPT-Z（在线） | 1.061936 | 3.861 | 1.1677 | 14.556 | 2.9157 | 17/36 |
-| 原 On-Adapter（在线，参照） | 1.075659 | — | 1.0936 | 12.354 | 2.7277 | 13/36 |
-| Proceed（在线） | 1.116890 | 5.250 | 1.1882 | 13.737 | 2.8824 | 8/36 |
+| iTransformer (static) | **1.000000** | **3.472** | 1.0621 | 12.076 | 2.6345 | — |
+| **On-Adapter-TA (round 5)** | **1.003279** | 3.556 | 1.0688 | 12.130 | 2.6504 | 17/36 |
+| GPT4MTS (static, text) | 1.019648 | 3.778 | 1.0815 | 12.178 | 2.6334 | 17/36 |
+| MM-TSFlib (static, text) | 1.021796 | 4.194 | 1.0760 | 12.237 | 2.7067 | 13/36 |
+| DSOF (online) | 1.057524 | 3.889 | 1.2977 | 13.983 | 2.7857 | 17/36 |
+| ADAPT-Z (online) | 1.061936 | 3.861 | 1.1677 | 14.556 | 2.9157 | 17/36 |
+| Original On-Adapter (online, reference) | 1.075659 | — | 1.0936 | 12.354 | 2.7277 | 13/36 |
+| Proceed (online) | 1.116890 | 5.250 | 1.1882 | 13.737 | 2.8824 | 8/36 |
 
-平均名次在 7 个方法内计算，On-Adapter 的位置由第 5 轮版本占据。
+Mean ranks are computed among 7 methods, with the round-5 version taking On-Adapter's place.
 
-### 第 5 轮逐域/H 结果（On / iTransformer 的 CVaR₉₀ 比值，小于 1 表示更好）
+### Round-5 per-domain/H results (On / iTransformer CVaR₉₀ ratio; below 1 is better)
 
-| 域 | 第 1 个 H | 第 2 个 H | 第 3 个 H | 第 4 个 H | 域内几何平均 |
+| Domain | 1st H | 2nd H | 3rd H | 4th H | Within-domain geometric mean |
 |---|---:|---:|---:|---:|---:|
-| Environment（48/96/192/336） | 1.0019 | 1.0010 | 0.9983 | 1.0063 | 1.0019 |
-| Energy（12/24/36/48） | 1.0042 | 0.9970 | 0.9994 | 1.0149 | 1.0038 |
-| **Health_US（12/24/36/48）** | 0.9905 | 1.0256 | **1.0725** | **1.0502** | **1.0342** |
-| Traffic（6/8/10/12） | 0.9776 | 0.9724 | 0.9886 | 0.9957 | **0.9836** |
+| Environment (48/96/192/336) | 1.0019 | 1.0010 | 0.9983 | 1.0063 | 1.0019 |
+| Energy (12/24/36/48) | 1.0042 | 0.9970 | 0.9994 | 1.0149 | 1.0038 |
+| **Health_US (12/24/36/48)** | 0.9905 | 1.0256 | **1.0725** | **1.0502** | **1.0342** |
+| Traffic (6/8/10/12) | 0.9776 | 0.9724 | 0.9886 | 0.9957 | **0.9836** |
 | SocialGood | 1.0383 | 0.9855 | 1.0003 | 1.0000 | 1.0059 |
 | Security | 0.9940 | 0.9972 | 1.0192 | 1.0000 | 1.0026 |
 | Economy | 0.9988 | 0.9963 | 1.0006 | 1.0012 | 0.9992 |
 | Climate | 1.0004 | 0.9999 | 1.0010 | 1.0001 | 1.0004 |
 | Agriculture | 0.9942 | 0.9975 | 1.0023 | 1.0010 | 0.9987 |
 
-剩余差距主要来自 Health_US 的 H24 / H36 / H48，对数贡献合计 +0.144；其次是 SocialGood H6（+0.038）。
+The remaining gap comes mainly from Health_US H24 / H36 / H48, with a combined log contribution of +0.144, followed by SocialGood H6 (+0.038).
 
-## 4. 各轮汇总
+## 4. Summary of all rounds
 
-| 轮 | 假设与改动 | 验证集选中的候选（验证分数） | 测试 S | 名次 | 结论 |
+| Round | Hypothesis and change | Candidate selected on validation (validation score) | Test S | Place | Outcome |
 |---|---|---|---:|---|---|
-| 1 | 用输出空间的在线残差校准，代替参数级在线更新 | lr0，a = 0.75，γ = 1（0.9609） | 1.014567 | 2 | 未达标。Climate、Energy、Health_US 测试受损 |
-| 2 | 残差按季节相位分组（P = 12 / 52 / 7） | phase，a = 0.75，γ = 1（0.9425） | 1.012861 | 2 | 未达标。Climate 验证 0.92–0.94，测试 1.10–1.13，方向反转 |
-| 3 | 训练侧：关闭主导训练的 VICReg 对齐项、残差零起步、训练轮数上限 3 → 15 | a0e15（0.9877） | 1.006174 | 2 | 未达标。验证改善，测试不优于原训练 lr0（1.0053） |
-| 4 | a0e15 + 流内专家门控（专家含相位/按步校准） | {T，相位，按步}，gs = 0.7（稳健分数 0.9809） | 1.008974 | 2 | 未达标。校准成分在测试段再次失效 |
-| **5** | **a0e15 + 骨干优先的弃权门控** | **gs = 0.9，μ = 0（0.9895）** | **1.003279** | **2** | **目前最好**。周频长 H 的反馈延迟使门控证据过时 |
-| 6 | a0e15 + 小步长在线更新（± 门控） | lr = 3e-5 + 门控（0.9883） | 1.003412 | 2 | 未达标，与第 5 轮持平 |
-| 7 | 离线学习的季节相位输出偏差（与适配器联合训练） | 选回第 5 轮配置（0.9895；新变体 0.9903） | 1.003279 | 2 | 新方向被验证集否决 |
+| 1 | Output-space online residual calibration instead of parameter-level online updates | lr0, a = 0.75, γ = 1 (0.9609) | 1.014567 | 2 | Not met. Climate, Energy, Health_US hurt on test |
+| 2 | Residuals grouped by seasonal phase (P = 12 / 52 / 7) | phase, a = 0.75, γ = 1 (0.9425) | 1.012861 | 2 | Not met. Climate 0.92–0.94 on validation, 1.10–1.13 on test: reversed |
+| 3 | Training side: turn off the dominant VICReg alignment term, zero-start residual, epoch cap 3 → 15 | a0e15 (0.9877) | 1.006174 | 2 | Not met. Validation improves; test no better than the original training with lr0 (1.0053) |
+| 4 | a0e15 + in-stream expert gate (experts include phase/per-step calibration) | {T, phase, per-step}, gs = 0.7 (robust score 0.9809) | 1.008974 | 2 | Not met. Calibration components fail on test again |
+| **5** | **a0e15 + backbone-first abstaining gate** | **gs = 0.9, μ = 0 (0.9895)** | **1.003279** | **2** | **Best so far.** Feedback delay at weekly long horizons makes the gate's evidence stale |
+| 6 | a0e15 + small-step online updates (± gate) | lr = 3e-5 + gate (0.9883) | 1.003412 | 2 | Not met; tied with round 5 |
+| 7 | Offline-learned seasonal-phase output bias (trained jointly with the adapter) | Round-5 configuration selected again (0.9895; new variant 0.9903) | 1.003279 | 2 | New direction rejected by validation |
 
-说明：
-- 第 1–3 轮的选型分数是"整段验证的几何平均"。从第 4 轮起，预先声明改用稳健分数：取"整段"与"三个时段中最差一段"两者的几何平均中较大的那个。
-- 每轮在运行前都冻结计划（`roundN/PLAN.json` 及其 sha256），测试只在选型完成后计算一次。
+Notes:
+- In rounds 1–3 the selection score is the whole-validation geometric mean. From round 4 on, a robust score was declared in advance: the larger of the whole-stream geometric mean and the geometric mean of the worst of three time segments.
+- Before each round ran, its plan was frozen (`roundN/PLAN.json` and its sha256); the test was computed only once, after selection.
 
-## 5. 证据得出的主要认识
+## 5. Main lessons from the evidence
 
-1. **原 On 训练不充分。** 训练目标为 4–17，验证 MSE 只有 0.03–3：VICReg 对齐辅助项比任务损失高一到两个数量级，主导了训练。关闭它并延长训练后，验证集有改善（0.9934 → 0.9877）。
-2. **验证段与测试段的时段特性不一致。** 在线残差校准、学习率、适配器修正方向，都多次在验证段有效、测试段反转。把验证流切成三段，所有在线残差校准在最后三分之一都失去优势。
-3. **"不伤害骨干"带来了最大的改进。** 骨干优先的弃权门控把 S 从 1.0062 降到 1.0033。它的局限是周频 H36/H48 要等 36–48 个原点才拿到完全成熟的反馈，证据到达时已经过时。
-4. **上界估算**（探索性，由测试推算）：即使第 5 轮在 Health_US H24–H48 上精确退回骨干，S 也只有约 0.9993，领先 0.07%。这个幅度和"On 内部 CPU 计算的骨干与正式实验 GPU 骨干之间最多 0.0073 的数值差"、以及单个 seed 的波动处在同一量级。
-5. **曾被考虑但没有采用的做法：**
-   - 残差收缩 λ < 1：验证集不支持，按测试经验强选属于直接调测试；
-   - 按域关闭适配器：属于按测试结果手工设置域专用参数；
-   - 把原始在线更新（lr3e-4）作为门控专家：它在验证后期突发失控，门控来不及切回。
+1. **The original On is under-trained.** The training objective is 4–17 while validation MSE is only 0.03–3: the VICReg alignment auxiliary term is one to two orders of magnitude larger than the task loss and dominates training. Turning it off and training longer improves validation (0.9934 → 0.9877).
+2. **The validation and test segments behave differently.** Online residual calibration, learning rates and the direction of adapter corrections repeatedly work on validation and reverse on test. When the validation stream is cut into three segments, every online residual calibration loses its advantage in the last third.
+3. **"Do no harm to the backbone" brought the biggest improvement.** The backbone-first abstaining gate lowers S from 1.0062 to 1.0033. Its limitation is that for weekly H36/H48, fully matured feedback arrives only after 36–48 origins, by which time the evidence is stale.
+4. **Upper-bound estimate** (exploratory, extrapolated from test): even if round 5 fell back exactly to the backbone on Health_US H24–H48, S would be only about 0.9993, a lead of 0.07%. That is the same order as the numeric difference between On's internally computed CPU backbone and the main-experiment GPU backbone (at most 0.0073) and as single-seed fluctuation.
+5. **Approaches considered but not adopted:**
+   - residual shrinkage λ < 1: not supported on validation; forcing it from test experience would be tuning on test directly;
+   - turning the adapter off per domain: would be manually setting domain-specific parameters from test results;
+   - using the original online update (lr3e-4) as a gate expert: it diverges abruptly late in validation, faster than the gate can switch back.
 
-## 6. 第 8 轮：验证方向（已完成，未使用测试）
+## 6. Round 8: validation direction (done, test not used)
 
-- **假设：** 适配器修正在不同时段变号，部分可能来自单个适配器的初始化和 dropout 随机性。多个成员取平均可以降低这部分方差。由于 MAE 满足三角不等式、CVaR 是凸的风险度量，平均后的风险不超过各成员风险的平均。
-- **做法：** 按 a0e15 的配方训练 3 个成员，m = 0、1、2。m = 0 复用现有的 a0e15；m = 1、2 在构建模型前把随机种子设为 2 + 1000 × m。预测取算术平均，不做成员挑选。
-- **候选**（按验证集稳健分数选型）：
-  1. 第 5 轮配置；
-  2. 3 成员集成；
-  3. 3 成员集成 + 骨干优先门控。
-- **测试使用规则：** 只有当入选候选不是第 5 轮配置、且稳健验证分数 ≤ 0.985 时，才计算一次测试；否则不触碰测试段。
-- **预期：** 偏低。如果 Health_US 的变号是时段的系统性变化，各成员会朝同一方向出错，平均无济于事。
-- **计划：** `round8/PLAN.json`，sha256 `7012a1df…`。
-- **结果（2026-10-09 15:35）：** 验证选回第 5 轮配置（稳健分数 0.9895）。
-  - 3 成员集成 + 门控：0.9928（整段 0.9870，早期一段 0.9928）；
-  - 3 成员集成：1.0002（整段 0.9857，但早期一段 1.0002）。
-  - 集成让整段更好，却让早期时段变差，收益在时段间不稳定。没有达到 0.985 的门槛，**未计算测试**，最终结果仍为第 5 轮的 S = 1.003279。
+- **Hypothesis:** the adapter's correction changes sign across time segments, possibly partly because of the initialization and dropout randomness of a single adapter. Averaging several members can reduce that variance. Since MAE satisfies the triangle inequality and CVaR is a convex risk measure, the risk of the average is at most the average of the members' risks.
+- **Procedure:** train 3 members with the a0e15 recipe, m = 0, 1, 2. m = 0 reuses the existing a0e15; for m = 1, 2 the random seed is set to 2 + 1000 × m before building the model. Forecasts are averaged arithmetically, with no member selection.
+- **Candidates** (selected by the robust validation score):
+  1. the round-5 configuration;
+  2. the 3-member ensemble;
+  3. the 3-member ensemble + backbone-first gate.
+- **Test-use rule:** a test is computed once only if the selected candidate is not the round-5 configuration and its robust validation score is ≤ 0.985; otherwise the test segment is not touched.
+- **Expectation:** low. If the sign changes on Health_US are a systematic shift between periods, all members err in the same direction and averaging does not help.
+- **Plan:** `round8/PLAN.json`, sha256 `7012a1df…`.
+- **Result (2026-10-09 15:35):** validation selected the round-5 configuration again (robust score 0.9895).
+  - 3-member ensemble + gate: 0.9928 (whole stream 0.9870, early segment 0.9928);
+  - 3-member ensemble: 1.0002 (whole stream 0.9857, but early segment 1.0002).
+  - The ensemble improves the whole stream but worsens the early segment, so its gain is unstable across periods. It did not reach the 0.985 threshold, **the test was not computed**, and the final result remains round 5's S = 1.003279.
 
-## 7. 对结果的解读与限制
+## 7. Interpretation and limitations
 
-- 可以支持的表述：在统一的九域协议、seed2 下，改进后的 On-Adapter（S = 1.0033）是所有在线方法中尾部风险最低的，也优于两个静态多模态方法；它与自身的冻结静态骨干基本持平，但未超过。
-- **调参投入不对称：** On 迭代了 7 轮，其它对照用的都是原设置。
-- 只有单个 seed，seed2 测试段已被多次使用，结论只能视为探索性。
-- 若要获得可信的"优于骨干"证据，应当先冻结方法，再在新的 seed 上只运行一次测试。
+- Supportable statement: under the unified nine-domain protocol with seed 2, the improved On-Adapter (S = 1.0033) has the lowest tail risk of all online methods and also beats both static multimodal methods; it is essentially tied with, but does not beat, its own frozen static backbone.
+- **Unequal tuning effort:** On went through 7 rounds; all other baselines use their original settings.
+- There is only a single seed, and the seed2 test segment has been used many times, so the conclusions can only be considered exploratory.
+- Credible evidence of "better than the backbone" would require freezing the method first and then running a test only once on new seeds.
 
-## 8. 工件路径
+## 8. Artifact paths
 
-- 目标状态与失败记录：`C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\reports\seed2_goal_20261009\GOAL_STATUS.md`
-- 各轮计划、选型与结果：`C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\reports\seed2_goal_20261009\round1\` … `round8\`（`PLAN.json`、`PLAN.sha256`、`selection.json`、`results.json`）
-- 最好一轮的结果：`C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\reports\seed2_goal_20261009\round5\results.json`
-- 第 5 轮逐原点预测：`E:\FedNoise\iadapter-baselines\runs\seed2_round5_ta_20261009\<域>\H<h>\ta_r0_predictions.npz`
-- seed2 对照组正式实验：`E:\FedNoise\iadapter-baselines\runs\method_comparison_seed2_v1_20261009\`
-- 训练变体检查点：`E:\FedNoise\iadapter-baselines\runs\method_comparison_seed2_onv3_a0e15_20261009\`
-- 版本包（各含 `FORK.json`）：`method_comparison_seed2_v1_20261009`、`_onv3_`、`_onv4_`、`_onv5_`
-- 脚本：`C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\scripts\seed2_round{1..8}_*.py`、`onadapter_harness_20261008.py`
+- Goal status and failure log: `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\reports\seed2_goal_20261009\GOAL_STATUS.md`
+- Per-round plans, selections and results: `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\reports\seed2_goal_20261009\round1\` … `round8\` (`PLAN.json`, `PLAN.sha256`, `selection.json`, `results.json`)
+- Results of the best round: `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\reports\seed2_goal_20261009\round5\results.json`
+- Round-5 per-origin forecasts: `E:\FedNoise\iadapter-baselines\runs\seed2_round5_ta_20261009\<domain>\H<h>\ta_r0_predictions.npz`
+- seed2 baseline main experiment: `E:\FedNoise\iadapter-baselines\runs\method_comparison_seed2_v1_20261009\`
+- Training-variant checkpoints: `E:\FedNoise\iadapter-baselines\runs\method_comparison_seed2_onv3_a0e15_20261009\`
+- Method packages (each with `FORK.json`): `method_comparison_seed2_v1_20261009`, `_onv3_`, `_onv4_`, `_onv5_`
+- Scripts: `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\scripts\seed2_round{1..8}_*.py`, `onadapter_harness_20261008.py`

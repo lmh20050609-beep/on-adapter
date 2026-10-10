@@ -1,0 +1,22 @@
+{
+ "status": "completed",
+ "new_training_cells_completed": 324,
+ "new_training_cells_expected": 324,
+ "reused_legacy_text_free_cells": 432,
+ "matrix_cells": 756,
+ "failures": [],
+ "execution_lock_unchanged": true,
+ "per_domain_new": {
+  "Environment": 36,
+  "Energy": 36,
+  "Health_US": 36,
+  "Traffic": 36,
+  "SocialGood": 36,
+  "Security": 36,
+  "Economy": 36,
+  "Climate": 36,
+  "Agriculture": 36
+ },
+ "text_version": "V1",
+ "metric_recomputation": "see results.json / results.csv from benchmark_textrepair_v1.score"
+}

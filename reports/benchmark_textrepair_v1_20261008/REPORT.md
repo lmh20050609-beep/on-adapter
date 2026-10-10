@@ -1,33 +1,33 @@
-# 九域 V1 文本修复 benchmark：完整 756 格评测
+# Nine-domain V1 text-repair benchmark: full 756-cell evaluation
 
-2026-10-08。数据版本 **V1**（九域最小文本修复），协议见 `PROTOCOL.md`，数据与来源见 `../benchmark_text_repair_all9_v1_20261008/REPORT.md`。
+2026-10-08. Data version **V1** (nine-domain minimal text repair); protocol in `PROTOCOL.md`, data and sources in `../benchmark_text_repair_all9_v1_20261008/REPORT.md`.
 
-本节报告**不预设方法获胜**；结果允许为正、负或接近不变。
+This report **does not presuppose that any method wins**; results may be positive, negative or close to unchanged.
 
-## 1. 执行矩阵与完成度
+## 1. Execution matrix and completion
 
-| 项 | 数量 |
+| Item | Count |
 |---|---|
-| 矩阵总格数（9 域 × 4 H × 3 seed × 7 方法） | 756 |
-| 本轮新训练（On-Adapter / GPT4MTS / MM-TSFlib） | 324 已完成 / 324 应有 |
-| 复用历史文本无关单元（iTransformer / ADAPT-Z / DSOF / Proceed） | 432 |
-| 失败格 | 0 |
-| 执行锁未变 | True |
+| Total matrix cells (9 domains × 4 H × 3 seeds × 7 methods) | 756 |
+| Newly trained in this round (On-Adapter / GPT4MTS / MM-TSFlib) | 324 completed / 324 expected |
+| Reused historical text-independent cells (iTransformer / ADAPT-Z / DSOF / Proceed) | 432 |
+| Failed cells | 0 |
+| Execution lock unchanged | True |
 
-逐域新训练完成数：Agriculture 36, Climate 36, Economy 36, Energy 36, Environment 36, Health_US 36, Security 36, SocialGood 36, Traffic 36
+Newly trained cells completed per domain: Agriculture 36, Climate 36, Economy 36, Energy 36, Environment 36, Health_US 36, Security 36, SocialGood 36, Traffic 36
 
-所有新格由独立 OS 进程从相同定义的初始状态训练；未沿用任何旧文本版本成绩、适配器检查点或结果。
+Every new cell was trained in a separate OS process from an identically defined initial state; no score, adapter checkpoint or result from an older text version was carried over.
 
-## 2. 复用兼容性证明
+## 2. Proof of reuse compatibility
 
-- 复用范围仅限**代码路径不读取 `fact` 列**的 4 个方法，共 432 格，逐格固定 result / config / best.pt / predictions 哈希（`reuse_verification.json`）。
+- Reuse is limited to the 4 methods **whose code path does not read the `fact` column**, 432 cells in total, with the result / config / best.pt / predictions hashes pinned per cell (`reuse_verification.json`).
 
-- V1 表与原表逐行比较，差异字段为 `["fact"]`。
+- The V1 tables are compared row by row with the original tables; the differing fields are `["fact"]`.
 
-- 数值等价重跑（容差 0）：状态 passed，5 个抽样格。
+- Numeric-equivalence rerun (tolerance 0): status passed, 5 sampled cells.
 
 
-| 抽样格 | predictions/targets/mask/origins 逐位相等 | MAE/MSE 完全相等 |
+| Sampled cell | predictions/targets/mask/origins bitwise equal | MAE/MSE exactly equal |
 |---|---|---|
 | Agriculture H6 seed2025 ADAPT-Z | True | True |
 | Agriculture H6 seed2025 DSOF | True | True |
@@ -35,23 +35,23 @@
 | Agriculture H6 seed2025 Proceed | True | True |
 | Traffic H12 seed2025 iTransformer | True | True |
 
-## 3. 未覆盖路径检查
+## 3. Checks of previously uncovered paths
 
-覆盖日频/周频、非 H12 窗口以及此前未训练的 GPT4MTS、MM-TSFlib；共 51 项检查，失败 0 项。
+Covers daily/weekly frequencies, non-H12 windows, and GPT4MTS and MM-TSFlib, which had not been trained before; 51 checks in total, 0 failed.
 
-| 检查 | 通过 | 说明 |
+| Check | Passed | Description |
 |---|---|---|
-| 原点/目标/mask/标准化对齐 | 13/13 | 逐原点核对 target_rows、mask 与标准化真值 |
-| 预测不消费未来 y/mask | 13/13 | 替换 y 与 mask 后预测逐位相等 |
-| 文本 gather 行可见性 | 13/13 | 每条 gather 行索引的可用时间不晚于原点 |
-| 未来文本扰动不影响过去输出 | 3/3 | 容差 0，逐位相等 |
-| 预处理/缓存版本隔离 | 9/9 | V1 与原文件哈希不同，缓存按数据身份与文本版本隔离 |
+| Origin/target/mask/standardization alignment | 13/13 | target_rows, mask and standardized ground truth checked per origin |
+| Forecasts do not consume future y/mask | 13/13 | Forecasts are bitwise equal after replacing y and mask |
+| Visibility of text gather rows | 13/13 | The availability time of every gathered row index is no later than the origin |
+| Perturbing future text does not affect past outputs | 3/3 | Tolerance 0, bitwise equal |
+| Preprocessing/cache version isolation | 9/9 | V1 and original files have different hashes; caches are isolated by data identity and text version |
 
-## 4. 主统计
+## 4. Main statistic
 
-主统计：先在每个域/H 内对 seed 平均风险，再除以同一域/H/seed 的 iTransformer 共同骨干 CVaR90，最后对 36 个域/H 任务取等权几何平均。
+Main statistic: within each domain/H, average the risk over seeds, divide by the CVaR90 of the shared iTransformer backbone for the same domain/H/seed, then take the equally weighted geometric mean over the 36 domain/H tasks.
 
-| 方法 | 跨任务几何平均相对 CVaR90 | 算术平均 | 平均排名 | 中位排名 | 最好/最差任务比值 |
+| Method | Geometric mean relative CVaR90 across tasks | Arithmetic mean | Mean rank | Median rank | Best/worst task ratio |
 |---|---|---|---|---|---|
 | iTransformer | 1.000000 | 1.000000 | 3.7037 | 3.0 | 1.000000 / 1.000000 |
 | ADAPT-Z | 1.049515 | 1.059844 | 3.6019 | 3.5 | 0.911095 / 1.838433 |
@@ -61,7 +61,7 @@
 | GPT4MTS | 1.035984 | 1.045352 | 3.9444 | 4.0 | 0.833440 / 1.639155 |
 | MM-TSFlib | 1.014709 | 1.015553 | 3.8426 | 4.0 | 0.942244 / 1.182166 |
 
-| 方法 | 平均 MAE | 平均 MSE | 平均 CVaR80 | 平均 CVaR95 |
+| Method | Mean MAE | Mean MSE | Mean CVaR80 | Mean CVaR95 |
 |---|---|---|---|---|
 | iTransformer | 1.062820 | 11.978148 | 2.239271 | 2.888627 |
 | ADAPT-Z | 1.142148 | 13.389743 | 2.396331 | 3.144579 |
@@ -71,9 +71,9 @@
 | GPT4MTS | 1.087851 | 12.204453 | 2.277366 | 2.944981 |
 | MM-TSFlib | 1.069042 | 12.088541 | 2.264087 | 2.961087 |
 
-## 5. 逐域/H 结果（seed 平均）
+## 5. Per-domain/H results (seed average)
 
-| 域 | H | 方法 | MAE | MSE | CVaR90 | 相对骨干 CVaR90 |
+| Domain | H | Method | MAE | MSE | CVaR90 | CVaR90 relative to backbone |
 |---|---|---|---|---|---|---|
 | Environment | 48 | iTransformer | 0.213505 | 0.145106 | 0.425975 | 1.000000 |
 | Environment | 48 | ADAPT-Z | 0.217488 | 0.149880 | 0.435543 | 1.022528 |
@@ -328,11 +328,11 @@
 | Agriculture | 12 | GPT4MTS | 0.898689 | 1.681464 | 1.695208 | 0.984086 |
 | Agriculture | 12 | MM-TSFlib | 0.901355 | 1.688615 | 1.729638 | 1.004006 |
 
-## 6. 预先声明的探索性分组
+## 6. Pre-declared exploratory groupings
 
-以下为协议冻结前声明的探索性分组，不是确认性结论。
+The following exploratory groupings were declared before the protocol was frozen; they are not confirmatory conclusions.
 
-| 方法 | 月频六域几何平均相对 CVaR90 |
+| Method | Geometric mean relative CVaR90 over the six monthly domains |
 |---|---|
 | iTransformer | 1.000000 |
 | ADAPT-Z | 0.989427 |
@@ -342,7 +342,7 @@
 | GPT4MTS | 0.994964 |
 | MM-TSFlib | 1.000387 |
 
-| 方法 | daily | weekly | monthly | 频率等权 |
+| Method | daily | weekly | monthly | Frequency-equal-weight |
 |---|---|---|---|---|
 | iTransformer | 1.000000 | 1.000000 | 1.000000 | 1.000000 |
 | ADAPT-Z | 1.043858 | 1.255960 | 0.989427 | 1.090604 |
@@ -352,11 +352,11 @@
 | GPT4MTS | 1.374133 | 1.015436 | 0.994964 | 1.115568 |
 | MM-TSFlib | 1.006660 | 1.063141 | 1.000387 | 1.023012 |
 
-## 7. 历史参照（V0 文本 + 旧批量编码的既有 756 组）
+## 7. Historical reference (existing 756 cells with V0 text + old batched encoding)
 
-下表由既有 periodic-v3/v4 完成单元的保存预测**只读复用**重算，**不是新主表**：其文本方法使用原始 V0 文本列与修复前的批量编码，因此与 V1 主表的差异同时包含文本修复与编码修复。
+The table below is recomputed by **read-only reuse** of the saved forecasts of completed periodic-v3/v4 cells. It is **not a new main table**: its text methods use the original V0 text column and the batched encoding from before the fix, so its differences from the V1 main table combine the text repair and the encoding fix.
 
-| 方法 | 相对骨干几何平均 CVaR90 | 相对每任务最优几何平均 | 平均排名 | 平均 MAE | 平均 MSE |
+| Method | Geometric mean CVaR90 relative to backbone | Geometric mean relative to per-task best | Mean rank | Mean MAE | Mean MSE |
 |---|---|---|---|---|---|
 | iTransformer | 1.0000 | 1.0841 | 3.713 | 1.062820 | 11.978148 |
 | MM-TSFlib | 1.0155 | 1.1006 | 3.917 | 1.069410 | 12.090394 |
@@ -366,9 +366,9 @@
 | On-Adapter | 1.0930 | 1.1846 | 4.157 | 1.097628 | 12.222457 |
 | Proceed | 1.1108 | 1.2040 | 4.889 | 1.175201 | 13.485760 |
 
-**V1 与历史的直接对照（同一主统计定义）**
+**Direct comparison of V1 and history (same main-statistic definition)**
 
-| 方法 | V1 相对骨干 GM | 历史相对骨干 GM | 相对差 | 平均排名 V1 / 历史 |
+| Method | V1 GM relative to backbone | Historical GM relative to backbone | Relative difference | Mean rank V1 / history |
 |---|---|---|---|---|
 | iTransformer | 1.0000 | 1.0000 | +0.00% | 3.704 / 3.713 |
 | MM-TSFlib | 1.0147 | 1.0155 | -0.08% | 3.843 / 3.917 |
@@ -378,14 +378,14 @@
 | On-Adapter | 1.0936 | 1.0930 | +0.06% | 4.167 / 4.157 |
 | Proceed | 1.1108 | 1.1108 | +0.00% | 4.926 / 4.889 |
 
-最大相对差 0.65%。**文本修复与编码修复都没有实质改变方法之间的比较结构**：方法排序不变，On-Adapter 在 Energy（H24 为 2.47 → 2.53）的劣势与在 SocialGood / Traffic 的优势逐任务几乎逐位复现。该结论只针对本轮修复的条目范围，不能外推为“旧结果全部由泄露造成”，也不能外推为“其余文本已证明无问题”。
+Maximum relative difference 0.65%. **Neither the text repair nor the encoding fix materially changes the comparative structure among methods**: the ranking is unchanged, and On-Adapter's disadvantage on Energy (H24: 2.47 → 2.53) and its advantages on SocialGood / Traffic are reproduced almost bit for bit, task by task. This conclusion applies only to the range of entries repaired in this round; it cannot be extrapolated to "the old results were entirely caused by leakage", nor to "the remaining text has been proven clean".
 
-历史记录中的“三轴等权几何相对最优比率”为骨干 1.0861、MM-TSFlib 1.0937、GPT4MTS 1.0953、ADAPT-Z 1.1112、On-Adapter 1.1408、Proceed 1.1477、DSOF 1.1622，On 排第 5。本表的 oracle 比率定义与其接近但聚合细节不同，仅作方向性对照。
+The "three-axis equal-weight geometric ratio to the best" in the historical record is: backbone 1.0861, MM-TSFlib 1.0937, GPT4MTS 1.0953, ADAPT-Z 1.1112, On-Adapter 1.1408, Proceed 1.1477, DSOF 1.1622, with On in 5th place. The oracle ratio in this table is defined similarly but aggregated differently, so it serves only as a directional comparison.
 
 
-## 8. 文本修复的实际可见性
+## 8. Actual visibility of the text repair
 
-| 域 | 独立条目 | B（屏蔽） | C（保留披露） |
+| Domain | Individual entries | B (masked) | C (kept, disclosed) |
 |---|---|---|---|
 | Environment | 15014 | 238 | 126 |
 | Energy | 1478 | 0 | 0 |
@@ -397,13 +397,13 @@
 | Climate | 1866 | 9 | 5 |
 | Agriculture | 1271 | 2 | 2 |
 
-On-Adapter 的 64-token 窗口在多数域未包含被屏蔽条目本身；MM-TSFlib 的 256-token 窗口会保留其中一部分。实际 token 变化见 `../benchmark_text_repair_all9_v1_20261008/repair_token_effects.csv`。
+In most domains the 64-token window of On-Adapter does not contain the masked entries themselves; the 256-token window of MM-TSFlib keeps some of them. Actual token changes are in `../benchmark_text_repair_all9_v1_20261008/repair_token_effects.csv`.
 
-## 9. 必须保留的限制
+## 9. Limitations that must be kept
 
-- 本次协议冻结晚于旧测试集被反复观察，**不是独立确认或预注册**。
-- 来源决定只覆盖筛查命中的候选条目；C/D 条目保留在实际数据中，V1 不等于“所有条目均已认证无泄露”。
-- 数值仍使用原 `end_date` 可用性代理与回顾性目标 mask 原点网格，不证明真实发布时间与历史修订版本意义上的完整因果性。
-- 432 个复用单元为历史同协议结果；其文本无关性由代码路径与数值等价重跑共同证明，但这不等同于本轮重新训练。
-- iTransformer 为共同骨干，其比值是相对量，不是绝对优劣结论。
-- 历史参照的文本方法使用旧批量编码，与 V1 主表的差异不是纯粹的文本修复效应。
+- This protocol was frozen after the old test set had been observed repeatedly; it is **not an independent confirmation or a preregistration**.
+- Source decisions cover only candidate entries hit by screening; C/D entries are kept in the actual data, and V1 does not mean "every entry is certified leak-free".
+- The numeric data still use the original `end_date` availability proxy and the retrospective target-mask origin grid; this does not prove full causality in the sense of real publication times and historical revisions.
+- The 432 reused cells are historical results under the same protocol; their text independence is shown by both the code path and the numeric-equivalence rerun, but this is not the same as retraining them in this round.
+- iTransformer is the shared backbone; ratios to it are relative quantities, not absolute verdicts of better or worse.
+- The text methods in the historical reference use the old batched encoding, so their differences from the V1 main table are not a pure text-repair effect.

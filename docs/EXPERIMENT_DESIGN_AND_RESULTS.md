@@ -1,203 +1,203 @@
-# On-Adapter：实验设计、算法优化与确认结果
+# On-Adapter: experimental design, algorithmic improvements and confirmation results
 
-整理日期：2026-10-09。本文所有数值均由保存的逐原点预测重算得到，来源路径见各节和第 9 节。
-文中 `…\` 均指 `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\`，训练输出位于 `E:\FedNoise\iadapter-baselines\runs\`。
-
----
-
-## 1. 结论摘要
-
-在**冻结方法、3 个独立训练 seed（2025/2026/2027）、对照方法完全未调参**的确认实验中，改进后的 On-Adapter（下称 **On-Adapter-CV**）：
-
-- **主统计 S = 1.000495**：与其冻结的静态骨干 iTransformer（S = 1.000000）基本持平，差 0.05%，**未严格优于**；在 7 个方法中排第 2；
-- **CVaR₉₀ 平均名次 3.380，为 7 个方法中最好**（iTransformer 3.843，其余 3.73–5.07）；
-- 在 **22/36** 个域/H 任务上尾部风险低于骨干；
-- **全面优于其余 5 个对照方法**，领先第三名 MM-TSFlib（1.0147）约 1.4%，领先全部在线方法 5% 以上；
-- 相对原始 On-Adapter（S = 1.0936），主统计改善约 8.5%，平均 MAE 从 1.0974 降到 1.0716。
-
-剩余差距几乎全部集中在 Health_US（域内比值 1.029）。
+Compiled 2026-10-09. Every number in this document was recomputed from the saved per-origin forecasts; source paths are given in each section and in section 11.
+Throughout, `…\` stands for `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\`, and training outputs are under `E:\FedNoise\iadapter-baselines\runs\`.
 
 ---
 
-## 2. Benchmark 配置
+## 1. Summary
 
-### 2.1 数据
+In the confirmation experiment — **frozen method, 3 independent training seeds (2025/2026/2027), baselines not tuned at all** — the improved On-Adapter (hereafter **On-Adapter-CV**):
 
-- **来源：** Time-MMD 多模态时间序列（数值序列加文本 `fact` 字段），取自原论文代码与数据补充包
-  `C:\Users\18452\Downloads\31817_iAdapter_Adaptive_lightw_Code And Data Supplement (1).zip`，以及其中 9 个域的 CSV。
-- **文本版本：V1 最小修复版。** 只屏蔽经来源核实"晚于描述时点"的独立条目，共 413 处，占 30,944 个条目的 1.34%。数值列、目标、mask 均逐字节不变。
-  - 数据：`…\reports\benchmark_text_repair_all9_v1_20261008\data\V1\`
-  - 规则：`…\benchmark_text_repair_all9_v1\source_evidence\decision_rules_all9.json`（348 条，sha256 `85152a0e…`）
-  - 报告：`…\reports\benchmark_text_repair_all9_v1_20261008\REPORT.md`
-- **文本编码：** 独立编码路径。每段非空文本单独做一次前向，batch 恒为 1，避免同批其他文本影响结果。编码按身份缓存，与历史缓存隔离。
+- has **main statistic S = 1.000495**: essentially tied with its frozen static backbone iTransformer (S = 1.000000), 0.05% behind, **not strictly better**; 2nd of 7 methods;
+- has **mean CVaR₉₀ rank 3.380, the best of the 7 methods** (iTransformer 3.843, the others 3.73–5.07);
+- has lower tail risk than the backbone on **22/36** domain/H tasks;
+- **beats all 5 other baselines**: about 1.4% ahead of the third-placed MM-TSFlib (1.0147) and more than 5% ahead of every online method;
+- improves the main statistic by about 8.5% over the original On-Adapter (S = 1.0936), and lowers mean MAE from 1.0974 to 1.0716.
 
-### 2.2 域、采样频率与窗口（固定，未重采样）
+Almost all of the remaining gap is in Health_US (within-domain ratio 1.029).
 
-| 域 | 频率 | 回看窗口 L | 预测步长 H |
+---
+
+## 2. Benchmark configuration
+
+### 2.1 Data
+
+- **Source:** Time-MMD multimodal time series (numeric series plus the text `fact` field), taken from the original paper's code and data supplement
+  `C:\Users\18452\Downloads\31817_iAdapter_Adaptive_lightw_Code And Data Supplement (1).zip` and the CSV files of its 9 domains.
+- **Text version: V1 minimal repair.** It masks only the individual entries verified against their sources as postdating the time they describe: 413 of 30,944 entries, 1.34%. Numeric columns, targets and masks are byte-identical.
+  - data: `…\reports\benchmark_text_repair_all9_v1_20261008\data\V1\`
+  - rules: `…\benchmark_text_repair_all9_v1\source_evidence\decision_rules_all9.json` (348 rules, sha256 `85152a0e…`)
+  - report: `…\reports\benchmark_text_repair_all9_v1_20261008\REPORT.md`
+- **Text encoding:** independent encoding path. Each non-empty text gets its own forward pass with batch size always 1, so other texts in a batch cannot affect the result. Encodings are cached by identity, isolated from historical caches.
+
+### 2.2 Domains, sampling frequencies and windows (fixed, no resampling)
+
+| Domain | Frequency | Lookback L | Horizons H |
 |---|---|---:|---|
-| Environment | 日 | 96 | 48 / 96 / 192 / 336 |
-| Energy、Health_US | 周 | 24 | 12 / 24 / 36 / 48 |
-| Traffic、SocialGood、Security、Economy、Climate、Agriculture | 月 | 8 | 6 / 8 / 10 / 12 |
+| Environment | daily | 96 | 48 / 96 / 192 / 336 |
+| Energy, Health_US | weekly | 24 | 12 / 24 / 36 / 48 |
+| Traffic, SocialGood, Security, Economy, Climate, Agriculture | monthly | 8 | 6 / 8 / 10 / 12 |
 
-共 9 个域 × 4 个 H = **36 个域/H 任务**。
+9 domains × 4 horizons = **36 domain/H tasks**.
 
-### 2.3 划分与预处理（所有方法一致）
+### 2.3 Splits and preprocessing (identical for all methods)
 
-- 训练 / 验证 / 测试按时间顺序 60% / 20% / 20%；
-- 均值和标准差只用训练段拟合；
-- 输入缺失：先用过去值前向填充，再用训练均值；目标缺失：mask 掉，从不插补；
-- 预测原点网格与 mask 对所有方法相同；
-- 在线方法的反馈规则：只有当旧原点满足 `old_origin + H ≤ current_origin`（全部标签成熟）时，才能用它更新；
-- 检查点按验证 MSE 选择，测试段不调参。
-- 配置文件：`…\configs\method_comparison_textrepair_v1_20261008.json`
+- Chronological 60% / 20% / 20% train / validation / test split;
+- mean and standard deviation are fitted on the training segment only;
+- missing inputs: forward-fill from past values, then the training mean; missing targets: masked, never imputed;
+- the forecast-origin grid and the masks are the same for all methods;
+- feedback rule for online methods: an old origin can be used for an update only when `old_origin + H ≤ current_origin` (all of its labels have matured);
+- checkpoints are selected by validation MSE; nothing is tuned on the test segment.
+- config: `…\configs\method_comparison_textrepair_v1_20261008.json`
 
 ---
 
-## 3. 对照方法与来源
+## 3. Baselines and sources
 
-| 方法 | 类型 | 是否读文本 | 代码来源（固定 commit） | 本实验中的结果来源 |
+| Method | Type | Reads text | Code source (pinned commit) | Source of results in this study |
 |---|---|---|---|---|
-| iTransformer | 静态 | 否 | thuml/Time-Series-Library `4e938a17` | 复用历史同协议格，经哈希与数值等价验证 |
-| ADAPT-Z | 在线 | 否 | xiannanhuang/ADAPT-Z `f5b70e11` | 同上 |
-| DSOF | 在线 | 否 | yyalau/iclr2025_dsof `11cebd98` | 同上 |
-| Proceed | 在线 | 否 | SJTU-DMTai/OnlineTSF `0a864619` | 同上 |
-| GPT4MTS | 静态，多模态 | 是：BERT-base，512 token，cls 池化 | Flora-jia-jfr/GPT4MTS `c85e74b2` | V1 正式实验新训练 |
-| MM-TSFlib | 静态，多模态 | 是：GPT-2 前 6 层，256 token | AdityaLab/MM-TSFlib `e789ce78` | V1 正式实验新训练 |
-| On-Adapter（原始） | 在线，多模态 | 是：BERT-base 前 6 层，64 token，均值池化 | 原论文补充包实现 | V1 正式实验新训练 |
+| iTransformer | static | no | thuml/Time-Series-Library `4e938a17` | Reused historical cells under the same protocol, verified by hash and numeric equivalence |
+| ADAPT-Z | online | no | xiannanhuang/ADAPT-Z `f5b70e11` | Same as above |
+| DSOF | online | no | yyalau/iclr2025_dsof `11cebd98` | Same as above |
+| Proceed | online | no | SJTU-DMTai/OnlineTSF `0a864619` | Same as above |
+| GPT4MTS | static, multimodal | yes: BERT-base, 512 tokens, CLS pooling | Flora-jia-jfr/GPT4MTS `c85e74b2` | Newly trained in the V1 main experiment |
+| MM-TSFlib | static, multimodal | yes: first 6 layers of GPT-2, 256 tokens | AdityaLab/MM-TSFlib `e789ce78` | Newly trained in the V1 main experiment |
+| On-Adapter (original) | online, multimodal | yes: first 6 layers of BERT-base, 64 tokens, mean pooling | Implementation from the original paper's supplement | Newly trained in the V1 main experiment |
 
-- 预训练权重：`google-bert/bert-base-uncased@86b5e093`，`openai-community/gpt2@607a30d7`。
-- 来源清单：`…\external\*\SOURCE.json`、`…\weights\*\SOURCE.json`。
-- **对照组主表**（3 seed × 36 任务 × 7 方法 = 756 格）：
-  - 不读文本的 4 个方法共 432 格，复用历史同协议格，见 `…\benchmark_textrepair_v1\legacy_numeric_reuse_manifest.json`；
-  - 读文本的 3 个方法共 324 格，在 V1 上重新训练，0 失败；审计通过，10,846 个历史工件 0 改动；
-  - 结果：`…\reports\benchmark_textrepair_v1_20261008\results.json`、`REPORT.md`。
-- 对照方法在本研究中**没有做任何调参**。
-
----
-
-## 4. 统计方法（冻结定义）
-
-实现：`…\benchmark_textrepair_v1\score.py` 中的 `cell_metrics`。确认实验和开发各轮都直接调用这一函数。
-
-1. **评分空间：** 全部选定数值变量的已观测目标元素，在训练集标准化尺度下计算。
-2. **逐原点损失：** 每个预测原点，取其全部已观测目标元素的 MAE。
-3. **CVaR₉₀：** 对原点等权的经验分布，取最坏 10% 概率质量内的平均损失；边界原点按分数权重计入。并与变分定义交叉核对，误差小于 1e-12。
-4. **主统计：**
-
-   S(方法) = exp( (1/36) · Σ_{域,H} log( mean_seed[ CVaR₉₀(方法) / CVaR₉₀(iTransformer) ] ) )
-
-   含义：先在每个域/H/seed 上除以同格的 iTransformer，再对 3 个 seed 求平均，最后对 36 个任务等权取几何平均。iTransformer 的 S 恒为 1，越低越好。
-5. **并列报告：**
-   - CVaR₉₀ 平均名次：在 108 个"域/H/seed"格内对 7 个方法排名后取平均；
-   - 平均 MAE、平均 MSE、平均 CVaR₉₀；
-   - 尾部低于骨干的任务数；
-   - 逐域/H 结果。
-6. **达标判定：** S(On) 严格低于其余全部 6 个方法，按完整精度判断，不做四舍五入。
+- Pretrained weights: `google-bert/bert-base-uncased@86b5e093`, `openai-community/gpt2@607a30d7`.
+- Source manifests: `…\external\*\SOURCE.json`, `…\weights\*\SOURCE.json`.
+- **Baseline main table** (3 seeds × 36 tasks × 7 methods = 756 cells):
+  - the 432 cells of the 4 methods that do not read text are reused from historical cells under the same protocol; see `…\benchmark_textrepair_v1\legacy_numeric_reuse_manifest.json`;
+  - the 324 cells of the 3 text-reading methods were retrained on V1 with 0 failures; the audit passed, with 0 changes to 10,846 historical artifacts;
+  - results: `…\reports\benchmark_textrepair_v1_20261008\results.json`, `REPORT.md`.
+- **No baseline was tuned** in this study.
 
 ---
 
-## 5. 原始 On-Adapter 的结构与问题诊断
+## 4. Statistical method (frozen definitions)
 
-**结构：**
-- 冻结的 iTransformer 编码器输出逐变量潜在特征 z；
-- IG-SMoE 适配器融合 5 个专家（Identity / Trend / Seasonality / Fluctuation / TextFiLM），输入包括 z、历史梯度反馈 hg、文本向量与文本梯度 ge、窗口偏移统计；
-- 残差加到 z 上，再经冻结的输出头得到预测；
-- 训练损失：MSE + 门控熵 + VICReg 文本—数值对齐；
-- 测试时，每个原点的标签成熟后，用 Adam（lr 3e-4）对适配器做一步在线更新。
+Implementation: `cell_metrics` in `…\benchmark_textrepair_v1\score.py`. The confirmation experiment and all development rounds call this function directly.
 
-**诊断出的问题**（证据见 `…\reports\hg_scale_diagnostic_20261008\`、`online_replay_consistency_20261008\`、`domain_gap_analysis_20261008\`）：
+1. **Scoring space:** all observed target elements of all selected numeric variables, on the training-standardized scale.
+2. **Per-origin loss:** for each forecast origin, the MAE over all of its observed target elements.
+3. **CVaR₉₀:** the mean loss within the worst 10% of probability mass of the empirical distribution with equal weight per origin; the boundary origin enters with a fractional weight. Cross-checked against the variational definition with error below 1e-12.
+4. **Main statistic:**
 
-| 问题 | 证据 |
+   S(method) = exp( (1/36) · Σ_{domain,H} log( mean_seed[ CVaR₉₀(method) / CVaR₉₀(iTransformer) ] ) )
+
+   That is: in each domain/H/seed cell, divide by the iTransformer of the same cell; average over the 3 seeds; then take the equally weighted geometric mean over the 36 tasks. iTransformer is always 1; lower is better.
+5. **Also reported:**
+   - mean CVaR₉₀ rank: the 7 methods are ranked within each of the 108 domain/H/seed cells and the ranks are averaged;
+   - mean MAE, mean MSE, mean CVaR₉₀;
+   - number of tasks whose tail is below the backbone's;
+   - per-domain/H results.
+6. **Success criterion:** S(On) strictly below all 6 other methods, judged at full precision without rounding.
+
+---
+
+## 5. Structure and diagnosis of the original On-Adapter
+
+**Structure:**
+- the frozen iTransformer encoder outputs a per-variable latent feature z;
+- the IG-SMoE adapter fuses 5 experts (Identity / Trend / Seasonality / Fluctuation / TextFiLM); its inputs are z, the historical gradient feedback hg, the text vector and text gradient ge, and window-shift statistics;
+- the residual is added to z and passed through the frozen output head to give the forecast;
+- training loss: MSE + gate entropy + VICReg text–numeric alignment;
+- at test time, once an origin's labels mature, the adapter takes one online Adam step (lr 3e-4).
+
+**Problems found by diagnosis** (evidence in `…\reports\hg_scale_diagnostic_20261008\`, `online_replay_consistency_20261008\`, `domain_gap_analysis_20261008\`):
+
+| Problem | Evidence |
 |---|---|
-| 在线参数更新在非月频域失控 | 关掉更新后，Energy 的 CVaR 比值从约 1.96 回到约 1.00；周频域修正幅度在流末放大 12–13 倍 |
-| VICReg 对齐项主导训练 | 训练目标为 4–17，验证 MSE 仅 0.03–3；适配器几乎没有学到预测修正 |
-| 训练预算不足 | 原规则 On 只训练 3 轮；放宽到 15 轮后，部分格子在第 15 轮仍在改善 |
-| 训练损失与评价指标不一致 | 训练用逐元素 MSE，评价看逐原点 MAE 的尾部 |
-| 梯度反馈 hg 的尺度在训练和测试间相差约 111 倍 | 真实存在，但关闭反馈或按批次重缩放都不能消除伤害，**不是主因** |
+| Online parameter updates diverge on non-monthly domains | With updates off, the Energy CVaR ratio goes from about 1.96 back to about 1.00; on weekly domains the correction grows 12–13× by the end of the stream |
+| The VICReg alignment term dominates training | The training objective is 4–17 while validation MSE is only 0.03–3; the adapter learns almost no forecast correction |
+| Training budget too small | The original rule trains On for only 3 epochs; with a cap of 15, some cells were still improving at epoch 15 |
+| Training loss does not match the evaluation metric | Training uses element-wise MSE; evaluation looks at the tail of per-origin MAE |
+| The scale of the gradient feedback hg differs by about 111× between training and test | Real, but neither turning the feedback off nor rescaling it per batch removes the damage — **not the main cause** |
 
-工程核验：在 GPU 上恢复入口随机状态后，两个历史格子的在线轨迹被逐位复现；复现框架与原包内的 `evaluate_online` 逐位一致。
+Engineering check: after restoring the entry random state on the GPU, the online trajectories of two historical cells were reproduced bit for bit; the replay harness is bitwise identical to `evaluate_online` in the original package.
 
 ---
 
-## 6. 算法优化：最终方法 On-Adapter-CV
+## 6. Algorithmic improvements: the final method On-Adapter-CV
 
-与原始 On-Adapter 相比，只改了以下 5 项，其余（数据、骨干、专家结构、文本编码、反馈计算）均不变。
+Compared with the original On-Adapter, only the following 5 things change; everything else (data, backbone, expert structure, text encoding, feedback computation) is unchanged.
 
-| 改动 | 内容 | 依据（开发轮次） |
+| Change | Content | Basis (development round) |
 |---|---|---|
-| ① 关闭 VICReg 对齐项 | 对齐系数设为 0 | 第 3 轮：解除辅助损失对训练的主导 |
-| ② 训练预算 | On 的训练轮数上限从 3 改为 15，早停 patience 3 不变，仍按验证 MSE 选检查点 | 第 3 轮：验证集 0.9934 → 0.9877 |
-| ③ CVaR₉₀ 尾部损失 | L = MSE + λ·[τ + mean(max(e_i − τ, 0)) / 0.1]，λ = 0.5；e_i 为逐原点已观测 MAE，所用变量、mask、尺度与评分一致；τ 取各批 90% 分位数的跨批次指数移动平均 | 第 12 轮：验证整段 0.9744，为全部开发中最好 |
-| ④ 骨干优先的弃权门控 | 默认输出 On 内部计算的冻结骨干预测；当适配器在已成熟原点上的折扣平均逐原点 MAE（γ = 0.9）低于骨干时，切换到适配器；至少需要 4 个成熟原点，并带滞回 | 第 5 轮：测试从 1.0062 降到 1.0033 |
-| ⑤ 关闭在线参数更新（lr 0） | 在线反馈 hg/ge 与门控决策照常逐原点进行，只是不更新参数 | 第 6、10、11 轮：小步长、去辅助项、锚定都没有带来验证增益 |
+| ① Turn off the VICReg alignment term | Alignment weight set to 0 | Round 3: removes the domination of training by the auxiliary loss |
+| ② Training budget | On's epoch cap goes from 3 to 15; early-stopping patience stays at 3; checkpoints are still chosen by validation MSE | Round 3: validation 0.9934 → 0.9877 |
+| ③ CVaR₉₀ tail loss | L = MSE + λ·[τ + mean(max(e_i − τ, 0)) / 0.1], λ = 0.5; e_i is the observed per-origin MAE, with the same variables, mask and scale as the scorer; τ is an exponential moving average, across batches, of each batch's 90% quantile | Round 12: whole-stream validation 0.9744, the best of all development |
+| ④ Backbone-first abstaining gate | Output by default the frozen-backbone forecast computed inside On; switch to the adapter when its discounted mean per-origin MAE (γ = 0.9) on matured origins is below the backbone's; require at least 4 matured origins, with hysteresis | Round 5: test from 1.0062 to 1.0033 |
+| ⑤ Turn off online parameter updates (lr 0) | The online hg/ge feedback and the gate decisions still run at every origin; only the parameters are not updated | Rounds 6, 10, 11: small steps, removing the auxiliary term and anchoring brought no validation gain |
 
-信息边界：
-- 门控与反馈只使用 `o + H ≤ t` 的成熟标签；
-- 预测从不读取当前或未来的目标与 mask；
-- 已验证"修改未成熟目标值，不改变此前任何预测"。
+Information boundary:
+- the gate and the feedback use only matured labels with `o + H ≤ t`;
+- a forecast never reads current or future targets or masks;
+- verified: changing the values of not-yet-matured targets does not change any earlier forecast.
 
-代码：
-- 版本包：`…\method_comparison_v1conf_20261009\`（`FORK.json` 记录全部差异）
-- 门控：`…\scripts\seed2_round5_ta.py` 中的 `abstain`
-- 复现框架：`…\scripts\onadapter_harness_20261008.py`
+Code:
+- method package: `…\method_comparison_v1conf_20261009\` (`FORK.json` records every difference)
+- gate: `abstain` in `…\scripts\seed2_round5_ta.py`
+- replay harness: `…\scripts\onadapter_harness_20261008.py`
 
 ---
 
-## 7. 开发过程（seed = 2，探索性）
+## 7. Development process (seed = 2, exploratory)
 
-- 建立了 seed2 的完整 7 方法基线（252/252 格，0 失败），见 `…\reports\benchmark_seed2_v1_20261009\`。
-- 每轮先冻结计划（`PLAN.json` 及其 sha256），只在验证集上选型，测试只计算一次。
-- 从第 4 轮起，选型改用稳健分数：取"整段几何平均"与"三个时段中最差一段"两者中较差的那个。
-- 从第 8 轮起，只有稳健验证分数 ≤ 0.985 才动用测试。
+- A full 7-method baseline was built for seed 2 (252/252 cells, 0 failures); see `…\reports\benchmark_seed2_v1_20261009\`.
+- Each round froze its plan first (`PLAN.json` and its sha256), selected on the validation set only, and computed the test set only once.
+- From round 4 on, selection used a robust score: the worse of the whole-stream geometric mean and the geometric mean of the worst of three time segments.
+- From round 8 on, the test set was used only when the robust validation score was ≤ 0.985.
 
-| 轮 | 改动 | 验证（稳健分数） | 测试 S | 结论 |
+| Round | Change | Validation (robust score) | Test S | Outcome |
 |---|---|---:|---:|---|
-| 1 | 按步在线残差校准 | 0.961 | 1.0146 | 验证—测试反转 |
-| 2 | 季节相位残差校准 | 0.9425 | 1.0129 | 同上 |
-| 3 | ①② 训练修复 | 0.9877 | 1.0062 | 适配器开始学到修正 |
-| 4 | 门控 + 校准专家 | 0.9809 | 1.0090 | 校准成分失效 |
-| 5 | ④ 骨干优先门控 | 0.9895 | 1.0033 | seed2 上最好的主统计 |
-| 6 | 加小步长在线更新 | 0.9883 | 1.0034 | 与第 5 轮持平 |
-| 7 | 离线季节偏差 | 选回第 5 轮 | — | 被否决 |
-| 8 | 3 成员集成 | 0.9928 | 未测 | 时段间不稳定 |
-| 10 | 在线更新去掉辅助项 | 0.9883 | 未测 | 无差别 |
-| 11 | 在线锚定（L2-SP） | 0.9883 | 未测 | 漂移下降但成绩不变 |
-| 12 | ③ CVaR 尾部损失 / 输出残差头 | **0.9846** | 1.0038 | 平均名次 7 方法第一 |
+| 1 | Per-step online residual calibration | 0.961 | 1.0146 | Validation–test reversal |
+| 2 | Seasonal-phase residual calibration | 0.9425 | 1.0129 | Same |
+| 3 | ①② training fixes | 0.9877 | 1.0062 | The adapter starts learning corrections |
+| 4 | Gate + calibration experts | 0.9809 | 1.0090 | Calibration components fail |
+| 5 | ④ backbone-first gate | 0.9895 | 1.0033 | Best main statistic on seed 2 |
+| 6 | Add small-step online updates | 0.9883 | 1.0034 | Tied with round 5 |
+| 7 | Offline seasonal bias | Selected round 5 again | — | Rejected |
+| 8 | 3-member ensemble | 0.9928 | not tested | Unstable across time segments |
+| 10 | Online updates without the auxiliary term | 0.9883 | not tested | No difference |
+| 11 | Online anchoring (L2-SP) | 0.9883 | not tested | Drift drops but scores are unchanged |
+| 12 | ③ CVaR tail loss / output residual head | **0.9846** | 1.0038 | Best mean rank of the 7 methods |
 
-seed2 的测试段共使用 8 次，以上结果均为探索性。
+The seed-2 test segment was used 8 times in total; all of the above results are exploratory.
 
-总结：`…\reports\seed2_goal_20261009\SUMMARY_rounds1-8.md`、`GOAL_STATUS.md`；各轮细节：`…\reports\seed2_goal_20261009\round*\`。
+Summaries: `…\reports\seed2_goal_20261009\SUMMARY_rounds1-8.md`, `GOAL_STATUS.md`; per-round details: `…\reports\seed2_goal_20261009\round*\`.
 
 ---
 
-## 8. 确认实验与结果（seed 2025 / 2026 / 2027）
+## 8. Confirmation experiment and results (seeds 2025 / 2026 / 2027)
 
-**设计：**
-- 计划：`…\reports\v1conf_20261009\PLAN.json`（sha256 `ead8c55f…`），在任何确认轨迹产生之前冻结；
-- 主方法预先指定为 On-Adapter-CV，不做任何选型；第 5 轮配置 On-Adapter-TA 作为对照一同报告；
-- 只新训练 On 的 108 格，骨干是主表中同一批 iTransformer 检查点；
-- 在线入口随机种子为 100 × seed；
-- 对照组直接取冻结的 V1 主表。
+**Design:**
+- plan: `…\reports\v1conf_20261009\PLAN.json` (sha256 `ead8c55f…`), frozen before any confirmation trajectory was produced;
+- the primary method was pre-specified as On-Adapter-CV with no selection; the round-5 configuration On-Adapter-TA is reported alongside as a control;
+- only On's 108 cells were newly trained; the backbone is the same set of iTransformer checkpoints as in the main table;
+- the online entry random seed is 100 × seed;
+- the baselines are taken directly from the frozen V1 main table.
 
-**主结果**（`…\reports\v1conf_20261009\results.json`）：
+**Main results** (`…\reports\v1conf_20261009\results.json`):
 
-| 方法 | 主统计 S | CVaR₉₀ 平均名次 | 平均 MAE | 平均 MSE | 平均 CVaR₉₀ | 尾部优于骨干的任务 |
+| Method | Main statistic S | Mean CVaR₉₀ rank | Mean MAE | Mean MSE | Mean CVaR₉₀ | Tasks with lower tail than backbone |
 |---|---:|---:|---:|---:|---:|---:|
 | iTransformer | **1.000000** | 3.843 | 1.0628 | 11.978 | 2.6293 | — |
 | **On-Adapter-CV** | **1.000495** | **3.380** | 1.0716 | 12.100 | 2.6380 | **22/36** |
-| 　门控前（适配器本身） | 1.004584 | — | 1.0733 | 12.079 | 2.6484 | 23/36 |
+| &emsp;before the gate (the adapter alone) | 1.004584 | — | 1.0733 | 12.079 | 2.6484 | 23/36 |
 | MM-TSFlib | 1.014709 | 4.009 | 1.0690 | 12.089 | 2.6775 | 16/36 |
 | GPT4MTS | 1.035984 | 4.000 | 1.0879 | 12.205 | 2.6616 | 16/36 |
 | ADAPT-Z | 1.049515 | 3.731 | 1.1421 | 13.390 | 2.7875 | 18/36 |
 | DSOF | 1.050956 | 3.972 | 1.2860 | 13.904 | 2.7706 | 15/36 |
-| On-Adapter（原始） | 1.093644 | — | 1.0974 | 12.210 | 2.7404 | 17/36 |
+| On-Adapter (original) | 1.093644 | — | 1.0974 | 12.210 | 2.7404 | 17/36 |
 | Proceed | 1.110804 | 5.065 | 1.1752 | 13.486 | 2.8612 | 11/36 |
 
-**分 seed 的主统计：** 2025 → 1.00082，2026 → 1.00118，2027 → **0.99938**。
+**Per-seed main statistic:** 2025 → 1.00082, 2026 → 1.00118, 2027 → **0.99938**.
 
-**逐域 CVaR₉₀ 相对骨干**（3 个 seed 平均，再在 4 个 H 上取几何平均）：
+**Per-domain CVaR₉₀ relative to the backbone** (averaged over 3 seeds, then geometric mean over the 4 horizons):
 
-| 域 | On-Adapter-CV | 门控前 | 适配器被采用的比例 |
+| Domain | On-Adapter-CV | Before the gate | Share of origins using the adapter |
 |---|---:|---:|---:|
 | Environment | **0.990** | 0.986 | 0.60 |
 | Energy | 1.002 | 1.002 | 0.43 |
@@ -209,52 +209,52 @@ seed2 的测试段共使用 8 次，以上结果均为探索性。
 | Climate | 1.003 | 0.996 | 0.25 |
 | Agriculture | **0.995** | 0.995 | 0.58 |
 
-最差的几个任务：Health_US H48 1.058、H36 1.027、H24 1.022，SocialGood H8 1.016。
+Worst tasks: Health_US H48 1.058, H36 1.027, H24 1.022; SocialGood H8 1.016.
 
-**对照方法 On-Adapter-TA（第 5 轮配置，不加 CVaR 损失）：** 与主方法在同一冻结计划下完成。
+**Control On-Adapter-TA (round-5 configuration, no CVaR loss):** completed under the same frozen plan as the primary method.
 
-| 方法 | 主统计 S | CVaR₉₀ 平均名次 | 平均 MAE | 平均 MSE | 尾部优于骨干的任务 | 分 seed 的 S |
+| Method | Main statistic S | Mean CVaR₉₀ rank | Mean MAE | Mean MSE | Tasks with lower tail than backbone | Per-seed S |
 |---|---:|---:|---:|---:|---:|---|
-| On-Adapter-CV（主方法） | 1.000495 | **3.380** | 1.0716 | 12.100 | **22/36** | 1.00082 / 1.00118 / 0.99938 |
-| On-Adapter-TA（消融） | **1.000108** | 3.481 | **1.0655** | **12.008** | 21/36 | 1.00192 / 0.99972 / 0.99857 |
+| On-Adapter-CV (primary) | 1.000495 | **3.380** | 1.0716 | 12.100 | **22/36** | 1.00082 / 1.00118 / 0.99938 |
+| On-Adapter-TA (ablation) | **1.000108** | 3.481 | **1.0655** | **12.008** | 21/36 | 1.00192 / 0.99972 / 0.99857 |
 
-两者逐域对比（CV / TA）：
-- CV 更好：Environment 0.990 / 1.002，Agriculture 0.995 / 0.998，Traffic 0.983 / 0.985；
-- TA 更好：Health_US 1.029 / 1.018，SocialGood 1.006 / 1.000，Climate 1.003 / 0.999。
+Per-domain comparison (CV / TA):
+- CV better: Environment 0.990 / 1.002, Agriculture 0.995 / 0.998, Traffic 0.983 / 0.985;
+- TA better: Health_US 1.029 / 1.018, SocialGood 1.006 / 1.000, Climate 1.003 / 0.999.
 
-CVaR 损失提高了平均名次，但没有降低主统计，因为它在 Health_US 上加重了尾部损失。两者都与骨干持平，都没有严格胜出。
+The CVaR loss improves the mean rank but does not lower the main statistic, because it worsens the tail on Health_US. Both tie the backbone; neither strictly wins.
 
-运行记录：对照方法的训练曾因进程中断留下过期的 GPU 锁，人工核实原进程已不存在后从断点恢复；过程见 `reports/v1conf_20261009/recovery/NOTE.txt`。
-
----
-
-## 9. 我们方法的优势（基于第 8 节确认数据）
-
-1. **尾部风险名次第一。** CVaR₉₀ 平均名次 3.380，是 7 个方法中最好的，领先静态骨干约 0.46 个名次（3.843）。On 在 22/36 个任务上尾部风险低于骨干。
-2. **全面优于其他 5 个对照，包括所有在线方法和多模态方法。** 主统计领先 MM-TSFlib 1.4%、GPT4MTS 3.5%，领先 ADAPT-Z、DSOF、Proceed 5%–11%。
-3. **相对原始 On-Adapter 的改进很大，且来自可解释的机制修复。** 主统计从 1.0936 降到 1.0005；平均 MAE 从 1.0974 降到 1.0716；尾部优于骨干的任务从 17 增加到 22。
-4. **"不伤害骨干"的稳健性。** 门控把适配器本身的尾部风险（1.0046）进一步降到 1.0005；在适配器容易出错的 SocialGood 上，只在 12% 的原点使用适配器。
-5. **方法跨训练随机性稳定。** 3 个 seed 的主统计都落在 0.9994–1.0012 之间，方法冻结后结论不变。
-6. **消融结论清楚。** 去掉 CVaR 损失后，主统计 1.0001（3 个 seed 中 2 个低于 1），平均名次 3.48。说明骨干优先门控加训练修复本身已经做到与骨干持平；CVaR 损失则以 Health_US 的尾部为代价换来了更好的平均名次。
-
-**未达成的部分（如实说明）：** 主统计没有严格低于骨干 iTransformer，差 0.05%。剩余差距主要来自 Health_US，该域在多种方法下都反复出现验证—测试反转。
+Run log: the control's training once left a stale GPU lock after a process interruption; after manually confirming that the original process no longer existed, it was resumed from checkpoint. See `reports/v1conf_20261009/recovery/NOTE.txt`.
 
 ---
 
-## 10. 限制与披露
+## 9. Strengths of our method (based on the confirmation data in section 8)
 
-- **测试时间段相同：** seed 2025–2027 与开发用的 seed2 处在同一测试时间段，确认实验检验的是对训练随机性的稳健性，不是在全新数据上的泛化。V1 主表此前已被观察过。
-- **调参投入不对称：** On 经历了 12 轮开发，对照方法用的都是原始设置。
-- **骨干数值差异：** On 内部的骨干预测在 CPU 上计算，与主表 iTransformer（GPU）之间的最大绝对差为 0.0101。
-- **在线参数更新已关闭：** 在线成分只保留反馈和门控。小步长在线更新的版本（第 6 轮）成绩接近，但没有证明参数更新带来额外收益。
-- **文本因果性：** 数值仍使用原始的 `end_date` 可用性代理；V1 只修复了已确认的时间错配，不能宣称全部文本无泄露。
-- **不声称显著、普遍最优或 SOTA。**
+1. **Best tail-risk rank.** Mean CVaR₉₀ rank 3.380 is the best of the 7 methods, about 0.46 ranks ahead of the static backbone (3.843). On has lower tail risk than the backbone on 22/36 tasks.
+2. **Beats all 5 other baselines, including every online and every multimodal method.** Main statistic 1.4% ahead of MM-TSFlib, 3.5% ahead of GPT4MTS, and 5%–11% ahead of ADAPT-Z, DSOF and Proceed.
+3. **Large improvement over the original On-Adapter, from interpretable mechanism fixes.** Main statistic from 1.0936 to 1.0005; mean MAE from 1.0974 to 1.0716; tasks with a lower tail than the backbone from 17 to 22.
+4. **Robustness from "do no harm to the backbone".** The gate lowers the adapter's own tail risk (1.0046) further to 1.0005; on SocialGood, where the adapter is error-prone, it uses the adapter at only 12% of origins.
+5. **Stable across training randomness.** The main statistic of all 3 seeds lies in 0.9994–1.0012; the conclusion does not change once the method is frozen.
+6. **Clear ablation.** Without the CVaR loss, the main statistic is 1.0001 (below 1 on 2 of 3 seeds) and the mean rank is 3.48. The backbone-first gate plus the training fixes alone already reach a tie with the backbone; the CVaR loss buys a better mean rank at the cost of the Health_US tail.
+
+**What was not achieved (stated plainly):** the main statistic is not strictly below the backbone iTransformer; it is 0.05% behind. The remaining gap comes mainly from Health_US, where validation–test reversals recur across several methods.
 
 ---
 
-## 11. 复现入口（WSL 中先进入 baseline 目录）
+## 10. Limitations and disclosures
 
-- V1 主表：`./.venv/Scripts/python.exe -m benchmark_textrepair_v1.score`
-- 确认实验：`bash scripts/v1conf_dispatch.sh`；单独计分：`./.venv/Scripts/python.exe scripts/v1conf_20261009.py --score`
-- 确认实验逐原点预测（门控后与门控前、骨干、目标、mask、原点、门控选择）：`E:\FedNoise\iadapter-baselines\runs\v1conf_traj_20261009\final\cv\<域>\H<h>\seed<s>\predictions.npz`
-- 确认实验检查点：`E:\FedNoise\iadapter-baselines\runs\method_comparison_v1conf_cv_20261009\`
+- **Same test period:** seeds 2025–2027 share the test period with development seed 2. The confirmation tests robustness to training randomness, not generalization to new data. The V1 main table had already been observed.
+- **Unequal tuning effort:** On went through 12 development rounds; the baselines all use their original settings.
+- **Backbone numeric difference:** On's internal backbone forecast is computed on the CPU; its maximum absolute difference from the main-table iTransformer (GPU) is 0.0101.
+- **Online parameter updates are off:** the online component keeps only the feedback and the gate. The small-step online-update version (round 6) scores close, but there is no evidence that parameter updates add anything.
+- **Text causality:** the numeric data still use the original `end_date` availability proxy; V1 only repairs confirmed timing mismatches, so we cannot claim the text is entirely leak-free.
+- **No claim of significance, universal superiority or SOTA.**
+
+---
+
+## 11. Reproduction entry points (in WSL, first cd into the baseline directory)
+
+- V1 main table: `./.venv/Scripts/python.exe -m benchmark_textrepair_v1.score`
+- Confirmation: `bash scripts/v1conf_dispatch.sh`; scoring only: `./.venv/Scripts/python.exe scripts/v1conf_20261009.py --score`
+- Per-origin confirmation forecasts (after and before the gate, backbone, targets, masks, origins, gate choices): `E:\FedNoise\iadapter-baselines\runs\v1conf_traj_20261009\final\cv\<domain>\H<h>\seed<s>\predictions.npz`
+- Confirmation checkpoints: `E:\FedNoise\iadapter-baselines\runs\method_comparison_v1conf_cv_20261009\`

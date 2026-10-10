@@ -8,7 +8,7 @@ import random
 import argparse
 import itertools
 from collections import Counter
-# ── 重依赖守护: --preview 在无 torch 环境同样可用 ──────────────────
+# ── Heavy-dependency guard: --preview also works without torch ──────────────────
 _RUNTIME_OK, _IMPORT_ERR = True, None
 try:
     import torch
@@ -29,13 +29,13 @@ except Exception as _e:                                    # pragma: no cover
     _RUNTIME_OK, _IMPORT_ERR = False, _e
     from types import SimpleNamespace
 
-    class Dataset:                                         # 占位
+    class Dataset:                                         # placeholder
         pass
 
-    class _ShimModule:                                     # 仅供类定义通过;
-        pass                                               # 实例化受 _RUNTIME_OK 守护
+    class _ShimModule:                                     # only lets class definitions pass;
+        pass                                               # instantiation is guarded by _RUNTIME_OK
 
-    class _ShimNoGrad:                                     # @torch.no_grad() 占位
+    class _ShimNoGrad:                                     # @torch.no_grad() placeholder
         def __call__(self, f):
             return f
 
@@ -47,14 +47,14 @@ except Exception as _e:                                    # pragma: no cover
 
     nn = SimpleNamespace(Module=_ShimModule)
     torch = SimpleNamespace(no_grad=lambda: _ShimNoGrad())
-    SimpleTextEncoder = LLMTextEncoder = VICRegAlign = None  # [preview 占位]
+    SimpleTextEncoder = LLMTextEncoder = VICRegAlign = None  # [preview placeholder]
     _dominant_period = _jump_score = None
 import sys
 _argv = list(sys.argv)
-sys.argv = _argv[:1]                      # import 期只让 adapt_z 看到脚本名
+sys.argv = _argv[:1]                      # at import time, adapt_z only sees the script name
 try:
     from adapt_z import set_seed, calculate_metrics, settings
-except (Exception, SystemExit):           # SystemExit 继承 BaseException, 须显式捕获
+except (Exception, SystemExit):           # SystemExit derives from BaseException and must be caught explicitly
     settings = {}
 
     def set_seed(seed: int):
@@ -70,7 +70,7 @@ except (Exception, SystemExit):           # SystemExit 继承 BaseException, 须
         mse = float(np.mean((preds - truths) ** 2))
         return mae, mse
 finally:
-    sys.argv = _argv                      # 无论成败都恢复真实命令行
+    sys.argv = _argv                      # restore the real command line whether or not it succeeded
 
 from pathlib import Path
 
@@ -81,14 +81,14 @@ import numpy as np
 import pandas as pd
 
 # ============================================================
-# 统一绘图风格
+# Unified plotting style
 # ============================================================
 
-DARK_BLUE = "#2457A7"   # 主要 baseline
+DARK_BLUE = "#2457A7"   # main baseline
 DARK_RED = "#8B1E3F"    # iAdapter / ours
 
-# 其他消融方法比 ours/baseline 弱化，但饱和度仍要保证每条线清晰可辨，
-# 不能弱到看起来像"没画出来"。
+# The other ablation methods are de-emphasized relative to ours/baseline, but stay saturated enough that every line is clearly visible,
+# never so faint that it looks "not drawn".
 MUTED_COLORS = [
     "#6E6E6E",
     "#B3773D",
@@ -99,13 +99,13 @@ MUTED_COLORS = [
 
 
 def _find_chinese_font():
-    """优先使用微软雅黑，不存在时自动回退。"""
+    """Prefer Microsoft YaHei; fall back automatically if it is missing."""
     available_fonts = {font.name for font in fm.fontManager.ttflist}
 
     candidates = [
         "Microsoft YaHei",
         "Microsoft YaHei UI",
-        "微软雅黑",
+        "Microsoft YaHei",
         "SimHei",
         "Noto Sans CJK SC",
         "Source Han Sans CN",
@@ -115,7 +115,7 @@ def _find_chinese_font():
         if font_name in available_fonts:
             return font_name
 
-    print("[viz] 未检测到微软雅黑，使用 DejaVu Sans")
+    print("[viz] Microsoft YaHei not found, using DejaVu Sans")
     return "DejaVu Sans"
 
 
@@ -139,7 +139,7 @@ plt.rcParams.update({
 
 
 def _get_line_style(mode, index, baseline_mode):
-    """突出 ours 和主要 baseline，其余方法弱化。"""
+    """Highlight ours and the main baseline; de-emphasize the other methods."""
     if _is_ours(mode):
         return {
             "color": DARK_RED,
@@ -188,7 +188,7 @@ def _style_axis(ax):
         alpha=0.28,
     )
 
-    # 竖直网格线较少，画面更干净
+    # Fewer vertical grid lines give a cleaner figure
     ax.grid(
         axis="x",
         linestyle="-",
@@ -209,7 +209,7 @@ def _style_axis(ax):
 
 
 def _save_figure(fig, save_path):
-    """同时保存高清 PNG；论文中建议使用 PDF。"""
+    """Also save a high-resolution PNG; PDF is recommended for the paper."""
     save_path = Path(save_path)
 
     fig.savefig(
@@ -219,7 +219,7 @@ def _save_figure(fig, save_path):
         facecolor="white",
     )
 
-    # 矢量版本，放入论文后不会模糊
+    # Vector version, stays sharp when placed in the paper
     fig.savefig(
         save_path.with_suffix(".pdf"),
         bbox_inches="tight",
@@ -228,7 +228,7 @@ def _save_figure(fig, save_path):
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 1 — DOMAIN REGISTRY (Time-MMD 9 域)
+# SECTION 1 — DOMAIN REGISTRY (Time-MMD, 9 domains)
 # ══════════════════════════════════════════════════════════════
 
 DOMAINS = ["Agriculture", "Climate", "Economy", "Energy", "Environment",
@@ -254,8 +254,8 @@ _DOMAIN_TOPIC = {
 
 
 
-# 启发式默认窗口 (seq_len, pred_len), 按域采样频率; CLI 可覆盖且会自动收缩。
-# pred_len 既可以是单个 int，也可以是 list[int]（多 horizon 默认组合）。
+# Heuristic default windows (seq_len, pred_len) by domain sampling frequency; the CLI can override them, and they shrink automatically.
+# pred_len can be a single int or a list[int] (a default combination of several horizons).
 _DOMAIN_WINDOW = {
     "Agriculture": (36, [6,8,10,12]),   "Climate": (36, [6,8,10,12]),   "Economy": (36, [6,8,10,12]),
     "Energy": (48, [6,8,10,12]),        "Environment": (96, [48, 96, 192, 336]),
@@ -281,7 +281,7 @@ def canonical_domain(name: str) -> str:
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 2 — 文本清洗 (纯 Python; 逐子句去 NA / 去流水线 boilerplate)
+# SECTION 2 — TEXT CLEANING (pure Python; per clause, removes NA / pipeline boilerplate)
 # ══════════════════════════════════════════════════════════════
 
 _DATE_SEG = re.compile(r"(\d{4}-\d{2}-\d{2})\s*:\s*")
@@ -325,10 +325,10 @@ _WS = re.compile(r"\s+")
 
 
 def _clean_clause(s: str) -> str:
-    """清洗单个子句; 无信息量返回 ''。"""
+    """Clean a single clause; return '' if it carries no information."""
     if not s:
         return ""
-    s = re.sub(r"\bNA(?=[A-Z(])", " ", s)          # 修复 "NAHere is" 拼接错位
+    s = re.sub(r"\bNA(?=[A-Z(])", " ", s)          # fix "NAHere is" concatenation errors
     for pat in _DROP_PATTERNS:
         if pat.search(s):
             return ""
@@ -337,14 +337,14 @@ def _clean_clause(s: str) -> str:
     s = _WS.sub(" ", s).strip(" ;,.-")
     if not s:
         return ""
-    for pat in _DROP_PATTERNS:                     # 剥离后复检
+    for pat in _DROP_PATTERNS:                     # re-check after stripping
         if pat.search(s):
             return ""
     return s
 
 
 def split_date_segments(text: str):
-    """'d1: seg1; d2: seg2 ...' -> [(date|None, body), ...] (按出现顺序)。"""
+    """'d1: seg1; d2: seg2 ...' -> [(date|None, body), ...] (in order of appearance)."""
     if not isinstance(text, str) or not text.strip():
         return []
     parts = _DATE_SEG.split(text)
@@ -358,9 +358,9 @@ def split_date_segments(text: str):
 
 def clean_timemmd_text(raw, max_clauses: int = 6, min_clause_chars: int = 20):
     """
-    清洗一个 fact/preds 单元格 -> (clean_text, n_kept, n_total)。
-    保留 "YYYY-MM-DD:" 日期锚点; 信息量优先保留 **最新** 日期段
-    (对在线预测最相关), 输出按时间正序。
+    Clean one fact/preds cell -> (clean_text, n_kept, n_total).
+    Keeps the "YYYY-MM-DD:" date anchors; when budget is limited, the **latest** date segments are kept first
+    (most relevant for online forecasting); output is in chronological order.
     """
     segs = split_date_segments(raw)
     n_total, kept = 0, []
@@ -382,7 +382,7 @@ def clean_timemmd_text(raw, max_clauses: int = 6, min_clause_chars: int = 20):
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 3 — RealTextProvider (数值 + 真实文本, 两种布局, 抗泄漏)
+# SECTION 3 — RealTextProvider (numeric + real text, two layouts, leakage-resistant)
 # ══════════════════════════════════════════════════════════════
 
 _TEXT_LIKE_COLS = {"date", "Date", "start_date", "end_date", "fact", "pred",
@@ -392,22 +392,22 @@ _HISTORY_STAT_COLS = {"prior_history_avg", "prior_history_std"}
 
 class RealTextProvider:
     """
-    按数值行序供给清洗后的真实文本 (替换旧 TrafficTextGenerator):
-      · self.numeric  : (n_rows, C) float32, NaN 已插值/填补, 未标准化;
-      · self.row_text : 每个数值行清洗后的文本;
-      · self.row_conf : [C1] 逐行文本置信度 = row_has_info 的因果 EMA,
-        动量 CONF_MOMENTUM (可在构造前通过类属性覆盖); 当前行有信息时
-        保底 0.25。下游以 emb*conf 软门控, 取代硬 0/1 屏蔽;
-      · text_for_row(r): 行 r 及其前 text_lookback-1 行的聚合文本
-        (全在历史侧); 原始布局匹配时强制 text.end_date <= 数值行.end_date
-        —— 与 MM-TSFlib 抗泄漏约束一致, 未来目标行文本永不可见。
+    Supplies cleaned real text in numeric-row order (replaces the old TrafficTextGenerator):
+      · self.numeric  : (n_rows, C) float32, NaN interpolated/filled, not standardized;
+      · self.row_text : cleaned text of each numeric row;
+      · self.row_conf : [C1] per-row text confidence = causal EMA of row_has_info,
+        momentum CONF_MOMENTUM (can be overridden via the class attribute before construction); floored at
+        0.25 when the current row has information. Downstream soft-gates with emb*conf instead of a hard 0/1 mask;
+      · text_for_row(r): aggregated text of row r and its preceding text_lookback-1 rows
+        (all on the history side); when matching the original layout, enforces text.end_date <= numeric row.end_date
+        — consistent with MM-TSFlib's anti-leakage constraint; text of future target rows is never visible.
     """
 
     SIMPLE_MAX_LEN = 48
     _VOCAB_CAP = 4000
     _TOKEN = re.compile(r"[a-z0-9][a-z0-9\-']*")
-    CONF_MOMENTUM = 0.8            # [C1] 置信度 EMA 动量 (越大越平滑)
-    CONF_FLOOR = 0.25              # [C1] 当前行有信息时的置信度下限
+    CONF_MOMENTUM = 0.8            # [C1] confidence EMA momentum (larger = smoother)
+    CONF_FLOOR = 0.25              # [C1] confidence floor when the current row has information
 
     def __init__(self, domain: str, data_dir: str = "./data",
                  text_source: str = "both", text_lookback: int = 2,
@@ -440,12 +440,12 @@ class RealTextProvider:
             self._load_raw(*layout[1:])
         self._build_row_texts()
         self._word2idx = None
-        # [O3] 冻结编码器缓存: {cache_key: {global_row: pooled/ids}}
+        # [O3] frozen encoder cache: {cache_key: {global_row: pooled/ids}}
         self.enc_cache: dict = {}
         if verbose:
             self.coverage_report()
 
-    # ── 路径探测 ──
+    # ── Path discovery ──
     def _resolve_paths(self):
         d, dd = self.domain, self.data_dir
         names = ([d] + (["Health"] if d == "Health_US" else [])
@@ -472,7 +472,7 @@ class RealTextProvider:
             f"(MM-TSFlib merged) or numerical/{d}/{d}.csv + textual/{d}/*.csv "
             f"(Time-MMD raw). Data: https://github.com/AdityaLab/Time-MMD")
 
-    # ── 数值列选择 (NaN 线性插值, 与 TSlib uea.interpolate_missing 同法) ──
+    # ── Numeric column selection (linear interpolation of NaN, same as TSlib uea.interpolate_missing) ──
     def _pick_numeric(self, df: pd.DataFrame):
         drop = set(_TEXT_LIKE_COLS)
         if not self.keep_history_stats:
@@ -506,7 +506,7 @@ class RealTextProvider:
                     return s
         return None
 
-    # ── 布局 A: MM-TSFlib 合并 ──
+    # ── Layout A: MM-TSFlib merged ──
     def _load_merged(self, path):
         import csv
         try:
@@ -533,7 +533,7 @@ class RealTextProvider:
             print(f"[provider] WARN: no fact/preds column in {path}; "
                   f"neutral fallback text will be used for all rows.")
 
-    # ── 布局 B: Time-MMD 原始 (区间匹配 + 抗泄漏: text.end <= 数值行.end) ──
+    # ── Layout B: original Time-MMD (interval matching + anti-leakage: text.end <= numeric row.end) ──
     def _load_raw(self, num_path, rep_path, sea_path):
         num = pd.read_csv(num_path)
         num["_end"] = self._parse_dates(num, ("end_date", "date", "Date"))
@@ -582,7 +582,7 @@ class RealTextProvider:
             facts[i], preds[i] = "; ".join(fp), "; ".join(pp)
         self._raw_fact, self._raw_pred = pd.Series(facts), pd.Series(preds)
 
-    # ── 逐行清洗 + [C1] 置信度 EMA ──
+    # ── Per-row cleaning + [C1] confidence EMA ──
     def _build_row_texts(self):
         n = len(self.numeric)
         self.row_text, self.row_has_info = [], np.zeros(n, dtype=bool)
@@ -609,10 +609,10 @@ class RealTextProvider:
             else:
                 self.row_text.append(self._fallback)
 
-        # [C1] 文本置信度 = row_has_info 的因果 EMA (只看历史, 无泄漏):
+        # [C1] text confidence = causal EMA of row_has_info (history only, no leakage):
         #   conf[i] = m*conf[i-1] + (1-m)*has_info[i]
-        # 平滑掉 0/1 阶跃; 连续有信息 -> conf 趋近 1, 长期无信息 -> 指数
-        # 衰减趋近 0。当前行有信息时保底 CONF_FLOOR, 防止冷启动完全屏蔽。
+        # smooths out 0/1 steps; consecutive informative rows -> conf approaches 1, long uninformative stretches -> exponential
+        # decay towards 0. Floored at CONF_FLOOR when the current row has information, to avoid fully masking at cold start.
         m = float(self.CONF_MOMENTUM)
         conf, c = np.zeros(n, dtype=np.float32), 0.0
         for i in range(n):
@@ -621,7 +621,7 @@ class RealTextProvider:
         self.row_conf = np.clip(
             np.maximum(conf, self.CONF_FLOOR * self.row_has_info), 0.0, 1.0)
 
-    # ── 对外接口 ──
+    # ── Public interface ──
     @property
     def n_rows(self):
         return len(self.row_text)
@@ -635,17 +635,17 @@ class RealTextProvider:
                 seen.add(self.row_text[rr])
         joined = " ".join(parts) if parts else self._fallback
 
-        # [NEW] 注入行索引对应日期作为时序锚点。
-        # 多行常聚合出同一段文本 (lookback 窗口重叠), 冻结 LLM 对近乎
-        # 相同的字符串输出几乎相同的池化向量, 是文本嵌入坍塌的另一诱因。
-        # 前缀日期标签后, 即使文本内容相近, 池化向量也会因位置 token
-        # 不同而在嵌入空间中分散开。
+        # [NEW] inject the date of the row index as a temporal anchor.
+        # Several rows often aggregate to the same text (overlapping lookback windows), and a frozen LLM outputs nearly
+        # identical pooled vectors for nearly identical strings, another cause of text-embedding collapse.
+        # With a date-label prefix, even when the text content is similar, the pooled vectors spread out
+        # in embedding space because of the differing position tokens.
         date_tag = ""
         if self.dates is not None and pd.notna(self.dates.iloc[r]):
             date_tag = f"[t={self.dates.iloc[r].date()}] "
         joined = date_tag + joined
 
-        if len(joined) > self.max_chars:                    # 左截, 保最新
+        if len(joined) > self.max_chars:                    # truncate from the left, keep the latest
             joined = joined[-self.max_chars:]
             sp = joined.find(" ")
             if 0 < sp < 80:
@@ -653,11 +653,11 @@ class RealTextProvider:
         return joined
 
     def conf_for_row(self, r: int) -> float:
-        """[C1] 行 r 的 EMA 置信度 (clamp 到有效区间)。"""
+        """[C1] EMA confidence of row r (clamped to the valid range)."""
         r = int(min(max(r, 0), self.n_rows - 1))
         return float(self.row_conf[r])
 
-    # ── simple 编码器词表 (真实语料) ──
+    # ── Vocabulary of the simple encoder (real corpus) ──
     def _ensure_vocab(self):
         if self._word2idx is not None:
             return
@@ -681,7 +681,7 @@ class RealTextProvider:
                for t in self._TOKEN.findall(text.lower())][:L]
         return ids + [0] * (L - len(ids))
 
-    # ── 诊断 ──
+    # ── Diagnostics ──
     def coverage_report(self):
         n, info = self.n_rows, int(self.row_has_info.sum())
         lens = np.array([len(t) for t in self.row_text])
@@ -715,7 +715,7 @@ class RealTextProvider:
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 4 — DATA (60/20/20 切分, 返回 split 行偏移供文本对齐)
+# SECTION 4 — DATA (60/20/20 split; returns split row offsets for text alignment)
 # ══════════════════════════════════════════════════════════════
 
 class TimeSeriesDataset(Dataset):
@@ -736,7 +736,7 @@ class TimeSeriesDataset(Dataset):
 
 def auto_window(n_rows: int, seq_len: int, pred_len: int,
                 min_train: int = 20, min_test: int = 5):
-    """按数据长度自动收缩窗口, 保证各 split 有足够样本。"""
+    """Shrink windows automatically by data length so that every split has enough samples."""
     s, p = seq_len, pred_len
     while True:
         t_end = int(n_rows * 0.6)
@@ -758,9 +758,9 @@ def auto_window(n_rows: int, seq_len: int, pred_len: int,
 
 def load_real_data_mm(provider: RealTextProvider, seq_len: int, pred_len: int):
     """
-    与原 load_real_data 相同的 60/20/20 切分与 scaler 逻辑, 额外返回每个
-    split 的原始行偏移 offsets —— 窗口索引 w 的输入窗末行全局行号
-    = offsets[split] + w + seq_len - 1 (真实文本对齐的关键)。
+    Same 60/20/20 split and scaler logic as the original load_real_data, and additionally returns each
+    split's raw row offsets — the global row index of the last input row of window index w
+    = offsets[split] + w + seq_len - 1 (the key to aligning real text).
     """
     values = provider.numeric
     n = len(values)
@@ -790,7 +790,7 @@ _DEFAULT_LRS = dict(finetune_lr=1e-3, adapter_lr=1e-3,
 
 
 def ensure_settings(model_name: str, data_key: str, overrides=None):
-    """为新域向 settings 注入 lr 配置 (运行期注入, 不改 adapt_z.py)。 [O8]"""
+    """Inject the lr configuration for new domains into settings (injected at run time, adapt_z.py is not modified). [O8]"""
     tbl = settings.setdefault(model_name, {})
     if data_key not in tbl:
         src = tbl.get("traffic") or next(iter(tbl.values()), None)
@@ -808,8 +808,8 @@ def ensure_settings(model_name: str, data_key: str, overrides=None):
 
 def compute_offset_features(x):
     """
-    分布偏移统计特征 (B, 8): 供 MoE 门控感知 concept drift。
-    x 已被训练集 StandardScaler 归一化, 故训练分布 ≈ N(0,1)。
+    Distribution-shift statistics (B, 8): let the MoE gate perceive concept drift.
+    x is already normalized by the training-set StandardScaler, so the training distribution ≈ N(0,1).
     """
     B, L, N = x.shape
     flat = x.reshape(B, -1)
@@ -828,23 +828,23 @@ def compute_offset_features(x):
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 5 — TEXT ENCODERS (frozen LLM, pool/project 拆分以支持缓存 [O3])
+# SECTION 5 — TEXT ENCODERS (frozen LLM, pool/project split to support caching [O3])
 # ══════════════════════════════════════════════════════════════
 
-# SimpleTextEncoder / LLMTextEncoder 已抽取至 models/text_latent.py
-# (供 adapt_z_multimodal.py / GPT4MTS_z.py / VoT_z.py 三方共用), 此处仅在文件
-# 头部的 try 块内 `from models.text_latent import SimpleTextEncoder,
-# LLMTextEncoder` 引入同名符号，行为与原内联定义完全一致。
+# SimpleTextEncoder / LLMTextEncoder have been moved to models/text_latent.py
+# (shared by adapt_z_multimodal.py / GPT4MTS_z.py / VoT_z.py); here they are only imported, in the
+# try block at the top of the file, via `from models.text_latent import SimpleTextEncoder,
+# LLMTextEncoder`, under the same names; behaviour is identical to the original inline definitions.
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 6 — ADAPTERS (方法主体; [C2] 无任何文本统计/RevIN 分支)
-#   (a) AddFusionAdapter : 加性融合 (M1-M3)
-#   (b) IGSoftMoEFusionAdapter : 异构专家自适应融合 (M4-M5, ours)
+# SECTION 6 — ADAPTERS (the method itself; [C2] no text-statistics/RevIN branch at all)
+#   (a) AddFusionAdapter : additive fusion (M1-M3)
+#   (b) IGSoftMoEFusionAdapter : adaptive fusion of heterogeneous experts (M4-M5, ours)
 # ══════════════════════════════════════════════════════════════
 
 class AddFusionAdapter(nn.Module):
-    """加性融合适配器: h = h_feat + h_grad (+ h_text)。"""
+    """Additive fusion adapter: h = h_feat + h_grad (+ h_text)."""
     def __init__(self, d_model, z_shape, text_dim=64, hidden=64, dropout=0.0,
                  use_text=True, use_text_grad=True, device="cpu"):
         super().__init__()
@@ -852,7 +852,7 @@ class AddFusionAdapter(nn.Module):
         D_z = z_shape[-1]
         self.linear = nn.Linear(D_z, hidden)
         self.linear_ = nn.Linear(d_model, hidden)
-        # [O9] 直接按 (N, D) 构造, 语义同原 torch.ones(z_shape)[0]
+        # [O9] built directly as (N, D), same semantics as the original torch.ones(z_shape)[0]
         self.lr = nn.Parameter(torch.ones(z_shape[1:], dtype=torch.float32))
         self.drop = nn.Dropout(dropout)
         if use_text:
@@ -885,9 +885,9 @@ class AddFusionAdapter(nn.Module):
 
 def sparsemax(logits: torch.Tensor, dim: int = -1) -> torch.Tensor:
     """
-    sparsemax(z)_i = max(z_i - tau, 0), tau 使输出和为 1 (Martins & Astudillo 2016)。
-    与 softmax 不同, 可输出 **精确的 0**, 从而自适应关闭部分专家
-    —— 有效专家数由数据决定, 无需固定 top-k。
+    sparsemax(z)_i = max(z_i - tau, 0), with tau chosen so the outputs sum to 1 (Martins & Astudillo 2016).
+    Unlike softmax, it can output **exact zeros**, which adaptively switches off some experts
+    — the number of effective experts is decided by the data, with no fixed top-k.
     """
     z = logits - logits.max(dim=dim, keepdim=True).values
     z_sorted, _ = torch.sort(z, dim=dim, descending=True)
@@ -906,7 +906,7 @@ def sparsemax(logits: torch.Tensor, dim: int = -1) -> torch.Tensor:
 # ── heterogeneous experts (per-variate embedding axis D_z) ──
 
 class IdentityExpert(nn.Module):
-    """零初始化残差专家: 允许门控选择「不做修正」。"""
+    """Zero-initialized residual expert: lets the gate choose "no correction"."""
     def __init__(self, hidden, d_z):
         super().__init__()
         self.out = nn.Linear(hidden, d_z)
@@ -918,7 +918,7 @@ class IdentityExpert(nn.Module):
 
 
 class TrendExpert(nn.Module):
-    """低秩瓶颈 → 平滑趋势型修正。"""
+    """Low-rank bottleneck → smooth trend-type correction."""
     def __init__(self, hidden, d_z, rank=2):
         super().__init__()
         self.pre = nn.Linear(hidden, d_z)
@@ -930,7 +930,7 @@ class TrendExpert(nn.Module):
 
 
 class SeasonalityExpert(nn.Module):
-    """Fourier 低频模截断 → 周期型修正。"""
+    """Truncation to low Fourier modes → periodic correction."""
     def __init__(self, hidden, d_z, num_modes=8):
         super().__init__()
         self.d_z = d_z
@@ -949,7 +949,7 @@ class SeasonalityExpert(nn.Module):
 
 
 class FluctuationExpert(nn.Module):
-    """高通 + 最新 Z 梯度 → 误差驱动高频修正。"""
+    """High-pass + latest Z gradient → error-driven high-frequency correction."""
     def __init__(self, hidden, d_z):
         super().__init__()
         self.hp = nn.Linear(d_z, hidden)
@@ -963,7 +963,7 @@ class FluctuationExpert(nn.Module):
 
 
 class TextFiLMExpert(nn.Module):
-    """唯一持有文本通道的专家: 文本 → FiLM(γ, β) 调制特征。"""
+    """The only expert holding the text channel: text → FiLM(γ, β) modulation of the features."""
     def __init__(self, hidden, d_z, text_dim):
         super().__init__()
         self.film = nn.Linear(text_dim, hidden * 2)
@@ -977,33 +977,33 @@ class TextFiLMExpert(nn.Module):
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 6b — CLIP 式 TS-文本对比对齐 (简化版 VoT Endogenous Text
-# Alignment: 不做趋势/季节分解式对比, 直接对池化 TS 表征与文本表征做
-# 一次对称 InfoNCE, 强制两者进同一共享空间)
+# SECTION 6b — CLIP-style TS–text contrastive alignment (a simplified VoT Endogenous Text
+# Alignment: no trend/seasonal-decomposition contrast; a single symmetric InfoNCE directly on the pooled
+# TS representation and the text representation, forcing both into one shared space)
 # ══════════════════════════════════════════════════════════════
 
-# VICRegAlign (+ _dominant_period/_jump_score 辅助函数) 已抽取至
-# models/text_alignment.py (同一文件里新增了 VoT_z 用的
-# MultiComponentVICRegAlign 完整版对齐), 此处经文件头部 try 块内
-# `from models.text_alignment import VICRegAlign` 引入同名符号。
+# VICRegAlign (+ the helper functions _dominant_period/_jump_score) has been moved to
+# models/text_alignment.py (the same file also adds the full
+# MultiComponentVICRegAlign alignment used by VoT_z); here it is imported under the same name via
+# `from models.text_alignment import VICRegAlign` in the try block at the top of the file.
 
 
 class IGSoftMoEFusionAdapter(nn.Module):
     """
-    Importance-Gated Soft MoE (IG-SMoE) 融合适配器 —— 本文核心创新。
-    相对固定 top-k 的 MoEFusionAdapter:
-      · 移除所有固定 k / top-k 限制, 全专家软融合;
-      · 门控 g(·) 接收 [per-variate 特征 + 池化 pooled_x + pooled_text +
-        his_grad 统计 + offset 分布偏移], 复用 O2/O3/O4/O5 缓存与快照;
-      · s = g(...) + α·grad_modulation;  w = softmax(s/τ) 或 sparsemax(s);
-      · z_fused = Σ_i w_i·Expert_i  (加权求和, 权重即重要性);
-      · 自适应有效专家数 N_eff = 1/Σ_i w_i²  → self.eff_experts;
-      · 辅助损失 (与旧版「负载均衡·鼓励均匀」相反, 现在鼓励 **决断**):
-          aux_mode='entropy': L_aux = λ·H(w)  (负熵)
+    Importance-Gated Soft MoE (IG-SMoE) fusion adapter — the core contribution of this work.
+    Compared with the fixed top-k MoEFusionAdapter:
+      · removes every fixed k / top-k restriction; all experts are fused softly;
+      · the gate g(·) takes [per-variate features + pooled_x + pooled_text +
+        his_grad statistics + offset distribution shift], reusing the O2/O3/O4/O5 caches and snapshots;
+      · s = g(...) + α·grad_modulation;  w = softmax(s/τ) or sparsemax(s);
+      · z_fused = Σ_i w_i·Expert_i  (weighted sum; the weights are the importances);
+      · adaptive number of effective experts N_eff = 1/Σ_i w_i²  → self.eff_experts;
+      · auxiliary loss (the opposite of the old "load balancing, encourage uniformity"; it now encourages **decisiveness**):
+          aux_mode='entropy': L_aux = λ·H(w)  (negative entropy)
           aux_mode='l2'     : L_aux = -λ·Σw²
           aux_mode='none'   : 0
-    [C1] 文本置信度不进入本模块 —— 调用方已用 emb*conf 完成软门控,
-         适配器对「弱文本」的响应自然衰减, 无需额外逻辑。
+    [C1] text confidence does not enter this module — the caller has already soft-gated with emb*conf,
+         so the adapter's response to "weak text" decays naturally, with no extra logic needed.
     """
 
     def __init__(self, d_model, z_shape, text_dim=64, hidden=64,
@@ -1040,18 +1040,18 @@ class IGSoftMoEFusionAdapter(nn.Module):
         ])
         self.num_experts = len(self.experts)
 
-        # 重要性门控 g(pooled_x, pooled_text, his_grad_stats, offset)
+        # Importance gate g(pooled_x, pooled_text, his_grad_stats, offset)
         self.offset_norm = nn.LayerNorm(offset_dim)
-        self.gate_f = nn.Linear(D_z, hidden)  # per-variate 局部特征
-        self.gate_p = nn.Linear(D_z, hidden)  # pooled_x 全局特征
-        self.gate_g = nn.Linear(d_model, hidden)  # his_grad 统计
+        self.gate_f = nn.Linear(D_z, hidden)  # per-variate local features
+        self.gate_p = nn.Linear(D_z, hidden)  # pooled_x global features
+        self.gate_g = nn.Linear(d_model, hidden)  # his_grad statistics
         self.gate_t = nn.Linear(text_dim, hidden)  # pooled_text
-        self.gate_o = nn.Linear(offset_dim, hidden)  # 分布偏移 (concept drift)
+        self.gate_o = nn.Linear(offset_dim, hidden)  # distribution shift (concept drift)
         self.gate_net = nn.Sequential(
             nn.Linear(hidden * 5, hidden), nn.ReLU(),
             nn.Linear(hidden, self.num_experts))
 
-        # grad_modulation: 双梯度方向直接调制门控 logits
+        # grad_modulation: the dual-gradient direction directly modulates the gate logits
         self.grad_mod_z = nn.Linear(d_model, self.num_experts)
         self.grad_mod_t = nn.Linear(text_dim, self.num_experts)
         self.alpha = nn.Parameter(torch.tensor(0.1))
@@ -1092,7 +1092,7 @@ class IGSoftMoEFusionAdapter(nn.Module):
         outs = [e(h, feature, g_h, txt_mod, f_h) for e in self.experts]
         experts = torch.stack(outs, dim=2)  # (B,N,E,D_z)
 
-        # ── 重要性门控 (无 top-k) ──
+        # ── Importance gate (no top-k) ──
         pooled_x = feature.mean(dim=1, keepdim=True).expand(-1, N, -1)
         o_exp = self.offset_norm(offset_feat).unsqueeze(1).expand(-1, N, -1)
         gate_h = torch.cat([
@@ -1108,7 +1108,7 @@ class IGSoftMoEFusionAdapter(nn.Module):
         if self.use_text_grad and his_text_grad is not None:
             grad_bias = grad_bias + self.grad_mod_t(
                 his_text_grad.unsqueeze(0).expand(B, -1))
-        s = s + self.alpha * grad_bias.unsqueeze(1)  # 广播 (B,1,E)
+        s = s + self.alpha * grad_bias.unsqueeze(1)  # broadcast (B,1,E)
 
         w = self._activate(s)  # (B,N,E)
         self.last_gate = w.detach()
@@ -1128,16 +1128,16 @@ class IGSoftMoEFusionAdapter(nn.Module):
 
 
 def _position_candidates(backbone, e_layers):
-    """PosGate (iAdapter 多位置自适应融合) 的候选注入层集合 (排序去重)。
+    """Set of candidate injection layers for PosGate (iAdapter multi-position adaptive fusion), sorted and deduplicated.
 
-    SOFTS 的 encoder 层数在 models/SOFTS_z.py::Model.__init__ 里硬编码为 3
-    (与传入的 e_layers 无关)，故单独取 3；其余支持 PosGate 的 backbone
-    (iTransformer/Transformer/TimesNet) 用实际 e_layers。取 {首层, 中间层,
-    末层} 三个位置, e_layers<=2 时集合去重后自然退化为 1~2 个位置。
+    The number of SOFTS encoder layers is hard-coded to 3 in models/SOFTS_z.py::Model.__init__
+    (independent of the e_layers passed in), so 3 is used for it; the other backbones that support PosGate
+    (iTransformer/Transformer/TimesNet) use the actual e_layers. Three positions are taken: {first layer, middle layer,
+    last layer}; when e_layers<=2 the set naturally reduces to 1–2 positions after deduplication.
 
-    VoT_z 不是按层数索引 (它只有一条冻结 GPT2 主干, 没有可逐层注入的
-    encoder stack)，而是 models/VoT_z.py 里 4 个 shape 兼容的候选注入点
-    (POS_TREND/POS_SEASONAL/POS_PRE_GPT2/POS_POST_GPT2)，固定返回全部 4 个。
+    VoT_z is not indexed by layer (it has a single frozen GPT2 trunk and no layer-by-layer injectable
+    encoder stack); instead it has 4 shape-compatible candidate injection points in models/VoT_z.py
+    (POS_TREND/POS_SEASONAL/POS_PRE_GPT2/POS_POST_GPT2), and all 4 are always returned.
     """
     if backbone == "VoT_z":
         return [1, 2, 3, 4]
@@ -1147,31 +1147,31 @@ def _position_candidates(backbone, e_layers):
 
 
 class PositionAdaptiveMoEFusionAdapter(nn.Module):
-    """iAdapter 的"多位置自适应融合"优化 (方案设计决策 6)。
+    """The "multi-position adaptive fusion" optimization of iAdapter (design decision 6).
 
-    背景: 现有各 backbone 只在当前配置的单一 z_loc 处暴露一份 feature 快照
-    (没有为每层单独暴露 hidden state 的接口)，因此本模块不是"每层独立算一份
-    修正"，而是"用同一份信号做多点自适应选择"：
-      1. 复用 IGSoftMoEFusionAdapter (`self.base`) 在这唯一的 feature 快照上
-         算出一个基础修正 z_base = Σ_i w_i·Expert_i (B,N,D_z);
-      2. 额外一个位置门控网络 gate = sigmoid(GateNet(pooled_feature,
-         text_emb)) (B, len(positions))，每个位置独立判断"要不要在这里
-         注入、注入多少" (∈[0,1]，互不挤占彼此的预算);
-      3. forward 返回 {layer_idx: gate[:,i]·z_base}，交由 backbone 在
-         `isinstance(z, dict)` 分支里对各命中层分别加性注入 (未命中的层不
-         加任何修正)。
+    Background: each existing backbone exposes only one feature snapshot, at the single configured z_loc
+    (there is no interface exposing a hidden state per layer), so this module does not "compute a separate
+    correction per layer"; it "uses the same signal for adaptive selection at several points":
+      1. reuse IGSoftMoEFusionAdapter (`self.base`) on this single feature snapshot
+         to compute one base correction z_base = Σ_i w_i·Expert_i (B,N,D_z);
+      2. an extra position-gate network gate = sigmoid(GateNet(pooled_feature,
+         text_emb)) (B, len(positions)); each position decides independently "whether to inject
+         here and how much" (∈[0,1], without competing for a shared budget);
+      3. forward returns {layer_idx: gate[:,i]·z_base}, and the backbone, in its
+         `isinstance(z, dict)` branch, additively injects it into each matching layer (layers that do not match
+         receive no correction).
 
-    [FIX] 之前 gate 用 softmax (len(positions) 个位置的权重和恒为 1)，
-    等价于把 z_base 这一份修正强度按位置数摊薄 (3 个候选位置时每处只剩
-    ~1/3 强度)，而单位置注入的 iAdapter (fusion="moe") 在其唯一注入点是
-    满强度的 z_base——这是 PosGate 消融里越自适应越弱的直接原因，不是
-    "自适应选位置"本身的锅。改成各位置独立 sigmoid 后，gate 初始化在
-    ~0.5 附近 (而非被迫摊薄到 ~1/N)，且允许多个位置同时逼近满强度 1.0，
-    训练目标才是纯粹的"这个位置该不该修正"而不是"预算怎么分"。
+    [FIX] Previously the gate used softmax (the weights of the len(positions) positions always summed to 1),
+    which is equivalent to spreading the strength of the single z_base correction over the positions (with 3 candidate positions each
+    gets only ~1/3 of the strength), whereas the single-position iAdapter (fusion="moe") injects
+    z_base at full strength at its only injection point — this is the direct reason why, in the PosGate ablation, more adaptivity meant weaker results, not
+    a fault of "adaptive position selection" itself. After switching to an independent sigmoid per position, the gate is initialized at
+    ~0.5 (instead of being forced down to ~1/N), and several positions may approach full strength 1.0 at the same time,
+    so the training objective is purely "should this position correct or not" rather than "how to split the budget".
 
-    `last_gate`/`aux_loss` 透传自 `self.base` (专家门控/决断辅助损失)，
-    保持与 IGSoftMoEFusionAdapter 相同的下游读取契约 (OnlineMM.online() 里
-    `getattr(self.adapter, "last_gate", None)` 用于 gate_history 记录)。
+    `last_gate`/`aux_loss` are passed through from `self.base` (expert gate / decisiveness auxiliary loss),
+    keeping the same downstream reading contract as IGSoftMoEFusionAdapter (in OnlineMM.online(),
+    `getattr(self.adapter, "last_gate", None)` is used for the gate_history record).
     """
 
     def __init__(self, d_model, z_shape, positions, text_dim=64, hidden=64,
@@ -1217,10 +1217,10 @@ class PositionAdaptiveMoEFusionAdapter(nn.Module):
         txt = (text_emb if text_emb is not None
               else torch.zeros(B, self.text_dim, device=device))
         pooled = feature.mean(dim=1)                        # (B, D_z)
-        # [FIX] 每个位置独立 sigmoid ∈[0,1]，而非跨位置 softmax (和恒为1)。
-        # softmax 会把 z_base 按位置数强制摊薄 (len(positions) 处平均权重
-        # 仅 1/len(positions))，导致"自适应位置"永远比单点满强度注入的
-        # iAdapter 弱；sigmoid 让每个位置独立决定注入强度，可同时逼近 1.0。
+        # [FIX] independent sigmoid per position ∈[0,1], instead of a softmax across positions (summing to 1).
+        # softmax forcibly spreads z_base over the number of positions (average weight per position
+        # only 1/len(positions)), so "adaptive positions" were always weaker than the single-point, full-strength
+        # iAdapter; sigmoid lets each position decide its injection strength independently, and several can approach 1.0 at once.
         gate = torch.sigmoid(
             self.pos_gate_net(torch.cat([pooled, txt], dim=-1))
         )                                                    # (B, len(positions))
@@ -1231,40 +1231,40 @@ class PositionAdaptiveMoEFusionAdapter(nn.Module):
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 7 — ONLINE MULTIMODAL ADAPTATION (iAdapter, 优化版 OnlineMM)
+# SECTION 7 — ONLINE MULTIMODAL ADAPTATION (iAdapter, optimized OnlineMM)
 # ══════════════════════════════════════════════════════════════
 
 class OnlineMM:
     """
-    多模态在线预测 (真实文本原生版)。
+    Multimodal online forecasting (native real-text version).
 
-    关键设计 (方法不变):
-      · update_backbone=False (默认) —— 骨干与投影头在线阶段不更新,
-        适应完全来自专家自适应融合适配器, 与「在线微调」严格区分;
-      · 双梯度反馈: his_grad = ∂L/∂z, his_text_grad = ∂L/∂text_emb;
-      · few-shot 抗过拟合: dropout / weight_decay / grad clip / patience。
+    Key design (method unchanged):
+      · update_backbone=False (default) — the backbone and projection head are not updated online;
+        adaptation comes entirely from the adaptive expert-fusion adapter, strictly distinct from "online fine-tuning";
+      · dual-gradient feedback: his_grad = ∂L/∂z, his_text_grad = ∂L/∂text_emb;
+      · few-shot anti-overfitting: dropout / weight_decay / grad clip / patience.
 
-    本版变化:
-      [C1] _encode_text 返回 (emb, conf) 二元组, conf 为 provider 的
-           EMA 置信度 (B,1); 所有调用点以 emb*conf 软门控进入适配器与
-           文本梯度通路 —— 平滑取代硬 0/1 屏蔽。
-      [C2] 无文本统计分支: 文本不直接平移/缩放输出分布。
-      [C3] self.reslog (可选 ResonanceLogger): online 主循环逐 batch
-           记录文本能量与反事实 |Δpred|, 供共振可视化; 默认 None 零开销。
-      [C4] self.clip_align (可选 VICRegAlign): 不变性/方差/协方差三项
-           损失对齐池化 TS 表征与文本表征 (替换原 CLIP 式对称 InfoNCE,
-           负样本全部相似时不再梯度消失), 拼进主 loss (self.clip_weight,
-           按批内文本方差自适应, 见 _adaptive_clip_weight); self.embed_log
-           (可选 EmbedAlignLogger) 收集共享空间向量供
-           plot_clip_alignment_space 可视化; 均默认启用但零额外前向开销
-           (复用已算出的 feature/text_emb)。
+    Changes in this version:
+      [C1] _encode_text returns an (emb, conf) pair, where conf is the provider's
+           EMA confidence (B,1); every call site soft-gates with emb*conf before entering the adapter and the
+           text-gradient path — a smooth replacement for a hard 0/1 mask.
+      [C2] no text-statistics branch: text does not directly shift/scale the output distribution.
+      [C3] self.reslog (optional ResonanceLogger): the online main loop records, per batch,
+           text energy and counterfactual |Δpred| for resonance visualization; default None, zero overhead.
+      [C4] self.clip_align (optional VICRegAlign): invariance/variance/covariance three-term
+           loss aligning the pooled TS representation with the text representation (replaces the original CLIP-style symmetric InfoNCE,
+           whose gradient vanished when all negatives were similar), added to the main loss (self.clip_weight,
+           adapted to the in-batch text variance, see _adaptive_clip_weight); self.embed_log
+           (optional EmbedAlignLogger) collects shared-space vectors for the
+           plot_clip_alignment_space visualization; both enabled by default with zero extra forward cost
+           (they reuse the already computed feature/text_emb).
 
-    实现优化 (见文件头 [O1]-[O6]):
-      · 两处梯度反馈均改 torch.autograd.grad —— 不污染参数梯度,
-        无 retain_graph, his_grad 不再无界累加 (--his_mode 可选);
-      · 特征提取前向包 no_grad (adapter 参数梯度不依赖 feature 的图);
-      · 冻结 LLM 池化按全局行号缓存, 跨消融模式共享;
-      · 缓冲区只存所需批数 + his 快照 (N,D), 文本索引与数值切片严格对齐。
+    Implementation optimizations (see [O1]-[O6] at the top of the file):
+      · both gradient feedbacks now use torch.autograd.grad — no pollution of parameter gradients,
+        no retain_graph, and his_grad no longer accumulates without bound (--his_mode selectable);
+      · the feature-extraction forward is wrapped in no_grad (adapter parameter gradients do not depend on the feature graph);
+      · frozen LLM pooling is cached by global row index and shared across ablation modes;
+      · the buffer stores only the needed number of batches + his snapshots (N,D); text indices are strictly aligned with numeric slices.
     """
 
     def __init__(self, backbone, d_model, args,
@@ -1282,11 +1282,11 @@ class OnlineMM:
                  use_clip_align=True, clip_dim=64, clip_weight=0.1):
 
         self.backbone = backbone
-        # GPT4MTS_z/VoT_z 等 backbone 直接消费 text_emb (USES_TEXT=True)，
-        # 与外部 use_text (是否让 IGSoftMoEFusionAdapter/AddFusionAdapter
-        # 也用文本) 是两件独立的事——即便外部 use_text=False (见
-        # default_modes_for_backbone)，仍需构造 text_enc/取 (text_emb,conf)
-        # 喂给 backbone。
+        # Backbones such as GPT4MTS_z/VoT_z consume text_emb directly (USES_TEXT=True),
+        # which is independent of the external use_text (whether IGSoftMoEFusionAdapter/AddFusionAdapter
+        # also use text) — even when the external use_text=False (see
+        # default_modes_for_backbone), text_enc must still be built and (text_emb, conf) obtained
+        # to feed the backbone.
         self.backbone_uses_text = getattr(backbone, "USES_TEXT", False)
         self.args = args
         self.device = args.device
@@ -1319,15 +1319,15 @@ class OnlineMM:
                 use_text=use_text, use_text_grad=use_text_grad,
                 device=self.device).to(self.device)
         elif fusion == "moe_pos":
-            # iAdapter+PosGate (优化): 需要 backbone 支持 dict-z 多位置注入
+            # iAdapter+PosGate (optimization): requires a backbone that supports multi-position dict-z injection
             # (ITransformerZ/TransformerZ/TimesNet_z/SOFTS_z/VoT_z); PatchTST/
-            # GPT4MTS_z 按方案设计决策 7 明确排除，不支持时快速失败。
+            # GPT4MTS_z is explicitly excluded by design decision 7; fail fast when unsupported.
             if not getattr(backbone, "SUPPORTS_POS_GATE", False):
                 raise ValueError(
-                    f"fusion='moe_pos' (iAdapter+PosGate) 要求 backbone 支持 "
-                    f"多位置 dict-z 注入，当前 backbone="
-                    f"{type(backbone).__name__} 不支持 (PatchTST/GPT4MTS_z "
-                    f"按设计明确排除，见方案设计决策 7)。")
+                    f"fusion='moe_pos' (iAdapter+PosGate) requires a backbone that supports "
+                    f"multi-position dict-z injection; the current backbone="
+                    f"{type(backbone).__name__} does not (PatchTST/GPT4MTS_z "
+                    f"are explicitly excluded by design; see design decision 7).")
             positions = getattr(args, "pos_candidates", None) or [args.z_loc]
             self.adapter = PositionAdaptiveMoEFusionAdapter(
                 d_model=d_model, z_shape=args.z_shape, positions=positions,
@@ -1343,7 +1343,7 @@ class OnlineMM:
                 use_text_grad=use_text_grad,
                 device=self.device).to(self.device)
 
-        # ── 文本编码器 (真实文本; simple 用 provider 真实语料词表) [O1] ──
+        # ── Text encoder (real text; simple uses the provider's real-corpus vocabulary) [O1] ──
         self.text_enc = None
         self._cache_key = None
         if use_text or self.backbone_uses_text:
@@ -1360,9 +1360,9 @@ class OnlineMM:
                     device=self.device).to(self.device)
                 self._cache_key = ("pooled", text_encoder_type, llm_layers)
 
-        # ── VICReg 式 TS-文本对齐 (不变性+方差+协方差三项损失, 替换原 CLIP
-        #    式对称 InfoNCE —— 冻结 LLM 池化向量普遍高度聚集, InfoNCE 负样本
-        #    全部相似时梯度消失, VICReg 的方差项直接阻止坍塌) ──
+        # ── VICReg-style TS–text alignment (invariance + variance + covariance three-term loss, replacing the original CLIP-
+        #    style symmetric InfoNCE — frozen LLM pooled vectors are generally highly clustered, so InfoNCE gradients vanish
+        #    when all negatives are similar, while the VICReg variance term directly prevents collapse) ──
         self.clip_weight = clip_weight
         self.clip_align = (VICRegAlign(d_z=d_model, text_dim=text_dim,
                                        d_clip=clip_dim,
@@ -1379,28 +1379,28 @@ class OnlineMM:
         self._settings_data = args.data.lower()
         self.text_dim = text_dim
 
-        # [C3] 共振日志钩子 (finetune_mm 对 M5 挂载 ResonanceLogger)
+        # [C3] resonance-logging hook (finetune_mm attaches a ResonanceLogger to M5)
         self.reslog = None
-        # CLIP 对齐语义空间可视化钩子 (finetune_mm 对 clip_align 模式挂载)
+        # CLIP-alignment semantic-space visualization hook (finetune_mm attaches it in clip_align modes)
         self.embed_log = None
 
-        # 训练痕迹, 供可视化
+        # training traces, for visualization
         self.gate_history = []
         self.text_grad_history = []
 
     # ── helpers ──────────────────────────────────────────────
 
     def _rows_of_windows(self, window_idxs):
-        """窗口起点索引 -> 输入窗末行全局行号 (clamp 到有效区间)。 [O1]"""
+        """Window start index -> global row index of the last input row (clamped to the valid range). [O1]"""
         last = self.provider.n_rows - 1
         s = self.args.seq_len - 1
         return [min(max(self._cur_offset + int(w) + s, 0), last)
                 for w in window_idxs]
 
     def _dup_text_mask(self, rows):
-        """rows 里两两文本内容相同 -> (B,B) bool mask (True=重复)。
-        沿用自 CLIPAlign 时代的负样本互斥掩码, VICRegAlign 不做负样本
-        对比, 现仅作为兼容形参透传 (dup_mask 未被 VICRegAlign 使用)。"""
+        """Rows whose text contents are pairwise identical -> (B,B) bool mask (True = duplicate).
+        Inherited from the CLIPAlign era as a mutual-exclusion mask for negatives; VICRegAlign does no negative
+        contrast, so it is now only passed through as a compatibility argument (dup_mask is not used by VICRegAlign)."""
         texts = [self.provider.text_for_row(r) for r in rows]
         B = len(texts)
         mask = torch.zeros(B, B, dtype=torch.bool, device=self.device)
@@ -1412,20 +1412,20 @@ class OnlineMM:
 
     def _adaptive_clip_weight(self, text_emb: torch.Tensor,
                               base_weight: float = 0.1) -> float:
-        """检测批内文本嵌入方差, 动态调节 VICReg 对齐权重。
-        方差越低 (坍塌越严重) → 权重越大, 越努力撑开; 正常运行时权重
-        稳定在 base_weight 附近, 不干扰主任务损失。
-        经验阈值: var < 0.05 视为坍塌; 正常训练约 0.3-1.0。"""
+        """Measure the in-batch text-embedding variance and adjust the VICReg alignment weight dynamically.
+        The lower the variance (the worse the collapse) → the larger the weight, pushing harder to spread out; in normal operation the weight
+        stays near base_weight and does not interfere with the main task loss.
+        Empirical threshold: var < 0.05 counts as collapse; normal training is about 0.3-1.0."""
         with torch.no_grad():
             var = text_emb.var(dim=0).mean().item()
         collapse_signal = max(0.0, 1.0 - var / 0.3)
-        return base_weight * (1.0 + 4.0 * collapse_signal)  # 最高 5× 基础权重
+        return base_weight * (1.0 + 4.0 * collapse_signal)  # at most 5× the base weight
 
     def _encode_text(self, window_idxs):
-        """真实文本 -> (emb, conf); 冻结部分按全局行号缓存 [O3]。
-        [C1] conf: provider 的 EMA 置信度张量 (B,1)。调用方以 emb*conf
-        软门控 —— 无信息期指数衰减而非硬置零, 有信息期平滑爬升。
-        无文本模式统一返回 (None, None)。"""
+        """Real text -> (emb, conf); the frozen part is cached by global row index [O3].
+        [C1] conf: the provider's EMA confidence tensor (B,1). The caller soft-gates with emb*conf
+        — exponential decay during uninformative periods instead of hard zeroing, smooth rise during informative ones.
+        Modes without text always return (None, None)."""
         if not (self.use_text or self.backbone_uses_text) or self.text_enc is None:
             return None, None
         rows = self._rows_of_windows(window_idxs)
@@ -1443,7 +1443,7 @@ class OnlineMM:
                     cache[r] = pooled[i].detach()
             stacked = torch.stack([cache[r] for r in rows]).to(self.device)
             return self.text_enc.project(stacked), conf
-        # simple: 缓存 token ids
+        # simple: cache token ids
         for r in dict.fromkeys(rows):
             if r not in cache:
                 cache[r] = self.provider.tokenize(
@@ -1453,7 +1453,7 @@ class OnlineMM:
         return self.text_enc(ids), conf
 
     def _update_his(self, his, g):
-        """[O2] his_grad 更新: ema (默认) / latest / sum (旧行为, 无界)。"""
+        """[O2] his_grad update: ema (default) / latest / sum (old behaviour, unbounded)."""
         if g is None:
             return his
         if self.his_mode == "sum":
@@ -1463,19 +1463,19 @@ class OnlineMM:
         return self.his_momentum * his + (1.0 - self.his_momentum) * g
 
     def _bb_call(self, x, z, z_loc, text_emb=None, text_conf=None):
-        """统一的 backbone 前向调用: USES_TEXT=True 的 backbone (GPT4MTS_z/
-        VoT_z) 额外接收 (text_emb, text_conf) 直接消费, 其余 backbone 保持
-        原有 (x, z=, z_loc=) 调用不变。text_emb/text_conf 传 None 时 (例如
-        _z_grad 的纯 z 梯度探测, 不涉及文本) 等价于关闭 prompt 分支, 不影响
-        原有语义。"""
+        """Unified backbone forward call: backbones with USES_TEXT=True (GPT4MTS_z/
+        VoT_z) additionally receive (text_emb, text_conf) and consume them directly; other backbones keep
+        the original (x, z=, z_loc=) call unchanged. Passing None for text_emb/text_conf (e.g. in
+        _z_grad's pure z-gradient probe, which involves no text) is equivalent to turning off the prompt branch and does not affect
+        the original semantics."""
         if self.backbone_uses_text:
             return self.backbone(x, z=z, z_loc=z_loc,
                                  text_emb=text_emb, text_conf=text_conf)
         return self.backbone(x, z=z, z_loc=z_loc)
 
     def _z_grad(self, x_b, y_b):
-        """[O2] ∂L/∂z via autograd.grad: 不累加、不污染参数、无 retain_graph。
-        返回 (grad(N,D)|None, feature.detach())。"""
+        """[O2] ∂L/∂z via autograd.grad: no accumulation, no pollution of parameters, no retain_graph.
+        Returns (grad(N,D)|None, feature.detach())."""
         out = self._bb_call(x_b, self.z, self.args.z_loc)
         loss = self.loss_func(out["pred"], y_b)
         gz = torch.autograd.grad(loss, self.z, allow_unused=True)[0]
@@ -1484,9 +1484,9 @@ class OnlineMM:
 
     def _compute_text_grad(self, x_b, y_b, feature_b, his_grad, text_emb,
                            his_text_grad=None, offset_b=None):
-        """[O2] ∂L/∂text_emb via autograd.grad (调制上下文与推理一致)。
-        [C1] 入参 text_emb 已由调用方乘过 EMA 置信度 —— 梯度量级随
-        conf 自然缩放, 低置信期反馈更弱, 无需额外门控。"""
+        """[O2] ∂L/∂text_emb via autograd.grad (modulation context identical to inference).
+        [C1] the text_emb argument has already been multiplied by the EMA confidence by the caller — the gradient magnitude
+        scales naturally with conf, so feedback is weaker in low-confidence periods, with no extra gating needed."""
         txt = text_emb.detach().clone().requires_grad_(True)
         z = self.adapter(feature_b, his_grad, txt, his_text_grad, offset_b)
         out = self._bb_call(x_b, z, self.args.z_loc, txt)
@@ -1501,7 +1501,7 @@ class OnlineMM:
                 if self.fusion in ("moe", "moe_pos") else None)
 
     def _keep_batches(self):
-        """[O4] 缓冲区所需批数: 切片只用最近 pred_len+batch 行。"""
+        """[O4] number of batches the buffer needs: slices only use the most recent pred_len+batch rows."""
         need = self.args.pred_len + self.args.batch_size
         return int(math.ceil(need / self.args.batch_size)) + 1
 
@@ -1510,7 +1510,7 @@ class OnlineMM:
         return np.concatenate(arrs, axis=0)[sl]
 
     def _buf_text_windows(self, global_idx, Bb):
-        """[O5] 缓冲区样本的精确窗口索引: 末行=global_idx-1, 回退 pred 后取 Bb 个。"""
+        """[O5] exact window indices of the buffer samples: last row = global_idx-1, step back pred, then take Bb of them."""
         b0 = max(0, global_idx - self.args.pred_len - Bb)
         return range(b0, b0 + Bb)
 
@@ -1525,7 +1525,7 @@ class OnlineMM:
         wd = self._weight_decay
         all_params = self._adapter_params + self._text_params
         self.optimizer = optim.Adam(all_params, lr=adp_lr, weight_decay=wd)
-        self.optimizer2 = (optim.Adam(                      # [O6] 仅 train 需要
+        self.optimizer2 = (optim.Adam(                      # [O6] only needed for train
             self.backbone.parameters(),
             lr=settings[self.args.backbone][self._settings_data]["online_lr"],
             weight_decay=wd) if mode == "train" else None)
@@ -1549,7 +1549,7 @@ class OnlineMM:
                            if text_emb is not None else None)   # [C1]
             offset = self._offset(x)
 
-            with torch.no_grad():                           # [O2] 特征提取免建图
+            with torch.no_grad():                           # [O2] feature extraction builds no graph
                 feat = self._bb_call(x, self.z, self.args.z_loc,
                                      text_emb, text_conf)["feature"]
             z = self.adapter(feat, his_grad, text_emb_in, his_text_grad, offset)
@@ -1581,7 +1581,7 @@ class OnlineMM:
             if self.optimizer2:
                 self.optimizer2.step()
             else:
-                self.backbone.zero_grad(set_to_none=True)      # 清理无主梯度
+                self.backbone.zero_grad(set_to_none=True)      # clear orphaned gradients
 
             if len(x_list) > keep:                          # [O4]
                 x_list = x_list[-keep:]
@@ -1607,9 +1607,9 @@ class OnlineMM:
                             emb_buf * conf_buf,              # [C1]
                             his_text_grad, self._offset(x_b))
 
-                # VoT_z Historical In-Context 记忆写入: 必须用延迟 pred_len 步
-                # 的窗口 (与上面 his_grad 的严格在线协议一致), 否则 stride=1
-                # 滑窗下当前 y 会直接泄漏进下个窗口立刻被检索到。
+                # VoT_z Historical In-Context memory write: must use the window delayed by pred_len steps
+                # (consistent with the strict online protocol of his_grad above); otherwise, with a stride-1
+                # sliding window, the current y would leak directly into the next window and be retrieved immediately.
                 if hasattr(self.backbone, "update_memory"):
                     mem_emb, _ = self._encode_text(
                         self._buf_text_windows(global_idx, x_b.size(0)))
@@ -1652,11 +1652,11 @@ class OnlineMM:
         his_grad = torch.zeros(self.args.z_shape[1:], device=self.device)
         his_text_grad = (torch.zeros(self.text_dim, device=self.device)
                          if self.use_text else None)
-        z0 = torch.zeros(self.args.z_shape, device=self.device)   # [O4] 复用
+        z0 = torch.zeros(self.args.z_shape, device=self.device)   # [O4] reused
 
         preds, truths = [], []
-        x_list, feat_list = [], []                 # 滚动缓冲 (np)
-        snap_list, cnt_list = [], []               # [O4] his 快照 (N,D) + 行数
+        x_list, feat_list = [], []                 # rolling buffer (np)
+        snap_list, cnt_list = [], []               # [O4] his snapshots (N,D) + row counts
         self.gate_history, self.text_grad_history = [], []
         keep = self._keep_batches()
         global_idx = 0
@@ -1689,8 +1689,8 @@ class OnlineMM:
                 self.gate_history.append(
                     lg.mean(dim=tuple(range(lg.dim() - 1))).cpu().numpy())
 
-            # [C3] 共振日志: 必须放在 gate_history 之后 —— 日志内部的
-            # 反事实前向会再次调用 adapter, 覆盖 last_gate / aux_loss。
+            # [C3] resonance logging: must come after gate_history — the logger's internal
+            # counterfactual forward calls the adapter again and overwrites last_gate / aux_loss.
             if self.reslog is not None:
                 self.reslog.on_step(
                     mm=self, x=x, y=y, pred=pred,
@@ -1714,18 +1714,18 @@ class OnlineMM:
                     self._buffer_slice(truths[-keep:], sl)).to(self.device)
                 ft_b = torch.from_numpy(
                     self._buffer_slice(feat_list, sl)).to(self.device)
-                # [O4] 快照按行展开后取切片均值 == 原 hg_b.mean(dim=0)
+                # [O4] expanding the snapshots per row and averaging the slice == the original hg_b.mean(dim=0)
                 hg_rows = np.repeat(np.stack(snap_list, 0),
                                     cnt_list, axis=0)[sl]
                 hg_mean = torch.from_numpy(
                     hg_rows.mean(axis=0)).to(self.device)
                 offset_b = self._offset(x_b)
 
-                # ── 梯度反馈 1: ∂L/∂z (autograd.grad, 无累加/污染) [O2] ──
+                # ── Gradient feedback 1: ∂L/∂z (autograd.grad, no accumulation/pollution) [O2] ──
                 gz, _ = self._z_grad(x_b, y_b)
                 his_grad = self._update_his(his_grad, gz)
 
-                # ── 梯度反馈 2: ∂L/∂text_emb (精确缓冲索引 [O5]) ──
+                # ── Gradient feedback 2: ∂L/∂text_emb (exact buffer indices [O5]) ──
                 emb_buf_in = None
                 emb_buf = conf_buf = None
                 clip_loss = ft_b.new_zeros(())
@@ -1735,10 +1735,10 @@ class OnlineMM:
                         global_idx, x_b.size(0))
                     emb_buf, conf_buf = self._encode_text(buf_window_idxs)
                     if emb_buf is not None:
-                        # VoT_z Historical In-Context 记忆写入: 延迟 pred_len
-                        # 步的窗口 (与下面 his_grad/his_text_grad 的严格在线
-                        # 协议一致), 否则 stride=1 滑窗下当前 y 会直接泄漏
-                        # 进下个窗口立刻被检索到。
+                        # VoT_z Historical In-Context memory write: window delayed by pred_len
+                        # steps (consistent with the strict online protocol of his_grad/his_text_grad below);
+                        # otherwise, with a stride-1 sliding window, the current y would leak directly
+                        # into the next window and be retrieved immediately.
                         if hasattr(self.backbone, "update_memory"):
                             self.backbone.update_memory(emb_buf, y_b)
                         emb_buf_in = emb_buf * conf_buf      # [C1]
@@ -1759,7 +1759,7 @@ class OnlineMM:
                             self.embed_log.on_step(
                                 self, ft_b, emb_buf, x_b, buf_rows)
 
-                # ── 适配器 (专家融合) 更新 —— 骨干默认不动 ──
+                # ── Adapter (expert fusion) update — the backbone is untouched by default ──
                 z_up = self.adapter(ft_b, hg_mean, emb_buf_in,
                                     his_text_grad, offset_b)
                 out_up = self._bb_call(x_b, z_up, self.args.z_loc,
@@ -1777,7 +1777,7 @@ class OnlineMM:
                 self.optimizer.step()
                 if self.update_backbone:
                     self.optimizer2.step()
-                self.backbone.zero_grad(set_to_none=True)      # 清理无主梯度
+                self.backbone.zero_grad(set_to_none=True)      # clear orphaned gradients
             _replay_event("step_end", locals())
             global_idx += B
 
@@ -1789,7 +1789,7 @@ class OnlineMM:
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 8 — BACKBONE (ITransformerZ, checkpoint 兼容) + 自动预训练 [O8]
+# SECTION 8 — BACKBONE (ITransformerZ, checkpoint-compatible) + automatic pretraining [O8]
 # ══════════════════════════════════════════════════════════════
 
 class _DataEmbed_inv(nn.Module):
@@ -1819,10 +1819,10 @@ class _EncLayer(nn.Module):
 
 
 class ITransformerZ(nn.Module):
-    """Minimal iTransformer with additive Z injection (checkpoint-compatible)。
-    [C2] 输出侧只有标准 instance denorm —— 无 revin_delta / revin_scale
-    等文本条件化分布平移分支。"""
-    SUPPORTS_POS_GATE = True  # iAdapter+PosGate 多位置 dict-z 注入支持
+    """Minimal iTransformer with additive Z injection (checkpoint-compatible).
+    [C2] the output side has only the standard instance denorm — no revin_delta / revin_scale
+    or other text-conditioned distribution-shift branch."""
+    SUPPORTS_POS_GATE = True  # supports iAdapter+PosGate multi-position dict-z injection
 
     def __init__(self, seq_len, pred_len, enc_in,
                  d_model=64, e_layers=2, nhead=4, d_ff=128, dropout=0.1):
@@ -1862,11 +1862,11 @@ class ITransformerZ(nn.Module):
 
 class TransformerZ(nn.Module):
     """Minimal encoder-only vanilla Transformer forecaster with additive Z
-    injection (checkpoint-compatible)。参照 models/TimesNet_z.py 的"预测长度展开"
-    手法 (predict_linear: Linear(seq_len, seq_len+pred_len))，逐 timestep token
-    经 e_layers 层标准多头自注意力 (复用上面的 _EncLayer)；z 在 z_loc 命中的层之后
-    按 ITransformerZ/TimesNet_z 同款写法加性注入。"""
-    SUPPORTS_POS_GATE = True  # iAdapter+PosGate 多位置 dict-z 注入支持
+    injection (checkpoint-compatible). Follows the "prediction-length expansion" technique of models/TimesNet_z.py
+    (predict_linear: Linear(seq_len, seq_len+pred_len)); per-timestep tokens
+    pass through e_layers standard multi-head self-attention layers (reusing _EncLayer above); z is added after the layer hit by z_loc,
+    written the same way as in ITransformerZ/TimesNet_z."""
+    SUPPORTS_POS_GATE = True  # supports iAdapter+PosGate multi-position dict-z injection
 
     def __init__(self, seq_len, pred_len, enc_in,
                  d_model=64, e_layers=2, nhead=4, d_ff=128, dropout=0.1):
@@ -1920,16 +1920,16 @@ class TransformerZ(nn.Module):
 
 
 class _PatchTSTZAdapter(nn.Module):
-    """适配器: 包一层 models/PatchTST_z.py 的 Model (RevIN + trend/res 分解 +
-    TSTEncoder)，统一成 forward(x, z=, z_loc=) -> {'pred','feature'} 契约。
+    """Adapter: wraps the Model of models/PatchTST_z.py (RevIN + trend/res decomposition +
+    TSTEncoder) into the unified forward(x, z=, z_loc=) -> {'pred','feature'} contract.
 
-    PatchTST_z 原生的逐层 z 注入发生在 (batch*channel, patch_num, d_model) 张量上，
-    与其它骨干共享的 (batch, channel, d_model) 约定没有可靠对应关系，因此本适配器
-    固定改用 PatchTST_z 的 z_loc='input2' 注入点 (RevIN 归一化之前，对分解后的原始
-    res_init/trend_init 张量注入，shape 天然是 [B, enc_in, seq_len])，忽略外部传入
-    的整数 z_loc。对应地 _backbone_dims() 为 PatchTST 返回 eff_d_model=seq_len。
-    trend/res 两分支共享同一份注入值，仅 res 分支的 feature 作为对外统一的梯度观测
-    点返回 (trend 分支的 featuret 不单独暴露 —— 这是一个已知的简化)。"""
+    PatchTST_z's native per-layer z injection happens on a (batch*channel, patch_num, d_model) tensor,
+    which has no reliable correspondence to the (batch, channel, d_model) convention shared by the other backbones, so this adapter
+    always uses PatchTST_z's z_loc='input2' injection point instead (before RevIN normalization, injecting into the decomposed raw
+    res_init/trend_init tensors, whose shape is naturally [B, enc_in, seq_len]) and ignores the externally passed
+    integer z_loc. Correspondingly, _backbone_dims() returns eff_d_model=seq_len for PatchTST.
+    The trend/res branches share the same injected value, and only the res branch's feature is returned as the unified external gradient
+    observation point (the trend branch's featuret is not exposed separately — a known simplification)."""
     def __init__(self, seq_len, pred_len, enc_in,
                  d_model=64, e_layers=2, n_heads=4, d_ff=128, dropout=0.1):
         super().__init__()
@@ -1957,11 +1957,11 @@ class _PatchTSTZAdapter(nn.Module):
 
 
 def build_backbone(backbone, sl, pl, enc_in, d_model, e_layers, text_dim=64):
-    """按 backbone 名动态构造骨干模块 (iTransformer/Transformer 用内联实现,
-    SOFTS/TimesNet 走 models/*_z.py 动态加载，PatchTST 用适配器包一层
-    models/PatchTST_z.py，GPT4MTS_z/VoT_z 走 models/*_z.py 动态加载 (均
-    USES_TEXT=True，text_dim 需与 OnlineMM 的文本编码器输出维度一致)，
-    参照 adapt_z.py 的 finetune())。"""
+    """Build the backbone module dynamically by name (iTransformer/Transformer use inline implementations,
+    SOFTS/TimesNet are loaded dynamically from models/*_z.py, PatchTST is wrapped by an adapter around
+    models/PatchTST_z.py, GPT4MTS_z/VoT_z are loaded dynamically from models/*_z.py (both
+    USES_TEXT=True; text_dim must match the output dimension of OnlineMM's text encoder),
+    following finetune() in adapt_z.py)."""
     if backbone == "iTransformer":
         return ITransformerZ(sl, pl, enc_in, d_model=d_model, e_layers=e_layers)
     if backbone == "SOFTS":
@@ -1983,36 +1983,36 @@ def build_backbone(backbone, sl, pl, enc_in, d_model, e_layers, text_dim=64):
     if backbone == "VoT_z":
         from models.VoT_z import Model as _VoTModel
         return _VoTModel(sl, pl, enc_in, text_dim=text_dim, e_layers=e_layers)
-    raise ValueError(f"未知 backbone: {backbone!r} (可选 iTransformer/SOFTS/"
+    raise ValueError(f"unknown backbone: {backbone!r} (options: iTransformer/SOFTS/"
                      f"TimesNet/PatchTST/Transformer/GPT4MTS_z/VoT_z)")
 
 
 def _backbone_dims(backbone, sl, pl, enc_in, d_model, e_layers, z_loc):
-    """返回 (eff_d_model, eff_z_loc, z_n_dim) —— 不同骨干的 z 插入维度/层数不同。"""
+    """Return (eff_d_model, eff_z_loc, z_n_dim) — backbones differ in z insertion dimension / layer count."""
     if backbone == "SOFTS":
         return 256, min(max(z_loc, 1), 3), enc_in
     if backbone in ("TimesNet", "Transformer"):
         return d_model, min(max(z_loc, 1), e_layers), sl + pl
     if backbone == "PatchTST":
-        # PatchTST_z 在 z_loc='input2' 处对 [B, enc_in, seq_len] 的原始分解张量做
-        # 注入 (而非其它骨干那种 (batch, channel, d_model) 的 encoder 层张量)，
-        # 故这里让 z_shape 的最后一维取 seq_len 而不是 d_model。
+        # PatchTST_z injects at z_loc='input2' into the raw decomposed [B, enc_in, seq_len] tensor
+        # (rather than into an encoder-layer tensor of shape (batch, channel, d_model) as the other backbones do),
+        # so here the last dimension of z_shape is seq_len rather than d_model.
         return sl, 1, enc_in
     if backbone == "GPT4MTS_z":
-        # [O8] 现支持逐层注入 (见 models/GPT4MTS_z.py::_gpt2_layerwise):
-        # z_loc=0 = 旧版 pre-GPT2 单点固定注入 (对照组); z_loc=1..gpt_layers
-        # = 冻结 GPT2 内部第 k 个 block 输出之后注入, 越大越深。eff_d_model
-        # 固定为 GPT2 隐层维度 768 (与 e_layers 无关，e_layers 只决定
-        # gpt_layers 的上限)。
+        # [O8] per-layer injection is now supported (see models/GPT4MTS_z.py::_gpt2_layerwise):
+        # z_loc=0 = the legacy single fixed pre-GPT2 injection (control group); z_loc=1..gpt_layers
+        # = injection after the output of the k-th block inside the frozen GPT2; larger is deeper. eff_d_model
+        # is fixed at the GPT2 hidden size 768 (independent of e_layers; e_layers only sets
+        # the upper bound of gpt_layers).
         from models.GPT4MTS_z import infer_patch_num
         gpt_layers = min(max(int(e_layers), 1), 12)
         return 768, min(max(z_loc, 0), gpt_layers), infer_patch_num(sl, pl)
     if backbone == "VoT_z":
-        # 支持 4 个候选注入点 (models/VoT_z.py 模块 docstring:
-        # POS_TREND=1/POS_SEASONAL=2/POS_PRE_GPT2=3/POS_POST_GPT2=4)；
-        # eff_z_loc 默认取 3 (pre_gpt2) 以匹配旧版单点固定注入行为，消融时
-        # 各 mode 可通过 kw["z_loc"] 覆盖为其它候选点。eff_d_model 同样固定
-        # 为 GPT2 隐层维度 768。
+        # Supports 4 candidate injection points (module docstring of models/VoT_z.py:
+        # POS_TREND=1/POS_SEASONAL=2/POS_PRE_GPT2=3/POS_POST_GPT2=4);
+        # eff_z_loc defaults to 3 (pre_gpt2) to match the legacy single fixed injection; in ablations
+        # each mode can override it with another candidate point via kw["z_loc"]. eff_d_model is likewise fixed
+        # at the GPT2 hidden size 768.
         from models.GPT4MTS_z import infer_patch_num
         return 768, 3, infer_patch_num(sl, pl)
     return d_model, min(max(z_loc, 1), e_layers), enc_in
@@ -2021,11 +2021,11 @@ def _backbone_dims(backbone, sl, pl, enc_in, d_model, e_layers, z_loc):
 def pretrain_backbone(bb, train_loader, val_loader, device,
                       epochs=50, lr=1e-3, patience=3, ckpt_path=None,
                       z_shape=None, z_loc=None):
-    """checkpoint 缺失时的骨干预训练 (早停+保存); 在线阶段骨干仍冻结。 [O8]
+    """Backbone pretraining when the checkpoint is missing (early stopping + saving); the backbone stays frozen in the online phase. [O8]
 
-    z_shape/z_loc 若提供，则训练/验证前向时始终传入一个全零 z (对 SOFTS_z
-    必需 —— 其 forecast() 在 z=None 时会因未判空的 len(z.shape) 崩溃；
-    对 ITransformerZ/TimesNet_z 是等价的 no-op)。
+    If z_shape/z_loc are provided, an all-zero z is always passed in the training/validation forward (required for SOFTS_z
+    — its forecast() crashes on an unchecked len(z.shape) when z=None;
+    for ITransformerZ/TimesNet_z it is an equivalent no-op).
     """
     opt = optim.Adam(bb.parameters(), lr=lr)
     lossf = nn.MSELoss()
@@ -2068,10 +2068,10 @@ def pretrain_backbone(bb, train_loader, val_loader, device,
     if best_state is not None:
         bb.load_state_dict(best_state)
     if ckpt_path:
-        # 原子写入：先写临时文件再 rename，避免进程被杀/磁盘满时留下
-        # 一个 "存在但已损坏" 的 checkpoint，导致下次运行误判为已训练
-        # 而直接尝试加载损坏文件 (torch.load 抛 "failed finding central
-        # directory")。
+        # Atomic write: write a temporary file first and then rename, so that a killed process or full disk does not leave
+        # a checkpoint that "exists but is corrupted", which the next run would mistake for already trained
+        # and try to load directly (torch.load raises "failed finding central
+        # directory").
         tmp_path = f"{ckpt_path}.tmp{os.getpid()}"
         torch.save(bb.state_dict(), tmp_path)
         os.replace(tmp_path, ckpt_path)
@@ -2080,7 +2080,7 @@ def pretrain_backbone(bb, train_loader, val_loader, device,
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 9 — VISUALISATION (与原版一致; [O7] 修复图例字典 typo)
+# SECTION 9 — VISUALISATION (same as the original; [O7] fixes a typo in the legend dict)
 # ══════════════════════════════════════════════════════════════
 
 _PALETTE = ["#9a9a9a", "#e0a840", "#e07040", "#4080c0", "#2e9e55"]
@@ -2093,16 +2093,16 @@ _MODE_COLOR = {
     "iAdapter":                "#2e9e55",
     "iAdapter+PosGate ": "#1f7a3f",
 
-    "VoT_z (pos=pre_gpt2, 默认)": "#9a9a9a",
+    "VoT_z (pos=pre_gpt2, default)": "#9a9a9a",
     "VoT_z (pos=trend)":          "#e0a840",
     "VoT_z (pos=seas.)":       "#e07040",
     "VoT_z (pos=post_gpt2)":      "#4080c0",
     "VoT_z+iAdapter ":   "#2e9e55",
 
-    "GPT4MTS_z (pos=pre_gpt2, 旧版)":       "#9a9a9a",
-    "GPT4MTS_z (pos=layer1, 浅层)":          "#e0a840",
-    "GPT4MTS_z (pos=layer_mid, 中层)":       "#e07040",
-    "GPT4MTS_z (pos=layer_last, 倒数第一层output)": "#4080c0",
+    "GPT4MTS_z (pos=pre_gpt2, legacy)":       "#9a9a9a",
+    "GPT4MTS_z (pos=layer1, shallow)":          "#e0a840",
+    "GPT4MTS_z (pos=layer_mid, middle)":       "#e07040",
+    "GPT4MTS_z (pos=layer_last, last-layer output)": "#4080c0",
     "GPT4MTS_z+iAdapter": "#2e9e55",
 }
 
@@ -2114,16 +2114,16 @@ _MODE_NICE = {
     "iAdapter":                "iAdapter  (ours)",
     "iAdapter+PosGate": "iAdapter+PosGate",
 
-    "VoT_z (pos=pre_gpt2, 默认)": "Fixed @ pre-GPT2",
+    "VoT_z (pos=pre_gpt2, default)": "Fixed @ pre-GPT2",
     "VoT_z (pos=trend)":          "Fixed @ Trend",
     "VoT_z (pos=seas.)":       "Fixed @ Seas.",
     "VoT_z (pos=post_gpt2)":      "Fixed @ post-GPT2",
     "VoT_z+iAdapter":   "iAdapter ",
 
-    "GPT4MTS_z (pos=pre_gpt2, 旧版)":       "Fixed @ pre-GPT2 (legacy)",
-    "GPT4MTS_z (pos=layer1, 浅层)":          "Fixed @ GPT2 layer 1 (shallow)",
-    "GPT4MTS_z (pos=layer_mid, 中层)":       "Fixed @ GPT2 mid-layer",
-    "GPT4MTS_z (pos=layer_last, 倒数第一层output)": "Fixed @ deepest GPT2 layer",
+    "GPT4MTS_z (pos=pre_gpt2, legacy)":       "Fixed @ pre-GPT2 (legacy)",
+    "GPT4MTS_z (pos=layer1, shallow)":          "Fixed @ GPT2 layer 1 (shallow)",
+    "GPT4MTS_z (pos=layer_mid, middle)":       "Fixed @ GPT2 mid-layer",
+    "GPT4MTS_z (pos=layer_last, last-layer output)": "Fixed @ deepest GPT2 layer",
     "GPT4MTS_z+iAdapter ": "+ iAdapter @ deepest layer ",
 }
 
@@ -2137,11 +2137,11 @@ def _mode_nice(mode):
 
 
 def _is_ours(mode):
-    # "iAdapter" 覆盖 ABLATION_MODES 的 iAdapter/iAdapter+PosGate 及
-    # GPT4MTS_z+iAdapter; "PosGate" 额外覆盖 VOT_Z_POSITION_MODES 里的
-    # 自适应位置模式 ("VoT_z+PosGate (自适应位置)") —— 二者在所有图里都要
-    # 加粗/高亮突出。[O9] 查表前先 strip(), 避免 ABLATION_MODES 里
-    # "iAdapter " 这类尾随空格 label 漏判。
+    # "iAdapter" covers iAdapter/iAdapter+PosGate in ABLATION_MODES and
+    # GPT4MTS_z+iAdapter; "PosGate" additionally covers the adaptive-position mode in VOT_Z_POSITION_MODES
+    # ("VoT_z+PosGate (adaptive position)") — both must be shown bold/highlighted
+    # in every figure. [O9] strip() before the lookup, so that labels with trailing spaces in ABLATION_MODES,
+    # such as "iAdapter ", are not missed.
     mode = mode.strip()
     return "iAdapter" in mode or "PosGate" in mode
 
@@ -2154,7 +2154,7 @@ def _rolling(a, w):
 
 
 def _rolling_dist(G, w):
-    """逐专家滚动均值分布, (T, E) -> (T, E), 每列独立调用 _rolling。"""
+    """Per-expert rolling mean distribution, (T, E) -> (T, E); _rolling is called independently on each column."""
     out = np.full_like(G, np.nan, dtype=float)
     for e in range(G.shape[1]):
         out[:, e] = _rolling(G[:, e], w)
@@ -2162,12 +2162,12 @@ def _rolling_dist(G, w):
 
 
 def _pick_drift_snapshots(G, n_snapshots=4, W=30, min_gap_frac=0.08):
-    """挑选专家门控分布漂移最显著的 n_snapshots 个时间点。
+    """Pick the n_snapshots time points where the expert-gate distribution drifts most.
 
-    用滚动窗口 (W 步) 平滑逐步分布, 以相隔 W 步的两个平滑分布之间的
-    L1 距离衡量漂移幅度, 贪心取漂移分数最高的若干个点 (强制彼此间隔
-    >= min_gap_frac * T, 避免同一次漂移的相邻帧被重复选中), 最后按时间
-    顺序排序展示。序列太短、滚动窗口盖不满时退化为等间隔取样。
+    The per-step distribution is smoothed with a rolling window (W steps), and the drift magnitude is measured by the
+    L1 distance between two smoothed distributions W steps apart; the points with the highest drift scores are taken greedily (forced to be at least
+    min_gap_frac * T apart, so adjacent frames of the same drift are not selected twice), and finally sorted in time
+    order for display. When the sequence is too short for the rolling window, it falls back to equally spaced sampling.
     """
     T = len(G)
     W = max(3, min(W, T // 4)) if T >= 12 else max(1, T // 2)
@@ -2197,10 +2197,10 @@ def _pick_drift_snapshots(G, n_snapshots=4, W=30, min_gap_frac=0.08):
 
 def _style_legend(ax, loc="upper center", ncol=3, bbox_to_anchor=None,
                   fontsize=12, handles=None, labels=None):
-    """统一图例外观 (对齐 xihe.png: 加框、半透明底、细边框), 让"哪条线/哪根
-    柱是哪个方法"一眼看清, 而不是靠猜色。只统一外观, 不改动各图已经设计好
-    的 label 内容/配色语义。`ax` 可以是 Axes 或 Figure (贯穿多子图的整体
-    图例场景, 例如 plot_ablation_summary)。"""
+    """Unify the legend look (matching xihe.png: framed, semi-transparent background, thin border), so that "which line/which
+    bar is which method" is clear at a glance instead of guessed from colour. Only the look is unified; the label content and colour semantics
+    already designed for each figure are not changed. `ax` can be an Axes or a Figure (for a figure-wide
+    legend across several subplots, e.g. plot_ablation_summary)."""
     kw = dict(loc=loc, ncol=ncol, bbox_to_anchor=bbox_to_anchor,
               fontsize=fontsize, frameon=True, framealpha=0.92,
               edgecolor="#cfcfcf", fancybox=False)
@@ -2213,8 +2213,8 @@ def _style_legend(ax, loc="upper center", ncol=3, bbox_to_anchor=None,
 
 
 def _adaptive_ncol(labels, fig_width_in, fontsize=14, char_width_in=0.011):
-    """图例默认摆一行；按估算文字宽度真放不下时才退成两行，而不是像
-    之前那样凭经验固定 ncol 导致明明够放一行却被硬拆成多行。"""
+    """Lay the legend out on one row by default; fall back to two rows only when the estimated text width really does not fit, instead of
+    the earlier empirically fixed ncol, which split it into several rows even when one row would fit."""
     if len(labels) <= 1:
         return 1
     avg_char_in = char_width_in * fontsize
@@ -2225,7 +2225,7 @@ def _adaptive_ncol(labels, fig_width_in, fontsize=14, char_width_in=0.011):
 
 
 def plot_ablation_summary(results, save_path="iAdapter_ablation_summary.png"):
-    """MAE / MSE 消融雷达图 (无标题), 标注相对 Unimodal 的收益百分比。"""
+    """MAE / MSE ablation radar chart (no title), annotated with the percentage gain relative to Unimodal."""
     names = [r["mode"] for r in results]
     maes = [r["mae"] for r in results]
     mses = [r["mse"] for r in results]
@@ -2274,17 +2274,17 @@ def plot_ablation_summary(results, save_path="iAdapter_ablation_summary.png"):
         ax.set_xticks(angles)
         ax.set_xticklabels([_mode_nice(m).replace("  ", "\n") for m in names],
                            fontsize=14)
-        # 径向留足余量，避免数值标注/圆点顶到外圈的 mode 名称标签；margin 不能
-        # 一味加大 —— 半径像素数固定, ylim 越大, 0~max(vals) 这段数据区间
-        # 占的像素就越少, 等间距的 0.25/0.5/0.75 网格线标签反而被压得更近、
-        # 互相重叠。用适度 margin (1.22) + 限制刻度数量/缩小字号来解决。
-        # 径向留足余量: 1.50 倍给双行注释文字留足空间 (1.22 偏小, 尖端会顶
-        # 到图例/外围数值); nbins=3 防止径向刻度在更大 ylim 下过度拥挤。
+        # Leave enough radial margin so value annotations/dots do not touch the mode-name labels on the outer ring; the margin cannot
+        # simply keep growing — the radius in pixels is fixed, so the larger ylim is, the fewer pixels the data range 0~max(vals)
+        # gets, and the equally spaced 0.25/0.5/0.75 grid-line labels get squeezed closer together
+        # and overlap. A moderate margin (1.22) + fewer ticks/smaller font solves this.
+        # Leave enough radial margin: 1.50× gives two-line annotation text enough room (1.22 was too small; the tips ran
+        # into the legend/outer values); nbins=3 keeps the radial ticks from crowding under the larger ylim.
         ax.set_ylim(0, max(vals) * 1.50)
         ax.yaxis.set_major_locator(MaxNLocator(nbins=3))
         ax.tick_params(axis="y", labelsize=7, pad=2)
-        # 径向刻度标签默认贴在 theta=0 那根辐条上, 容易和该类别的数据点/
-        # 标注撞在一起; 挪到相邻两根辐条中间的空隙角度上。
+        # Radial tick labels sit on the theta=0 spoke by default and easily collide with that category's data points/
+        # annotations; move them to the gap angle between two adjacent spokes.
         ax.set_rlabel_position(180.0 / n if n else 0.0)
         ax.tick_params(axis="x", pad=14)
         ax.set_title(f"{metric}   (%: gain vs Unimodal ADAPT-Z)",
@@ -2293,9 +2293,9 @@ def plot_ablation_summary(results, save_path="iAdapter_ablation_summary.png"):
         ax.spines["polar"].set_linewidth(0.8)
         ax.spines["polar"].set_color("#555555")
 
-    # 贯穿两个子图的整体图例 (原来完全没有图例, 只能靠 x 轴文字辨认哪个点是
-    # 哪个 mode) —— 直接复用已画出的散点当 legend handle, 颜色/label 与
-    # 数据点严格一致, 不会有第二份手写映射漂移的风险。
+    # Figure-wide legend across both subplots (originally there was no legend at all, and the x-axis text was the only way to tell which point was
+    # which mode) — the scatter points already drawn are reused directly as legend handles, so colour/label match
+    # the data points exactly, with no risk of a second hand-written mapping drifting.
     labels = [_mode_nice(m) for m in names]
     ncol = _adaptive_ncol(labels, fig.get_size_inches()[0], fontsize=14)
     _style_legend(fig, loc="upper center", ncol=ncol,
@@ -2308,7 +2308,7 @@ def plot_ablation_summary(results, save_path="iAdapter_ablation_summary.png"):
 
 
 def plot_rolling_mae(results, save_path="iAdapter_rolling_mae.png", W=30):
-    """上: 滚动 MAE; 下: Δ|Error| = iAdapter − Unimodal 净收益带。无标题。"""
+    """Top: rolling MAE; bottom: Δ|Error| = iAdapter − Unimodal net-gain band. No title."""
     fig, (ax, ax2) = plt.subplots(2, 1, figsize=(14, 8), dpi=130, sharex=True,
                                   gridspec_kw={"height_ratios": [2.0, 1.0]})
     step_mae = {}
@@ -2351,7 +2351,7 @@ def plot_rolling_mae(results, save_path="iAdapter_rolling_mae.png", W=30):
 
 def plot_pred_curves(results, sensor_idx=0, n_show=300,
                      save_path="iAdapter_pred_curves.png"):
-    """真值 vs 各模式预测 (第一个预测步), 上=开头段 / 下=末尾段。无标题。"""
+    """Ground truth vs each mode's forecast (first forecast step); top = beginning segment / bottom = end segment. No title."""
     truth = results[0]["truths"]
     n = min(n_show, len(truth))
     fig, axes = plt.subplots(2, 1, figsize=(16, 8.5), dpi=130)
@@ -2379,9 +2379,9 @@ def plot_pred_curves(results, sensor_idx=0, n_show=300,
 def plot_gate_usage(gate_history, expert_names=None,
                     save_path="iAdapter_gate_usage.png",
                     n_snapshots=4, snapshot_window=30):
-    """MoE 专家门控演化 (无标题)。下方附 n_snapshots 个漂移最显著时刻的
-    分布快照 (D1..Dn), 让"专家权重分布如何随时间漂移"一眼可比, 而不用
-    自己去堆叠图里估读。"""
+    """Evolution of the MoE expert gate (no title). Below it, distribution snapshots (D1..Dn) at the n_snapshots moments of
+    largest drift are attached, so "how the expert-weight distribution drifts over time" can be compared at a glance, without
+    having to read it off the stacked plot."""
     if not gate_history:
         return
     G = np.array(gate_history)                          # (T, E)
@@ -2403,8 +2403,8 @@ def plot_gate_usage(gate_history, expert_names=None,
     ax.set_xlabel("Online step")
     ax.set_ylabel("Mean gate weight")
     ax.set_ylim(0, 1)
-    # 原来 loc="upper center" 挤在图内顶部, 会挡住堆叠区最上层数据 —— 挪到
-    # 图外下方, 不再遮挡。
+    # Originally loc="upper center" sat at the top inside the plot and covered the top layer of the stacked area — moved
+    # below the plot, no longer covering anything.
     _style_legend(ax, loc="upper center", ncol=len(expert_names),
                  bbox_to_anchor=(0.5, -0.16), fontsize=8.5)
     ax.grid(True, lw=0.35, alpha=0.3)
@@ -2414,7 +2414,7 @@ def plot_gate_usage(gate_history, expert_names=None,
         ax.text(t, 1.02, f"D{rank}", ha="center", va="bottom", fontsize=14,
                fontweight="bold", transform=ax.get_xaxis_transform())
 
-    # 每个被选中时刻的专家权重分布 (滚动平均, 避免单帧噪声), 并排对比
+    # Expert-weight distribution at each selected moment (rolling mean, to avoid single-frame noise), compared side by side
     for col, t in enumerate(picked):
         sax = fig.add_subplot(gs[1, col])
         dist = smooth[t]
@@ -2449,20 +2449,20 @@ def plot_multi_pred_len_summary(
         save_path="iAdapter_multi_predlen.png",
         baseline_mode=None):
     """
-    多预测长度汇总图：
-    横轴 = pred_len
-    纵轴 = MAE / MSE
+    Multi-horizon summary figure:
+    x-axis = pred_len
+    y-axis = MAE / MSE
 
-    暗红色：iAdapter
-    深蓝色：主要 baseline
-    低饱和度颜色：其他消融方法
+    dark red: iAdapter
+    dark blue: main baseline
+    low-saturation colours: other ablation methods
     """
 
     pred_lens = sorted(all_results.keys())
     modes = [r["mode"] for r in next(iter(all_results.values()))]
 
-    # 默认将第一个非 ours 模式作为主要 baseline；
-    # 也可以通过 baseline_mode 显式指定。
+    # By default the first non-ours mode is the main baseline;
+    # it can also be set explicitly via baseline_mode.
     if baseline_mode is None:
         baseline_mode = next(
             (mode for mode in modes if not _is_ours(mode)),
@@ -2523,10 +2523,10 @@ def plot_multi_pred_len_summary(
         ax.set_xticks(pred_lens)
         _style_axis(ax)
 
-    # 只从第一个子图获取图例，避免重复
+    # Take the legend from the first subplot only, to avoid duplicates
     handles, labels = ax1.get_legend_handles_labels()
 
-    # 图例默认摆一行；估算宽度真放不下时才退成两行。
+    # Lay the legend out on one row by default; fall back to two rows only when the estimated width really does not fit.
     ncol = _adaptive_ncol(labels, fig.get_size_inches()[0],
                           fontsize=LEGEND_FONT.get_size())
 
@@ -2543,7 +2543,7 @@ def plot_multi_pred_len_summary(
         columnspacing=1.2,
     )
 
-    # 给底部共享图例留空间
+    # Leave room for the shared legend at the bottom
     fig.tight_layout(rect=(0, 0.17, 1, 1))
 
     _save_figure(fig, save_path)
@@ -2578,7 +2578,7 @@ def plot_gpt4mts_z_advantage(
     if not have:
         print(
             "[viz] plot_gpt4mts_z_advantage: "
-            "未找到 baseline/iAdapter 两个 mode 的结果，跳过"
+            "Results for the two modes baseline/iAdapter not found, skipping"
         )
         return
 
@@ -2672,7 +2672,7 @@ def plot_gpt4mts_z_advantage(
         ax.set_xlabel("Prediction Horizon")
         ax.set_ylabel(metric.upper(), fontweight="bold")
 
-        # 防止收益文字碰到图边缘
+        # Keep the gain text from touching the figure edge
         highest_value = max(
             max(baseline_values),
             max(ours_values),
@@ -2721,14 +2721,14 @@ def _reso_base(results):
 
 
 def _mm01(a):
-    """min-max 归一化到 [0,1] (nan 安全)。"""
+    """min-max normalization to [0,1] (nan-safe)."""
     a = np.asarray(a, dtype=float)
     lo, hi = np.nanmin(a), np.nanmax(a)
     return (a - lo) / (hi - lo + 1e-12)
 
 
 def _period_1d(g, min_p=4, frac=0.5):
-    """一维主周期 (去线性趋势 + rFFT 峰), 无显著周期返回 None。"""
+    """1-D dominant period (detrend linearly + rFFT peak); returns None if there is no significant period."""
     g = np.asarray(g, dtype=float)
     n = len(g)
     if n < 2 * min_p:
@@ -2750,7 +2750,7 @@ def _period_1d(g, min_p=4, frac=0.5):
 
 
 # def _lag_corr(e, s, lag):
-#     """corr(e_t, s_{t+lag}); lag>0 表示能量领先信号 lag 步。"""
+#     """corr(e_t, s_{t+lag}); lag>0 means the energy leads the signal by lag steps."""
 #     e = np.asarray(e, dtype=float)
 #     s = np.asarray(s, dtype=float)
 #     if lag >= 0:
@@ -2770,7 +2770,7 @@ def _lag_corr(x, y, lag):
     n = min(x.size, y.size)
     if n - abs(lag) < 3:
         return np.nan
-    x, y = x[:n], y[:n]              # 先强制对齐长度
+    x, y = x[:n], y[:n]              # force equal lengths first
     if lag > 0:
         x, y = x[:n - lag], y[lag:]
     elif lag < 0:
@@ -2782,15 +2782,15 @@ def _lag_corr(x, y, lag):
 
 class ResonanceLogger:
     """
-    挂在 OnlineMM 上 (mm.reslog = ResonanceLogger()), online() 主循环
-    每个 batch 调用一次 on_step (钩子已内置于 OnlineMM.online [C3])。
+    Attached to OnlineMM (mm.reslog = ResonanceLogger()); the online() main loop
+    calls on_step once per batch (the hook is built into OnlineMM.online [C3]).
 
-    逐样本记录: rows / conf / emb_norm / gate_text / eff_experts /
-    tg_norm / real_change / pred_change; counterfactual=True 时额外做
-    「文本置零」反事实前向, 记录 |Δpred| 逐样本均值与逐 horizon 剖面。
+    Records per sample: rows / conf / emb_norm / gate_text / eff_experts /
+    tg_norm / real_change / pred_change; with counterfactual=True it additionally runs a
+    "text zeroed" counterfactual forward and records the per-sample mean of |Δpred| and its per-horizon profile.
 
-    额外开销: 每批 2 次 no_grad 前向 (feature + counterfactual pred),
-    仅挂在 M5 上时对总耗时影响可忽略。
+    Extra cost: 2 no_grad forwards per batch (feature + counterfactual pred);
+    negligible effect on total time when attached only to M5.
     """
 
     def __init__(self, counterfactual=True):
@@ -2818,11 +2818,11 @@ class ResonanceLogger:
         L["tg_norm"] += [float(his_text_grad.norm())
                          if his_text_grad is not None else 0.0] * B
 
-        last = x[:, -1, :]                          # 全局标准化空间
+        last = x[:, -1, :]                          # globally standardized space
         L["real_change"] += (y.mean(1) - last).mean(-1).cpu().numpy().tolist()
         L["pred_change"] += (pred.mean(1) - last).mean(-1).cpu().numpy().tolist()
 
-        # ── 反事实: 文本置零 (adapter 文本通路整体关闭) → 文本净控制量 ──
+        # ── Counterfactual: text zeroed (adapter text path fully off) → net text control ──
         if self.cf and mm.use_text:
             feat = mm.backbone(x, z=z0, z_loc=mm.args.z_loc)["feature"]
             zeros = torch.zeros(B, mm.text_dim, device=x.device)
@@ -2846,10 +2846,10 @@ class ResonanceLogger:
 
 
 class EmbedAlignLogger:
-    """挂在 OnlineMM 上 (mm.embed_log = EmbedAlignLogger()), online() 每次
-    缓冲区更新 (buffer-update) 时调用一次 on_step, 记录该批样本在 VICRegAlign
-    共享空间里的 TS 向量 / 文本向量, 以及输入窗口的主周期与跳变强度 ——
-    供 plot_clip_alignment_space 做语义空间可视化, 不挂载时零开销。"""
+    """Attached to OnlineMM (mm.embed_log = EmbedAlignLogger()); online() calls on_step once at each
+    buffer update, recording the batch samples' TS vectors / text vectors in the VICRegAlign
+    shared space, together with the dominant period and jump strength of the input window —
+    for the semantic-space visualization in plot_clip_alignment_space; zero overhead when not attached."""
 
     def __init__(self):
         self.log = dict(ts_e=[], text_e=[], period=[], jump=[], rows=[],
@@ -2866,8 +2866,8 @@ class EmbedAlignLogger:
         self.log["jump"].append(_jump_score(x_b).cpu().numpy())
         self.log["rows"].extend(int(r) for r in rows)
 
-        # [NEW] 记录批内文本/TS 方差, 用于坍塌监控 (plot_clip_alignment_space
-        # 的方差子图) —— var 越低说明该模态的池化向量越趋于坍塌到一点。
+        # [NEW] record in-batch text/TS variance for collapse monitoring (the variance subplot of plot_clip_alignment_space)
+        # — the lower var is, the more that modality's pooled vectors are collapsing to a point.
         text_var = float(text_emb.var(dim=0).mean().item())
         ts_var = float(feature.mean(dim=1).var(dim=0).mean().item())
         self.log["text_var_history"].append(text_var)
@@ -2889,15 +2889,15 @@ class EmbedAlignLogger:
 
 def plot_text_resonance_timeline(res, results, sensor_idx=0, W=15,
                                  save_path="iAdapter_resonance_timeline.png"):
-    """三带共振时间线:
-    P1 真值+M5/M1 预测, 红竖线=top-1% 平方误差步;
-    P2 文本能量四曲线 (min-max 归一化): conf / ‖e_text‖ / gate_text / ‖∇e‖;
-    P3 反事实 |Δpred| + conf 带, 与红竖线共位; 右上角给出共位比
-       (top-1% 误差步上的 |Δpred| 均值 ÷ 其余步) —— ratio 明显 >1 说明
-       文本控制集中在尾部误差步, 是 MSE 恶化的直接证据。"""
+    """Three-band resonance timeline:
+    P1 ground truth + M5/M1 forecasts, red vertical lines = top-1% squared-error steps;
+    P2 four text-energy curves (min-max normalized): conf / ‖e_text‖ / gate_text / ‖∇e‖;
+    P3 counterfactual |Δpred| + conf band, co-located with the red lines; the top-right corner gives the co-location ratio
+       (mean |Δpred| on top-1% error steps ÷ on the other steps) — a ratio clearly >1 means
+       text control is concentrated on tail-error steps, direct evidence of the MSE degradation."""
     ours, base = _reso_ours(results), _reso_base(results)
     if ours is None:
-        print("[reso] results 中未找到 iAdapter 模式, 跳过")
+        print("[reso] no iAdapter mode found in results, skipping")
         return
     gt = ours["truths"][:, 0, sensor_idx]
     n = min(len(gt), len(res["conf"]))
@@ -2911,7 +2911,7 @@ def plot_text_resonance_timeline(res, results, sensor_idx=0, W=15,
         3, 1, figsize=(14, 9.5), dpi=130, sharex=True,
         gridspec_kw={"height_ratios": [2.0, 1.3, 1.0]})
 
-    # ── P1: 预测 + 尾部标记 ──
+    # ── P1: forecasts + tail markers ──
     ax1.plot(t, gt[:n], color="#111111", lw=1.6, label="Ground Truth",
              zorder=6)
     ax1.plot(t, ours["preds"][:n, 0, sensor_idx], color="#2e9e55", lw=1.7,
@@ -2929,7 +2929,7 @@ def plot_text_resonance_timeline(res, results, sensor_idx=0, W=15,
              transform=ax1.transAxes, ha="right", fontsize=7.5,
              color="#d02020")
 
-    # ── P2: 文本能量 (统一 min-max 便于同轴比较) ──
+    # ── P2: text energy (unified min-max for comparison on the same axis) ──
     curves = [("conf (EMA)", res["conf"][:n], "#4080c0", "-"),
               (r"$\|e_{text}\|$", res["emb_norm"][:n], "#2e9e55", "-"),
               ("Text-FiLM gate", res["gate_text"][:n], "#d9985f", "-"),
@@ -2944,7 +2944,7 @@ def plot_text_resonance_timeline(res, results, sensor_idx=0, W=15,
     _style_legend(ax2, loc="upper left", ncol=4, fontsize=7.5)
     ax2.grid(True, lw=0.35, alpha=0.35)
 
-    # ── P3: 反事实净控制量 + conf 带 + 尾部共位 ──
+    # ── P3: counterfactual net control + conf band + tail co-location ──
     conf = np.asarray(res["conf"][:n], dtype=float)
     da = np.asarray(res["dpred_abs"][:n], dtype=float)
     dp = _rolling(np.nan_to_num(da), W)
@@ -2978,11 +2978,11 @@ def plot_text_resonance_timeline(res, results, sensor_idx=0, W=15,
 
 def plot_tsimage_resonance(res, results, sensor_idx=0,
                            save_path="iAdapter_tsimage_resonance.png"):
-    """TS-image 式周期折叠双带图 (借鉴 TimeOmni-VL 的 TS2I):
-    上带 = 测试段真值按主周期 f 折叠成 (相位 × 周期) 热图, 红竖线标
-    数值异常周期 (列均值 |z|>1.5);
-    下带 = 逐周期文本能量 (conf / ‖e_text‖ / gate / |Δpred|, 各行
-    min-max)。上下两带亮列的垂直对齐即「共振」。"""
+    """TS-image-style periodic-folding two-band figure (inspired by TS2I in TimeOmni-VL):
+    top band = test-segment ground truth folded by the dominant period f into a (phase × period) heat map, red vertical lines mark
+    numerically anomalous periods (column mean |z|>1.5);
+    bottom band = per-period text energy (conf / ‖e_text‖ / gate / |Δpred|, each row
+    min-max). Vertical alignment of bright columns in the two bands is the "resonance"."""
     ours = _reso_ours(results)
     if ours is None:
         return
@@ -2996,9 +2996,9 @@ def plot_tsimage_resonance(res, results, sensor_idx=0,
         f = max(4, n // 8)
         C = n // f
     if C < 2:
-        print("[reso] 测试段太短, 无法周期折叠")
+        print("[reso] test segment too short for periodic folding")
         return
-    band = g[: f * C].reshape(C, f).T               # (f, C): 行=周期内相位
+    band = g[: f * C].reshape(C, f).T               # (f, C): row = phase within the period
 
     def _cyc(v):
         v = np.asarray(v[: f * C], dtype=float)
@@ -3040,17 +3040,17 @@ def plot_tsimage_resonance(res, results, sensor_idx=0,
 
 def plot_energy_crosscorr(res, results, sensor_idx=0, max_lag=20, W=5,
                           save_path="iAdapter_energy_crosscorr.png"):
-    """共振的定量刻画 —— 滞后互相关 corr(energy_t, signal_{t+lag}):
-    左: 文本能量 ↔ 序列局部波动 |Δgt| —— 峰值靠近 lag=0 说明文本能量与
-        时序波动同频共振; 峰在正 lag 说明文本 **领先** 波动 (有预警价值);
-    右: 文本能量 ↔ 误差改善 (|err_M1| − |err_M5|) —— 峰值为正说明文本
-        能量高的时刻确实带来精度收益, 为负则文本反而有害。"""
+    """Quantitative description of resonance — lagged cross-correlation corr(energy_t, signal_{t+lag}):
+    left: text energy ↔ local volatility of the series |Δgt| — a peak near lag=0 means the text energy
+        resonates with the series volatility; a peak at positive lag means the text **leads** the volatility (early-warning value);
+    right: text energy ↔ error improvement (|err_M1| − |err_M5|) — a positive peak means moments of high text
+        energy really bring accuracy gains; a negative one means the text actually hurts."""
     ours, base = _reso_ours(results), _reso_base(results)
     if ours is None:
         return
     n = min(ours["preds"].shape[0], len(res["conf"]))
 
-    # 能量: 优先反事实 |Δpred|; 缺失时退化为 conf 与 ‖e_text‖ 的均值
+    # Energy: prefer counterfactual |Δpred|; if missing, fall back to the mean of conf and ‖e_text‖
     da = np.asarray(res["dpred_abs"][:n], dtype=float)
     if np.isfinite(da).any():
         energy, ename = da, r"$|\Delta pred|$"
@@ -3060,7 +3060,7 @@ def plot_energy_crosscorr(res, results, sensor_idx=0, max_lag=20, W=5,
     energy = _rolling(np.nan_to_num(energy), W)
 
     gt = ours["truths"][:n, 0, sensor_idx]
-    vol = _rolling(np.abs(np.diff(gt, prepend=gt[0])), W)   # 序列局部波动
+    vol = _rolling(np.abs(np.diff(gt, prepend=gt[0])), W)   # local volatility of the series
     energy = np.asarray(energy, float).ravel()
     vol = np.asarray(vol, float).ravel()
     if min(energy.size, vol.size) < 3:
@@ -3114,17 +3114,17 @@ def plot_energy_crosscorr(res, results, sensor_idx=0, max_lag=20, W=5,
 
 def plot_clip_alignment_space(embed_arrays, max_lines=300,
                               save_path="iAdapter_clip_align_space.png"):
-    """CLIP 共享语义空间可视化: TS 向量与文本向量 (EmbedAlignLogger 收集)
-    联合做一次 PCA 到 2D (同一坐标系, 否则看不出「对齐」), 分两个子图:
-      左: 按输入窗口主周期 (FFT 幅谱最大频率对应的周期长度) 着色;
-      右: 按跳变强度 (窗口内一阶差分极值/标准差) 着色, 高跳变样本描红边。
-    圆点=TS 向量, 三角=文本向量; 细灰线连接同一样本的 (TS, 文本) 对,
-    连线越短说明该样本对齐得越紧。"""
+    """Visualization of the CLIP shared semantic space: TS vectors and text vectors (collected by EmbedAlignLogger)
+    are projected together to 2D with a single PCA (the same coordinate system; otherwise "alignment" cannot be seen), in two subplots:
+      left: coloured by the dominant period of the input window (the period length of the largest frequency in the FFT amplitude spectrum);
+      right: coloured by jump strength (extreme first difference / std within the window); high-jump samples get a red edge.
+    Dots = TS vectors, triangles = text vectors; thin grey lines connect the (TS, text) pair of the same sample;
+    the shorter the line, the tighter that sample is aligned."""
     ts_e, text_e = embed_arrays["ts_e"], embed_arrays["text_e"]
     period, jump = embed_arrays["period"], embed_arrays["jump"]
     M = ts_e.shape[0]
     if M < 2:
-        print("[clip-align] 样本数不足, 跳过语义空间可视化")
+        print("[clip-align] not enough samples, skipping semantic-space visualization")
         return
 
     joint = np.concatenate([ts_e, text_e], axis=0)
@@ -3168,8 +3168,8 @@ def plot_clip_alignment_space(embed_arrays, max_lines=300,
     plt.close(fig)
     print(f"[clip-align] {save_path}  (M={M} samples)")
 
-    # [NEW] 第三子图: 文本 vs TS 批内方差曲线, 定量确认坍塌是否消除
-    # (随缓冲区更新步演化; 低于 collapse threshold 视为该模态已坍塌)。
+    # [NEW] third subplot: in-batch variance curves of text vs TS, quantitatively confirming whether the collapse is gone
+    # (evolving over buffer-update steps; below the collapse threshold the modality is considered collapsed).
     if "text_var_history" in embed_arrays and len(
             embed_arrays["text_var_history"]) > 0:
         fig2, ax = plt.subplots(figsize=(10, 3), dpi=130)
@@ -3193,8 +3193,8 @@ def plot_clip_alignment_space(embed_arrays, max_lines=300,
 
 
 def tail_report(results, fracs=(0.01, 0.05)):
-    """top-k% 在线步对 MSE 的贡献分解 (排除后重算, 看排名是否反转)。"""
-    print(f"\n{'=' * 74}\n[TAIL] top-k% 在线步对 MSE 的贡献分解\n{'=' * 74}")
+    """Decomposition of the contribution of the top-k% online steps to MSE (recompute after excluding them; see whether the ranking flips)."""
+    print(f"\n{'=' * 74}\n[TAIL] contribution of the top-k% online steps to MSE\n{'=' * 74}")
     for frac in fracs:
         print(f"\n-- exclude top {frac * 100:.0f}% squared-error steps --")
         print(f"{'mode':<26}{'MSE(all)':>10}{'MSE(excl)':>11}"
@@ -3209,15 +3209,15 @@ def tail_report(results, fracs=(0.01, 0.05)):
             print(f"{r['mode']:<26}{e2.mean():>10.4f}{e2[keep].mean():>11.4f}"
                   f"{share * 100:>11.1f}%{e1.mean():>10.4f}"
                   f"{e1[keep].mean():>11.4f}")
-    print("(若 iAdapter 的 MSE(excl) 反超 Unimodal 而 MSE(all) 落后, "
-          "则 MSE 恶化完全由尾部少数步造成)")
+    print("(if iAdapter's MSE(excl) overtakes Unimodal while its MSE(all) lags behind, "
+          "the MSE degradation is caused entirely by a few tail steps)")
 
 
 def make_all_resonance_figures(mm, provider, results, tag="",
                                sensor_idx=0):
-    """一键出全部共振图 + 尾部报告 (对挂了 reslog 的 M5 适配器调用)。"""
+    """Produce all resonance figures + the tail report in one go (call on the M5 adapter that has a reslog attached)."""
     if getattr(mm, "reslog", None) is None:
-        print("[reso] mm.reslog 未挂载, 跳过共振图")
+        print("[reso] mm.reslog not attached, skipping resonance figures")
         return
     res = mm.reslog.arrays()
     tail_report(results)
@@ -3233,7 +3233,7 @@ def make_all_resonance_figures(mm, provider, results, tag="",
 
 
 # ══════════════════════════════════════════════════════════════
-# SECTION 10 — ENTRY POINT (消融主循环 + CLI)
+# SECTION 10 — ENTRY POINT (ablation main loop + CLI)
 # ══════════════════════════════════════════════════════════════
 
 ABLATION_MODES = [
@@ -3245,12 +3245,12 @@ ABLATION_MODES = [
     ("iAdapter+PosGate ",  dict(fusion="moe_pos", use_text=True, use_text_grad=True)),
 ]
 
-# VoT_z 专用: 骨干内部 z 注入位置消融 (models/VoT_z.py 的 4 个候选点 + 自适应
-# PosGate)，用于论证"自适应分配注入位置"是否优于任何单一固定位置。5 个模式
-# 全部 use_text=False/use_text_grad=False 保持恒定 —— 只让"注入位置"这一个
-# 变量变化，不掺入 VoT_z 已知的"外部 use_text 与内部 USES_TEXT 重复消费文本"
-# 问题 (该问题只在显式 --modes m1..m6 逃生舱口场景下存在)。第一行
-# (pos=pre_gpt2) 是旧版单点固定注入的默认行为，其余 4 行改变注入位置。
+# VoT_z only: ablation of the z-injection position inside the backbone (the 4 candidate points of models/VoT_z.py + adaptive
+# PosGate), used to argue whether "adaptively allocating the injection position" beats every single fixed position. All 5 modes
+# keep use_text=False/use_text_grad=False constant — only the single variable "injection position"
+# changes, without mixing in VoT_z's known "external use_text and internal USES_TEXT consuming the text twice"
+# problem (which only exists in the explicit --modes m1..m6 escape-hatch scenario). The first row
+# (pos=pre_gpt2) is the default behaviour of the legacy single fixed injection; the other 4 rows change the injection position.
 VOT_Z_POSITION_MODES = [
     ("VoT_z (pos=pre_gpt2)", dict(fusion="add", use_text=False, use_text_grad=False, z_loc=3)),
     ("VoT_z (pos=trend)",          dict(fusion="add", use_text=False, use_text_grad=False, z_loc=1)),
@@ -3271,32 +3271,32 @@ def parse_modes(spec: str):
 
 
 def _gpt4mts_z_position_modes(e_layers):
-    """GPT4MTS_z 专用: 骨干 (冻结 GPT2) 内部逐层 z 注入位置消融 [O8]。
+    """GPT4MTS_z only: ablation of the per-layer z-injection position inside the backbone (frozen GPT2) [O8].
 
-    候选位置沿用 _position_candidates() 已有的 {首层, 中间层, 末层} 启发式
-    (models/GPT4MTS_z.py::_gpt2_layerwise 的 z_loc=k 语义: k 越大越深),
-    外加 z_loc=0 (旧版 pre-GPT2 单点固定注入, 作为对照组)。use_text/
-    use_text_grad 全程为 False，理由同 GPT4MTS_z 原有单模式设计: backbone
-    本身 USES_TEXT=True 已直接消费文本, 外部适配器再 use_text=True 会重复
-    处理同一份文本、并不公平; 只让"注入位置"这一个变量变化。
+    The candidate positions reuse the existing {first layer, middle layer, last layer} heuristic of _position_candidates()
+    (z_loc=k semantics of models/GPT4MTS_z.py::_gpt2_layerwise: larger k is deeper),
+    plus z_loc=0 (the legacy single fixed pre-GPT2 injection, as a control group). use_text/
+    use_text_grad are False throughout, for the same reason as GPT4MTS_z's original single-mode design: the backbone
+    itself has USES_TEXT=True and already consumes the text directly, so an external adapter with use_text=True would process
+    the same text twice, which is unfair; only the single variable "injection position" changes.
 
-    最后追加一条在最深位置 (z_loc=gpt_layers, 最接近输出) 叠加 iAdapter
-    本体 (fusion="moe": IGSoftMoEFusionAdapter 多专家融合, 其 forward 本就
-    无条件消费 his_grad 即 z 梯度反馈, 与 use_text_grad 无关) 的模式，用于
-    对比"仅换注入位置"与"注入位置+iAdapter 融合能力"两者各自的收益，即
-    GPT4MTS_z 作为 backbone 时 iAdapter 的优势展示 (plot_gpt4mts_z_advantage
-    消费这条 + 深层 baseline 两条)。use_text_grad 仍设为 False —— 该开关
-    只门控"文本梯度"反馈 (`self.use_text and self.use_text_grad`，见
-    OnlineMM.val/train)，use_text=False 时是死开关，设 True 无实际效果、
-    反而误导，故不使用。"""
+    Finally one more mode is appended that stacks the iAdapter itself at the deepest position (z_loc=gpt_layers, closest to the output)
+    (fusion="moe": IGSoftMoEFusionAdapter multi-expert fusion, whose forward already
+    consumes his_grad, i.e. the z-gradient feedback, unconditionally, regardless of use_text_grad), used to
+    compare the separate gains of "only changing the injection position" and "injection position + iAdapter fusion", i.e.
+    to show iAdapter's advantage when GPT4MTS_z is the backbone (plot_gpt4mts_z_advantage
+    consumes this mode + the two deep baselines). use_text_grad is still False — that switch
+    only gates the "text gradient" feedback (`self.use_text and self.use_text_grad`, see
+    OnlineMM.val/train); with use_text=False it is a dead switch, so setting it to True would have no effect
+    and would only mislead; hence it is not used."""
     gpt_layers = min(max(int(e_layers), 1), 12)
     mid = max(1, gpt_layers // 2)
     locs = sorted(set([0, 1, mid, gpt_layers]))
     labels = {
-        0: "GPT4MTS_z (pos=pre_gpt2, 旧版)",
-        1: "GPT4MTS_z (pos=layer1, 浅层)",
-        mid: "GPT4MTS_z (pos=layer_mid, 中层)",
-        gpt_layers: "GPT4MTS_z (pos=layer_last, 倒数第一层output)",
+        0: "GPT4MTS_z (pos=pre_gpt2, legacy)",
+        1: "GPT4MTS_z (pos=layer1, shallow)",
+        mid: "GPT4MTS_z (pos=layer_mid, middle)",
+        gpt_layers: "GPT4MTS_z (pos=layer_last, last-layer output)",
     }
     modes = [(labels[k], dict(fusion="add", use_text=False,
                               use_text_grad=False, z_loc=k)) for k in locs]
@@ -3308,20 +3308,20 @@ def _gpt4mts_z_position_modes(e_layers):
 
 
 def default_modes_for_backbone(backbone, e_layers=2):
-    """GPT4MTS_z/VoT_z 把文本消费在 backbone 内部 (USES_TEXT=True，直接吃
-    RealTextProvider 编码出的 text_emb)；若外部 IGSoftMoEFusionAdapter/
-    AddFusionAdapter 再叠加一次 use_text=True 会重复处理同一份文本、并不
-    公平。GPT4MTS_z [O8] 现跑 _gpt4mts_z_position_modes() (骨干内部逐层
-    z 注入位置消融 + 最深位置叠加 iAdapter, use_text 全程为 False)；VoT_z
-    支持多位置 dict-z 注入 (SUPPORTS_POS_GATE=True, 见 models/VoT_z.py)，
-    跑专用的 VOT_Z_POSITION_MODES (4 个固定注入位置 + 1 个自适应 PosGate,
-    use_text 全程为 False 以隔离"位置"这一变量)。其余 backbone 沿用完整的
-    iAdapter 消融列表 ABLATION_MODES。
+    """GPT4MTS_z/VoT_z consume the text inside the backbone (USES_TEXT=True, directly taking the
+    text_emb encoded by RealTextProvider); if the external IGSoftMoEFusionAdapter/
+    AddFusionAdapter also used use_text=True, the same text would be processed twice, which is
+    unfair. GPT4MTS_z [O8] now runs _gpt4mts_z_position_modes() (ablation of the per-layer
+    z-injection position inside the backbone + iAdapter stacked at the deepest position, use_text False throughout); VoT_z
+    supports multi-position dict-z injection (SUPPORTS_POS_GATE=True, see models/VoT_z.py) and
+    runs the dedicated VOT_Z_POSITION_MODES (4 fixed injection positions + 1 adaptive PosGate,
+    use_text False throughout to isolate the single variable "position"). Other backbones use the full
+    iAdapter ablation list ABLATION_MODES.
 
-    PatchTST 的 z 注入点固定在 'input2' (分解前原始序列)，不支持
-    'iAdapter+PosGate' 需要的多层 dict-z 注入 (方案设计决策 7 明确排除)，
-    故为它单独去掉 ABLATION_MODES 里的 PosGate 行，避免默认全量跑批时
-    直接触发 OnlineMM 的 SUPPORTS_POS_GATE 校验报错。"""
+    PatchTST's z-injection point is fixed at 'input2' (raw series before decomposition), so it does not support
+    the multi-layer dict-z injection needed by 'iAdapter+PosGate' (explicitly excluded by design decision 7);
+    therefore the PosGate row of ABLATION_MODES is removed for it alone, to avoid triggering OnlineMM's
+    SUPPORTS_POS_GATE check error directly in a default full batch run."""
     if backbone == "GPT4MTS_z":
         return _gpt4mts_z_position_modes(e_layers)
     if backbone == "VoT_z":
@@ -3351,10 +3351,10 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
     domain = canonical_domain(data)
     modes = modes or default_modes_for_backbone(backbone, e_layers)
 
-    # [C1] 置信度 EMA 动量在构造 provider 前注入 (类属性, 构造期生效)
+    # [C1] the confidence EMA momentum is injected before the provider is constructed (class attribute, effective at construction)
     RealTextProvider.CONF_MOMENTUM = float(conf_momentum)
 
-    # 1) 真实文本供给器：数值 + 文本一站式；编码缓存跨模式共享
+    # 1) Real-text provider: numeric + text in one place; the encoding cache is shared across modes
     provider = RealTextProvider(
         domain, data_dir=data_dir, text_source=text_source,
         text_lookback=text_lookback, max_clauses=max_clauses,
@@ -3363,7 +3363,7 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
         keep_history_stats=keep_history_stats, ot_only=ot_only
     )
 
-    # 2) pred_lens 规范化：None -> 域默认；int -> 单元素列表
+    # 2) Normalize pred_lens: None -> domain default; int -> single-element list
     ds_, dp_ = _DOMAIN_WINDOW.get(domain, (36, 6))
     base_seq_len = seq_len or ds_
 
@@ -3374,7 +3374,7 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
     else:
         pred_lens = list(pred_lens)
 
-    # 小样本场景的自适应设置
+    # Adaptive settings for small-sample scenarios
     if provider.n_rows < 500:
         d_model = min(d_model, 32)
         pretrain_epochs = max(pretrain_epochs, 50)
@@ -3385,23 +3385,23 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
 
     all_results = {}  # {pred_len: [result_dict, ...]}
 
-    # 3) 多 horizon 主循环
+    # 3) Multi-horizon main loop
     for raw_pred_len in pred_lens:
         print(f"\n{'#' * 66}\n"
               f"[MULTI-H] domain={domain}  pred_len={raw_pred_len}\n"
               f"{'#' * 66}")
 
-        # 每个 pred_len 独立自动收缩窗口
+        # Shrink the window automatically for each pred_len independently
         sl, pl = auto_window(provider.n_rows, base_seq_len, raw_pred_len)
 
-        # 不同骨干的 z 插入维度/层数/有效 d_model 不同 (SOFTS 固定 256/3 层,
-        # TimesNet 按时间步而非变量数)
+        # Backbones differ in z insertion dimension / layer count / effective d_model (SOFTS fixed at 256/3 layers,
+        # TimesNet by time step rather than by number of variables)
         eff_d_model, eff_z_loc, z_n_dim = _backbone_dims(
             backbone, sl, pl, provider.numeric.shape[1], d_model, e_layers, z_loc
         )
         pos_candidates = _position_candidates(backbone, e_layers)
 
-        # 每个 pred_len 独立加载数据
+        # Load the data independently for each pred_len
         train_set, val_set, test_set, _sc, offsets = load_real_data_mm(
             provider, sl, pl
         )
@@ -3444,14 +3444,14 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
 
         ensure_settings(args.backbone, domain.lower(), lr_overrides)
 
-        # 4) 每个 pred_len 独立 checkpoint
+        # 4) Independent checkpoint for each pred_len
         stem = (
             f"iAdapter_backbone_{backbone}_{domain}_L{sl}_h{pl}"
             f"_dm{eff_d_model}_el{e_layers}_c{enc_in}_seed{seed}.pth"
         )
         ckpt = os.path.join(ckpt_dir, stem)
 
-        # 兼容旧命名：仅当形状匹配时复用
+        # Compatible with old names: reuse only when the shapes match
         legacy_names = [
             os.path.join(
                 ckpt_dir,
@@ -3462,8 +3462,8 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
 
         def _ckpt_matches(path):
             """
-            检查 checkpoint 的 embedding.proj.weight 是否与当前
-            (d_model, seq_len) 匹配，避免 size mismatch。
+            Check whether the checkpoint's embedding.proj.weight matches the current
+            (d_model, seq_len), to avoid a size mismatch.
             """
             try:
                 sd = torch.load(path, map_location="cpu")
@@ -3515,10 +3515,10 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
             try:
                 state = torch.load(ckpt, map_location=device)
             except Exception as e:
-                # 文件存在但不是合法的 torch 存档 (常见于上次预训练被
-                # kill/OOM/磁盘满打断, 留下截断的 .pth) —— 与"形状不匹配"
-                # 是两类不同的错误, 这里直接删除损坏文件并重新预训练,
-                # 而不是把它当成配置错误抛给用户。
+                # The file exists but is not a valid torch archive (typically when the last pretraining run was
+                # interrupted by kill/OOM/full disk, leaving a truncated .pth) — a different kind of error from "shape mismatch",
+                # so the corrupted file is deleted here and pretraining is rerun,
+                # instead of reporting it to the user as a configuration error.
                 print(
                     f"[backbone] checkpoint '{ckpt}' is corrupted/unreadable "
                     f"({e}) -> deleting and re-pretraining."
@@ -3559,10 +3559,10 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
             _load_backbone_state(bb)
             return bb.to(device).eval()
 
-        # 5) 当前 pred_len 的消融主循环
+        # 5) Ablation main loop for the current pred_len
         results = []
         gate_hist_full = None
-        m5_adapter = None                       # [C3] 供共振出图
+        m5_adapter = None                       # [C3] for the resonance figures
 
         for label, kw in modes:
             print(f"\n{'=' * 62}\n"
@@ -3575,15 +3575,15 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
             args.seq_len = sl
             args.pred_len = pl
             args.enc_in = enc_in
-            # VOT_Z_POSITION_MODES 的每个 mode 可以在 kw 里带一个 z_loc,
-            # 覆盖默认注入位置 (固定位置消融); 其余 backbone/ABLATION_MODES
-            # 没有这个键, 原样退化为 eff_z_loc, 行为不变。
+            # Each mode of VOT_Z_POSITION_MODES can carry a z_loc in kw,
+            # overriding the default injection position (fixed-position ablation); other backbones/ABLATION_MODES
+            # have no such key and fall back to eff_z_loc unchanged.
             args.z_loc = kw.get("z_loc", eff_z_loc)
             args.z_shape = (batch_size, z_n_dim, eff_d_model)
 
-            # z_loc 只是给 backbone forward 用的位置选择, OnlineMM 不接受
-            # 这个构造参数 —— 展开给 OnlineMM 前过滤掉, 但下面写 CSV 仍用
-            # 完整的 kw (含 z_loc), 便于按位置复盘。
+            # z_loc is only a position choice for the backbone forward; OnlineMM does not accept
+            # it as a constructor argument — it is filtered out before being passed to OnlineMM, but the CSV below still uses
+            # the full kw (including z_loc), for per-position review.
             online_kw = {k: v for k, v in kw.items() if k != "z_loc"}
             adapter = OnlineMM(
                 backbone=fresh_backbone(),
@@ -3609,15 +3609,15 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
                 **online_kw
             )
 
-            # [C3] m5_adapter 标记与是否挂共振日志解耦: 即使 --no_resonance
-            # 关闭了共振日志 (反事实前向开销), CLIP 对齐图仍需要认得哪个是
-            # M5, 否则下面 embed_log 收集的向量永远出不了图。
+            # [C3] marking m5_adapter is decoupled from attaching the resonance logger: even when --no_resonance
+            # turns off resonance logging (the counterfactual forward cost), the CLIP-alignment figure still needs to know which one is
+            # M5, otherwise the vectors collected by embed_log below would never make it into a figure.
             if _is_ours(label):
                 m5_adapter = adapter
                 if log_resonance:
                     adapter.reslog = ResonanceLogger(counterfactual=True)
 
-            # CLIP 对齐语义空间可视化: 仅对挂了 clip_align 的 M5 收集向量
+            # CLIP-alignment semantic-space visualization: collect vectors only for the M5 that has clip_align attached
             if make_figures and adapter.clip_align is not None:
                 adapter.embed_log = EmbedAlignLogger()
 
@@ -3652,7 +3652,7 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
             if _is_ours(label) and adapter.gate_history:
                 gate_hist_full = list(adapter.gate_history)
 
-            # CSV 追加：增加 pred_len 列
+            # CSV append: add a pred_len column
             pd.DataFrame([{
                 "data": domain,
                 "backbone": backbone,
@@ -3677,7 +3677,7 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
 
         all_results[pl] = results
 
-        # 6) 当前 pred_len 的收益汇总
+        # 6) Gain summary for the current pred_len
         print(f"\n{'-' * 66}\n"
               f"[SUMMARY] {domain} h={pl} seed={seed} "
               f"text={text_source} his={his_mode} conf_m={conf_momentum}\n"
@@ -3702,11 +3702,11 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
                 f"MSE={r['mse']:.4f} ({g_mse:+.1f}%)"
             )
 
-        # 7) 当前 pred_len 单独出图 [此前按需求关闭过 PNG 输出，现重新启用
-        # 核心消融/收益图，用于直观展示自适应融合相对 Unimodal 的提升；
-        # 文本共振图 (make_all_resonance_figures) 仍保持关闭 (反事实前向
-        # 开销大，且与"自适应是否提升预测"无直接关系)；CLIP 对齐语义空间图
-        # 已重新启用 (见下方 plot_clip_alignment_space), 独立于 log_resonance]
+        # 7) Figures for the current pred_len [PNG output had been turned off on request earlier; the core
+        # ablation/gain figures are now re-enabled, to show the improvement of adaptive fusion over Unimodal directly;
+        # the text-resonance figures (make_all_resonance_figures) stay off (the counterfactual forward
+        # is expensive and has no direct bearing on "does adaptivity improve forecasting"); the CLIP-alignment semantic-space figure
+        # has been re-enabled (see plot_clip_alignment_space below), independently of log_resonance]
         if make_figures:
             tag = f"_{domain}_h{pl}_s{seed}"
 
@@ -3732,16 +3732,16 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
                     save_path=f"iAdapter_gate_usage{tag}.png"
                 )
 
-            # [C3] 文本能量 × 时序信号 共振图 (时间线 / 周期折叠 / 互相关)
+            # [C3] text energy × time-series signal resonance figures (timeline / periodic folding / cross-correlation)
             # if m5_adapter is not None:
             #     make_all_resonance_figures(
             #         m5_adapter, provider, results, tag=tag
             #     )
             #
-            # CLIP 对齐语义空间可视化: TS 向量 / 文本向量同投到共享空间,
-            # 按主周期与跳变强度着色 (与 log_resonance 无关, 只要 M5 挂了
-            # clip_align 且收集到样本就出图)
-                # [C3] 文本能量 × 时序信号 共振时间线
+            # CLIP-alignment semantic-space visualization: TS vectors / text vectors projected together into the shared space,
+            # coloured by dominant period and jump strength (independent of log_resonance; a figure is produced whenever M5 has
+            # clip_align attached and samples were collected)
+                # [C3] text energy × time-series signal resonance timeline
             if (m5_adapter is not None
                     and getattr(m5_adapter, "reslog", None) is not None):
                 _res = m5_adapter.reslog.arrays()
@@ -3758,19 +3758,19 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
             #             embed_arrays,
             #             save_path=f"iAdapter_clip_align_space{tag}.png")
             #     else:
-            #         print("[clip-align] 未收集到样本 (可能从未触发缓冲区更新), "
-            #               "跳过语义空间可视化")
+            #         print("[clip-align] no samples collected (the buffer update may never have been triggered), "
+            #               "skipping semantic-space visualization")
 
-    # 8) 多 pred_len 汇总图
+    # 8) Multi-pred_len summary figure
     if make_figures and len(pred_lens) > 1:
         plot_multi_pred_len_summary(
             all_results,
             save_path=f"iAdapter_multi_predlen_{domain}_s{seed}.png"
         )
 
-    # 9) GPT4MTS_z 专属: backbone 内部最优固定位置 vs +iAdapter 的预测优势
-    # 放大图 (对标 xihe.png 的 Original vs +Energy 分组柱状图), 复用同一份
-    # all_results, 不额外跑训练。
+    # 9) GPT4MTS_z only: zoomed figure of the forecast advantage of the best fixed position inside the backbone vs +iAdapter
+    # (modelled on the Original vs +Energy grouped bar chart of xihe.png), reusing the same
+    # all_results, with no extra training.
     if make_figures and backbone == "GPT4MTS_z":
         plot_gpt4mts_z_advantage(
             all_results,
@@ -3781,12 +3781,12 @@ def finetune_mm(data="Traffic", data_dir="./data", seq_len=None, pred_lens=None,
 
 
 # ══════════════════════════════════════════════════════════════
-# report_averages —— 汇报各配置平均 MSE/MAE
+# report_averages — report the average MSE/MAE of each configuration
 # ══════════════════════════════════════════════════════════════
 
 def report_averages(csv_path="finally_backbone.csv",
                     out_csv="iAdapter_avg_summary.csv"):
-    """读取运行 CSV, 汇报各配置平均 MSE/MAE (跨 seed 均值±std) 及每模式总平均。"""
+    """Read the run CSV and report the average MSE/MAE of each configuration (mean±std across seeds) and the overall average per mode."""
     if not os.path.exists(csv_path):
         print(f"[report] CSV not found: {csv_path}")
         return None
@@ -3819,17 +3819,17 @@ def report_averages(csv_path="finally_backbone.csv",
                   f"{r['mse_mean']:.4f} ± {r['mse_std']:.4f}      "
                   f"{int(r['n_seed'])}")
 
-    _print_block("平均 MSE/MAE — 每 (域, pred_len, 模式), 跨 seed",
+    _print_block("Average MSE/MAE — per (domain, pred_len, mode), across seeds",
                  per, ["data", "pred_len", "mode"])
-    _print_block("平均 MSE/MAE — 每 (域, 模式), 跨 pred_len×seed",
+    _print_block("Average MSE/MAE — per (domain, mode), across pred_len×seed",
                  per_dm, ["data", "mode"])
-    _print_block("总平均 MSE/MAE — 每模式 (跨 域×pred_len×seed)",
+    _print_block("Overall average MSE/MAE — per mode (across domain×pred_len×seed)",
                  per_m, ["mode"])
 
     uni = per_m[per_m["mode"].str.contains("Unimodal", case=False)]
     if len(uni):
         um, us = uni["mae_mean"].iloc[0], uni["mse_mean"].iloc[0]
-        print(f"\n[REPORT] 相对 Unimodal(ADAPT-Z) 的总平均收益:")
+        print(f"\n[REPORT] overall average gain relative to Unimodal(ADAPT-Z):")
         for _, r in per_m.iterrows():
             print(f"  {r['mode']:<28} "
                   f"MAE {(um - r['mae_mean']) / um * 100:+6.2f}%   "
@@ -3844,8 +3844,8 @@ def report_averages(csv_path="finally_backbone.csv",
 
 def report_by_backbone(csv_path="finally_backbone.csv",
                        out_csv="iAdapter_avg_summary_by_backbone.csv"):
-    """读取运行 CSV, 按 (数据集, backbone) 与总的 (仅 backbone) 两个粒度
-    汇报平均 MSE/MAE (跨 pred_len×mode×seed 均值±std)。"""
+    """Read the run CSV and report the average MSE/MAE at two granularities, per (dataset, backbone) and overall (backbone only)
+    (mean±std across pred_len×mode×seed)."""
     if not os.path.exists(csv_path):
         print(f"[report] CSV not found: {csv_path}")
         return None
@@ -3878,9 +3878,9 @@ def report_by_backbone(csv_path="finally_backbone.csv",
                   f"{r['mse_mean']:.4f} ± {r['mse_std']:.4f}      "
                   f"{int(r['n_seed'])}")
 
-    _print_block("平均 MSE/MAE — 每 (数据集, backbone), 跨 pred_len×mode×seed",
+    _print_block("Average MSE/MAE — per (dataset, backbone), across pred_len×mode×seed",
                  per_db, ["data", "backbone"])
-    _print_block("总平均 MSE/MAE — 每 backbone (跨 数据集×pred_len×mode×seed)",
+    _print_block("Overall average MSE/MAE — per backbone (across dataset×pred_len×mode×seed)",
                  per_b, ["backbone"])
 
     per_db.to_csv(out_csv, index=False)
@@ -3891,8 +3891,8 @@ def report_by_backbone(csv_path="finally_backbone.csv",
 
 def paired_seed_report(csv_path="finally_backbone.csv", domain=None,
                        base_mode="Unimodal (ADAPT-Z)"):
-    """[C3] 同 seed 配对差值报告: 各模式 − 基线, mean±std + 符号计数。
-    模式间差异远小于跨 seed std 时必看 —— n/n 或 0/n 同号即配对显著。"""
+    """[C3] same-seed paired-difference report: each mode − baseline, mean±std + sign counts.
+    A must-read when differences between modes are far smaller than the cross-seed std — n/n or 0/n with the same sign means paired-significant."""
     if not os.path.exists(csv_path):
         print(f"[paired] CSV not found: {csv_path}")
         return
@@ -3903,8 +3903,8 @@ def paired_seed_report(csv_path="finally_backbone.csv", domain=None,
         subset=["data", "pred_len", "mode", "seed"], keep="last")
     for dom in sorted(df["data"].unique()):
         sub_d = df[df["data"] == dom]
-        print(f"\n{'=' * 74}\n[PAIRED] {dom}: 各模式 − {base_mode} 的"
-              f"同 seed 配对差值 (负=更好)\n{'=' * 74}")
+        print(f"\n{'=' * 74}\n[PAIRED] {dom}: each mode − {base_mode}, "
+              f"same-seed paired difference (negative = better)\n{'=' * 74}")
         for pl in sorted(sub_d["pred_len"].unique()):
             sub = sub_d[sub_d["pred_len"] == pl]
             piv_mae = sub.pivot_table(index="seed", columns="mode",
@@ -3934,22 +3934,22 @@ def main():
     ap.add_argument("--data_dir", default="./data")
     ap.add_argument("--seq_len", type=int, default=0, help="0=per-domain default")
     ap.add_argument("--pred_lens", default=" ",
-                    help="逗号分隔的预测长度列表, 如 '6,8,10,12'; "
-                         "留空=域默认单值")
+                    help="comma-separated list of forecast lengths, e.g. '6,8,10,12'; "
+                         "empty = the domain's default single value")
     ap.add_argument("--seeds", default="2023,2024,2025,2026,2027")
     ap.add_argument("--batch_size", type=int, default=16)
     ap.add_argument("--backbone", default="VoT_z",
                     choices=["iTransformer", "SOFTS", "GPT4MTS_z",
                              "PatchTST", "Transformer",
                              "GPT4MTS_z", "VoT_z"],
-                    help="骨干网络; SOFTS 要求 --seq_len 96, 其余无此限制; "
-                         "GPT4MTS_z/VoT_z 请配合 --modes all 使用 (留空/不传"
-                         "具体 m1..m6 时会自动收窄为 default_modes_for_backbone"
-                         " 给出的默认模式集：GPT4MTS_z 是单一公平对比模式，"
-                         "VoT_z 是 VOT_Z_POSITION_MODES 的 4 固定位置+1 自适应"
-                         "PosGate 消融集 (SUPPORTS_POS_GATE=True，已原生支持"
-                         "m6/moe_pos)；显式传 m1..m6 仍会绕过这一保护，对"
-                         "GPT4MTS_z 可能导致文本被重复消费)")
+                    help="backbone network; SOFTS requires --seq_len 96, the others have no such restriction; "
+                         "use GPT4MTS_z/VoT_z with --modes all (when empty / not given "
+                         "as specific m1..m6, it automatically narrows to the default mode set given by default_modes_for_backbone"
+                         ": GPT4MTS_z is a single fair-comparison mode, "
+                         "VoT_z is the 4 fixed positions + 1 adaptive "
+                         "PosGate ablation set of VOT_Z_POSITION_MODES (SUPPORTS_POS_GATE=True, natively supports "
+                         "m6/moe_pos); explicitly passing m1..m6 still bypasses this protection, which for "
+                         "GPT4MTS_z may make the text be consumed twice)")
     ap.add_argument("--d_model", type=int, default=64)
     ap.add_argument("--e_layers", type=int, default=6)
     ap.add_argument("--z_loc", type=int, default=2)
@@ -3975,24 +3975,24 @@ def main():
                          "unbounded accumulation")
     ap.add_argument("--his_momentum", type=float, default=0.9)
     ap.add_argument("--conf_momentum", type=float, default=0.8,
-                    help="[C1] 文本置信度 EMA 动量 (越大越平滑; "
-                         "0 退化为逐行硬指示)")
+                    help="[C1] text-confidence EMA momentum (larger = smoother; "
+                         "0 degenerates to a hard per-row indicator)")
     ap.add_argument("--no_resonance", action="store_true",
-                    help="[C3] 关闭共振日志与出图 (省去反事实前向)")
+                    help="[C3] turn off resonance logging and figures (saves the counterfactual forward)")
     ap.add_argument("--no_clip_align", action="store_true",
-                    help="关闭 CLIP 式 TS-文本对比对齐 (InfoNCE) 及其"
-                         "语义空间可视化, 仅在 use_text=True 的模式下生效")
+                    help="turn off CLIP-style TS–text contrastive alignment (InfoNCE) and its "
+                         "semantic-space visualization; only takes effect in modes with use_text=True")
     ap.add_argument("--clip_dim", type=int, default=64,
-                    help="CLIP 对齐共享空间维度")
+                    help="dimension of the CLIP-alignment shared space")
     ap.add_argument("--clip_weight", type=float, default=0.1,
-                    help="CLIP 对齐 InfoNCE loss 权重")
+                    help="weight of the CLIP-alignment InfoNCE loss")
     ap.add_argument("--dropout", type=float, default=0.1)
     ap.add_argument("--weight_decay", type=float, default=1e-4)
     ap.add_argument("--grad_clip", type=float, default=1.0)
     ap.add_argument("--patience", type=int, default=3)
     ap.add_argument("--warmup_rounds", type=int, default=3)
-    ap.add_argument("--modes", default="", help="e.g. m1,m5 or 'all' (留空=按 "
-                    "backbone 自动选择, 见 --backbone 帮助)")
+    ap.add_argument("--modes", default="", help="e.g. m1,m5 or 'all' (empty = chosen automatically by "
+                    "backbone, see the --backbone help)")
     ap.add_argument("--ckpt_dir", default=".")
     ap.add_argument("--pretrain_epochs", type=int, default=15)
     ap.add_argument("--pretrain_lr", type=float, default=1e-3)
@@ -4010,7 +4010,7 @@ def main():
     doms = (DOMAINS if a.data.strip().lower() == "all"
             else [canonical_domain(d) for d in a.data.split(",") if d.strip()])
 
-    if a.preview > 0:                                    # 纯文本预览
+    if a.preview > 0:                                    # plain-text preview
         RealTextProvider.CONF_MOMENTUM = float(a.conf_momentum)
         for d in doms:
             p = RealTextProvider(
@@ -4062,7 +4062,7 @@ def main():
 
 if __name__ == "__main__":
     _csv = main()
-    if _csv:                              # --preview 模式返回 None, 跳过汇总
+    if _csv:                              # --preview mode returns None; skip the summary
         _stem = _csv[:-4] if _csv.endswith(".csv") else _csv
         report_averages(_csv, out_csv=f"{_stem}_avg.csv")
         report_by_backbone(_csv, out_csv=f"{_stem}_by_backbone.csv")
