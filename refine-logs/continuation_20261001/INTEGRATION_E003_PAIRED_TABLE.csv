@@ -1,7 +1,0 @@
-Dataset,Control,Δ MSE mean ± SD,Δ MAE mean ± SD,MSE change (%),MAE change (%),MSE improved seeds
-Energy,raw_BERT_PCA5_online,-0.0004609 ± 0.0005506,-0.0014016 ± 0.0015510,-3.14,-1.53,2/3
-Energy,numeric_online,+0.0001398 ± 0.0006035,+0.0003523 ± 0.0026032,+0.99,+0.39,1/3
-Energy,LLM5_static,+0.0000986 ± 0.0001782,+0.0003453 ± 0.0006921,+0.70,+0.38,1/3
-SocialGood,raw_BERT_PCA5_online,-0.0020480 ± 0.0018446,-0.0016686 ± 0.0012497,-1.54,-0.80,3/3
-SocialGood,numeric_online,-0.0031252 ± 0.0029077,-0.0033668 ± 0.0035960,-2.34,-1.59,2/3
-SocialGood,LLM5_static,-0.0021472 ± 0.0037699,-0.0014445 ± 0.0035791,-1.62,-0.69,2/3

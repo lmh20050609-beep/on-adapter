@@ -1,8 +1,0 @@
-test_internal_matches_existing_stream_exactly (test_shared_online.SharedOnlineTests) ... ok
-test_missing_targets_are_consumed_without_update (test_shared_online.SharedOnlineTests) ... ok
-test_native_future_inputs_labels_and_exact_maturity (test_shared_online.SharedOnlineTests) ... ok
-
-----------------------------------------------------------------------
-Ran 3 tests in 1.844s
-
-OK

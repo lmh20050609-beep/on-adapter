@@ -1,5 +1,0 @@
-claim,dataset,mse_change_percent,mae_change_percent,mse_improved_seeds,passes
-C1_feedback,Energy,1.5766321221624802,0.6594605228158246,1,False
-C1_feedback,SocialGood,0.4679380004168676,0.1503995149106263,0,False
-C2_initial_text,Energy,2.208981070267657,0.9546013604549985,1,False
-C2_initial_text,SocialGood,-0.8541705341104766,-0.5748548781748131,2,False

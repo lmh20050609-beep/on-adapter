@@ -1,5 +1,0 @@
-dataset,candidate,mse_change_percent,mae_change_percent,MSE_improved_seeds,MAE_improved_seeds,within_1_percent_mean_error_tolerance
-Energy,no_decisiveness,-5.744192706587093,-2.7762339024908322,3,2,True
-Energy,single_mlp,-5.281687432381643,-2.8578355326994487,3,3,True
-SocialGood,no_decisiveness,-1.0311199763235357,-1.6719709303927854,5,5,True
-SocialGood,single_mlp,-0.3658737661049405,-1.5013200064274423,3,5,True

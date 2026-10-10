@@ -1,6 +1,0 @@
-{
-  "date": "2026-10-01",
-  "review_type": "narrow follow-up; same-family provisional",
-  "initial_request": "Applied the three narrow findings before deployment. Read updated same source_patch/calibration_pilot.py (also now copied to canonical WSL iadapter/calibration_pilot.py). ledger_group/ledgers now split calibration+selection wave from a separate assessment stage that requires locked rules and completed first queue; no assessment scores before locking. select/evaluate_mix assert same clean source revision; assessment queue has its own completed-state guard. Costs will use separate formal microbenchmarks without ContentBackend; saved probe_seconds will be excluded from descriptive ledger timings. Please recheck these specific changes for actual regressions, especially assessment status/config and queue lifecycle. No new broad review or additional experiments. Save raw follow-up CODE_REVIEW_FOLLOWUP.md and exact follow-up request CODE_REVIEW_FOLLOWUP_REQUEST.json. Do not edit code or launch GPU experiments."
-}
-

@@ -1,7 +1,0 @@
-dataset,method,numeric_backbone_params,trainable_params,adapter_to_backbone_ratio,total_params_including_BERT,cached_pred_ms,update_ms,fresh_text_e2e_ms,adapter_peak_MiB
-Economy,Numeric adapter,26854,10560,0.39,37414,1.698,2.617,1.698,17.61
-Economy,Text addition,26854,94944,3.54,109604038,1.88,3.21,8.626,18.58
-Economy,iAdapter,26854,166896,6.21,109675990,3.239,9.163,10.81,19.72
-Energy,Numeric adapter,27238,10752,0.39,37990,1.719,2.905,1.719,17.63
-Energy,Text addition,27238,95136,3.49,109604614,1.949,3.367,8.494,18.61
-Energy,iAdapter,27238,167088,6.13,109676566,3.561,9.889,10.632,19.73

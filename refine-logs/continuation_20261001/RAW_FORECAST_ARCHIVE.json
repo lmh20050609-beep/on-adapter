@@ -1,9 +1,0 @@
-{
-  "created_utc": "2026-10-01T04:08:42.392886+00:00",
-  "archive": "continuation_raw_forecasts_20261001.tar.gz",
-  "files": 518,
-  "bytes": 8544062,
-  "sha256": "44a42d161a448fcaeeef365877120a7681daf8aacd8644fdedb9a95b5737025a",
-  "scope": "Original issued forecasts, configs, masks, update logs, frozen representation caches, queue/failure/audits; .pt training checkpoints and pretrained weights remain in canonical WSL workspace",
-  "source_commit": "ef22b6716a3f6a069fd99f41f0cf8b80fd1ce496"
-}

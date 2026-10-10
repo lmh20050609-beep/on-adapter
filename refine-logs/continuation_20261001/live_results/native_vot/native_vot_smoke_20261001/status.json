@@ -1,4 +1,0 @@
-{
-  "status": "failed",
-  "error": "Traceback (most recent call last):\n  File \"/home/wuwa/projects/research/iadapter/iadapter/native_vot_smoke.py\", line 66, in main\n    model = build(L, H, device)\n  File \"/home/wuwa/projects/research/iadapter/iadapter/native_vot.py\", line 61, in build\n    model = model_class()(native_config(lookback, horizon)).float().to(device)\n  File \"/home/wuwa/projects/research/iadapter/iadapter/native_vot.py\", line 34, in model_class\n    exec(compile(path.read_text(encoding='utf-8'), str(path), 'exec'), namespace)\n  File \"/home/wuwa/projects/research/iadapter/external/vot/models/PatchTST_clip.py\", line 4, in <module>\n    from layers.SelfAttention_Family import FullAttention, AttentionLayer\n  File \"/home/wuwa/projects/research/iadapter/external/vot/layers/SelfAttention_Family.py\", line 6, in <module>\n    from reformer_pytorch import LSHSelfAttention\nModuleNotFoundError: No module named 'reformer_pytorch'\n"
-}

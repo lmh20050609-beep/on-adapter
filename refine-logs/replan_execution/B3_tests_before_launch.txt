@@ -1,8 +1,0 @@
-test_cache_key_binds_exact_visible_input_and_domain (test_task_text_prior.TaskPriorTests) ... ok
-test_only_enum_outputs_accepted (test_task_text_prior.TaskPriorTests) ... ok
-test_rule_respects_target_and_conflicting_direction (test_task_text_prior.TaskPriorTests) ... ok
-
-----------------------------------------------------------------------
-Ran 3 tests in 0.001s
-
-OK

@@ -1,3 +1,0 @@
-# C0 completed
-
-Pinned official TimesFM3 successfully loaded in existingWSL env; no Torch/Transformers replacement. Four original calibration-origin forecasts, H6, historical-only context, all finite, official median(index4/9); batch1/2 agreed. Parameters frozen and version counters unchanged, no optimizer. Exact330710976 params, peakallocated1332584960 bytes(~1.241GiB). This is integration, not a demonstrated stronger baseline. Source35cd2f5; weights are retained locally, noncommercial academic use; not distributed toGitHub. Receipt discloses mirror download. C1 frozen ledger and B residual comparison still unfinished.

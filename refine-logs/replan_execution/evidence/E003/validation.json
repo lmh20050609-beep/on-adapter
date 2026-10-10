@@ -1,9 +1,0 @@
-{
-  "status": "passed",
-  "new_evaluations": 24,
-  "warmups": 12,
-  "donor_sequences": 12,
-  "original_csv_verified_score_sequences": 36,
-  "same_initial_parameters_across_representations": true,
-  "scope": "User-revised post-results local-progress exploration; not independent confirmation"
-}

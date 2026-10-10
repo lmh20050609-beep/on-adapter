@@ -1,8 +1,0 @@
-test_native_window_never_reads_future_text (test_external_static.StaticTests) ... ok
-test_ot_extraction_preserves_original_scale_and_masks (test_external_static.StaticTests) ... ok
-test_static_internal_future_labels_and_parameter_invariance (test_external_static.StaticTests) ... ok
-
-----------------------------------------------------------------------
-Ran 3 tests in 0.951s
-
-OK
