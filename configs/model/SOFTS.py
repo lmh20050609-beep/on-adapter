@@ -1,2 +1,0 @@
-model: SOFTS
-individual: False

@@ -1,0 +1,726 @@
+{
+ "alignment": {
+  "Environment/H48/On-Adapter": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 9005,
+     "sampled": [
+      95,
+      4597,
+      9099
+     ]
+    },
+    "val": {
+     "origins": 3003,
+     "sampled": [
+      9147,
+      10648,
+      12149
+     ]
+    },
+    "test": {
+     "origins": 3003,
+     "sampled": [
+      12197,
+      13698,
+      15199
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Environment/H336/MM-TSFlib": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 8717,
+     "sampled": [
+      95,
+      4453,
+      8811
+     ]
+    },
+    "val": {
+     "origins": 2715,
+     "sampled": [
+      9147,
+      10504,
+      11861
+     ]
+    },
+    "test": {
+     "origins": 2715,
+     "sampled": [
+      12197,
+      13554,
+      14911
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Energy/H12/GPT4MTS": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 852,
+     "sampled": [
+      23,
+      449,
+      874
+     ]
+    },
+    "val": {
+     "origins": 285,
+     "sampled": [
+      886,
+      1028,
+      1170
+     ]
+    },
+    "test": {
+     "origins": 285,
+     "sampled": [
+      1182,
+      1324,
+      1466
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Energy/H48/On-Adapter": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 816,
+     "sampled": [
+      23,
+      431,
+      838
+     ]
+    },
+    "val": {
+     "origins": 249,
+     "sampled": [
+      886,
+      1010,
+      1134
+     ]
+    },
+    "test": {
+     "origins": 249,
+     "sampled": [
+      1182,
+      1306,
+      1430
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Health_US/H12/MM-TSFlib": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 798,
+     "sampled": [
+      23,
+      422,
+      820
+     ]
+    },
+    "val": {
+     "origins": 267,
+     "sampled": [
+      832,
+      965,
+      1098
+     ]
+    },
+    "test": {
+     "origins": 267,
+     "sampled": [
+      1110,
+      1243,
+      1376
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Health_US/H48/GPT4MTS": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 762,
+     "sampled": [
+      23,
+      404,
+      784
+     ]
+    },
+    "val": {
+     "origins": 231,
+     "sampled": [
+      832,
+      947,
+      1062
+     ]
+    },
+    "test": {
+     "origins": 231,
+     "sampled": [
+      1110,
+      1225,
+      1340
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Traffic/H6/MM-TSFlib": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 305,
+     "sampled": [
+      7,
+      159,
+      311
+     ]
+    },
+    "val": {
+     "origins": 101,
+     "sampled": [
+      317,
+      367,
+      417
+     ]
+    },
+    "test": {
+     "origins": 102,
+     "sampled": [
+      423,
+      474,
+      524
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Traffic/H12/On-Adapter": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 299,
+     "sampled": [
+      7,
+      156,
+      305
+     ]
+    },
+    "val": {
+     "origins": 95,
+     "sampled": [
+      317,
+      364,
+      411
+     ]
+    },
+    "test": {
+     "origins": 96,
+     "sampled": [
+      423,
+      471,
+      518
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "SocialGood/H8/GPT4MTS": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 525,
+     "sampled": [
+      7,
+      269,
+      531
+     ]
+    },
+    "val": {
+     "origins": 173,
+     "sampled": [
+      539,
+      625,
+      711
+     ]
+    },
+    "test": {
+     "origins": 172,
+     "sampled": [
+      719,
+      805,
+      890
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Security/H6/MM-TSFlib": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 165,
+     "sampled": [
+      7,
+      89,
+      171
+     ]
+    },
+    "val": {
+     "origins": 54,
+     "sampled": [
+      177,
+      204,
+      230
+     ]
+    },
+    "test": {
+     "origins": 55,
+     "sampled": [
+      236,
+      263,
+      290
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Economy/H10/On-Adapter": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 236,
+     "sampled": [
+      7,
+      125,
+      242
+     ]
+    },
+    "val": {
+     "origins": 76,
+     "sampled": [
+      252,
+      290,
+      327
+     ]
+    },
+    "test": {
+     "origins": 76,
+     "sampled": [
+      337,
+      375,
+      412
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Climate/H12/GPT4MTS": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 278,
+     "sampled": [
+      7,
+      146,
+      284
+     ]
+    },
+    "val": {
+     "origins": 88,
+     "sampled": [
+      296,
+      340,
+      383
+     ]
+    },
+    "test": {
+     "origins": 89,
+     "sampled": [
+      395,
+      439,
+      483
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  },
+  "Agriculture/H6/MM-TSFlib": {
+   "status": "passed",
+   "detail": {
+    "train": {
+     "origins": 284,
+     "sampled": [
+      7,
+      149,
+      290
+     ]
+    },
+    "val": {
+     "origins": 94,
+     "sampled": [
+      296,
+      343,
+      389
+     ]
+    },
+    "test": {
+     "origins": 95,
+     "sampled": [
+      395,
+      442,
+      489
+     ]
+    }
+   },
+   "origin_target_mask_alignment": true,
+   "history_is_past_only": true
+  }
+ },
+ "minimal_input": {
+  "Environment/H48/On-Adapter": {
+   "status": "passed",
+   "identical": true,
+   "origin": 13698,
+   "method": "On-Adapter",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Environment/H336/MM-TSFlib": {
+   "status": "passed",
+   "identical": true,
+   "origin": 13554,
+   "method": "MM-TSFlib",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Energy/H12/GPT4MTS": {
+   "status": "passed",
+   "identical": true,
+   "origin": 1324,
+   "method": "GPT4MTS",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Energy/H48/On-Adapter": {
+   "status": "passed",
+   "identical": true,
+   "origin": 1306,
+   "method": "On-Adapter",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Health_US/H12/MM-TSFlib": {
+   "status": "passed",
+   "identical": true,
+   "origin": 1243,
+   "method": "MM-TSFlib",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Health_US/H48/GPT4MTS": {
+   "status": "passed",
+   "identical": true,
+   "origin": 1225,
+   "method": "GPT4MTS",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Traffic/H6/MM-TSFlib": {
+   "status": "passed",
+   "identical": true,
+   "origin": 474,
+   "method": "MM-TSFlib",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Traffic/H12/On-Adapter": {
+   "status": "passed",
+   "identical": true,
+   "origin": 471,
+   "method": "On-Adapter",
+   "minimal_input_without_y_or_mask": true
+  },
+  "SocialGood/H8/GPT4MTS": {
+   "status": "passed",
+   "identical": true,
+   "origin": 805,
+   "method": "GPT4MTS",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Security/H6/MM-TSFlib": {
+   "status": "passed",
+   "identical": true,
+   "origin": 263,
+   "method": "MM-TSFlib",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Economy/H10/On-Adapter": {
+   "status": "passed",
+   "identical": true,
+   "origin": 375,
+   "method": "On-Adapter",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Climate/H12/GPT4MTS": {
+   "status": "passed",
+   "identical": true,
+   "origin": 439,
+   "method": "GPT4MTS",
+   "minimal_input_without_y_or_mask": true
+  },
+  "Agriculture/H6/MM-TSFlib": {
+   "status": "passed",
+   "identical": true,
+   "origin": 442,
+   "method": "MM-TSFlib",
+   "minimal_input_without_y_or_mask": true
+  }
+ },
+ "text_visibility": {
+  "Environment/H48/On-Adapter": {
+   "status": "passed",
+   "method": "On-Adapter",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 3003
+  },
+  "Environment/H336/MM-TSFlib": {
+   "status": "passed",
+   "method": "MM-TSFlib",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 2715
+  },
+  "Energy/H12/GPT4MTS": {
+   "status": "passed",
+   "method": "GPT4MTS",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 285
+  },
+  "Energy/H48/On-Adapter": {
+   "status": "passed",
+   "method": "On-Adapter",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 249
+  },
+  "Health_US/H12/MM-TSFlib": {
+   "status": "passed",
+   "method": "MM-TSFlib",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 267
+  },
+  "Health_US/H48/GPT4MTS": {
+   "status": "passed",
+   "method": "GPT4MTS",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 231
+  },
+  "Traffic/H6/MM-TSFlib": {
+   "status": "passed",
+   "method": "MM-TSFlib",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 102
+  },
+  "Traffic/H12/On-Adapter": {
+   "status": "passed",
+   "method": "On-Adapter",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 96
+  },
+  "SocialGood/H8/GPT4MTS": {
+   "status": "passed",
+   "method": "GPT4MTS",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 172
+  },
+  "Security/H6/MM-TSFlib": {
+   "status": "passed",
+   "method": "MM-TSFlib",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 55
+  },
+  "Economy/H10/On-Adapter": {
+   "status": "passed",
+   "method": "On-Adapter",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 76
+  },
+  "Climate/H12/GPT4MTS": {
+   "status": "passed",
+   "method": "GPT4MTS",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 89
+  },
+  "Agriculture/H6/MM-TSFlib": {
+   "status": "passed",
+   "method": "MM-TSFlib",
+   "method_input_field": "fact",
+   "gathered_rows_are_past_visible": true,
+   "checked_origins": 95
+  }
+ },
+ "perturbation": {
+  "Traffic/H6/On-Adapter": {
+   "status": "passed",
+   "method": "On-Adapter",
+   "domain": "Traffic",
+   "horizon": 6,
+   "probe_origin": 474,
+   "future_rows_perturbed": 56,
+   "prediction_identical": true,
+   "tolerance": 0
+  },
+  "Security/H6/On-Adapter": {
+   "status": "passed",
+   "method": "On-Adapter",
+   "domain": "Security",
+   "horizon": 6,
+   "probe_origin": 263,
+   "future_rows_perturbed": 33,
+   "prediction_identical": true,
+   "tolerance": 0
+  },
+  "Agriculture/H6/On-Adapter": {
+   "status": "passed",
+   "method": "On-Adapter",
+   "domain": "Agriculture",
+   "horizon": 6,
+   "probe_origin": 442,
+   "future_rows_perturbed": 53,
+   "prediction_identical": true,
+   "tolerance": 0
+  }
+ },
+ "cache_identity": {
+  "Agriculture": {
+   "domain": "Agriculture",
+   "v1_sha256": "eed9766319b022c240efcc1b028b699390012daa8c7b27770847698d09b90523",
+   "original_sha256": "41203f1af2c4fd9f3207ec286f0a1462df146b5ae8b6d9cdcec6cb569c57a0be",
+   "distinct_from_original": true,
+   "data_cache_folder": "E:\\FedNoise\\textrepair_v1_20261008_cache\\data\\acff98ae21bf2ad0b00e249b883e4bc6a22ff2e4f5014530adf56e29f09dcbb9",
+   "text_version": "V1",
+   "source_decisions_sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+   "loaded_path": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\reports\\benchmark_text_repair_all9_v1_20261008\\data\\V1\\Agriculture.csv",
+   "loaded_is_v1": true
+  },
+  "Climate": {
+   "domain": "Climate",
+   "v1_sha256": "2b95bbc4cb16c02872422192bc9086a506b2bdb10e0a4d8ddc1692ad1ba6e24b",
+   "original_sha256": "4096994d5e8691de404b15d16ab9e2a98d69b03eb1d4eafa4283ea44ead0e51b",
+   "distinct_from_original": true,
+   "data_cache_folder": "E:\\FedNoise\\textrepair_v1_20261008_cache\\data\\725a7327b8b30c2c07e5611056a81db2b6b68c0592aa6f2043375d389654157e",
+   "text_version": "V1",
+   "source_decisions_sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+   "loaded_path": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\reports\\benchmark_text_repair_all9_v1_20261008\\data\\V1\\Climate.csv",
+   "loaded_is_v1": true
+  },
+  "Economy": {
+   "domain": "Economy",
+   "v1_sha256": "1c30e12372d248e875691b45041180fb7673987e00fdc672e900ca25609ba548",
+   "original_sha256": "c35325f0181a426a78c35b9172d8908f64639796a535c5fdc8b082b538030e5d",
+   "distinct_from_original": true,
+   "data_cache_folder": "E:\\FedNoise\\textrepair_v1_20261008_cache\\data\\3cd7046385a4cc6a692e76a8f67be2a8ec8ea7fdaa6edff84c048ae5ba83eb31",
+   "text_version": "V1",
+   "source_decisions_sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+   "loaded_path": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\reports\\benchmark_text_repair_all9_v1_20261008\\data\\V1\\Economy.csv",
+   "loaded_is_v1": true
+  },
+  "Energy": {
+   "domain": "Energy",
+   "v1_sha256": "d32f6dca6818cf8cb415c15af77a9d8e63904a04bf2cd8243fde92ffb67e547f",
+   "original_sha256": "fdef4b4f58ab319656b60e49c96d1dc4158d2c5b17467456d4d12d746ff55cd5",
+   "distinct_from_original": true,
+   "data_cache_folder": "E:\\FedNoise\\textrepair_v1_20261008_cache\\data\\ed6f5c491a1d224a9eda0d0057ac9253514990965cddd5c2ecd6de90973f3986",
+   "text_version": "V1",
+   "source_decisions_sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+   "loaded_path": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\reports\\benchmark_text_repair_all9_v1_20261008\\data\\V1\\Energy.csv",
+   "loaded_is_v1": true
+  },
+  "Environment": {
+   "domain": "Environment",
+   "v1_sha256": "8e49bd5a186f2a63f9547e7b6342d4f0bc74ec47a8b1e201cc5e80fb17be135e",
+   "original_sha256": "3bcda88e0831294678d412807fa2eac2022c5665a9f1f044cd23cff65657a0d6",
+   "distinct_from_original": true,
+   "data_cache_folder": "E:\\FedNoise\\textrepair_v1_20261008_cache\\data\\22f37a51c71847b22703a15980eb0731fa2c8d38ca8552839bb130bec3fae860",
+   "text_version": "V1",
+   "source_decisions_sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+   "loaded_path": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\reports\\benchmark_text_repair_all9_v1_20261008\\data\\V1\\Environment.csv",
+   "loaded_is_v1": true
+  },
+  "Health_US": {
+   "domain": "Health_US",
+   "v1_sha256": "d2a9e10eb61b3817221f7d8ca176275aec81131333b4eac386c03a48f8ac352a",
+   "original_sha256": "88a81d443533991b8e2b55da8db0a6496d68fc510077b1c0f568d6f186394cf8",
+   "distinct_from_original": true,
+   "data_cache_folder": "E:\\FedNoise\\textrepair_v1_20261008_cache\\data\\a52ce6e3b96d5f2cba323310ff6efb39523fe4670df666df161a1edf71b052c2",
+   "text_version": "V1",
+   "source_decisions_sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+   "loaded_path": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\reports\\benchmark_text_repair_all9_v1_20261008\\data\\V1\\Health.csv",
+   "loaded_is_v1": true
+  },
+  "Security": {
+   "domain": "Security",
+   "v1_sha256": "11df63ad31ef0a0d13448abbb25958d929eef5988f26d53c2ebb097cc1f322ff",
+   "original_sha256": "adea376a0e6858979b2d42cde6f3901d7d60639bb78cd64eec6f58e2e85ed23c",
+   "distinct_from_original": true,
+   "data_cache_folder": "E:\\FedNoise\\textrepair_v1_20261008_cache\\data\\0e7633bd6705874e9309dcaf3d6844aa46f4be2d9485db62005c3c12c8bef1df",
+   "text_version": "V1",
+   "source_decisions_sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+   "loaded_path": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\reports\\benchmark_text_repair_all9_v1_20261008\\data\\V1\\Security.csv",
+   "loaded_is_v1": true
+  },
+  "SocialGood": {
+   "domain": "SocialGood",
+   "v1_sha256": "9d31f381f459e0058a6808df1314756a681317fb2268268197ca94eceee63269",
+   "original_sha256": "54c270f0236b088eccc397d56ac9b5d826add34db2da1c911955effeab93b48b",
+   "distinct_from_original": true,
+   "data_cache_folder": "E:\\FedNoise\\textrepair_v1_20261008_cache\\data\\23848ab91d834b03af9d65cf4566d3992087bec4c37d48168bfd02391d36b3e6",
+   "text_version": "V1",
+   "source_decisions_sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+   "loaded_path": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\reports\\benchmark_text_repair_all9_v1_20261008\\data\\V1\\SocialGood.csv",
+   "loaded_is_v1": true
+  },
+  "Traffic": {
+   "domain": "Traffic",
+   "v1_sha256": "d1255c65f764f3ec07ef92129162347c2c6238024dca8c2d808f8394a9182c6d",
+   "original_sha256": "82439ff69196789968f48245d8bce699ac09a566f24f027dabd6b99333417311",
+   "distinct_from_original": true,
+   "data_cache_folder": "E:\\FedNoise\\textrepair_v1_20261008_cache\\data\\4f14a5b696746bdbfc9cd221cbcce384147eb5840017f2329c41e0629ee00cf7",
+   "text_version": "V1",
+   "source_decisions_sha256": "85152a0e584b9bb5717895596c26b903f497e3a1285b0c02c78f51021f948689",
+   "loaded_path": "C:\\Users\\18452\\Documents\\ChatGPT\\FedNoise\\iadapter-baselines\\reports\\benchmark_text_repair_all9_v1_20261008\\data\\V1\\Traffic.csv",
+   "loaded_is_v1": true
+  }
+ }
+}

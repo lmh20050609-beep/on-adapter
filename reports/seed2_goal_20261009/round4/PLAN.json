@@ -1,0 +1,24 @@
+{
+ "round": 4,
+ "title": "On-Adapter-TG: trained adapter (round-3 a0e15) with an in-stream self-validating expert gate",
+ "frozen_at": "2026-10-09, after the round-3 seed-2 test (S = 1.006174, not first) and before any round-4 test computation",
+ "exploratory_disclosure": "Motivated by the round-3 test post-mortem (validation-to-test reversals on Health_US H36/H48 and SocialGood H6). Exploratory iteration on an already observed test period. The validation screen reports/seed2_goal_20261009/round4/dev/h6_gate_T_screen.py was inspected before freezing; selection below uses validation only.",
+ "hypothesis": {
+  "problem": "Fixed choices made on validation (rate, calibration strength, adapter vs backbone) reverse sign in later periods; a rule that decides inside the stream from matured labels should keep gains where they persist and drop components where they fail.",
+  "change": "Experts: T = round-3 a0e15 adapter forecast (lr0), backbone, T + phase calibration (a=0.5, gamma=1), T + step calibration (a=0.5, gamma=1). At forecast t emit the expert with the lowest gs-discounted mean per-origin MAE over fully matured origins (o + H <= t); before any maturity emit T; ties in expert order.",
+  "falsified_if": "validation selects T alone, or the selected candidate's seed-2 test S is not below every baseline"
+ },
+ "candidates": {
+  "T": "a0e15 alone",
+  "expert_sets": [["T", "backbone"], ["T", "backbone", "phase", "step"], ["T", "phase", "step"]],
+  "gs": [0.7, 0.8, 0.9, 1.0]
+ },
+ "selection": {
+  "data": "seed-2 validation stream r=0 of the round-3 a0e15 checkpoints (entry seed 200)",
+  "per_task": "CVaR90 ratio to the iTransformer validation forecast, for the whole stream and for each chronological third",
+  "score": "max(geometric mean over 36 tasks of the whole-stream ratio, the largest of the three per-third geometric means) - a robustness-oriented change from earlier rounds, declared here",
+  "winner": "argmin score; ties toward T, then fewer experts, then larger gs"
+ },
+ "formal_test": "selected candidate applied once to the existing round-3 a0e15 test trajectories (r=0) and scored with frozen cell_metrics against the fixed seed-2 baselines",
+ "information_boundary": "gate and calibrations use only targets/masks of origins with o + H <= t at forecast time t"
+}

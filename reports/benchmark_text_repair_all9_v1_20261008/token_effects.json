@@ -1,0 +1,758 @@
+[
+  {
+    "domain": "Environment",
+    "rows": 15248,
+    "masked_items": 32,
+    "v0_sha256": "3bcda88e0831294678d412807fa2eac2022c5665a9f1f044cd23cff65657a0d6",
+    "v1_sha256": "8e49bd5a186f2a63f9547e7b6342d4f0bc74ec47a8b1e201cc5e80fb17be135e",
+    "methods": {
+      "On-Adapter": {
+        "distinct_texts_before": 4192,
+        "distinct_texts_after": 4154,
+        "rows_with_changed_text": 262,
+        "rows_with_changed_tokens": 261,
+        "rows_whose_raw_cell_contains_a_masked_item": 238,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 9005,
+            "origins_with_changed_tokens": 134,
+            "origins_whose_visible_rows_contain_a_masked_item": 143
+          },
+          "val": {
+            "origins": 3003,
+            "origins_with_changed_tokens": 104,
+            "origins_whose_visible_rows_contain_a_masked_item": 104
+          },
+          "test": {
+            "origins": 3003,
+            "origins_with_changed_tokens": 23,
+            "origins_whose_visible_rows_contain_a_masked_item": 23
+          }
+        }
+      },
+      "GPT4MTS": {
+        "distinct_texts_before": 2041,
+        "distinct_texts_after": 2010,
+        "rows_with_changed_text": 231,
+        "rows_with_changed_tokens": 231,
+        "rows_whose_raw_cell_contains_a_masked_item": 238,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 9005,
+            "origins_with_changed_tokens": 119,
+            "origins_whose_visible_rows_contain_a_masked_item": 143
+          },
+          "val": {
+            "origins": 3003,
+            "origins_with_changed_tokens": 91,
+            "origins_whose_visible_rows_contain_a_masked_item": 104
+          },
+          "test": {
+            "origins": 3003,
+            "origins_with_changed_tokens": 21,
+            "origins_whose_visible_rows_contain_a_masked_item": 23
+          }
+        }
+      },
+      "MM-TSFlib": {
+        "distinct_texts_before": 4192,
+        "distinct_texts_after": 4154,
+        "rows_with_changed_text": 262,
+        "rows_with_changed_tokens": 262,
+        "rows_whose_raw_cell_contains_a_masked_item": 238,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 224,
+        "per_split": {
+          "train": {
+            "origins": 9005,
+            "origins_with_changed_tokens": 135,
+            "origins_whose_visible_rows_contain_a_masked_item": 143
+          },
+          "val": {
+            "origins": 3003,
+            "origins_with_changed_tokens": 104,
+            "origins_whose_visible_rows_contain_a_masked_item": 104
+          },
+          "test": {
+            "origins": 3003,
+            "origins_with_changed_tokens": 23,
+            "origins_whose_visible_rows_contain_a_masked_item": 23
+          }
+        }
+      }
+    }
+  },
+  {
+    "domain": "Energy",
+    "rows": 1479,
+    "masked_items": 0,
+    "v0_sha256": "fdef4b4f58ab319656b60e49c96d1dc4158d2c5b17467456d4d12d746ff55cd5",
+    "v1_sha256": "d32f6dca6818cf8cb415c15af77a9d8e63904a04bf2cd8243fde92ffb67e547f",
+    "methods": {
+      "On-Adapter": {
+        "distinct_texts_before": 1479,
+        "distinct_texts_after": 1479,
+        "rows_with_changed_text": 0,
+        "rows_with_changed_tokens": 0,
+        "rows_whose_raw_cell_contains_a_masked_item": 0,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 852,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "val": {
+            "origins": 285,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "test": {
+            "origins": 285,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          }
+        }
+      },
+      "GPT4MTS": {
+        "distinct_texts_before": 1438,
+        "distinct_texts_after": 1438,
+        "rows_with_changed_text": 0,
+        "rows_with_changed_tokens": 0,
+        "rows_whose_raw_cell_contains_a_masked_item": 0,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 852,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "val": {
+            "origins": 285,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "test": {
+            "origins": 285,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          }
+        }
+      },
+      "MM-TSFlib": {
+        "distinct_texts_before": 1479,
+        "distinct_texts_after": 1479,
+        "rows_with_changed_text": 0,
+        "rows_with_changed_tokens": 0,
+        "rows_whose_raw_cell_contains_a_masked_item": 0,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 852,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "val": {
+            "origins": 285,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "test": {
+            "origins": 285,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "domain": "Health_US",
+    "rows": 1389,
+    "masked_items": 10,
+    "v0_sha256": "88a81d443533991b8e2b55da8db0a6496d68fc510077b1c0f568d6f186394cf8",
+    "v1_sha256": "d2a9e10eb61b3817221f7d8ca176275aec81131333b4eac386c03a48f8ac352a",
+    "methods": {
+      "On-Adapter": {
+        "distinct_texts_before": 1387,
+        "distinct_texts_after": 1387,
+        "rows_with_changed_text": 20,
+        "rows_with_changed_tokens": 17,
+        "rows_whose_raw_cell_contains_a_masked_item": 10,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 798,
+            "origins_with_changed_tokens": 13,
+            "origins_whose_visible_rows_contain_a_masked_item": 16
+          },
+          "val": {
+            "origins": 267,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          },
+          "test": {
+            "origins": 267,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          }
+        }
+      },
+      "GPT4MTS": {
+        "distinct_texts_before": 1361,
+        "distinct_texts_after": 1351,
+        "rows_with_changed_text": 10,
+        "rows_with_changed_tokens": 10,
+        "rows_whose_raw_cell_contains_a_masked_item": 10,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 798,
+            "origins_with_changed_tokens": 8,
+            "origins_whose_visible_rows_contain_a_masked_item": 16
+          },
+          "val": {
+            "origins": 267,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          },
+          "test": {
+            "origins": 267,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          }
+        }
+      },
+      "MM-TSFlib": {
+        "distinct_texts_before": 1387,
+        "distinct_texts_after": 1387,
+        "rows_with_changed_text": 20,
+        "rows_with_changed_tokens": 20,
+        "rows_whose_raw_cell_contains_a_masked_item": 10,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 10,
+        "per_split": {
+          "train": {
+            "origins": 798,
+            "origins_with_changed_tokens": 16,
+            "origins_whose_visible_rows_contain_a_masked_item": 16
+          },
+          "val": {
+            "origins": 267,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          },
+          "test": {
+            "origins": 267,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          }
+        }
+      }
+    }
+  },
+  {
+    "domain": "Traffic",
+    "rows": 531,
+    "masked_items": 40,
+    "v0_sha256": "82439ff69196789968f48245d8bce699ac09a566f24f027dabd6b99333417311",
+    "v1_sha256": "d1255c65f764f3ec07ef92129162347c2c6238024dca8c2d808f8394a9182c6d",
+    "methods": {
+      "On-Adapter": {
+        "distinct_texts_before": 531,
+        "distinct_texts_after": 531,
+        "rows_with_changed_text": 70,
+        "rows_with_changed_tokens": 27,
+        "rows_whose_raw_cell_contains_a_masked_item": 38,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 305,
+            "origins_with_changed_tokens": 16,
+            "origins_whose_visible_rows_contain_a_masked_item": 37
+          },
+          "val": {
+            "origins": 101,
+            "origins_with_changed_tokens": 5,
+            "origins_whose_visible_rows_contain_a_masked_item": 16
+          },
+          "test": {
+            "origins": 102,
+            "origins_with_changed_tokens": 4,
+            "origins_whose_visible_rows_contain_a_masked_item": 15
+          }
+        }
+      },
+      "GPT4MTS": {
+        "distinct_texts_before": 531,
+        "distinct_texts_after": 531,
+        "rows_with_changed_text": 38,
+        "rows_with_changed_tokens": 38,
+        "rows_whose_raw_cell_contains_a_masked_item": 38,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 305,
+            "origins_with_changed_tokens": 20,
+            "origins_whose_visible_rows_contain_a_masked_item": 37
+          },
+          "val": {
+            "origins": 101,
+            "origins_with_changed_tokens": 9,
+            "origins_whose_visible_rows_contain_a_masked_item": 16
+          },
+          "test": {
+            "origins": 102,
+            "origins_with_changed_tokens": 8,
+            "origins_whose_visible_rows_contain_a_masked_item": 15
+          }
+        }
+      },
+      "MM-TSFlib": {
+        "distinct_texts_before": 531,
+        "distinct_texts_after": 531,
+        "rows_with_changed_text": 70,
+        "rows_with_changed_tokens": 67,
+        "rows_whose_raw_cell_contains_a_masked_item": 38,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 32,
+        "per_split": {
+          "train": {
+            "origins": 305,
+            "origins_with_changed_tokens": 35,
+            "origins_whose_visible_rows_contain_a_masked_item": 37
+          },
+          "val": {
+            "origins": 101,
+            "origins_with_changed_tokens": 15,
+            "origins_whose_visible_rows_contain_a_masked_item": 16
+          },
+          "test": {
+            "origins": 102,
+            "origins_with_changed_tokens": 15,
+            "origins_whose_visible_rows_contain_a_masked_item": 15
+          }
+        }
+      }
+    }
+  },
+  {
+    "domain": "SocialGood",
+    "rows": 900,
+    "masked_items": 103,
+    "v0_sha256": "54c270f0236b088eccc397d56ac9b5d826add34db2da1c911955effeab93b48b",
+    "v1_sha256": "9d31f381f459e0058a6808df1314756a681317fb2268268197ca94eceee63269",
+    "methods": {
+      "On-Adapter": {
+        "distinct_texts_before": 535,
+        "distinct_texts_after": 535,
+        "rows_with_changed_text": 101,
+        "rows_with_changed_tokens": 51,
+        "rows_whose_raw_cell_contains_a_masked_item": 92,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 527,
+            "origins_with_changed_tokens": 19,
+            "origins_whose_visible_rows_contain_a_masked_item": 66
+          },
+          "val": {
+            "origins": 175,
+            "origins_with_changed_tokens": 22,
+            "origins_whose_visible_rows_contain_a_masked_item": 62
+          },
+          "test": {
+            "origins": 172,
+            "origins_with_changed_tokens": 10,
+            "origins_whose_visible_rows_contain_a_masked_item": 39
+          }
+        }
+      },
+      "GPT4MTS": {
+        "distinct_texts_before": 534,
+        "distinct_texts_after": 534,
+        "rows_with_changed_text": 53,
+        "rows_with_changed_tokens": 53,
+        "rows_whose_raw_cell_contains_a_masked_item": 92,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 527,
+            "origins_with_changed_tokens": 21,
+            "origins_whose_visible_rows_contain_a_masked_item": 66
+          },
+          "val": {
+            "origins": 175,
+            "origins_with_changed_tokens": 22,
+            "origins_whose_visible_rows_contain_a_masked_item": 62
+          },
+          "test": {
+            "origins": 172,
+            "origins_with_changed_tokens": 10,
+            "origins_whose_visible_rows_contain_a_masked_item": 39
+          }
+        }
+      },
+      "MM-TSFlib": {
+        "distinct_texts_before": 535,
+        "distinct_texts_after": 535,
+        "rows_with_changed_text": 101,
+        "rows_with_changed_tokens": 99,
+        "rows_whose_raw_cell_contains_a_masked_item": 92,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 27,
+        "per_split": {
+          "train": {
+            "origins": 527,
+            "origins_with_changed_tokens": 38,
+            "origins_whose_visible_rows_contain_a_masked_item": 66
+          },
+          "val": {
+            "origins": 175,
+            "origins_with_changed_tokens": 42,
+            "origins_whose_visible_rows_contain_a_masked_item": 62
+          },
+          "test": {
+            "origins": 172,
+            "origins_with_changed_tokens": 19,
+            "origins_whose_visible_rows_contain_a_masked_item": 39
+          }
+        }
+      }
+    }
+  },
+  {
+    "domain": "Security",
+    "rows": 297,
+    "masked_items": 4,
+    "v0_sha256": "adea376a0e6858979b2d42cde6f3901d7d60639bb78cd64eec6f58e2e85ed23c",
+    "v1_sha256": "11df63ad31ef0a0d13448abbb25958d929eef5988f26d53c2ebb097cc1f322ff",
+    "methods": {
+      "On-Adapter": {
+        "distinct_texts_before": 297,
+        "distinct_texts_after": 297,
+        "rows_with_changed_text": 8,
+        "rows_with_changed_tokens": 3,
+        "rows_whose_raw_cell_contains_a_masked_item": 4,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 165,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 4
+          },
+          "val": {
+            "origins": 54,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "test": {
+            "origins": 55,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          }
+        }
+      },
+      "GPT4MTS": {
+        "distinct_texts_before": 297,
+        "distinct_texts_after": 297,
+        "rows_with_changed_text": 4,
+        "rows_with_changed_tokens": 4,
+        "rows_whose_raw_cell_contains_a_masked_item": 4,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 165,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 4
+          },
+          "val": {
+            "origins": 54,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "test": {
+            "origins": 55,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          }
+        }
+      },
+      "MM-TSFlib": {
+        "distinct_texts_before": 297,
+        "distinct_texts_after": 297,
+        "rows_with_changed_text": 8,
+        "rows_with_changed_tokens": 7,
+        "rows_whose_raw_cell_contains_a_masked_item": 4,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 3,
+        "per_split": {
+          "train": {
+            "origins": 165,
+            "origins_with_changed_tokens": 3,
+            "origins_whose_visible_rows_contain_a_masked_item": 4
+          },
+          "val": {
+            "origins": 54,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "test": {
+            "origins": 55,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          }
+        }
+      }
+    }
+  },
+  {
+    "domain": "Economy",
+    "rows": 423,
+    "masked_items": 7,
+    "v0_sha256": "c35325f0181a426a78c35b9172d8908f64639796a535c5fdc8b082b538030e5d",
+    "v1_sha256": "1c30e12372d248e875691b45041180fb7673987e00fdc672e900ca25609ba548",
+    "methods": {
+      "On-Adapter": {
+        "distinct_texts_before": 423,
+        "distinct_texts_after": 423,
+        "rows_with_changed_text": 14,
+        "rows_with_changed_tokens": 1,
+        "rows_whose_raw_cell_contains_a_masked_item": 7,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 240,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "val": {
+            "origins": 80,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          },
+          "test": {
+            "origins": 80,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 12
+          }
+        }
+      },
+      "GPT4MTS": {
+        "distinct_texts_before": 423,
+        "distinct_texts_after": 423,
+        "rows_with_changed_text": 7,
+        "rows_with_changed_tokens": 7,
+        "rows_whose_raw_cell_contains_a_masked_item": 7,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 240,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "val": {
+            "origins": 80,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          },
+          "test": {
+            "origins": 80,
+            "origins_with_changed_tokens": 6,
+            "origins_whose_visible_rows_contain_a_masked_item": 12
+          }
+        }
+      },
+      "MM-TSFlib": {
+        "distinct_texts_before": 423,
+        "distinct_texts_after": 423,
+        "rows_with_changed_text": 14,
+        "rows_with_changed_tokens": 13,
+        "rows_whose_raw_cell_contains_a_masked_item": 7,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 5,
+        "per_split": {
+          "train": {
+            "origins": 240,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "val": {
+            "origins": 80,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          },
+          "test": {
+            "origins": 80,
+            "origins_with_changed_tokens": 12,
+            "origins_whose_visible_rows_contain_a_masked_item": 12
+          }
+        }
+      }
+    }
+  },
+  {
+    "domain": "Climate",
+    "rows": 496,
+    "masked_items": 9,
+    "v0_sha256": "4096994d5e8691de404b15d16ab9e2a98d69b03eb1d4eafa4283ea44ead0e51b",
+    "v1_sha256": "2b95bbc4cb16c02872422192bc9086a506b2bdb10e0a4d8ddc1692ad1ba6e24b",
+    "methods": {
+      "On-Adapter": {
+        "distinct_texts_before": 494,
+        "distinct_texts_after": 494,
+        "rows_with_changed_text": 18,
+        "rows_with_changed_tokens": 4,
+        "rows_whose_raw_cell_contains_a_masked_item": 9,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 284,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 4
+          },
+          "val": {
+            "origins": 94,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 6
+          },
+          "test": {
+            "origins": 95,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 4
+          }
+        }
+      },
+      "GPT4MTS": {
+        "distinct_texts_before": 484,
+        "distinct_texts_after": 484,
+        "rows_with_changed_text": 9,
+        "rows_with_changed_tokens": 9,
+        "rows_whose_raw_cell_contains_a_masked_item": 9,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 284,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 4
+          },
+          "val": {
+            "origins": 94,
+            "origins_with_changed_tokens": 3,
+            "origins_whose_visible_rows_contain_a_masked_item": 6
+          },
+          "test": {
+            "origins": 95,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 4
+          }
+        }
+      },
+      "MM-TSFlib": {
+        "distinct_texts_before": 494,
+        "distinct_texts_after": 494,
+        "rows_with_changed_text": 18,
+        "rows_with_changed_tokens": 16,
+        "rows_whose_raw_cell_contains_a_masked_item": 9,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 6,
+        "per_split": {
+          "train": {
+            "origins": 284,
+            "origins_with_changed_tokens": 4,
+            "origins_whose_visible_rows_contain_a_masked_item": 4
+          },
+          "val": {
+            "origins": 94,
+            "origins_with_changed_tokens": 5,
+            "origins_whose_visible_rows_contain_a_masked_item": 6
+          },
+          "test": {
+            "origins": 95,
+            "origins_with_changed_tokens": 4,
+            "origins_whose_visible_rows_contain_a_masked_item": 4
+          }
+        }
+      }
+    }
+  },
+  {
+    "domain": "Agriculture",
+    "rows": 496,
+    "masked_items": 2,
+    "v0_sha256": "41203f1af2c4fd9f3207ec286f0a1462df146b5ae8b6d9cdcec6cb569c57a0be",
+    "v1_sha256": "eed9766319b022c240efcc1b028b699390012daa8c7b27770847698d09b90523",
+    "methods": {
+      "On-Adapter": {
+        "distinct_texts_before": 395,
+        "distinct_texts_after": 395,
+        "rows_with_changed_text": 4,
+        "rows_with_changed_tokens": 2,
+        "rows_whose_raw_cell_contains_a_masked_item": 2,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 284,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "val": {
+            "origins": 94,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          },
+          "test": {
+            "origins": 95,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          }
+        }
+      },
+      "GPT4MTS": {
+        "distinct_texts_before": 378,
+        "distinct_texts_after": 378,
+        "rows_with_changed_text": 2,
+        "rows_with_changed_tokens": 2,
+        "rows_whose_raw_cell_contains_a_masked_item": 2,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 0,
+        "per_split": {
+          "train": {
+            "origins": 284,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "val": {
+            "origins": 94,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          },
+          "test": {
+            "origins": 95,
+            "origins_with_changed_tokens": 1,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          }
+        }
+      },
+      "MM-TSFlib": {
+        "distinct_texts_before": 395,
+        "distinct_texts_after": 395,
+        "rows_with_changed_text": 4,
+        "rows_with_changed_tokens": 4,
+        "rows_whose_raw_cell_contains_a_masked_item": 2,
+        "of_those_rows_the_masked_item_survives_into_the_token_window": 2,
+        "per_split": {
+          "train": {
+            "origins": 284,
+            "origins_with_changed_tokens": 0,
+            "origins_whose_visible_rows_contain_a_masked_item": 0
+          },
+          "val": {
+            "origins": 94,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          },
+          "test": {
+            "origins": 95,
+            "origins_with_changed_tokens": 2,
+            "origins_whose_visible_rows_contain_a_masked_item": 2
+          }
+        }
+      }
+    }
+  }
+]

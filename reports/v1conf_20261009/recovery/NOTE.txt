@@ -1,0 +1,2 @@
+stale lock (pid 39812, not running) moved; failures were caused by it
+Note 2026-10-10: logs/ta_Environment_192_2027.log shows exit=1 from 2026-10-09 22:25:32 with no traceback; its trajectory r0.npz/events passed artifact sha256 verification on reload (2859 origins, finite) and is used.

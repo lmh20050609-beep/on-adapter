@@ -1,0 +1,612 @@
+[
+ {
+  "id": "c217",
+  "text": "1997-11-24: Unemployment was at a 28-year low in 1998 in the United States.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "1997-11-24",
+  "described_max": "1997-11-24",
+  "n_rows": 1
+ },
+ {
+  "id": "c218",
+  "text": "1997-12-01: The United States government reported a lower unemployment rate in 1996-2006 compared to the previous 10 years, particularly among certain groups.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "1997-12-01",
+  "described_max": "1997-12-01",
+  "n_rows": 1
+ },
+ {
+  "id": "c219",
+  "text": "1997-12-29: The unemployment levels in the United States were unchanged in 1998 . The Russian Federation had the world's second-largest SARM rate after the United States in 1992 .",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "1997-12-29",
+  "described_max": "1997-12-29",
+  "n_rows": 1
+ },
+ {
+  "id": "c220",
+  "text": "1998-12-28: Objective facts about the Economics situation: The US Federal Reserve raised interest rates in 1999, affecting international capital flows.  Washington State had an unemployment rate in excess of the national average in 1999.  The basic short-term interest rate in the United States was affected by the Euro in 1999.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "1998-12-28",
+  "described_max": "1998-12-28",
+  "n_rows": 1
+ },
+ {
+  "id": "c221",
+  "text": "1999-03-15: The unemployment rate for Hispanics was higher than that of Whites in 2017, according to the United States Department of Labor.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "1999-03-15",
+  "described_max": "1999-03-15",
+  "n_rows": 1
+ },
+ {
+  "id": "c222",
+  "text": "1999-06-14: Objective facts about the Economics situation:  The unemployment rate in the United States declined, reaching a thirty-year low of 3.9 percent in 2000.  Unemployment rates were high among certain demographics, such as African-Americans and migrant workers.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "1999-06-14",
+  "described_max": "1999-06-14",
+  "n_rows": 1
+ },
+ {
+  "id": "c223",
+  "text": "1999-10-04: Objective facts about the Economics situation:  The national unemployment rate was a concern in the United States in 1999, with statistics showing an upswing in unemployment.  The labor force participation rate for women in 2012 was only 1 percentage point above the male unemployment rate.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "1999-10-04",
+  "described_max": "1999-10-04",
+  "n_rows": 1
+ },
+ {
+  "id": "c224",
+  "text": "1999-11-15: The unemployment rate in the United States was around 4.2% in 1999, with a projected increase to 5.1% by 2001-02.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "1999-11-15",
+  "described_max": "1999-11-15",
+  "n_rows": 1
+ },
+ {
+  "id": "c225",
+  "text": "2000-09-04: The unemployment rate among Native Americans was 12.4% in 2002, more than twice the general unemployment rate.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2000-09-04",
+  "described_max": "2000-09-04",
+  "n_rows": 1
+ },
+ {
+  "id": "c226",
+  "text": "2001-01-29: As of March 2024, the seasonally adjusted unemployment rate in North Carolina was 3.5 percent.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2001-01-29",
+  "described_max": "2001-01-29",
+  "n_rows": 1
+ },
+ {
+  "id": "c227",
+  "text": "2001-06-04: The unemployment rate in the US in 2006 was 2.4% among states .",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2001-06-04",
+  "described_max": "2001-06-04",
+  "n_rows": 1
+ },
+ {
+  "id": "c228",
+  "text": "2001-08-06: The unemployment rate in the United States was at a low of 4% in 2000 . In 2009, the U.S. unemployment rate reached 10 percent .",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2001-08-06",
+  "described_max": "2001-08-06",
+  "n_rows": 1
+ },
+ {
+  "id": "c229",
+  "text": "2001-10-15: The unemployment rate was not uniformly distributed among ethnic groups in New York City, with a higher U-6 rate of unemployment for certain ethnicities in 2007 and 2009.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2001-10-15",
+  "described_max": "2001-10-15",
+  "n_rows": 1
+ },
+ {
+  "id": "c230",
+  "text": "2001-11-05: The unemployment rate in the United States was high in early 2020, with millions filing new unemployment claims.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2001-11-05",
+  "described_max": "2001-11-05",
+  "n_rows": 1
+ },
+ {
+  "id": "c231",
+  "text": "2001-12-03: The labor force in the US is projected to continue diversifying in terms of sex, race, and ethnic origin from 2000 to 2010.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2001-12-03",
+  "described_max": "2001-12-03",
+  "n_rows": 1
+ },
+ {
+  "id": "c232",
+  "text": "2001-12-31: The unemployment rate in the United States reached 4.0% in 2002, which is a four-decade low.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2001-12-31",
+  "described_max": "2001-12-31",
+  "n_rows": 1
+ },
+ {
+  "id": "c233",
+  "text": "2002-01-21: The unemployment rate in the United States was 4.8% in 2002, and it was predicted to increase to 6.1% in 2003.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2002-01-21",
+  "described_max": "2002-01-21",
+  "n_rows": 1
+ },
+ {
+  "id": "c234",
+  "text": "2002-01-07: Objective facts about the Economics situation: The unemployment rate is rising, while welfare rolls are declining.  The national average rate of unemployment insurance is being published.  The poverty rate in the San Fernando Valley is less than nine percent, with lower unemployment rates.  The annual growth rate in Nicaragua is estimated to be 1.75% in 2005.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2002-01-07",
+  "described_max": "2002-01-07",
+  "n_rows": 1
+ },
+ {
+  "id": "c235",
+  "text": "2002-01-28: The unemployment rate in the United States has fluctuated over the years, with a peak of 35.9% in Michigan in 1933 . In 2023, the median usual weekly earnings and unemployment rate vary by educational attainment .",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2002-01-28",
+  "described_max": "2002-01-28",
+  "n_rows": 1
+ },
+ {
+  "id": "c236",
+  "text": "2002-07-01: Connecticut's unemployment rate declined to 4.4% in April 2024, with a gain of 1,100 payroll jobs.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2002-07-01",
+  "described_max": "2002-07-01",
+  "n_rows": 1
+ },
+ {
+  "id": "c237",
+  "text": "2002-09-09: The unemployment rate in Massachusetts was higher than the national average in 2000-2009, with a peak of around 8% in 2003 .",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2002-09-09",
+  "described_max": "2002-09-09",
+  "n_rows": 1
+ },
+ {
+  "id": "c238",
+  "text": "2002-12-16: As of August 2015, the unemployment rate in the Pacific Gateway region was 8.4% and job growth had increased by 2.50%.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2002-12-16",
+  "described_max": "2002-12-16",
+  "n_rows": 1
+ },
+ {
+  "id": "c239",
+  "text": "2003-12-08: The United States will be nearly a “majority-minority” country by 2050, with significant changes in racial and ethnic categories.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2003-12-08",
+  "described_max": "2003-12-08",
+  "n_rows": 1
+ },
+ {
+  "id": "c240",
+  "text": "2004-01-05: The unemployment rate in the United States was 7.4% in 1990, 5.4% in 1995, and 5.9% in 2000, according to the 2025 Greater Berrien Comprehensive Plan.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2004-01-05",
+  "described_max": "2004-01-05",
+  "n_rows": 1
+ },
+ {
+  "id": "c241",
+  "text": "2004-11-22: The unemployment rate in Jamestown was 3.4% in 2000 and 7.5% in 2009, which is still lower than the State of Rhode Island.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2004-11-22",
+  "described_max": "2004-11-22",
+  "n_rows": 1
+ },
+ {
+  "id": "c242",
+  "text": "2006-02-27: As of Q1-2017, 69.8% of the working-age population in the United States was participating in the labor force.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2006-02-27",
+  "described_max": "2006-02-27",
+  "n_rows": 1
+ },
+ {
+  "id": "c243",
+  "text": "2006-12-11: The unemployment rate for Shelby County as of September 30, 2010 was 9.8%, compared to the state's rate of",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2006-12-11",
+  "described_max": "2006-12-11",
+  "n_rows": 1
+ },
+ {
+  "id": "c244",
+  "text": "2007-01-15: The national unemployment rate was 4.8 percent in January 2007, little changed from that of both December 2016 and January 2016.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2007-01-15",
+  "described_max": "2007-01-15",
+  "n_rows": 1
+ },
+ {
+  "id": "c245",
+  "text": "2007-02-05: Unemployment rates in the United States:  In January 2007, the unemployment rate was approximately 5.9%.  As of December 2023, the Nashville MSA Unemployment Rate was 2.4%.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2007-02-05",
+  "described_max": "2007-02-05",
+  "n_rows": 1
+ },
+ {
+  "id": "c246",
+  "text": "2007-12-17: Objective facts about the Economics situation: The U.S. economy turned in a solid performance in 2006, although growth was uneven.  Unemployment rate peaked at 11.0% in 2007-2008 financial crisis.  Delinquency rates in the United States peaked at 11.54% in the first quarter of 2010.  Employment and unemployment rates of the population by gender are available in the OECD International Migration Statistics database.  Botswana has an unemployment rate roughly double that of countries with similar income levels.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2007-12-17",
+  "described_max": "2007-12-17",
+  "n_rows": 1
+ },
+ {
+  "id": "c247",
+  "text": "2007-11-26: Objective facts about the Economics situation: The unemployment rate in the United States was 15.2% in 1990 and 19.1% in a later year (no specific date mentioned) . Unemployment rates in the European Union and selected member states were tracked from 1995 to 2009, with 2009 annual data provided . The black unemployment rate plummeted in the late 1990s, according to the U.S. Census Bureau (2001: Table 593) .",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2007-11-26",
+  "described_max": "2007-11-26",
+  "n_rows": 1
+ },
+ {
+  "id": "c248",
+  "text": "2008-01-28: The national unemployment rate in the United States was 4.8 to 5.3 percent in 2008 . In 1933, one-quarter of the work force of the United States was unemployed, an estimated 13.6 million men and women . The overall unemployment rate in Tuscola County in 2014 was 9% .",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2008-01-28",
+  "described_max": "2008-01-28",
+  "n_rows": 1
+ },
+ {
+  "id": "c249",
+  "text": "2008-11-24: The National Unemployment rate for October 2013 is 7.3 percent, according to the Bureau of Labor.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2008-11-24",
+  "described_max": "2008-11-24",
+  "n_rows": 1
+ },
+ {
+  "id": "c250",
+  "text": "2010-02-22: The U.S. population has changed significantly since 2000, with growth rates expected to reach 40.2 million people by 2015 in California.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2010-02-22",
+  "described_max": "2010-02-22",
+  "n_rows": 1
+ },
+ {
+  "id": "c251",
+  "text": "2011-04-11: The unemployment rate in the United States is estimated to be 3.65% in 2022.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2011-04-11",
+  "described_max": "2011-04-11",
+  "n_rows": 1
+ },
+ {
+  "id": "c252",
+  "text": "2011-06-27: The unemployment rate in the United States was 9.1% in May 2011, and 3.9% in April 2024.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2011-06-27",
+  "described_max": "2011-06-27",
+  "n_rows": 1
+ },
+ {
+  "id": "c253",
+  "text": "2012-04-09: Objective facts about the Economics situation: The teen birth rate in the United States reached a historic low in 2010, with fewer babies born to teenagers in 2010 than ever reported.  The unemployment rate in March 2024 was reported in the Community Needs Assessment: Indy Indicators.  Unemployment among black men was up to 19 percentage points higher in the UK than in the US during the last three recessions.  The SNAP caseload continued to increase even when the unemployment rate dropped during the period of economic growth after the 2001 recession.  17% of multiracial transgender Americans are unemployed.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2012-04-09",
+  "described_max": "2012-04-09",
+  "n_rows": 1
+ },
+ {
+  "id": "c254",
+  "text": "2012-05-07: The U.S. employment has increased steadily since the second quarter of 2020, adding more than 21 million jobs.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2012-05-07",
+  "described_max": "2012-05-07",
+  "n_rows": 1
+ },
+ {
+  "id": "c255",
+  "text": "2012-12-24: The U.S. unemployment rate was 5.0% in September 2016, and Oregon's unemployment rate was 5.5% during the same period.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2012-12-24",
+  "described_max": "2012-12-24",
+  "n_rows": 1
+ },
+ {
+  "id": "c256",
+  "text": "2013-09-16: The unemployment rate in Bronx County, NY was 6.30% in February of 2024, according to the United States Federal Reserve.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2013-09-16",
+  "described_max": "2013-09-16",
+  "n_rows": 1
+ },
+ {
+  "id": "c257",
+  "text": "2013-09-30: The unemployment rate exceeds 80 percent in many states in the United States (Butterworth et al., 2015).",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2013-09-30",
+  "described_max": "2013-09-30",
+  "n_rows": 1
+ },
+ {
+  "id": "c258",
+  "text": "2013-12-09: Unemployment rates for specific racial groups are available, with data showing that the unemployment rate for Black or African Americans was tracked from Jan 1972 to Apr 2024, and the rate for Asians was tracked from Jan 2003 to Apr 2024.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2013-12-09",
+  "described_max": "2013-12-09",
+  "n_rows": 1
+ },
+ {
+  "id": "c259",
+  "text": "2014-04-21: The unemployment rate in the US remained low throughout the second half of 2023 but started to increase in early 2024.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2014-04-21",
+  "described_max": "2014-04-21",
+  "n_rows": 1
+ },
+ {
+  "id": "c260",
+  "text": "2014-05-19: The unemployment rate in Nicaragua averaged 5.0% in the decade to 2022, below the 8.6% average for Central America and the Caribbean.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2014-05-19",
+  "described_max": "2014-05-19",
+  "n_rows": 1
+ },
+ {
+  "id": "c261",
+  "text": "2014-12-29: The U.S. unemployment rate was 5.7% in January 2015, the lowest monthly rate since October 2002.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2014-12-29",
+  "described_max": "2014-12-29",
+  "n_rows": 1
+ },
+ {
+  "id": "c262",
+  "text": "2015-11-16: The U.S. unemployment rate has been steadily decreasing, with rates ranging from 5.8% to 4.0% from 2015 to 2016 .",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2015-11-16",
+  "described_max": "2015-11-16",
+  "n_rows": 1
+ },
+ {
+  "id": "c263",
+  "text": "2016-03-28: The U.S. labor force demographics show that by 2055, there will be no single racial or ethnic majority, with nearly 59 million immigrants contributing to this change.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2016-03-28",
+  "described_max": "2016-03-28",
+  "n_rows": 1
+ },
+ {
+  "id": "c264",
+  "text": "2017-05-29: The current unemployment rate in the United States is 3.80% as of March 2024, according to the United States Federal Reserve.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2017-05-29",
+  "described_max": "2017-05-29",
+  "n_rows": 1
+ },
+ {
+  "id": "c265",
+  "text": "2017-10-23: The food insecurity rate in the United States was 13.5% in 2022.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2017-10-23",
+  "described_max": "2017-10-23",
+  "n_rows": 1
+ },
+ {
+  "id": "c266",
+  "text": "2017-10-30: The unemployment rate in the US is a key indicator of economic conditions, with a current rate of 0.6% for life scientists and a projected growth of 853,600 S&E jobs between 2016 and 2026.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2017-10-30",
+  "described_max": "2017-10-30",
+  "n_rows": 1
+ },
+ {
+  "id": "c267",
+  "text": "2018-03-05: The unemployment rate in the United States is relatively low, with a rate of approximately 3.00% in the manufacturing industry as of March 2024.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2018-03-05",
+  "described_max": "2018-03-05",
+  "n_rows": 1
+ },
+ {
+  "id": "c268",
+  "text": "2018-03-12: Objective facts about the Economics situation: African-Americans have historically had the highest unemployment rate among all major racial and ethnic groups in both Illinois and the U.S.  The unemployment rate for African Americans is higher than other racial groups in the United States.  The U.S. will become 'minority white' in 2045, with the combined racial minority populations growing by 74 percent.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2018-03-12",
+  "described_max": "2018-03-12",
+  "n_rows": 1
+ },
+ {
+  "id": "c269",
+  "text": "2019-02-04: The federal minimum wage in the United States was last increased in 1968, and raising it to $15 by 2024 would lift pay for nearly 40 million workers.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2019-02-04",
+  "described_max": "2019-02-04",
+  "n_rows": 1
+ },
+ {
+  "id": "c270",
+  "text": "2019-03-11: The unemployment rate in Washington state was available from Jan 1976 to Mar 2024, with data downloadable from FRED, St. Louis Fed.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2019-03-11",
+  "described_max": "2019-03-11",
+  "n_rows": 1
+ },
+ {
+  "id": "c271",
+  "text": "2019-09-23: The median income in the past 12 months (in 2022 inflation-adjusted dollars) is available in Census Bureau data table S1903.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2019-09-23",
+  "described_max": "2019-09-23",
+  "n_rows": 1
+ },
+ {
+  "id": "c272",
+  "text": "2020-02-10: The unemployment rate in the United States was 3.9% in 2018  and 5.1% in Connecticut at the end of 2021 .",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2020-02-10",
+  "described_max": "2020-02-10",
+  "n_rows": 1
+ },
+ {
+  "id": "c273",
+  "text": "2020-03-30: The national average unemployment rate (including Puerto Rico) was used as a reference period in preparing the current list of Labor Surplus Areas from January 2021 through December 2022.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2020-03-30",
+  "described_max": "2020-03-30",
+  "n_rows": 1
+ },
+ {
+  "id": "c274",
+  "text": "2020-06-15: Unemployment rates in 49 states and D.C. decreased from June 2020 to June 2021, according to the U.S. Bureau of Labor Statistics.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2020-06-15",
+  "described_max": "2020-06-15",
+  "n_rows": 1
+ },
+ {
+  "id": "c275",
+  "text": "2021-09-13: In 2022, the unemployment rate in Alachua County, Florida was 2.8%, compared to 2.9% in Florida overall.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2021-09-13",
+  "described_max": "2021-09-13",
+  "n_rows": 1
+ },
+ {
+  "id": "c276",
+  "text": "2022-12-05: Hawaii's unemployment rate remains at 3.1 percent as of April 2024.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2022-12-05",
+  "described_max": "2022-12-05",
+  "n_rows": 1
+ },
+ {
+  "id": "c277",
+  "text": "2023-07-24: The unemployment rate in the United States is projected to reach 4.1 percent by the end of 2023, 2.6 percent in 2024, and 2.2 percent in 2025.",
+  "domains": [
+   "SocialGood"
+  ],
+  "described_min": "2023-07-24",
+  "described_max": "2023-07-24",
+  "n_rows": 1
+ }
+]

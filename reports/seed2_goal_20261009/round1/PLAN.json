@@ -1,0 +1,31 @@
+{
+ "round": 1,
+ "title": "On-Adapter-RC: replace parameter-level online updates by an online residual-calibration head",
+ "frozen_at": "2026-10-09, before any seed-2 validation or test trajectory of On-Adapter was produced",
+ "benchmark": "nine-domain periodic V1 protocol, training seed 2, campaign method_comparison_seed2_v1_20261009 (252 cells), frozen score definitions (benchmark_textrepair_v1/score.py cell_metrics), main statistic S = exp(mean over 36 tasks of log CVaR90(method)/CVaR90(iTransformer))",
+ "hypothesis": {
+  "problem": "Original On-Adapter's online parameter updates help some streams (SocialGood, Traffic) but drift and blow up others (Energy, Health_US, Environment); the offline adapter alone is ~neutral (dev validation 0.997, dev test 1.003).",
+  "change": "Keep the offline On-Adapter checkpoint and its feedback computation; execute no online parameter step (lr0); add an output-space calibration: forecast_t = On_t + a * b_t, b_t[step, var] = gamma-discounted mean over fully matured origins (o + H <= t) of observed residuals y - On.",
+  "expected": "Level-shift corrections without parameter drift; dev validation (seeds 2025-2027) gave 0.9675 for a=0.5, gamma=0.97 versus 0.9969 for lr0.",
+  "falsified_if": "seed-2 validation selects a=0, or the seed-2 test main statistic of the selected candidate is not below every baseline"
+ },
+ "dev_evidence": "reports/seed2_goal_20261009/dev/h1_bias_screen.py, h1b_js_screen.py, h1c_screen.py (validation streams of seeds 2025-2027 only; no test stream read for this design)",
+ "candidates": {
+  "base": ["lr0 (offline On-Adapter, no parameter update)", "lr3e-4 (original On-Adapter online rule)"],
+  "a": [0.0, 0.25, 0.5, 0.75, 1.0],
+  "gamma": [0.9, 0.97, 1.0],
+  "note": "a=0 with base lr3e-4 is the original method and a=0 with base lr0 is plain no-update On; both are full candidates. gamma is irrelevant when a=0."
+ },
+ "randomness": "training seed 2 (model init / data order as in the worker); online entry seeds 100*2 + r for streams r = 0,1,2, identical across candidates; validation metric averaged arithmetically over the 3 streams; no stream picking",
+ "selection": {
+  "data": "seed-2 validation streams of all 36 domain/H tasks (chronological, full-label maturity, labels < val_end)",
+  "metric": "CVaR90 ratio to the seed-2 iTransformer validation forecast of the same task (the main statistic's tail-risk definition, stated in advance as a change from the earlier MSE selection rule); MAE and MSE reported",
+  "aggregate": "equal-weight geometric mean over the 36 tasks of the stream-averaged ratio",
+  "unit": "one global (base, a, gamma) for all tasks; no per-domain or per-H choice",
+  "ties": "exact ties broken toward smaller a, then larger gamma, then base lr0",
+  "non_finite": "a candidate with any non-finite validation forecast is ineligible and reported"
+ },
+ "formal_test": "selected candidate run once on the 36 seed-2 test streams with stream r=0 as the main row (r=1,2 robustness), scored against the 216 fixed seed-2 baseline cells and the campaign On-Adapter row; per-task results, MAE, MSE, CVaR90, mean rank, paired counts, origins, tail mass, update counts reported",
+ "information_boundary": "calibration uses only targets/masks of origins with o + H <= t at forecast time t; forecasts never read current or future targets/masks; offline checkpoints unchanged",
+ "budget": "CPU only for online phases; 36 cells x 2 bases x 3 streams validation trajectories; same for test after selection"
+}

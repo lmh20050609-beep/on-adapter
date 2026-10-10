@@ -1,0 +1,15 @@
+{
+ "round": 7,
+ "title": "On-Adapter-PB: learned seasonal output bias trained offline with the adapter",
+ "frozen_at": "2026-10-09, after the round-6 seed-2 test (S = 1.003412, not first) and before any round-7 trajectory (one Climate H6 smoke training cell excepted)",
+ "exploratory_disclosure": "Exploratory iteration on an already observed test period (seventh use of the seed-2 test streams).",
+ "hypothesis": {
+  "problem": "Monthly L8 / weekly L24 windows contain no annual cycle; stream-internal phase residual means (round 2) were estimated from a few test residuals and did not persist.",
+  "change": "A zero-initialised table B[phase, variable] added to the On-Adapter forecast, phase = target row mod P (12 monthly, 52 weekly, 7 daily), trained jointly with the a0e15 adapter on the training windows (multi-year), checkpoint by validation MSE.",
+  "falsified_if": "validation does not select a phase-bias candidate, or the selected candidate's seed-2 test S is not below every baseline"
+ },
+ "candidates": [["a0e15", false], ["a0e15", true], ["pb", false], ["pb", true]],
+ "candidate_note": "second element = round-5 backbone-first abstaining gate (gs 0.9, mu 0); online rule lr0 for all",
+ "selection": "seed-2 validation stream r=0 (entry seed 200); robust score = max(whole GM, largest per-third GM) of the CVaR90 ratio to iTransformer over 36 tasks; argmin; ties toward a0e15, then no gate",
+ "formal_test": "selected candidate once on the 36 seed-2 test streams (r=0), frozen cell_metrics against the fixed seed-2 baselines"
+}

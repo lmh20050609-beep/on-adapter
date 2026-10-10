@@ -1,0 +1,2881 @@
+{
+  "rows": 756,
+  "cells": 756,
+  "missing": [],
+  "summary": {
+    "iTransformer": {
+      "tasks": 36,
+      "geometric_mean_relative_oracle_cvar90": 1.082580733354461,
+      "geometric_mean_relative_cvar90": 1.0,
+      "arithmetic_mean_relative_cvar90": 1.0,
+      "mean_mae": 1.0628202295464573,
+      "mean_mse": 11.97814753577618,
+      "mean_cvar80": 2.239270999872083,
+      "mean_cvar95": 2.8886266045867894,
+      "worst_relative_cvar90": 1.0,
+      "best_relative_cvar90": 1.0,
+      "mean_rank_cvar90": 3.7037037037037037,
+      "median_rank_cvar90": 3.0
+    },
+    "ADAPT-Z": {
+      "tasks": 36,
+      "geometric_mean_relative_oracle_cvar90": 1.1359682397514264,
+      "geometric_mean_relative_cvar90": 1.0495145414142448,
+      "arithmetic_mean_relative_cvar90": 1.059843608253963,
+      "mean_mae": 1.1421475426532952,
+      "mean_mse": 13.389742854394392,
+      "mean_cvar80": 2.3963311150963986,
+      "mean_cvar95": 3.144579340537386,
+      "worst_relative_cvar90": 1.8384332907527121,
+      "best_relative_cvar90": 0.9110946829923151,
+      "mean_rank_cvar90": 3.6018518518518516,
+      "median_rank_cvar90": 3.5
+    },
+    "DSOF": {
+      "tasks": 36,
+      "geometric_mean_relative_oracle_cvar90": 1.1373401112122616,
+      "geometric_mean_relative_cvar90": 1.0509557072213151,
+      "arithmetic_mean_relative_cvar90": 1.0746222680201765,
+      "mean_mae": 1.2859822915551418,
+      "mean_mse": 13.904059563911709,
+      "mean_cvar80": 2.4062615905682017,
+      "mean_cvar95": 2.9940004193721665,
+      "worst_relative_cvar90": 1.5792973357245703,
+      "best_relative_cvar90": 0.7354983626341358,
+      "mean_rank_cvar90": 3.814814814814815,
+      "median_rank_cvar90": 4.0
+    },
+    "Proceed": {
+      "tasks": 36,
+      "geometric_mean_relative_oracle_cvar90": 1.2022174642876844,
+      "geometric_mean_relative_cvar90": 1.1108041576361687,
+      "arithmetic_mean_relative_cvar90": 1.129716927694956,
+      "mean_mae": 1.1752014001332538,
+      "mean_mse": 13.485760244164345,
+      "mean_cvar80": 2.449534871980477,
+      "mean_cvar95": 3.2097357435944365,
+      "worst_relative_cvar90": 1.7039885383662707,
+      "best_relative_cvar90": 0.9147586918303087,
+      "mean_rank_cvar90": 4.925925925925926,
+      "median_rank_cvar90": 5.0
+    },
+    "On-Adapter": {
+      "tasks": 36,
+      "geometric_mean_relative_oracle_cvar90": 1.183784825110463,
+      "geometric_mean_relative_cvar90": 1.093644179074625,
+      "arithmetic_mean_relative_cvar90": 1.13521422743,
+      "mean_mae": 1.0974039400107984,
+      "mean_mse": 12.209679728606226,
+      "mean_cvar80": 2.328718199960736,
+      "mean_cvar95": 3.040189858461675,
+      "worst_relative_cvar90": 2.5329829560964874,
+      "best_relative_cvar90": 0.8632271166543237,
+      "mean_rank_cvar90": 4.166666666666667,
+      "median_rank_cvar90": 4.0
+    },
+    "GPT4MTS": {
+      "tasks": 36,
+      "geometric_mean_relative_oracle_cvar90": 1.1211728218578,
+      "geometric_mean_relative_cvar90": 1.0359839831343138,
+      "arithmetic_mean_relative_cvar90": 1.0453523378129574,
+      "mean_mae": 1.0878513185126637,
+      "mean_mse": 12.20445270366818,
+      "mean_cvar80": 2.2773658029635047,
+      "mean_cvar95": 2.9449808193301017,
+      "worst_relative_cvar90": 1.6391552472461755,
+      "best_relative_cvar90": 0.8334400792774675,
+      "mean_rank_cvar90": 3.9444444444444446,
+      "median_rank_cvar90": 4.0
+    },
+    "MM-TSFlib": {
+      "tasks": 36,
+      "geometric_mean_relative_oracle_cvar90": 1.0981813277335,
+      "geometric_mean_relative_cvar90": 1.014708998139666,
+      "arithmetic_mean_relative_cvar90": 1.015552889317426,
+      "mean_mae": 1.0690415547499317,
+      "mean_mse": 12.088540801991577,
+      "mean_cvar80": 2.2640871308929835,
+      "mean_cvar95": 2.961087367615004,
+      "worst_relative_cvar90": 1.1821661203776188,
+      "best_relative_cvar90": 0.9422444495967325,
+      "mean_rank_cvar90": 3.8425925925925926,
+      "median_rank_cvar90": 4.0
+    }
+  },
+  "tasks": [
+    {
+      "domain": "Environment",
+      "horizon": 48,
+      "periodicity": "daily",
+      "iTransformer": {
+        "mae": 0.21350459900149735,
+        "mse": 0.14510641433216195,
+        "cvar80": 0.34329211895738254,
+        "cvar90": 0.42597463093672316,
+        "cvar95": 0.5704736849139105,
+        "relative_cvar90": 1.0,
+        "effective_origins": 3003,
+        "valid_target_elements": 432432
+      },
+      "ADAPT-Z": {
+        "mae": 0.21748750814921805,
+        "mse": 0.14987998938025007,
+        "cvar80": 0.3493515944397241,
+        "cvar90": 0.43554305768610163,
+        "cvar95": 0.5882991805293186,
+        "relative_cvar90": 1.022527783920017,
+        "effective_origins": 3003,
+        "valid_target_elements": 432432
+      },
+      "DSOF": {
+        "mae": 0.22236590559385827,
+        "mse": 0.14790138764493718,
+        "cvar80": 0.34162482878215555,
+        "cvar90": 0.39368305822461075,
+        "cvar95": 0.47038859540050765,
+        "relative_cvar90": 0.9242227414332347,
+        "effective_origins": 3003,
+        "valid_target_elements": 432432
+      },
+      "Proceed": {
+        "mae": 0.24762527299218218,
+        "mse": 0.1901474479746066,
+        "cvar80": 0.4106418316652987,
+        "cvar90": 0.5151842696405541,
+        "cvar95": 0.6753483720498691,
+        "relative_cvar90": 1.2092002891025349,
+        "effective_origins": 3003,
+        "valid_target_elements": 432432
+      },
+      "On-Adapter": {
+        "mae": 0.21656550260926788,
+        "mse": 0.14856222229822638,
+        "cvar80": 0.34781714840115724,
+        "cvar90": 0.43269034929157746,
+        "cvar95": 0.5815068146682144,
+        "relative_cvar90": 1.0157369626992556,
+        "effective_origins": 3003,
+        "valid_target_elements": 432432
+      },
+      "GPT4MTS": {
+        "mae": 0.22287296392726044,
+        "mse": 0.15549909600339284,
+        "cvar80": 0.35302739669447236,
+        "cvar90": 0.42208221189361045,
+        "cvar95": 0.5257022538422227,
+        "relative_cvar90": 0.9910656028097061,
+        "effective_origins": 3003,
+        "valid_target_elements": 432432
+      },
+      "MM-TSFlib": {
+        "mae": 0.21544711360830116,
+        "mse": 0.14548859961343777,
+        "cvar80": 0.3469855900802954,
+        "cvar90": 0.4309483073130234,
+        "cvar95": 0.5790211257963095,
+        "relative_cvar90": 1.0117029165314977,
+        "effective_origins": 3003,
+        "valid_target_elements": 432432
+      }
+    },
+    {
+      "domain": "Environment",
+      "horizon": 96,
+      "periodicity": "daily",
+      "iTransformer": {
+        "mae": 0.22011061226464315,
+        "mse": 0.1501182939631797,
+        "cvar80": 0.32598603650241725,
+        "cvar90": 0.39629699104508115,
+        "cvar95": 0.513361642718616,
+        "relative_cvar90": 1.0,
+        "effective_origins": 2955,
+        "valid_target_elements": 851040
+      },
+      "ADAPT-Z": {
+        "mae": 0.22843143134789592,
+        "mse": 0.15661448984160942,
+        "cvar80": 0.34668435412933524,
+        "cvar90": 0.4170475293610689,
+        "cvar95": 0.5254692017809776,
+        "relative_cvar90": 1.0523937722266774,
+        "effective_origins": 2955,
+        "valid_target_elements": 851040
+      },
+      "DSOF": {
+        "mae": 0.25037957206233613,
+        "mse": 0.17195843035983568,
+        "cvar80": 0.3792853084543874,
+        "cvar90": 0.4447641664338993,
+        "cvar95": 0.5290275706171247,
+        "relative_cvar90": 1.122320710737973,
+        "effective_origins": 2955,
+        "valid_target_elements": 851040
+      },
+      "Proceed": {
+        "mae": 0.260476523233506,
+        "mse": 0.1901220933245653,
+        "cvar80": 0.40125070212923436,
+        "cvar90": 0.47219727476307244,
+        "cvar95": 0.5652219084262478,
+        "relative_cvar90": 1.191525436769236,
+        "effective_origins": 2955,
+        "valid_target_elements": 851040
+      },
+      "On-Adapter": {
+        "mae": 0.23219880056092002,
+        "mse": 0.1618278447322813,
+        "cvar80": 0.35969060890084975,
+        "cvar90": 0.43756786819723387,
+        "cvar95": 0.5543428210931453,
+        "relative_cvar90": 1.1042637169654597,
+        "effective_origins": 2955,
+        "valid_target_elements": 851040
+      },
+      "GPT4MTS": {
+        "mae": 0.28745310487238623,
+        "mse": 0.23365211571629518,
+        "cvar80": 0.45425470843794863,
+        "cvar90": 0.5368306754761479,
+        "cvar95": 0.6315614108089076,
+        "relative_cvar90": 1.3546707605507098,
+        "effective_origins": 2955,
+        "valid_target_elements": 851040
+      },
+      "MM-TSFlib": {
+        "mae": 0.22168829682068977,
+        "mse": 0.1497841961027578,
+        "cvar80": 0.3281911080754589,
+        "cvar90": 0.3988135949103562,
+        "cvar95": 0.5165218460805091,
+        "relative_cvar90": 1.006355220260086,
+        "effective_origins": 2955,
+        "valid_target_elements": 851040
+      }
+    },
+    {
+      "domain": "Environment",
+      "horizon": 192,
+      "periodicity": "daily",
+      "iTransformer": {
+        "mae": 0.22727367995674919,
+        "mse": 0.14319685002040428,
+        "cvar80": 0.3030006215046605,
+        "cvar90": 0.3425703896616991,
+        "cvar95": 0.3910094948725646,
+        "relative_cvar90": 1.0,
+        "effective_origins": 2859,
+        "valid_target_elements": 1646784
+      },
+      "ADAPT-Z": {
+        "mae": 0.23932183974851787,
+        "mse": 0.15721605988805024,
+        "cvar80": 0.3298584788307166,
+        "cvar90": 0.3711450996024872,
+        "cvar95": 0.4192622311076752,
+        "relative_cvar90": 1.0846855884402784,
+        "effective_origins": 2859,
+        "valid_target_elements": 1646784
+      },
+      "DSOF": {
+        "mae": 0.2736785439958472,
+        "mse": 0.17560785764099482,
+        "cvar80": 0.36436569640796396,
+        "cvar90": 0.3912989484204082,
+        "cvar95": 0.4152947862613108,
+        "relative_cvar90": 1.1428725875757455,
+        "effective_origins": 2859,
+        "valid_target_elements": 1646784
+      },
+      "Proceed": {
+        "mae": 0.2805173857137388,
+        "mse": 0.20405017559770489,
+        "cvar80": 0.4198308774990305,
+        "cvar90": 0.4713997386233016,
+        "cvar95": 0.5205552848790761,
+        "relative_cvar90": 1.3757996201143945,
+        "effective_origins": 2859,
+        "valid_target_elements": 1646784
+      },
+      "On-Adapter": {
+        "mae": 0.26792462530265654,
+        "mse": 0.19272906968541745,
+        "cvar80": 0.40145495395945,
+        "cvar90": 0.4463613818377831,
+        "cvar95": 0.49514363878306905,
+        "relative_cvar90": 1.3039580792888117,
+        "effective_origins": 2859,
+        "valid_target_elements": 1646784
+      },
+      "GPT4MTS": {
+        "mae": 0.3179115143751648,
+        "mse": 0.2708173359542847,
+        "cvar80": 0.49642723630585167,
+        "cvar90": 0.5623188345749156,
+        "cvar95": 0.6198164228898206,
+        "relative_cvar90": 1.6391552472461755,
+        "effective_origins": 2859,
+        "valid_target_elements": 1646784
+      },
+      "MM-TSFlib": {
+        "mae": 0.225231886259844,
+        "mse": 0.14031387141032123,
+        "cvar80": 0.30052776899913275,
+        "cvar90": 0.3398337987052564,
+        "cvar95": 0.3890001999081678,
+        "relative_cvar90": 0.99231246308831,
+        "effective_origins": 2859,
+        "valid_target_elements": 1646784
+      }
+    },
+    {
+      "domain": "Environment",
+      "horizon": 336,
+      "periodicity": "daily",
+      "iTransformer": {
+        "mae": 0.22029697414540428,
+        "mse": 0.1361538855276321,
+        "cvar80": 0.2814438069502739,
+        "cvar90": 0.30158709181614746,
+        "cvar95": 0.32154288339186127,
+        "relative_cvar90": 1.0,
+        "effective_origins": 2715,
+        "valid_target_elements": 2736720
+      },
+      "ADAPT-Z": {
+        "mae": 0.21455715006096063,
+        "mse": 0.13066759204820946,
+        "cvar80": 0.2789922805481551,
+        "cvar90": 0.306775786334435,
+        "cvar95": 0.33198821303337306,
+        "relative_cvar90": 1.0172064745265004,
+        "effective_origins": 2715,
+        "valid_target_elements": 2736720
+      },
+      "DSOF": {
+        "mae": 0.27379368078030825,
+        "mse": 0.17473644786652578,
+        "cvar80": 0.352644329113907,
+        "cvar90": 0.3754480816931114,
+        "cvar95": 0.3983266767800195,
+        "relative_cvar90": 1.244944518136833,
+        "effective_origins": 2715,
+        "valid_target_elements": 2736720
+      },
+      "Proceed": {
+        "mae": 0.21291745764936132,
+        "mse": 0.12929503379180704,
+        "cvar80": 0.2746009291631522,
+        "cvar90": 0.3007491882183882,
+        "cvar95": 0.3273108706888288,
+        "relative_cvar90": 0.9972721307061315,
+        "effective_origins": 2715,
+        "valid_target_elements": 2736720
+      },
+      "On-Adapter": {
+        "mae": 0.21719175361482082,
+        "mse": 0.1342980515590565,
+        "cvar80": 0.28494252204126397,
+        "cvar90": 0.31062702783855883,
+        "cvar95": 0.33349752079153244,
+        "relative_cvar90": 1.0296878388112418,
+        "effective_origins": 2715,
+        "valid_target_elements": 2736720
+      },
+      "GPT4MTS": {
+        "mae": 0.3019562086119844,
+        "mse": 0.2529142371790325,
+        "cvar80": 0.450685095243736,
+        "cvar90": 0.48874313852537044,
+        "cvar95": 0.515675770983666,
+        "relative_cvar90": 1.6201622690525612,
+        "effective_origins": 2715,
+        "valid_target_elements": 2736720
+      },
+      "MM-TSFlib": {
+        "mae": 0.22235409487870614,
+        "mse": 0.13595160300630946,
+        "cvar80": 0.2854699149056778,
+        "cvar90": 0.30654743620193353,
+        "cvar95": 0.3257117891971631,
+        "relative_cvar90": 1.0164314487551567,
+        "effective_origins": 2715,
+        "valid_target_elements": 2736720
+      }
+    },
+    {
+      "domain": "Energy",
+      "horizon": 12,
+      "periodicity": "weekly",
+      "iTransformer": {
+        "mae": 0.26157415190023436,
+        "mse": 0.1283335923986384,
+        "cvar80": 0.5083361848031359,
+        "cvar90": 0.6116713062503135,
+        "cvar95": 0.7032942105216176,
+        "relative_cvar90": 1.0,
+        "effective_origins": 285,
+        "valid_target_elements": 30780
+      },
+      "ADAPT-Z": {
+        "mae": 0.28871892583413256,
+        "mse": 0.18220599552624672,
+        "cvar80": 0.6497091178946733,
+        "cvar90": 0.8587422987774179,
+        "cvar95": 1.1125037973129004,
+        "relative_cvar90": 1.4043370192999334,
+        "effective_origins": 285,
+        "valid_target_elements": 30780
+      },
+      "DSOF": {
+        "mae": 0.3056080525950488,
+        "mse": 0.17918972578115086,
+        "cvar80": 0.6124277377622613,
+        "cvar90": 0.7330568243291746,
+        "cvar95": 0.7986587958242151,
+        "relative_cvar90": 1.1984648165222926,
+        "effective_origins": 285,
+        "valid_target_elements": 30780
+      },
+      "Proceed": {
+        "mae": 0.339430604652116,
+        "mse": 0.23876312384376366,
+        "cvar80": 0.7862509029934515,
+        "cvar90": 1.041583534607035,
+        "cvar95": 1.283862002537652,
+        "relative_cvar90": 1.7039885383662707,
+        "effective_origins": 285,
+        "valid_target_elements": 30780
+      },
+      "On-Adapter": {
+        "mae": 0.30314497515251176,
+        "mse": 0.2198255682267121,
+        "cvar80": 0.7088993260602785,
+        "cvar90": 0.9905201212470943,
+        "cvar95": 1.318074353131247,
+        "relative_cvar90": 1.62003622203595,
+        "effective_origins": 285,
+        "valid_target_elements": 30780
+      },
+      "GPT4MTS": {
+        "mae": 0.24670682115133627,
+        "mse": 0.12135143800099922,
+        "cvar80": 0.5013131015471212,
+        "cvar90": 0.6074253216582313,
+        "cvar95": 0.7111285224779618,
+        "relative_cvar90": 0.9931308544505418,
+        "effective_origins": 285,
+        "valid_target_elements": 30780
+      },
+      "MM-TSFlib": {
+        "mae": 0.2574360669287496,
+        "mse": 0.12527191260338041,
+        "cvar80": 0.49912583448885095,
+        "cvar90": 0.5993786178123712,
+        "cvar95": 0.6911850891408657,
+        "relative_cvar90": 0.9801051541909479,
+        "effective_origins": 285,
+        "valid_target_elements": 30780
+      }
+    },
+    {
+      "domain": "Energy",
+      "horizon": 24,
+      "periodicity": "weekly",
+      "iTransformer": {
+        "mae": 0.38516312547128545,
+        "mse": 0.2586593429321,
+        "cvar80": 0.6874087386623344,
+        "cvar90": 0.7927883191342744,
+        "cvar95": 0.8970554923712489,
+        "relative_cvar90": 1.0,
+        "effective_origins": 273,
+        "valid_target_elements": 58968
+      },
+      "ADAPT-Z": {
+        "mae": 0.4628475791359736,
+        "mse": 0.46804912898798645,
+        "cvar80": 1.0579224579597337,
+        "cvar90": 1.4576299479726949,
+        "cvar95": 1.9773339689598692,
+        "relative_cvar90": 1.8384332907527121,
+        "effective_origins": 273,
+        "valid_target_elements": 58968
+      },
+      "DSOF": {
+        "mae": 0.4434988764097357,
+        "mse": 0.3597767979630599,
+        "cvar80": 0.8425681903266852,
+        "cvar90": 0.9992640088109958,
+        "cvar95": 1.1663988378419998,
+        "relative_cvar90": 1.2604197431212052,
+        "effective_origins": 273,
+        "valid_target_elements": 58968
+      },
+      "Proceed": {
+        "mae": 0.44876454493858353,
+        "mse": 0.40376108837942787,
+        "cvar80": 0.997593337772367,
+        "cvar90": 1.3164430255442554,
+        "cvar95": 1.6424012990074655,
+        "relative_cvar90": 1.6604381192888145,
+        "effective_origins": 273,
+        "valid_target_elements": 58968
+      },
+      "On-Adapter": {
+        "mae": 0.5511800357938376,
+        "mse": 0.6921846000682818,
+        "cvar80": 1.3977691154364427,
+        "cvar90": 2.0087948394264177,
+        "cvar95": 2.311768206796251,
+        "relative_cvar90": 2.5329829560964874,
+        "effective_origins": 273,
+        "valid_target_elements": 58968
+      },
+      "GPT4MTS": {
+        "mae": 0.3735081739865358,
+        "mse": 0.2552817612002844,
+        "cvar80": 0.6708556127346506,
+        "cvar90": 0.785606641940729,
+        "cvar95": 0.926020217979652,
+        "relative_cvar90": 0.9909125076421105,
+        "effective_origins": 273,
+        "valid_target_elements": 58968
+      },
+      "MM-TSFlib": {
+        "mae": 0.38778387744758414,
+        "mse": 0.261592909453282,
+        "cvar80": 0.701513343379187,
+        "cvar90": 0.8166271957204355,
+        "cvar95": 0.9127738177063515,
+        "relative_cvar90": 1.030103909372711,
+        "effective_origins": 273,
+        "valid_target_elements": 58968
+      }
+    },
+    {
+      "domain": "Energy",
+      "horizon": 36,
+      "periodicity": "weekly",
+      "iTransformer": {
+        "mae": 0.4427344153676618,
+        "mse": 0.3459239337633531,
+        "cvar80": 0.7873140636085395,
+        "cvar90": 0.8633161417127541,
+        "cvar95": 0.9418833250986612,
+        "relative_cvar90": 1.0,
+        "effective_origins": 261,
+        "valid_target_elements": 84564
+      },
+      "ADAPT-Z": {
+        "mae": 0.4842467549128518,
+        "mse": 0.42422550771996864,
+        "cvar80": 0.925087411521893,
+        "cvar90": 1.1058601139394748,
+        "cvar95": 1.310326816480801,
+        "relative_cvar90": 1.281099909907714,
+        "effective_origins": 261,
+        "valid_target_elements": 84564
+      },
+      "DSOF": {
+        "mae": 0.5222402313950737,
+        "mse": 0.49333039795169303,
+        "cvar80": 1.0175676986503042,
+        "cvar90": 1.1871269022710478,
+        "cvar95": 1.2771292664083054,
+        "relative_cvar90": 1.3751263824697066,
+        "effective_origins": 261,
+        "valid_target_elements": 84564
+      },
+      "Proceed": {
+        "mae": 0.48827247974212057,
+        "mse": 0.4605292075924681,
+        "cvar80": 1.0216796155363062,
+        "cvar90": 1.2649118623465407,
+        "cvar95": 1.6292670643152658,
+        "relative_cvar90": 1.4649833522933509,
+        "effective_origins": 261,
+        "valid_target_elements": 84564
+      },
+      "On-Adapter": {
+        "mae": 0.6373524445570539,
+        "mse": 0.9035631723638504,
+        "cvar80": 1.5281989121123083,
+        "cvar90": 2.0111240497112077,
+        "cvar95": 2.400389069603811,
+        "relative_cvar90": 2.328455737543409,
+        "effective_origins": 261,
+        "valid_target_elements": 84564
+      },
+      "GPT4MTS": {
+        "mae": 0.4503922268103022,
+        "mse": 0.36146935017204723,
+        "cvar80": 0.8081844258140745,
+        "cvar90": 0.8889052736410116,
+        "cvar95": 0.9597599389298462,
+        "relative_cvar90": 1.0297277484654341,
+        "effective_origins": 261,
+        "valid_target_elements": 84564
+      },
+      "MM-TSFlib": {
+        "mae": 0.44980039136297023,
+        "mse": 0.3580627361154147,
+        "cvar80": 0.8061056233847089,
+        "cvar90": 0.8858574914295824,
+        "cvar95": 0.9645062085554912,
+        "relative_cvar90": 1.0261577154328114,
+        "effective_origins": 261,
+        "valid_target_elements": 84564
+      }
+    },
+    {
+      "domain": "Energy",
+      "horizon": 48,
+      "periodicity": "weekly",
+      "iTransformer": {
+        "mae": 0.5115329201084775,
+        "mse": 0.4415064679776701,
+        "cvar80": 0.8572907903021502,
+        "cvar90": 0.8876341399804891,
+        "cvar95": 0.9159266874884938,
+        "relative_cvar90": 1.0,
+        "effective_origins": 249,
+        "valid_target_elements": 107568
+      },
+      "ADAPT-Z": {
+        "mae": 0.5314036127972569,
+        "mse": 0.4700859385985712,
+        "cvar80": 0.8842328265173917,
+        "cvar90": 0.9415117127849992,
+        "cvar95": 1.0168021582345221,
+        "relative_cvar90": 1.060717999554268,
+        "effective_origins": 249,
+        "valid_target_elements": 107568
+      },
+      "DSOF": {
+        "mae": 0.5908250971466661,
+        "mse": 0.635995341965272,
+        "cvar80": 1.19622130851083,
+        "cvar90": 1.2829534696928822,
+        "cvar95": 1.30867348783351,
+        "relative_cvar90": 1.4454045163125524,
+        "effective_origins": 249,
+        "valid_target_elements": 107568
+      },
+      "Proceed": {
+        "mae": 0.5762539242705665,
+        "mse": 0.5730383470652204,
+        "cvar80": 1.0424250548840222,
+        "cvar90": 1.2165134833413362,
+        "cvar95": 1.5003114870426966,
+        "relative_cvar90": 1.3707015861628975,
+        "effective_origins": 249,
+        "valid_target_elements": 107568
+      },
+      "On-Adapter": {
+        "mae": 0.7340066255789791,
+        "mse": 0.9421812052699252,
+        "cvar80": 1.4937652037059472,
+        "cvar90": 1.8177870506709517,
+        "cvar95": 2.030876932076408,
+        "relative_cvar90": 2.047144644212244,
+        "effective_origins": 249,
+        "valid_target_elements": 107568
+      },
+      "GPT4MTS": {
+        "mae": 0.5045611805053455,
+        "mse": 0.452827647004665,
+        "cvar80": 0.9020448985161965,
+        "cvar90": 0.9392546434204637,
+        "cvar95": 0.9566558258035643,
+        "relative_cvar90": 1.0583962262267754,
+        "effective_origins": 249,
+        "valid_target_elements": 107568
+      },
+      "MM-TSFlib": {
+        "mae": 0.5125587867101217,
+        "mse": 0.4459505561695383,
+        "cvar80": 0.871053610882873,
+        "cvar90": 0.9063209300395801,
+        "cvar95": 0.9316072777272116,
+        "relative_cvar90": 1.0211292459074581,
+        "effective_origins": 249,
+        "valid_target_elements": 107568
+      }
+    },
+    {
+      "domain": "Health_US",
+      "horizon": 12,
+      "periodicity": "weekly",
+      "iTransformer": {
+        "mae": 1.3921571695848192,
+        "mse": 10.363013921492636,
+        "cvar80": 3.241852896655035,
+        "cvar90": 3.9283032934834594,
+        "cvar95": 4.495195233919861,
+        "relative_cvar90": 1.0,
+        "effective_origins": 267,
+        "valid_target_elements": 32040
+      },
+      "ADAPT-Z": {
+        "mae": 1.5312796216146045,
+        "mse": 15.174954474087437,
+        "cvar80": 3.710762297380974,
+        "cvar90": 4.62090774292457,
+        "cvar95": 5.389228281941697,
+        "relative_cvar90": 1.1825050379921758,
+        "effective_origins": 267,
+        "valid_target_elements": 32040
+      },
+      "DSOF": {
+        "mae": 1.5621146022657058,
+        "mse": 11.21127579068677,
+        "cvar80": 3.477937852776339,
+        "cvar90": 4.121988665995265,
+        "cvar95": 4.638656973357603,
+        "relative_cvar90": 1.0540829694468237,
+        "effective_origins": 267,
+        "valid_target_elements": 32040
+      },
+      "Proceed": {
+        "mae": 1.9414127482805636,
+        "mse": 20.24382221761533,
+        "cvar80": 4.9146879466451345,
+        "cvar90": 6.24659715933137,
+        "cvar95": 7.753828130248588,
+        "relative_cvar90": 1.599678262110455,
+        "effective_origins": 267,
+        "valid_target_elements": 32040
+      },
+      "On-Adapter": {
+        "mae": 1.4680885427465802,
+        "mse": 10.947372271939697,
+        "cvar80": 3.324912442018665,
+        "cvar90": 4.011073425512823,
+        "cvar95": 4.581778905002459,
+        "relative_cvar90": 1.0215566516343826,
+        "effective_origins": 267,
+        "valid_target_elements": 32040
+      },
+      "GPT4MTS": {
+        "mae": 1.3521147526491306,
+        "mse": 9.987668948429418,
+        "cvar80": 3.0741123578614165,
+        "cvar90": 3.9178350123801926,
+        "cvar95": 4.676658319804781,
+        "relative_cvar90": 1.0020084759190153,
+        "effective_origins": 267,
+        "valid_target_elements": 32040
+      },
+      "MM-TSFlib": {
+        "mae": 1.4411362640011383,
+        "mse": 11.379722811217453,
+        "cvar80": 3.4974575690596352,
+        "cvar90": 4.489113097520496,
+        "cvar95": 5.443638105595132,
+        "relative_cvar90": 1.1479319366320258,
+        "effective_origins": 267,
+        "valid_target_elements": 32040
+      }
+    },
+    {
+      "domain": "Health_US",
+      "horizon": 24,
+      "periodicity": "weekly",
+      "iTransformer": {
+        "mae": 1.5898106720181204,
+        "mse": 12.677476831270985,
+        "cvar80": 3.2700562772419683,
+        "cvar90": 3.8962125264339327,
+        "cvar95": 4.420094292890615,
+        "relative_cvar90": 1.0,
+        "effective_origins": 255,
+        "valid_target_elements": 61200
+      },
+      "ADAPT-Z": {
+        "mae": 1.700615583308381,
+        "mse": 14.310085212138768,
+        "cvar80": 3.6314685465448946,
+        "cvar90": 4.494584078001857,
+        "cvar95": 5.242916811775931,
+        "relative_cvar90": 1.1532940163715077,
+        "effective_origins": 255,
+        "valid_target_elements": 61200
+      },
+      "DSOF": {
+        "mae": 1.8606172476791814,
+        "mse": 14.575460273074057,
+        "cvar80": 3.6386025955129173,
+        "cvar90": 4.025045831016702,
+        "cvar95": 4.312133891482915,
+        "relative_cvar90": 1.0339184928387706,
+        "effective_origins": 255,
+        "valid_target_elements": 61200
+      },
+      "Proceed": {
+        "mae": 1.9488744163845835,
+        "mse": 17.799768793834854,
+        "cvar80": 4.076815431376541,
+        "cvar90": 4.700301226826546,
+        "cvar95": 5.564045004407718,
+        "relative_cvar90": 1.2062375493564685,
+        "effective_origins": 255,
+        "valid_target_elements": 61200
+      },
+      "On-Adapter": {
+        "mae": 1.762640691077131,
+        "mse": 14.558588369132247,
+        "cvar80": 3.6005022587995477,
+        "cvar90": 4.275344249159866,
+        "cvar95": 4.938988648975326,
+        "relative_cvar90": 1.0969981084901983,
+        "effective_origins": 255,
+        "valid_target_elements": 61200
+      },
+      "GPT4MTS": {
+        "mae": 1.6375741586938262,
+        "mse": 12.837502502885323,
+        "cvar80": 3.470601898781474,
+        "cvar90": 4.164464144165145,
+        "cvar95": 4.559548279385823,
+        "relative_cvar90": 1.069074203759941,
+        "effective_origins": 255,
+        "valid_target_elements": 61200
+      },
+      "MM-TSFlib": {
+        "mae": 1.6630943120029036,
+        "mse": 13.96642150389036,
+        "cvar80": 3.6596623249344513,
+        "cvar90": 4.6031450301647885,
+        "cvar95": 5.408311648804694,
+        "relative_cvar90": 1.1821661203776188,
+        "effective_origins": 255,
+        "valid_target_elements": 61200
+      }
+    },
+    {
+      "domain": "Health_US",
+      "horizon": 36,
+      "periodicity": "weekly",
+      "iTransformer": {
+        "mae": 1.665458841352996,
+        "mse": 12.664019180823201,
+        "cvar80": 3.0921127786971803,
+        "cvar90": 3.5715547342045255,
+        "cvar95": 3.9289763457476226,
+        "relative_cvar90": 1.0,
+        "effective_origins": 243,
+        "valid_target_elements": 87480
+      },
+      "ADAPT-Z": {
+        "mae": 1.7502963724909446,
+        "mse": 13.825169980457988,
+        "cvar80": 3.4311713167096496,
+        "cvar90": 4.069015373661334,
+        "cvar95": 4.7962072723577895,
+        "relative_cvar90": 1.139004130522893,
+        "effective_origins": 243,
+        "valid_target_elements": 87480
+      },
+      "DSOF": {
+        "mae": 1.8124833507633091,
+        "mse": 12.593242762667623,
+        "cvar80": 2.9428159746694207,
+        "cvar90": 3.2456604776411204,
+        "cvar95": 3.5241525708144876,
+        "relative_cvar90": 0.9090290021067159,
+        "effective_origins": 243,
+        "valid_target_elements": 87480
+      },
+      "Proceed": {
+        "mae": 2.0105708943902223,
+        "mse": 16.8852624884892,
+        "cvar80": 3.9287536653556945,
+        "cvar90": 4.867561716310027,
+        "cvar95": 5.760764079044953,
+        "relative_cvar90": 1.3638162575594652,
+        "effective_origins": 243,
+        "valid_target_elements": 87480
+      },
+      "On-Adapter": {
+        "mae": 1.7835145262449952,
+        "mse": 14.118142783009901,
+        "cvar80": 3.453185863644984,
+        "cvar90": 4.08521904340373,
+        "cvar95": 4.598447839660686,
+        "relative_cvar90": 1.1431557407394655,
+        "effective_origins": 243,
+        "valid_target_elements": 87480
+      },
+      "GPT4MTS": {
+        "mae": 1.6498278688890504,
+        "mse": 11.950456107691698,
+        "cvar80": 3.1050682871720134,
+        "cvar90": 3.4852955536837986,
+        "cvar95": 3.8356770172941412,
+        "relative_cvar90": 0.9756503317010607,
+        "effective_origins": 243,
+        "valid_target_elements": 87480
+      },
+      "MM-TSFlib": {
+        "mae": 1.6894066771220864,
+        "mse": 13.20950161637394,
+        "cvar80": 3.2590294736616596,
+        "cvar90": 3.818114879038127,
+        "cvar95": 4.2972246030165,
+        "relative_cvar90": 1.0689738198303265,
+        "effective_origins": 243,
+        "valid_target_elements": 87480
+      }
+    },
+    {
+      "domain": "Health_US",
+      "horizon": 48,
+      "periodicity": "weekly",
+      "iTransformer": {
+        "mae": 1.6684305535610215,
+        "mse": 12.103991442794063,
+        "cvar80": 2.6884322155379685,
+        "cvar90": 2.980962098924801,
+        "cvar95": 3.2172346834415095,
+        "relative_cvar90": 1.0,
+        "effective_origins": 231,
+        "valid_target_elements": 110880
+      },
+      "ADAPT-Z": {
+        "mae": 1.7133707495133086,
+        "mse": 12.884505658059028,
+        "cvar80": 2.9378522605246893,
+        "cvar90": 3.378173080298859,
+        "cvar95": 3.927338280585774,
+        "relative_cvar90": 1.1361535609493112,
+        "effective_origins": 231,
+        "valid_target_elements": 110880
+      },
+      "DSOF": {
+        "mae": 1.778070568638378,
+        "mse": 11.581540587613278,
+        "cvar80": 2.586047819243935,
+        "cvar90": 2.7890212638456098,
+        "cvar95": 2.926454696922363,
+        "relative_cvar90": 0.9378628968646222,
+        "effective_origins": 231,
+        "valid_target_elements": 110880
+      },
+      "Proceed": {
+        "mae": 1.9480583099531827,
+        "mse": 15.830266186874463,
+        "cvar80": 3.6491109821798524,
+        "cvar90": 4.637910789515382,
+        "cvar95": 5.650515079021672,
+        "relative_cvar90": 1.5572762953144805,
+        "effective_origins": 231,
+        "valid_target_elements": 110880
+      },
+      "On-Adapter": {
+        "mae": 1.7721511930125529,
+        "mse": 13.179621754463106,
+        "cvar80": 2.936657281439667,
+        "cvar90": 3.3220113683525927,
+        "cvar95": 3.772005061703441,
+        "relative_cvar90": 1.1163840013405413,
+        "effective_origins": 231,
+        "valid_target_elements": 110880
+      },
+      "GPT4MTS": {
+        "mae": 1.6552926287810659,
+        "mse": 11.55201122494116,
+        "cvar80": 2.7062708130001822,
+        "cvar90": 3.000290666991157,
+        "cvar95": 3.274506867855735,
+        "relative_cvar90": 1.0084022095879115,
+        "effective_origins": 231,
+        "valid_target_elements": 110880
+      },
+      "MM-TSFlib": {
+        "mae": 1.7002816280060538,
+        "mse": 12.792822860357354,
+        "cvar80": 2.840225213212371,
+        "cvar90": 3.1636087022961896,
+        "cvar95": 3.486507416654476,
+        "relative_cvar90": 1.0634498690857825,
+        "effective_origins": 231,
+        "valid_target_elements": 110880
+      }
+    },
+    {
+      "domain": "Traffic",
+      "horizon": 6,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.29448682559990935,
+        "mse": 0.22560607190718832,
+        "cvar80": 0.747083283132977,
+        "cvar90": 0.9933512975058004,
+        "cvar95": 1.1616194800743609,
+        "relative_cvar90": 1.0,
+        "effective_origins": 102,
+        "valid_target_elements": 612
+      },
+      "ADAPT-Z": {
+        "mae": 0.28686987379797146,
+        "mse": 0.21696183540393307,
+        "cvar80": 0.7331319590929026,
+        "cvar90": 0.96272649822152,
+        "cvar95": 1.1355435315819866,
+        "relative_cvar90": 0.9692366757618621,
+        "effective_origins": 102,
+        "valid_target_elements": 612
+      },
+      "DSOF": {
+        "mae": 0.4476845900331317,
+        "mse": 0.33078604504719067,
+        "cvar80": 0.7261125175018587,
+        "cvar90": 0.8533991172844808,
+        "cvar95": 0.9779748050475693,
+        "relative_cvar90": 0.8592683389430932,
+        "effective_origins": 102,
+        "valid_target_elements": 612
+      },
+      "Proceed": {
+        "mae": 0.2615021670760672,
+        "mse": 0.20560424062363117,
+        "cvar80": 0.7271432009787343,
+        "cvar90": 0.9462556530577425,
+        "cvar95": 1.1133063510222632,
+        "relative_cvar90": 0.9526116038485221,
+        "effective_origins": 102,
+        "valid_target_elements": 612
+      },
+      "On-Adapter": {
+        "mae": 0.29248007544375193,
+        "mse": 0.2196554158975197,
+        "cvar80": 0.7379370958327208,
+        "cvar90": 0.9520785468985572,
+        "cvar95": 1.1324368099761164,
+        "relative_cvar90": 0.9586284142208298,
+        "effective_origins": 102,
+        "valid_target_elements": 612
+      },
+      "GPT4MTS": {
+        "mae": 0.2855672724626163,
+        "mse": 0.21350420787908586,
+        "cvar80": 0.7340783233021858,
+        "cvar90": 0.9675893427110184,
+        "cvar95": 1.1322703825752198,
+        "relative_cvar90": 0.9741705151838049,
+        "effective_origins": 102,
+        "valid_target_elements": 612
+      },
+      "MM-TSFlib": {
+        "mae": 0.2872755599648475,
+        "mse": 0.21787857132836574,
+        "cvar80": 0.732814075810782,
+        "cvar90": 0.981764258966986,
+        "cvar95": 1.1506971111744315,
+        "relative_cvar90": 0.9883749571445254,
+        "effective_origins": 102,
+        "valid_target_elements": 612
+      }
+    },
+    {
+      "domain": "Traffic",
+      "horizon": 8,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.28926469330986343,
+        "mse": 0.23287034556743866,
+        "cvar80": 0.7760508471479018,
+        "cvar90": 0.9670290966828663,
+        "cvar95": 1.0548565844694773,
+        "relative_cvar90": 1.0,
+        "effective_origins": 100,
+        "valid_target_elements": 800
+      },
+      "ADAPT-Z": {
+        "mae": 0.2793186067789793,
+        "mse": 0.22370410262682916,
+        "cvar80": 0.7615563315649827,
+        "cvar90": 0.942647890249888,
+        "cvar95": 1.0366329386830329,
+        "relative_cvar90": 0.9748119226366189,
+        "effective_origins": 100,
+        "valid_target_elements": 800
+      },
+      "DSOF": {
+        "mae": 0.46318885587776704,
+        "mse": 0.3479832405151397,
+        "cvar80": 0.7251646499149501,
+        "cvar90": 0.8127766357734799,
+        "cvar95": 0.8865038969864448,
+        "relative_cvar90": 0.8405878152756229,
+        "effective_origins": 100,
+        "valid_target_elements": 800
+      },
+      "Proceed": {
+        "mae": 0.2624276460707187,
+        "mse": 0.21761151131664036,
+        "cvar80": 0.7579418191065391,
+        "cvar90": 0.8845903793970744,
+        "cvar95": 0.9833730374773344,
+        "relative_cvar90": 0.9147586918303087,
+        "effective_origins": 100,
+        "valid_target_elements": 800
+      },
+      "On-Adapter": {
+        "mae": 0.292238453278939,
+        "mse": 0.2324465024456389,
+        "cvar80": 0.7750263734410207,
+        "cvar90": 0.9391776119669277,
+        "cvar95": 1.020766809086005,
+        "relative_cvar90": 0.9712343868544208,
+        "effective_origins": 100,
+        "valid_target_elements": 800
+      },
+      "GPT4MTS": {
+        "mae": 0.2804423990597327,
+        "mse": 0.22719830342576045,
+        "cvar80": 0.7669190571953853,
+        "cvar90": 0.9511854767799378,
+        "cvar95": 1.0449052323897678,
+        "relative_cvar90": 0.9835181985709952,
+        "effective_origins": 100,
+        "valid_target_elements": 800
+      },
+      "MM-TSFlib": {
+        "mae": 0.28195515817031264,
+        "mse": 0.22886371558143112,
+        "cvar80": 0.7665227329048018,
+        "cvar90": 0.9646477665752173,
+        "cvar95": 1.0586514162520568,
+        "relative_cvar90": 0.99754127858754,
+        "effective_origins": 100,
+        "valid_target_elements": 800
+      }
+    },
+    {
+      "domain": "Traffic",
+      "horizon": 10,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.28345535146135864,
+        "mse": 0.23817806605910086,
+        "cvar80": 0.7874317050385637,
+        "cvar90": 0.9379514532835304,
+        "cvar95": 0.9934046034504767,
+        "relative_cvar90": 1.0,
+        "effective_origins": 98,
+        "valid_target_elements": 980
+      },
+      "ADAPT-Z": {
+        "mae": 0.2766974908964975,
+        "mse": 0.23094347064470133,
+        "cvar80": 0.7746254043919699,
+        "cvar90": 0.9174435685281038,
+        "cvar95": 0.9695096759163603,
+        "relative_cvar90": 0.9781718316939072,
+        "effective_origins": 98,
+        "valid_target_elements": 980
+      },
+      "DSOF": {
+        "mae": 0.4537920295229169,
+        "mse": 0.3398713804437161,
+        "cvar80": 0.6978259522087721,
+        "cvar90": 0.7651647634854933,
+        "cvar95": 0.8087283938717679,
+        "relative_cvar90": 0.8156832242487709,
+        "effective_origins": 98,
+        "valid_target_elements": 980
+      },
+      "Proceed": {
+        "mae": 0.27306216724064886,
+        "mse": 0.23117018138175563,
+        "cvar80": 0.7759955851601905,
+        "cvar90": 0.8768499497653676,
+        "cvar95": 0.9222265860255883,
+        "relative_cvar90": 0.9348455400456425,
+        "effective_origins": 98,
+        "valid_target_elements": 980
+      },
+      "On-Adapter": {
+        "mae": 0.2841931446271689,
+        "mse": 0.23684628169302055,
+        "cvar80": 0.782940775804779,
+        "cvar90": 0.9251630547906265,
+        "cvar95": 0.9772852285784118,
+        "relative_cvar90": 0.9862920117520529,
+        "effective_origins": 98,
+        "valid_target_elements": 980
+      },
+      "GPT4MTS": {
+        "mae": 0.28280303370790416,
+        "mse": 0.23849240715837317,
+        "cvar80": 0.78653430385249,
+        "cvar90": 0.9346153424305169,
+        "cvar95": 0.9910443214332166,
+        "relative_cvar90": 0.9965456395702725,
+        "effective_origins": 98,
+        "valid_target_elements": 980
+      },
+      "MM-TSFlib": {
+        "mae": 0.2797489189194376,
+        "mse": 0.2341237437704656,
+        "cvar80": 0.7812961385287598,
+        "cvar90": 0.9281440636092405,
+        "cvar95": 0.9809823775778012,
+        "relative_cvar90": 0.9895815753629194,
+        "effective_origins": 98,
+        "valid_target_elements": 980
+      }
+    },
+    {
+      "domain": "Traffic",
+      "horizon": 12,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.2888080673119812,
+        "mse": 0.2474926639030034,
+        "cvar80": 0.7905305541051483,
+        "cvar90": 0.8932950030667363,
+        "cvar95": 0.93316737452039,
+        "relative_cvar90": 1.0,
+        "effective_origins": 96,
+        "valid_target_elements": 1152
+      },
+      "ADAPT-Z": {
+        "mae": 0.2821449137430776,
+        "mse": 0.24188189349720335,
+        "cvar80": 0.7797493579521498,
+        "cvar90": 0.8796728725234667,
+        "cvar95": 0.917813833458004,
+        "relative_cvar90": 0.9847654762817726,
+        "effective_origins": 96,
+        "valid_target_elements": 1152
+      },
+      "DSOF": {
+        "mae": 0.4623729480878898,
+        "mse": 0.3550036285952119,
+        "cvar80": 0.6801924580682274,
+        "cvar90": 0.7343317146533755,
+        "cvar95": 0.7849947769643256,
+        "relative_cvar90": 0.822018776249013,
+        "effective_origins": 96,
+        "valid_target_elements": 1152
+      },
+      "Proceed": {
+        "mae": 0.28049117897602693,
+        "mse": 0.2395628769062559,
+        "cvar80": 0.7601397844997267,
+        "cvar90": 0.8523189659333891,
+        "cvar95": 0.9043418062781846,
+        "relative_cvar90": 0.9541066495408245,
+        "effective_origins": 96,
+        "valid_target_elements": 1152
+      },
+      "On-Adapter": {
+        "mae": 0.29087399774127537,
+        "mse": 0.24676763728966597,
+        "cvar80": 0.7830286388354444,
+        "cvar90": 0.881253607329671,
+        "cvar95": 0.9180923693433956,
+        "relative_cvar90": 0.986538062636294,
+        "effective_origins": 96,
+        "valid_target_elements": 1152
+      },
+      "GPT4MTS": {
+        "mae": 0.28196020626152557,
+        "mse": 0.2413071008975101,
+        "cvar80": 0.7772074077554323,
+        "cvar90": 0.8837657536690434,
+        "cvar95": 0.9223739274398044,
+        "relative_cvar90": 0.9893129146596009,
+        "effective_origins": 96,
+        "valid_target_elements": 1152
+      },
+      "MM-TSFlib": {
+        "mae": 0.28083299298412856,
+        "mse": 0.2414157080984427,
+        "cvar80": 0.7811714363277943,
+        "cvar90": 0.8824954441192352,
+        "cvar95": 0.9206266643358738,
+        "relative_cvar90": 0.9879220643851525,
+        "effective_origins": 96,
+        "valid_target_elements": 1152
+      }
+    },
+    {
+      "domain": "SocialGood",
+      "horizon": 6,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.4176090672329527,
+        "mse": 1.052777735333821,
+        "cvar80": 1.4173167795183508,
+        "cvar90": 2.3850152161338145,
+        "cvar95": 3.47977141151325,
+        "relative_cvar90": 1.0,
+        "effective_origins": 172,
+        "valid_target_elements": 1017
+      },
+      "ADAPT-Z": {
+        "mae": 0.38659806647138034,
+        "mse": 0.9225874558424305,
+        "cvar80": 1.2974509213833276,
+        "cvar90": 2.1736153332463606,
+        "cvar95": 3.1498272212496565,
+        "relative_cvar90": 0.9110946829923151,
+        "effective_origins": 172,
+        "valid_target_elements": 1017
+      },
+      "DSOF": {
+        "mae": 0.4203635195019264,
+        "mse": 0.7447849138969618,
+        "cvar80": 1.1659153661137456,
+        "cvar90": 1.7522762800910987,
+        "cvar95": 2.494907777669818,
+        "relative_cvar90": 0.7354983626341358,
+        "effective_origins": 172,
+        "valid_target_elements": 1017
+      },
+      "Proceed": {
+        "mae": 0.37557538690809217,
+        "mse": 1.0220663682400428,
+        "cvar80": 1.3407466176136829,
+        "cvar90": 2.2402366397454756,
+        "cvar95": 3.1823455764784527,
+        "relative_cvar90": 0.9395587581825722,
+        "effective_origins": 172,
+        "valid_target_elements": 1017
+      },
+      "On-Adapter": {
+        "mae": 0.3990452021939765,
+        "mse": 0.9607379881391008,
+        "cvar80": 1.356424492299683,
+        "cvar90": 2.247438694858197,
+        "cvar95": 3.230412230829321,
+        "relative_cvar90": 0.9423476526956579,
+        "effective_origins": 172,
+        "valid_target_elements": 1017
+      },
+      "GPT4MTS": {
+        "mae": 0.3703660208488299,
+        "mse": 0.8322403946770714,
+        "cvar80": 1.1927694317849247,
+        "cvar90": 1.9815787909268485,
+        "cvar95": 3.0283175544086505,
+        "relative_cvar90": 0.8334400792774675,
+        "effective_origins": 172,
+        "valid_target_elements": 1017
+      },
+      "MM-TSFlib": {
+        "mae": 0.3977379809414235,
+        "mse": 0.9597292408108009,
+        "cvar80": 1.3397570688908294,
+        "cvar90": 2.2433413569719196,
+        "cvar95": 3.2800502288865174,
+        "relative_cvar90": 0.9422444495967325,
+        "effective_origins": 172,
+        "valid_target_elements": 1017
+      }
+    },
+    {
+      "domain": "SocialGood",
+      "horizon": 8,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.44331702200026174,
+        "mse": 1.0788346924167198,
+        "cvar80": 1.4740581910561117,
+        "cvar90": 2.414642057257033,
+        "cvar95": 3.222722611238444,
+        "relative_cvar90": 1.0,
+        "effective_origins": 172,
+        "valid_target_elements": 1348
+      },
+      "ADAPT-Z": {
+        "mae": 0.41858074352726465,
+        "mse": 0.9900351108973428,
+        "cvar80": 1.3960514377078175,
+        "cvar90": 2.266905555718167,
+        "cvar95": 3.0683303055851607,
+        "relative_cvar90": 0.939326618880486,
+        "effective_origins": 172,
+        "valid_target_elements": 1348
+      },
+      "DSOF": {
+        "mae": 0.459855637913358,
+        "mse": 0.8248409422705284,
+        "cvar80": 1.2747429458475439,
+        "cvar90": 1.857998804654926,
+        "cvar95": 2.543773327607575,
+        "relative_cvar90": 0.7696266982407128,
+        "effective_origins": 172,
+        "valid_target_elements": 1348
+      },
+      "Proceed": {
+        "mae": 0.4151222602941895,
+        "mse": 1.152905441921286,
+        "cvar80": 1.5018533974355304,
+        "cvar90": 2.4439219493065174,
+        "cvar95": 3.3084306735401,
+        "relative_cvar90": 1.0125727586277222,
+        "effective_origins": 172,
+        "valid_target_elements": 1348
+      },
+      "On-Adapter": {
+        "mae": 0.4151011105466995,
+        "mse": 0.9786020047664142,
+        "cvar80": 1.3955180166464511,
+        "cvar90": 2.2416506514996435,
+        "cvar95": 3.0073861187800417,
+        "relative_cvar90": 0.929896270744084,
+        "effective_origins": 172,
+        "valid_target_elements": 1348
+      },
+      "GPT4MTS": {
+        "mae": 0.438871346549504,
+        "mse": 1.0525325998016613,
+        "cvar80": 1.4334614004179713,
+        "cvar90": 2.3103527583564496,
+        "cvar95": 3.2341609066063466,
+        "relative_cvar90": 0.9575932293244941,
+        "effective_origins": 172,
+        "valid_target_elements": 1348
+      },
+      "MM-TSFlib": {
+        "mae": 0.4604742096864382,
+        "mse": 1.1170214832669247,
+        "cvar80": 1.5215581793316852,
+        "cvar90": 2.4648073235262267,
+        "cvar95": 3.280803414047227,
+        "relative_cvar90": 1.0214724436065779,
+        "effective_origins": 172,
+        "valid_target_elements": 1348
+      }
+    },
+    {
+      "domain": "SocialGood",
+      "horizon": 10,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.4700952784504336,
+        "mse": 1.114409572148169,
+        "cvar80": 1.5237926810094813,
+        "cvar90": 2.434011163378087,
+        "cvar95": 3.0788543140083604,
+        "relative_cvar90": 1.0,
+        "effective_origins": 171,
+        "valid_target_elements": 1674
+      },
+      "ADAPT-Z": {
+        "mae": 0.4346764202371361,
+        "mse": 0.998195666025905,
+        "cvar80": 1.417923693729249,
+        "cvar90": 2.224107512776498,
+        "cvar95": 2.8772771550375116,
+        "relative_cvar90": 0.914223635787006,
+        "effective_origins": 171,
+        "valid_target_elements": 1674
+      },
+      "DSOF": {
+        "mae": 0.4893662118064021,
+        "mse": 0.8750133587099723,
+        "cvar80": 1.337023649443954,
+        "cvar90": 1.8955524794575822,
+        "cvar95": 2.5075132035604923,
+        "relative_cvar90": 0.7801797281375009,
+        "effective_origins": 171,
+        "valid_target_elements": 1674
+      },
+      "Proceed": {
+        "mae": 0.4560663239351295,
+        "mse": 1.2805472824144915,
+        "cvar80": 1.660626105035403,
+        "cvar90": 2.612471485496671,
+        "cvar95": 3.1617144389706167,
+        "relative_cvar90": 1.0746816826644625,
+        "effective_origins": 171,
+        "valid_target_elements": 1674
+      },
+      "On-Adapter": {
+        "mae": 0.4220714546531981,
+        "mse": 0.956082707927529,
+        "cvar80": 1.3705347893211346,
+        "cvar90": 2.115673499231973,
+        "cvar95": 2.8308547192817777,
+        "relative_cvar90": 0.869240195443486,
+        "effective_origins": 171,
+        "valid_target_elements": 1674
+      },
+      "GPT4MTS": {
+        "mae": 0.46546242797965337,
+        "mse": 1.2934178167504562,
+        "cvar80": 1.572321108303924,
+        "cvar90": 2.5454224093804467,
+        "cvar95": 3.404110713269685,
+        "relative_cvar90": 1.0470139289826348,
+        "effective_origins": 171,
+        "valid_target_elements": 1674
+      },
+      "MM-TSFlib": {
+        "mae": 0.4809428405748533,
+        "mse": 1.1613445343384974,
+        "cvar80": 1.5734891393369874,
+        "cvar90": 2.517389117835769,
+        "cvar95": 3.1592360867568625,
+        "relative_cvar90": 1.0354371497822914,
+        "effective_origins": 171,
+        "valid_target_elements": 1674
+      }
+    },
+    {
+      "domain": "SocialGood",
+      "horizon": 12,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.506984477626924,
+        "mse": 1.1915384932470898,
+        "cvar80": 1.6109298815211233,
+        "cvar90": 2.5079620566040295,
+        "cvar95": 3.0066889757161896,
+        "relative_cvar90": 1.0,
+        "effective_origins": 169,
+        "valid_target_elements": 1992
+      },
+      "ADAPT-Z": {
+        "mae": 0.48199983546448005,
+        "mse": 1.1078077825737243,
+        "cvar80": 1.5319402129031907,
+        "cvar90": 2.358530393941848,
+        "cvar95": 2.8453556943861162,
+        "relative_cvar90": 0.9408762674205163,
+        "effective_origins": 169,
+        "valid_target_elements": 1992
+      },
+      "DSOF": {
+        "mae": 0.5225797721979283,
+        "mse": 0.935351999086147,
+        "cvar80": 1.4184492200595875,
+        "cvar90": 1.939675020565873,
+        "cvar95": 2.401153048877601,
+        "relative_cvar90": 0.7737001834477563,
+        "effective_origins": 169,
+        "valid_target_elements": 1992
+      },
+      "Proceed": {
+        "mae": 0.475199213863626,
+        "mse": 1.279948501800925,
+        "cvar80": 1.6918783310955705,
+        "cvar90": 2.5671684914522666,
+        "cvar95": 2.9354568780874395,
+        "relative_cvar90": 1.0236410637813766,
+        "effective_origins": 169,
+        "valid_target_elements": 1992
+      },
+      "On-Adapter": {
+        "mae": 0.4524703883320353,
+        "mse": 1.0091665541252637,
+        "cvar80": 1.439293326629983,
+        "cvar90": 2.1634581813724663,
+        "cvar95": 2.713947871943628,
+        "relative_cvar90": 0.8632271166543237,
+        "effective_origins": 169,
+        "valid_target_elements": 1992
+      },
+      "GPT4MTS": {
+        "mae": 0.523349872875056,
+        "mse": 1.3633278513483902,
+        "cvar80": 1.6783597681401659,
+        "cvar90": 2.5989054855912,
+        "cvar95": 3.2513999723211504,
+        "relative_cvar90": 1.0357951769931544,
+        "effective_origins": 169,
+        "valid_target_elements": 1992
+      },
+      "MM-TSFlib": {
+        "mae": 0.5111937620266016,
+        "mse": 1.2454284510249918,
+        "cvar80": 1.644773176615448,
+        "cvar90": 2.579143869285861,
+        "cvar95": 3.155965738385465,
+        "relative_cvar90": 1.0291177415653239,
+        "effective_origins": 169,
+        "valid_target_elements": 1992
+      }
+    },
+    {
+      "domain": "Security",
+      "horizon": 6,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 4.279760407648905,
+        "mse": 83.46165484957986,
+        "cvar80": 10.533918770274731,
+        "cvar90": 13.326071851181261,
+        "cvar95": 14.461422005085032,
+        "relative_cvar90": 1.0,
+        "effective_origins": 55,
+        "valid_target_elements": 330
+      },
+      "ADAPT-Z": {
+        "mae": 5.349131881528431,
+        "mse": 109.02845757249987,
+        "cvar80": 13.927159415953085,
+        "cvar90": 16.424321067453633,
+        "cvar95": 19.234901564289824,
+        "relative_cvar90": 1.232496075017424,
+        "effective_origins": 55,
+        "valid_target_elements": 330
+      },
+      "DSOF": {
+        "mae": 5.000981739637527,
+        "mse": 94.74334440633255,
+        "cvar80": 11.020685304595967,
+        "cvar90": 14.32731272054441,
+        "cvar95": 15.733958701894743,
+        "relative_cvar90": 1.075137597004457,
+        "effective_origins": 55,
+        "valid_target_elements": 330
+      },
+      "Proceed": {
+        "mae": 4.608319881919659,
+        "mse": 86.75935308609725,
+        "cvar80": 11.257541428310702,
+        "cvar90": 13.312789712289367,
+        "cvar95": 14.40930780136224,
+        "relative_cvar90": 0.999006461147501,
+        "effective_origins": 55,
+        "valid_target_elements": 330
+      },
+      "On-Adapter": {
+        "mae": 4.329348734111497,
+        "mse": 83.7213899035386,
+        "cvar80": 10.640342932758909,
+        "cvar90": 13.303313276984476,
+        "cvar95": 14.441170132521426,
+        "relative_cvar90": 0.9982918383647229,
+        "effective_origins": 55,
+        "valid_target_elements": 330
+      },
+      "GPT4MTS": {
+        "mae": 4.28288256101536,
+        "mse": 83.83494720857601,
+        "cvar80": 10.491890412990495,
+        "cvar90": 13.485086280288117,
+        "cvar95": 14.574555947323036,
+        "relative_cvar90": 1.0119427991207386,
+        "effective_origins": 55,
+        "valid_target_elements": 330
+      },
+      "MM-TSFlib": {
+        "mae": 4.316478536722034,
+        "mse": 83.5582958160014,
+        "cvar80": 10.576983123114614,
+        "cvar90": 13.30996249059234,
+        "cvar95": 14.418061435824692,
+        "relative_cvar90": 0.9987908973288805,
+        "effective_origins": 55,
+        "valid_target_elements": 330
+      }
+    },
+    {
+      "domain": "Security",
+      "horizon": 8,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 4.441205597336187,
+        "mse": 88.51617491509155,
+        "cvar80": 10.637629383436913,
+        "cvar90": 12.016533016315046,
+        "cvar95": 12.527721226402798,
+        "relative_cvar90": 1.0,
+        "effective_origins": 53,
+        "valid_target_elements": 424
+      },
+      "ADAPT-Z": {
+        "mae": 5.066922194834025,
+        "mse": 97.26866734495923,
+        "cvar80": 11.300867036500442,
+        "cvar90": 12.225713784074259,
+        "cvar95": 12.835819107369057,
+        "relative_cvar90": 1.0175883390474267,
+        "effective_origins": 53,
+        "valid_target_elements": 424
+      },
+      "DSOF": {
+        "mae": 5.499512531185441,
+        "mse": 103.26457616727059,
+        "cvar80": 11.329078595341423,
+        "cvar90": 13.334085675120448,
+        "cvar95": 14.148658320588885,
+        "relative_cvar90": 1.1096828991439673,
+        "effective_origins": 53,
+        "valid_target_elements": 424
+      },
+      "Proceed": {
+        "mae": 4.9748195900857075,
+        "mse": 96.32773583803286,
+        "cvar80": 11.267122805259136,
+        "cvar90": 12.101392715325895,
+        "cvar95": 12.602504470625762,
+        "relative_cvar90": 1.0072098998450916,
+        "effective_origins": 53,
+        "valid_target_elements": 424
+      },
+      "On-Adapter": {
+        "mae": 4.514960441832085,
+        "mse": 89.39148244086313,
+        "cvar80": 10.80151181719588,
+        "cvar90": 11.97302000374539,
+        "cvar95": 12.480135965647188,
+        "relative_cvar90": 0.9963768121445661,
+        "effective_origins": 53,
+        "valid_target_elements": 424
+      },
+      "GPT4MTS": {
+        "mae": 4.723248301530784,
+        "mse": 91.42694476928641,
+        "cvar80": 11.274929926923987,
+        "cvar90": 12.292850098145081,
+        "cvar95": 12.896870218545386,
+        "relative_cvar90": 1.0229574381999769,
+        "effective_origins": 53,
+        "valid_target_elements": 424
+      },
+      "MM-TSFlib": {
+        "mae": 4.410673198770474,
+        "mse": 88.51460689244436,
+        "cvar80": 10.516300891836485,
+        "cvar90": 12.051290992764557,
+        "cvar95": 12.554338105632075,
+        "relative_cvar90": 1.002915830761114,
+        "effective_origins": 53,
+        "valid_target_elements": 424
+      }
+    },
+    {
+      "domain": "Security",
+      "horizon": 10,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 4.531326983197062,
+        "mse": 93.30363628170498,
+        "cvar80": 10.400995236128763,
+        "cvar90": 10.943071190671981,
+        "cvar95": 11.259689582952488,
+        "relative_cvar90": 1.0,
+        "effective_origins": 51,
+        "valid_target_elements": 510
+      },
+      "ADAPT-Z": {
+        "mae": 4.9682263115262675,
+        "mse": 98.37886721667003,
+        "cvar80": 10.371214859801178,
+        "cvar90": 10.83714266816775,
+        "cvar95": 11.129009127227311,
+        "relative_cvar90": 0.9903452387791019,
+        "effective_origins": 51,
+        "valid_target_elements": 510
+      },
+      "DSOF": {
+        "mae": 5.878932809651968,
+        "mse": 111.11032870314186,
+        "cvar80": 11.441410942906453,
+        "cvar90": 12.341852674959533,
+        "cvar95": 12.44697277171939,
+        "relative_cvar90": 1.1279316425470605,
+        "effective_origins": 51,
+        "valid_target_elements": 510
+      },
+      "Proceed": {
+        "mae": 5.185724231892941,
+        "mse": 102.52491594587913,
+        "cvar80": 10.453054858111088,
+        "cvar90": 10.852371126802916,
+        "cvar95": 11.128489588912016,
+        "relative_cvar90": 0.9918224321182253,
+        "effective_origins": 51,
+        "valid_target_elements": 510
+      },
+      "On-Adapter": {
+        "mae": 4.598132227176155,
+        "mse": 94.02031972062929,
+        "cvar80": 10.399971759280346,
+        "cvar90": 10.930890485819651,
+        "cvar95": 11.23260445057177,
+        "relative_cvar90": 0.998876053709758,
+        "effective_origins": 51,
+        "valid_target_elements": 510
+      },
+      "GPT4MTS": {
+        "mae": 4.722885603939786,
+        "mse": 96.20081243556616,
+        "cvar80": 10.453849938219669,
+        "cvar90": 10.922233350058784,
+        "cvar95": 11.352796738677554,
+        "relative_cvar90": 0.9984116207105648,
+        "effective_origins": 51,
+        "valid_target_elements": 510
+      },
+      "MM-TSFlib": {
+        "mae": 4.5474952692324235,
+        "mse": 93.56399430944616,
+        "cvar80": 10.385560549162571,
+        "cvar90": 10.932182542249267,
+        "cvar95": 11.23906999327778,
+        "relative_cvar90": 0.99912509646691,
+        "effective_origins": 51,
+        "valid_target_elements": 510
+      }
+    },
+    {
+      "domain": "Security",
+      "horizon": 12,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 4.722228346565683,
+        "mse": 99.23191102420107,
+        "cvar80": 9.810546475354911,
+        "cvar90": 10.612488166342517,
+        "cvar95": 10.963656554754628,
+        "relative_cvar90": 1.0,
+        "effective_origins": 49,
+        "valid_target_elements": 588
+      },
+      "ADAPT-Z": {
+        "mae": 5.045878002905791,
+        "mse": 102.37963757956747,
+        "cvar80": 9.792728729562963,
+        "cvar90": 10.520154694513396,
+        "cvar95": 10.883320378608444,
+        "relative_cvar90": 0.9912731261971152,
+        "effective_origins": 49,
+        "valid_target_elements": 588
+      },
+      "DSOF": {
+        "mae": 6.215265641003729,
+        "mse": 118.73909999123164,
+        "cvar80": 10.97055122832812,
+        "cvar90": 11.471519227141762,
+        "cvar95": 11.585612057106326,
+        "relative_cvar90": 1.0809792836234218,
+        "effective_origins": 49,
+        "valid_target_elements": 588
+      },
+      "Proceed": {
+        "mae": 5.346645250173112,
+        "mse": 108.96083909999116,
+        "cvar80": 10.16873125282545,
+        "cvar90": 10.864823243447711,
+        "cvar95": 11.282518822995442,
+        "relative_cvar90": 1.0238477727936541,
+        "effective_origins": 49,
+        "valid_target_elements": 588
+      },
+      "On-Adapter": {
+        "mae": 4.75782074390693,
+        "mse": 99.58723806900802,
+        "cvar80": 9.799445391208137,
+        "cvar90": 10.597172012134473,
+        "cvar95": 10.951256025776843,
+        "relative_cvar90": 0.9985612900814886,
+        "effective_origins": 49,
+        "valid_target_elements": 588
+      },
+      "GPT4MTS": {
+        "mae": 4.951384244558493,
+        "mse": 102.07792139708653,
+        "cvar80": 10.03616691917992,
+        "cvar90": 10.910685868963363,
+        "cvar95": 11.55300377596533,
+        "relative_cvar90": 1.028130454338793,
+        "effective_origins": 49,
+        "valid_target_elements": 588
+      },
+      "MM-TSFlib": {
+        "mae": 4.747026798290004,
+        "mse": 99.2704382180416,
+        "cvar80": 9.748620435950302,
+        "cvar90": 10.52675072189902,
+        "cvar95": 10.895978494836628,
+        "relative_cvar90": 0.9919519931552679,
+        "effective_origins": 49,
+        "valid_target_elements": 588
+      }
+    },
+    {
+      "domain": "Economy",
+      "horizon": 6,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.38776500276117415,
+        "mse": 0.2631878370500514,
+        "cvar80": 0.7125084147685105,
+        "cvar90": 0.7978730452833352,
+        "cvar95": 0.8605054550700718,
+        "relative_cvar90": 1.0,
+        "effective_origins": 80,
+        "valid_target_elements": 1440
+      },
+      "ADAPT-Z": {
+        "mae": 0.38657652851608065,
+        "mse": 0.2616129377381398,
+        "cvar80": 0.7055824323798771,
+        "cvar90": 0.7850447552347625,
+        "cvar95": 0.8432831427565327,
+        "relative_cvar90": 0.9839309084693736,
+        "effective_origins": 80,
+        "valid_target_elements": 1440
+      },
+      "DSOF": {
+        "mae": 0.5188578435116343,
+        "mse": 0.45437570156737994,
+        "cvar80": 0.8325804129104925,
+        "cvar90": 0.9225234447254075,
+        "cvar95": 0.9884283807542588,
+        "relative_cvar90": 1.1560980659145275,
+        "effective_origins": 80,
+        "valid_target_elements": 1440
+      },
+      "Proceed": {
+        "mae": 0.39888098424783464,
+        "mse": 0.28184387843610936,
+        "cvar80": 0.723395193754523,
+        "cvar90": 0.7949052508230562,
+        "cvar95": 0.8461269951528974,
+        "relative_cvar90": 0.9962916758603667,
+        "effective_origins": 80,
+        "valid_target_elements": 1440
+      },
+      "On-Adapter": {
+        "mae": 0.3883717054018268,
+        "mse": 0.263635455401435,
+        "cvar80": 0.7112467108915249,
+        "cvar90": 0.7953859053000256,
+        "cvar95": 0.8588627118755271,
+        "relative_cvar90": 0.9968905911350334,
+        "effective_origins": 80,
+        "valid_target_elements": 1440
+      },
+      "GPT4MTS": {
+        "mae": 0.3902265884258129,
+        "mse": 0.2667630378138355,
+        "cvar80": 0.6880692389828186,
+        "cvar90": 0.7714357417490746,
+        "cvar95": 0.8441195719771915,
+        "relative_cvar90": 0.9668464470096235,
+        "effective_origins": 80,
+        "valid_target_elements": 1440
+      },
+      "MM-TSFlib": {
+        "mae": 0.38821885547152274,
+        "mse": 0.26454105905293057,
+        "cvar80": 0.7133790313231724,
+        "cvar90": 0.7982342705406524,
+        "cvar95": 0.8673106288468396,
+        "relative_cvar90": 1.0004178905620125,
+        "effective_origins": 80,
+        "valid_target_elements": 1440
+      }
+    },
+    {
+      "domain": "Economy",
+      "horizon": 8,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.41785610611537244,
+        "mse": 0.3053746600980293,
+        "cvar80": 0.7233156257354126,
+        "cvar90": 0.7851428243297119,
+        "cvar95": 0.8412941728222405,
+        "relative_cvar90": 1.0,
+        "effective_origins": 78,
+        "valid_target_elements": 1872
+      },
+      "ADAPT-Z": {
+        "mae": 0.41766443823137855,
+        "mse": 0.3053523189294276,
+        "cvar80": 0.7167326928437433,
+        "cvar90": 0.7740140063555492,
+        "cvar95": 0.8273147504638741,
+        "relative_cvar90": 0.9858726341527415,
+        "effective_origins": 78,
+        "valid_target_elements": 1872
+      },
+      "DSOF": {
+        "mae": 0.616398555834239,
+        "mse": 0.6299434713976871,
+        "cvar80": 0.9836477866221188,
+        "cvar90": 1.0723201838186662,
+        "cvar95": 1.1411572412887532,
+        "relative_cvar90": 1.3665076703226122,
+        "effective_origins": 78,
+        "valid_target_elements": 1872
+      },
+      "Proceed": {
+        "mae": 0.4340290535464246,
+        "mse": 0.33530754879718855,
+        "cvar80": 0.7438043928108155,
+        "cvar90": 0.7940800464433483,
+        "cvar95": 0.850052750390819,
+        "relative_cvar90": 1.0112563657610056,
+        "effective_origins": 78,
+        "valid_target_elements": 1872
+      },
+      "On-Adapter": {
+        "mae": 0.4201065114993825,
+        "mse": 0.3089957639523358,
+        "cvar80": 0.7241883458107964,
+        "cvar90": 0.7851964950646431,
+        "cvar95": 0.8416252840533217,
+        "relative_cvar90": 1.0000666545183412,
+        "effective_origins": 78,
+        "valid_target_elements": 1872
+      },
+      "GPT4MTS": {
+        "mae": 0.42358278130788746,
+        "mse": 0.317798291445109,
+        "cvar80": 0.7407815059875151,
+        "cvar90": 0.8115938271467503,
+        "cvar95": 0.8842774414778436,
+        "relative_cvar90": 1.034454385678909,
+        "effective_origins": 78,
+        "valid_target_elements": 1872
+      },
+      "MM-TSFlib": {
+        "mae": 0.4198390168278476,
+        "mse": 0.30650572939129733,
+        "cvar80": 0.7204744390761242,
+        "cvar90": 0.7798330494523728,
+        "cvar95": 0.8384253566293974,
+        "relative_cvar90": 0.9932982856288847,
+        "effective_origins": 78,
+        "valid_target_elements": 1872
+      }
+    },
+    {
+      "domain": "Economy",
+      "horizon": 10,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.44729875005476655,
+        "mse": 0.3464973334078196,
+        "cvar80": 0.7025471779686666,
+        "cvar90": 0.7597630164253782,
+        "cvar95": 0.8224342298089412,
+        "relative_cvar90": 1.0,
+        "effective_origins": 76,
+        "valid_target_elements": 2280
+      },
+      "ADAPT-Z": {
+        "mae": 0.44644128270665107,
+        "mse": 0.34666943888073126,
+        "cvar80": 0.6989935846008054,
+        "cvar90": 0.7533433125730147,
+        "cvar95": 0.8097860813140869,
+        "relative_cvar90": 0.9916052274353978,
+        "effective_origins": 76,
+        "valid_target_elements": 2280
+      },
+      "DSOF": {
+        "mae": 0.6257814159518794,
+        "mse": 0.6416574853558735,
+        "cvar80": 1.0434644286918362,
+        "cvar90": 1.1252204731891031,
+        "cvar95": 1.1870755429156343,
+        "relative_cvar90": 1.479494698161097,
+        "effective_origins": 76,
+        "valid_target_elements": 2280
+      },
+      "Proceed": {
+        "mae": 0.4590868550783012,
+        "mse": 0.37281581920422996,
+        "cvar80": 0.7247421300027802,
+        "cvar90": 0.7710985718937645,
+        "cvar95": 0.8199262782844187,
+        "relative_cvar90": 1.0150192825480058,
+        "effective_origins": 76,
+        "valid_target_elements": 2280
+      },
+      "On-Adapter": {
+        "mae": 0.4482462784003096,
+        "mse": 0.3485909500927367,
+        "cvar80": 0.7045055617975909,
+        "cvar90": 0.760731334609595,
+        "cvar95": 0.8235772051309285,
+        "relative_cvar90": 1.0012473458418543,
+        "effective_origins": 76,
+        "valid_target_elements": 2280
+      },
+      "GPT4MTS": {
+        "mae": 0.4490434475460945,
+        "mse": 0.34877441884982946,
+        "cvar80": 0.7119496958471877,
+        "cvar90": 0.7581106552255084,
+        "cvar95": 0.8135056914641844,
+        "relative_cvar90": 0.9981126905715009,
+        "effective_origins": 76,
+        "valid_target_elements": 2280
+      },
+      "MM-TSFlib": {
+        "mae": 0.4463914191775154,
+        "mse": 0.3479805561169716,
+        "cvar80": 0.7144689974990506,
+        "cvar90": 0.7826531485681646,
+        "cvar95": 0.846140702356372,
+        "relative_cvar90": 1.0307168926640584,
+        "effective_origins": 76,
+        "valid_target_elements": 2280
+      }
+    },
+    {
+      "domain": "Economy",
+      "horizon": 12,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.4730599798016004,
+        "mse": 0.3941211960132433,
+        "cvar80": 0.7232461392253011,
+        "cvar90": 0.79586177540792,
+        "cvar95": 0.8788628767321894,
+        "relative_cvar90": 1.0,
+        "effective_origins": 74,
+        "valid_target_elements": 2664
+      },
+      "ADAPT-Z": {
+        "mae": 0.47364522137113285,
+        "mse": 0.3958651345886102,
+        "cvar80": 0.7194219286645857,
+        "cvar90": 0.7872185406085846,
+        "cvar95": 0.8668755220101999,
+        "relative_cvar90": 0.9891774788413107,
+        "effective_origins": 74,
+        "valid_target_elements": 2664
+      },
+      "DSOF": {
+        "mae": 0.66409214835118,
+        "mse": 0.7394340924305002,
+        "cvar80": 1.1639789268598184,
+        "cvar90": 1.2566409455882657,
+        "cvar95": 1.302528343073002,
+        "relative_cvar90": 1.5792973357245703,
+        "effective_origins": 74,
+        "valid_target_elements": 2664
+      },
+      "Proceed": {
+        "mae": 0.48787259974249375,
+        "mse": 0.4183984931605533,
+        "cvar80": 0.7462902570495734,
+        "cvar90": 0.8100951951038132,
+        "cvar95": 0.8788628629795663,
+        "relative_cvar90": 1.0176206551441334,
+        "effective_origins": 74,
+        "valid_target_elements": 2664
+      },
+      "On-Adapter": {
+        "mae": 0.4752270896230135,
+        "mse": 0.3971961461463726,
+        "cvar80": 0.7253662744934136,
+        "cvar90": 0.7947277676414798,
+        "cvar95": 0.8779511732441766,
+        "relative_cvar90": 0.9986051093798496,
+        "effective_origins": 74,
+        "valid_target_elements": 2664
+      },
+      "GPT4MTS": {
+        "mae": 0.4691965461254597,
+        "mse": 0.3880626147703407,
+        "cvar80": 0.7474637872150711,
+        "cvar90": 0.8085551234605434,
+        "cvar95": 0.8624811696636306,
+        "relative_cvar90": 1.0161342050586168,
+        "effective_origins": 74,
+        "valid_target_elements": 2664
+      },
+      "MM-TSFlib": {
+        "mae": 0.47348142823985623,
+        "mse": 0.39207276681400965,
+        "cvar80": 0.7244601483056853,
+        "cvar90": 0.7910166646356697,
+        "cvar95": 0.8631372177923048,
+        "relative_cvar90": 0.9943032633212003,
+        "effective_origins": 74,
+        "valid_target_elements": 2664
+      }
+    },
+    {
+      "domain": "Climate",
+      "horizon": 6,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.8919954851817078,
+        "mse": 1.2330726577235425,
+        "cvar80": 1.3444918620411022,
+        "cvar90": 1.499739931504193,
+        "cvar95": 1.6144683106927669,
+        "relative_cvar90": 1.0,
+        "effective_origins": 95,
+        "valid_target_elements": 1140
+      },
+      "ADAPT-Z": {
+        "mae": 0.890994772109154,
+        "mse": 1.2300408175634536,
+        "cvar80": 1.3471705130334095,
+        "cvar90": 1.5024728599924877,
+        "cvar95": 1.6175690200288741,
+        "relative_cvar90": 1.0018017703657256,
+        "effective_origins": 95,
+        "valid_target_elements": 1140
+      },
+      "DSOF": {
+        "mae": 0.8129518233932697,
+        "mse": 1.0852061893873584,
+        "cvar80": 1.2195077836077812,
+        "cvar90": 1.3218788354009476,
+        "cvar95": 1.387854827124059,
+        "relative_cvar90": 0.8814786635308209,
+        "effective_origins": 95,
+        "valid_target_elements": 1140
+      },
+      "Proceed": {
+        "mae": 0.9134198462374084,
+        "mse": 1.2889170206697858,
+        "cvar80": 1.3810002666446026,
+        "cvar90": 1.5531799345582245,
+        "cvar95": 1.6810736080457331,
+        "relative_cvar90": 1.0356295591582747,
+        "effective_origins": 95,
+        "valid_target_elements": 1140
+      },
+      "On-Adapter": {
+        "mae": 0.8931250502228769,
+        "mse": 1.2361296174082212,
+        "cvar80": 1.3478696272498791,
+        "cvar90": 1.5034355960666523,
+        "cvar95": 1.6192505257040786,
+        "relative_cvar90": 1.0024555964527841,
+        "effective_origins": 95,
+        "valid_target_elements": 1140
+      },
+      "GPT4MTS": {
+        "mae": 0.9062833805147786,
+        "mse": 1.2616779871418784,
+        "cvar80": 1.3693723799742497,
+        "cvar90": 1.5221606735439634,
+        "cvar95": 1.6239785224863745,
+        "relative_cvar90": 1.0151994349442093,
+        "effective_origins": 95,
+        "valid_target_elements": 1140
+      },
+      "MM-TSFlib": {
+        "mae": 0.8948424699269331,
+        "mse": 1.2366974156106847,
+        "cvar80": 1.3536409779318352,
+        "cvar90": 1.5104466173661688,
+        "cvar95": 1.6140973748508511,
+        "relative_cvar90": 1.0072401482648985,
+        "effective_origins": 95,
+        "valid_target_elements": 1140
+      }
+    },
+    {
+      "domain": "Climate",
+      "horizon": 8,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.8983648437416218,
+        "mse": 1.2476102611279825,
+        "cvar80": 1.2798157458178576,
+        "cvar90": 1.4151626969049234,
+        "cvar95": 1.5502395011650691,
+        "relative_cvar90": 1.0,
+        "effective_origins": 93,
+        "valid_target_elements": 1488
+      },
+      "ADAPT-Z": {
+        "mae": 0.8975239201448023,
+        "mse": 1.2445435150134596,
+        "cvar80": 1.2815821980692421,
+        "cvar90": 1.419142628247152,
+        "cvar95": 1.5571063364556352,
+        "relative_cvar90": 1.0028295523224517,
+        "effective_origins": 93,
+        "valid_target_elements": 1488
+      },
+      "DSOF": {
+        "mae": 0.8170119632610477,
+        "mse": 1.0933293231799868,
+        "cvar80": 1.1541152823696372,
+        "cvar90": 1.2293709805206057,
+        "cvar95": 1.2759555836511094,
+        "relative_cvar90": 0.8687528996894041,
+        "effective_origins": 93,
+        "valid_target_elements": 1488
+      },
+      "Proceed": {
+        "mae": 0.9139597102519631,
+        "mse": 1.2853470112131427,
+        "cvar80": 1.303359202268253,
+        "cvar90": 1.4451877020283161,
+        "cvar95": 1.592746026705914,
+        "relative_cvar90": 1.0212416809438813,
+        "effective_origins": 93,
+        "valid_target_elements": 1488
+      },
+      "On-Adapter": {
+        "mae": 0.9013098672908183,
+        "mse": 1.2573250977234611,
+        "cvar80": 1.2855834710022842,
+        "cvar90": 1.4242299522200639,
+        "cvar95": 1.5640457963540075,
+        "relative_cvar90": 1.0064084466392424,
+        "effective_origins": 93,
+        "valid_target_elements": 1488
+      },
+      "GPT4MTS": {
+        "mae": 0.9131881403819179,
+        "mse": 1.27115359967468,
+        "cvar80": 1.2832942328736683,
+        "cvar90": 1.3891754775855933,
+        "cvar95": 1.4972626211077449,
+        "relative_cvar90": 0.9817606497468562,
+        "effective_origins": 93,
+        "valid_target_elements": 1488
+      },
+      "MM-TSFlib": {
+        "mae": 0.8996743900182645,
+        "mse": 1.2498265667610937,
+        "cvar80": 1.2837135153163854,
+        "cvar90": 1.418409106663055,
+        "cvar95": 1.5554795084292934,
+        "relative_cvar90": 1.0023320152955957,
+        "effective_origins": 93,
+        "valid_target_elements": 1488
+      }
+    },
+    {
+      "domain": "Climate",
+      "horizon": 10,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.9056857117099497,
+        "mse": 1.2617352893432747,
+        "cvar80": 1.2213523161128477,
+        "cvar90": 1.3372851633737992,
+        "cvar95": 1.460357271003854,
+        "relative_cvar90": 1.0,
+        "effective_origins": 91,
+        "valid_target_elements": 1820
+      },
+      "ADAPT-Z": {
+        "mae": 0.9041283321402278,
+        "mse": 1.2561884410045556,
+        "cvar80": 1.2239776549946122,
+        "cvar90": 1.34297372175981,
+        "cvar95": 1.4735613427837908,
+        "relative_cvar90": 1.0042721392953928,
+        "effective_origins": 91,
+        "valid_target_elements": 1820
+      },
+      "DSOF": {
+        "mae": 0.8230203876483353,
+        "mse": 1.1040566792041624,
+        "cvar80": 1.1062800356572418,
+        "cvar90": 1.1882047396758741,
+        "cvar95": 1.265319517816352,
+        "relative_cvar90": 0.8885943432774615,
+        "effective_origins": 91,
+        "valid_target_elements": 1820
+      },
+      "Proceed": {
+        "mae": 0.9170543799839482,
+        "mse": 1.2831260107853577,
+        "cvar80": 1.2377418170248127,
+        "cvar90": 1.3631641070406213,
+        "cvar95": 1.4908428549660788,
+        "relative_cvar90": 1.0193879495772933,
+        "effective_origins": 91,
+        "valid_target_elements": 1820
+      },
+      "On-Adapter": {
+        "mae": 0.9063087365808369,
+        "mse": 1.2640131671641741,
+        "cvar80": 1.2259283591077181,
+        "cvar90": 1.3435550429946963,
+        "cvar95": 1.472021318797445,
+        "relative_cvar90": 1.0047031769714458,
+        "effective_origins": 91,
+        "valid_target_elements": 1820
+      },
+      "GPT4MTS": {
+        "mae": 0.9394099797045422,
+        "mse": 1.3462972571365304,
+        "cvar80": 1.244829452021948,
+        "cvar90": 1.3372853529798174,
+        "cvar95": 1.4221154315199278,
+        "relative_cvar90": 1.0000270996797027,
+        "effective_origins": 91,
+        "valid_target_elements": 1820
+      },
+      "MM-TSFlib": {
+        "mae": 0.9060888077265025,
+        "mse": 1.2625189828481895,
+        "cvar80": 1.2195412003252686,
+        "cvar90": 1.334871912575685,
+        "cvar95": 1.458904054180306,
+        "relative_cvar90": 0.998230650569777,
+        "effective_origins": 91,
+        "valid_target_elements": 1820
+      }
+    },
+    {
+      "domain": "Climate",
+      "horizon": 12,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.9136572076667847,
+        "mse": 1.2763721256739613,
+        "cvar80": 1.202311496217921,
+        "cvar90": 1.322916799313569,
+        "cvar95": 1.4565149532170611,
+        "relative_cvar90": 1.0,
+        "effective_origins": 89,
+        "valid_target_elements": 2136
+      },
+      "ADAPT-Z": {
+        "mae": 0.9128393804092458,
+        "mse": 1.2736184836371593,
+        "cvar80": 1.2009587261803127,
+        "cvar90": 1.3231523516340837,
+        "cvar95": 1.4584902913647397,
+        "relative_cvar90": 1.000175197056822,
+        "effective_origins": 89,
+        "valid_target_elements": 2136
+      },
+      "DSOF": {
+        "mae": 0.8310335177062579,
+        "mse": 1.1181861845062102,
+        "cvar80": 1.0780460183873783,
+        "cvar90": 1.1555795001578792,
+        "cvar95": 1.2460306814924633,
+        "relative_cvar90": 0.8736274148528143,
+        "effective_origins": 89,
+        "valid_target_elements": 2136
+      },
+      "Proceed": {
+        "mae": 0.9201645051528767,
+        "mse": 1.290536547710708,
+        "cvar80": 1.2117403720224453,
+        "cvar90": 1.3438970375717145,
+        "cvar95": 1.491022521594467,
+        "relative_cvar90": 1.0158298269632022,
+        "effective_origins": 89,
+        "valid_target_elements": 2136
+      },
+      "On-Adapter": {
+        "mae": 0.9149079802424267,
+        "mse": 1.2781830854606848,
+        "cvar80": 1.2028410323235972,
+        "cvar90": 1.32244378411064,
+        "cvar95": 1.4542358687839885,
+        "relative_cvar90": 0.9996010858925866,
+        "effective_origins": 89,
+        "valid_target_elements": 2136
+      },
+      "GPT4MTS": {
+        "mae": 0.932780479826084,
+        "mse": 1.3268160681608885,
+        "cvar80": 1.2287487127981236,
+        "cvar90": 1.3483887546210054,
+        "cvar95": 1.4666693675367817,
+        "relative_cvar90": 1.0193754552550074,
+        "effective_origins": 89,
+        "valid_target_elements": 2136
+      },
+      "MM-TSFlib": {
+        "mae": 0.9143474931548194,
+        "mse": 1.2822615935235218,
+        "cvar80": 1.205544672551721,
+        "cvar90": 1.3288834923333657,
+        "cvar95": 1.4707215036808094,
+        "relative_cvar90": 1.0045634788868798,
+        "effective_origins": 89,
+        "valid_target_elements": 2136
+      }
+    },
+    {
+      "domain": "Agriculture",
+      "horizon": 6,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.6615500404328637,
+        "mse": 0.9964410278306008,
+        "cvar80": 1.3155390842913943,
+        "cvar90": 1.493977285195396,
+        "cvar95": 1.6862193583047878,
+        "relative_cvar90": 1.0,
+        "effective_origins": 95,
+        "valid_target_elements": 1690
+      },
+      "ADAPT-Z": {
+        "mae": 0.6590965241943237,
+        "mse": 0.9874802484984723,
+        "cvar80": 1.3002504424226504,
+        "cvar90": 1.4826785327456384,
+        "cvar95": 1.674393724279794,
+        "relative_cvar90": 0.9924915443499304,
+        "effective_origins": 95,
+        "valid_target_elements": 1690
+      },
+      "DSOF": {
+        "mae": 0.9109222061109143,
+        "mse": 1.6037545762436405,
+        "cvar80": 1.6179804990783364,
+        "cvar90": 1.8411008415681982,
+        "cvar95": 2.008194116588689,
+        "relative_cvar90": 1.2327857434096174,
+        "effective_origins": 95,
+        "valid_target_elements": 1690
+      },
+      "Proceed": {
+        "mae": 0.6980358090023905,
+        "mse": 1.0609595892768093,
+        "cvar80": 1.328732992201085,
+        "cvar90": 1.5042672854417944,
+        "cvar95": 1.7082897301538182,
+        "relative_cvar90": 1.0069804137468779,
+        "effective_origins": 95,
+        "valid_target_elements": 1690
+      },
+      "On-Adapter": {
+        "mae": 0.6642689754550862,
+        "mse": 0.9960660406058831,
+        "cvar80": 1.3061862452750839,
+        "cvar90": 1.4887884181813422,
+        "cvar95": 1.6891386302126314,
+        "relative_cvar90": 0.9965463946745473,
+        "effective_origins": 95,
+        "valid_target_elements": 1690
+      },
+      "GPT4MTS": {
+        "mae": 0.6558285431969448,
+        "mse": 1.0003321502877245,
+        "cvar80": 1.3143073298349306,
+        "cvar90": 1.5113567839327608,
+        "cvar95": 1.712390721889964,
+        "relative_cvar90": 1.011648620868313,
+        "effective_origins": 95,
+        "valid_target_elements": 1690
+      },
+      "MM-TSFlib": {
+        "mae": 0.6605317798988706,
+        "mse": 0.9933266297993497,
+        "cvar80": 1.3159505886590332,
+        "cvar90": 1.4928950185489935,
+        "cvar95": 1.6872628065112971,
+        "relative_cvar90": 0.9993267470605064,
+        "effective_origins": 95,
+        "valid_target_elements": 1690
+      }
+    },
+    {
+      "domain": "Agriculture",
+      "horizon": 8,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.761821369168412,
+        "mse": 1.2686357710893466,
+        "cvar80": 1.4335122003415854,
+        "cvar90": 1.6137897089355164,
+        "cvar95": 1.764112453591724,
+        "relative_cvar90": 1.0,
+        "effective_origins": 93,
+        "valid_target_elements": 2212
+      },
+      "ADAPT-Z": {
+        "mae": 0.7572418297177844,
+        "mse": 1.254093027700386,
+        "cvar80": 1.4155212404860658,
+        "cvar90": 1.6011181825698488,
+        "cvar95": 1.7594941160513653,
+        "relative_cvar90": 0.992158274521643,
+        "effective_origins": 93,
+        "valid_target_elements": 2212
+      },
+      "DSOF": {
+        "mae": 1.09588810762322,
+        "mse": 2.158415145249528,
+        "cvar80": 1.8700242803377527,
+        "cvar90": 2.130101084513334,
+        "cvar95": 2.2546499493835648,
+        "relative_cvar90": 1.3196739571355591,
+        "effective_origins": 93,
+        "valid_target_elements": 2212
+      },
+      "Proceed": {
+        "mae": 0.7837810658228332,
+        "mse": 1.3038758708984977,
+        "cvar80": 1.4301960309144006,
+        "cvar90": 1.607822800133591,
+        "cvar95": 1.7791716145215781,
+        "relative_cvar90": 0.9963030165577234,
+        "effective_origins": 93,
+        "valid_target_elements": 2212
+      },
+      "On-Adapter": {
+        "mae": 0.7621088467129674,
+        "mse": 1.2675051424795456,
+        "cvar80": 1.4255451983010026,
+        "cvar90": 1.6095568206931243,
+        "cvar95": 1.774218258072968,
+        "relative_cvar90": 0.9973766219930514,
+        "effective_origins": 93,
+        "valid_target_elements": 2212
+      },
+      "GPT4MTS": {
+        "mae": 0.7498330799497849,
+        "mse": 1.2525269651092334,
+        "cvar80": 1.4293521068981327,
+        "cvar90": 1.6187620106973248,
+        "cvar95": 1.7598761954259132,
+        "relative_cvar90": 1.003143698007917,
+        "effective_origins": 93,
+        "valid_target_elements": 2212
+      },
+      "MM-TSFlib": {
+        "mae": 0.7595610497590949,
+        "mse": 1.2627850281427178,
+        "cvar80": 1.434379012999876,
+        "cvar90": 1.6116380244137425,
+        "cvar95": 1.7598743331902345,
+        "relative_cvar90": 0.9987362373631047,
+        "effective_origins": 93,
+        "valid_target_elements": 2212
+      }
+    },
+    {
+      "domain": "Agriculture",
+      "horizon": 10,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.8340180726298034,
+        "mse": 1.4807504028321212,
+        "cvar80": 1.499936398441684,
+        "cvar90": 1.6785132213098806,
+        "cvar95": 1.7903850664585939,
+        "relative_cvar90": 1.0,
+        "effective_origins": 91,
+        "valid_target_elements": 2710
+      },
+      "ADAPT-Z": {
+        "mae": 0.8320856524981917,
+        "mse": 1.4741016491962489,
+        "cvar80": 1.4905695109176698,
+        "cvar90": 1.6733207482849142,
+        "cvar95": 1.7869161658816868,
+        "relative_cvar90": 0.996909973329276,
+        "effective_origins": 91,
+        "valid_target_elements": 2710
+      },
+      "DSOF": {
+        "mae": 1.1496054722493352,
+        "mse": 2.3685496718291152,
+        "cvar80": 1.9543959827954918,
+        "cvar90": 2.182454043299287,
+        "cvar95": 2.311907579421415,
+        "relative_cvar90": 1.3002961869367848,
+        "effective_origins": 91,
+        "valid_target_elements": 2710
+      },
+      "Proceed": {
+        "mae": 0.8490840065202517,
+        "mse": 1.5002708213975386,
+        "cvar80": 1.4925414349924733,
+        "cvar90": 1.676194642169426,
+        "cvar95": 1.7923277159168023,
+        "relative_cvar90": 0.9986217039212235,
+        "effective_origins": 91,
+        "valid_target_elements": 2710
+      },
+      "On-Adapter": {
+        "mae": 0.8357912977032482,
+        "mse": 1.4842387568792272,
+        "cvar80": 1.4968581170935333,
+        "cvar90": 1.6821080651766505,
+        "cvar95": 1.803038409719828,
+        "relative_cvar90": 1.0021439789237507,
+        "effective_origins": 91,
+        "valid_target_elements": 2710
+      },
+      "GPT4MTS": {
+        "mae": 0.8251901059362208,
+        "mse": 1.4645330761475428,
+        "cvar80": 1.4869512072658582,
+        "cvar90": 1.6629420612321233,
+        "cvar95": 1.7865131200597109,
+        "relative_cvar90": 0.9907068261498452,
+        "effective_origins": 91,
+        "valid_target_elements": 2710
+      },
+      "MM-TSFlib": {
+        "mae": 0.8331093559417928,
+        "mse": 1.4763119653522903,
+        "cvar80": 1.497901531621377,
+        "cvar90": 1.6708488574685922,
+        "cvar95": 1.7801818560622404,
+        "relative_cvar90": 0.9954370269552127,
+        "effective_origins": 91,
+        "valid_target_elements": 2710
+      }
+    },
+    {
+      "domain": "Agriculture",
+      "horizon": 12,
+      "periodicity": "monthly",
+      "iTransformer": {
+        "mae": 0.9018658619339717,
+        "mse": 1.6869278572964284,
+        "cvar80": 1.5583692172846841,
+        "cvar90": 1.72278598291994,
+        "cvar95": 1.8055414146946411,
+        "relative_cvar90": 1.0,
+        "effective_origins": 89,
+        "valid_target_elements": 3184
+      },
+      "ADAPT-Z": {
+        "mae": 0.8994521828543026,
+        "mse": 1.6797696875046968,
+        "cvar80": 1.5496669153322837,
+        "cvar90": 1.716879089003645,
+        "cvar95": 1.8090490184622015,
+        "relative_cvar90": 0.996576722043076,
+        "effective_origins": 89,
+        "valid_target_elements": 3184
+      },
+      "DSOF": {
+        "mae": 1.2202270385983573,
+        "mse": 2.638235202713281,
+        "cvar80": 2.062133652595644,
+        "cvar90": 2.2410293122256646,
+        "cvar95": 2.328866102449407,
+        "relative_cvar90": 1.3008307427091033,
+        "effective_origins": 89,
+        "valid_target_elements": 3184
+      },
+      "Proceed": {
+        "mae": 0.913751728573761,
+        "mse": 1.7148835993776228,
+        "cvar80": 1.5732948389795738,
+        "cvar90": 1.7331821974049098,
+        "cvar95": 1.8125971972421462,
+        "relative_cvar90": 1.0060465152660154,
+        "effective_origins": 89,
+        "valid_target_elements": 3184
+      },
+      "On-Adapter": {
+        "mae": 0.9020738111609216,
+        "mse": 1.686958867438113,
+        "cvar80": 1.5579652094650012,
+        "cvar90": 1.7258888817408955,
+        "cvar95": 1.8157011780498724,
+        "relative_cvar90": 1.0017964198983897,
+        "effective_origins": 89,
+        "valid_target_elements": 3184
+      },
+      "GPT4MTS": {
+        "mae": 0.8986894994977256,
+        "mse": 1.6814636078849228,
+        "cvar80": 1.5487154268109695,
+        "cvar90": 1.6952084849588183,
+        "cvar95": 1.7675991022631472,
+        "relative_cvar90": 0.9840862159515212,
+        "effective_origins": 89,
+        "valid_target_elements": 3184
+      },
+      "MM-TSFlib": {
+        "mae": 0.9013552834224065,
+        "mse": 1.688614717816723,
+        "cvar80": 1.5594882736625124,
+        "cvar90": 1.7296377922959791,
+        "cvar95": 1.8171396964399011,
+        "relative_cvar90": 1.0040060816472323,
+        "effective_origins": 89,
+        "valid_target_elements": 3184
+      }
+    }
+  ],
+  "exploratory_monthly": {
+    "iTransformer": {
+      "monthly_six_domains_geometric_mean_relative_cvar90": 1.0
+    },
+    "ADAPT-Z": {
+      "monthly_six_domains_geometric_mean_relative_cvar90": 0.9894270463079412
+    },
+    "DSOF": {
+      "monthly_six_domains_geometric_mean_relative_cvar90": 1.015707392858244
+    },
+    "Proceed": {
+      "monthly_six_domains_geometric_mean_relative_cvar90": 0.9980760724003779
+    },
+    "On-Adapter": {
+      "monthly_six_domains_geometric_mean_relative_cvar90": 0.9786402272624953
+    },
+    "GPT4MTS": {
+      "monthly_six_domains_geometric_mean_relative_cvar90": 0.9949638267818363
+    },
+    "MM-TSFlib": {
+      "monthly_six_domains_geometric_mean_relative_cvar90": 1.0003873213419578
+    }
+  },
+  "frequency_groups": {
+    "iTransformer": {
+      "daily": 1.0,
+      "weekly": 1.0,
+      "monthly": 1.0,
+      "frequency_equal_weight_geometric_mean": 1.0
+    },
+    "ADAPT-Z": {
+      "daily": 1.0438584066871535,
+      "weekly": 1.2559603851870995,
+      "monthly": 0.9894270463079412,
+      "frequency_equal_weight_geometric_mean": 1.0906040448811205
+    },
+    "DSOF": {
+      "daily": 1.1021998821863828,
+      "weekly": 1.1368255814679975,
+      "monthly": 1.015707392858244,
+      "frequency_equal_weight_geometric_mean": 1.0836963330748268
+    },
+    "Proceed": {
+      "daily": 1.1857485631808806,
+      "weekly": 1.4821136225123417,
+      "monthly": 0.9980760724003779,
+      "frequency_equal_weight_geometric_mean": 1.2059961370645897
+    },
+    "On-Adapter": {
+      "daily": 1.1077858617858556,
+      "weekly": 1.5165093983551876,
+      "monthly": 0.9786402272624953,
+      "frequency_equal_weight_geometric_mean": 1.1802517759955842
+    },
+    "GPT4MTS": {
+      "daily": 1.3741327507901475,
+      "weekly": 1.0154357849403433,
+      "monthly": 0.9949638267818363,
+      "frequency_equal_weight_geometric_mean": 1.1155682589385154
+    },
+    "MM-TSFlib": {
+      "daily": 1.0066597665229158,
+      "weekly": 1.063141104192402,
+      "monthly": 1.0003873213419578,
+      "frequency_equal_weight_geometric_mean": 1.0230116983178617
+    }
+  },
+  "metric_definition": {
+    "space": "training-standardised observed elements of all selected numeric columns",
+    "cvar": "exact worst-q probability mass of the uniform per-origin MAE distribution, fractional boundary origin",
+    "relative": "cell CVaR90 divided by the same domain/H/seed iTransformer cell",
+    "main_statistic": "equal-weight geometric mean over the 36 domain/H tasks of the seed-averaged relative CVaR90"
+  },
+  "geometric_mean_undefined": "reported as null when any task ratio is non-positive"
+}

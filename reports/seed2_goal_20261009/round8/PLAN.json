@@ -1,0 +1,15 @@
+{
+ "round": 8,
+ "title": "On-Adapter-E3: three-member adapter ensemble (fixed initialisations, averaged, no selection)",
+ "frozen_at": "2026-10-09, after round 7 (validation re-selected the round-5 configuration; test S = 1.003279) and before any round-8 training",
+ "exploratory_disclosure": "Exploratory iteration; the seed-2 test period has been used seven times.",
+ "test_use_policy": "the test streams are evaluated only if the selected candidate is not the round-5 configuration AND its robust validation score is <= 0.985; otherwise no test computation is made for this round",
+ "hypothesis": {
+  "problem": "The trained adapter's corrections change sign between periods; part of this may be initialisation/dropout variance of a single adapter.",
+  "change": "Members m = 0, 1, 2 of the a0e15 training recipe; member 0 is the existing round-3 a0e15 checkpoint, members 1 and 2 reseed torch with 2 + 1000*m immediately before model construction. Ensemble forecast = arithmetic mean of the three members' lr0 forecasts (equivalently the mean adapter residual). Optionally the round-5 backbone-first gate (gs 0.9, mu 0) on top.",
+  "falsified_if": "validation does not select an ensemble candidate with robust score <= 0.985, or the test S is not below every baseline"
+ },
+ "candidates": [["single", true], ["ens3", false], ["ens3", true]],
+ "selection": "seed-2 validation r=0 (entry seed 200 for every member); robust score = max(whole GM, largest per-third GM); argmin; ties toward single+gate",
+ "budget": "2 x 36 GPU training cells, 2 x 36 validation trajectories; test trajectories only under the test-use policy"
+}
