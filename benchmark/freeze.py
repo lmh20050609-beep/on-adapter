@@ -36,7 +36,7 @@ APPROVED = {'Environment': (96, [48, 96, 192, 336]), 'Energy': (24, [12, 24, 36,
             'SocialGood': (8, [6, 8, 10, 12]), 'Security': (8, [6, 8, 10, 12]),
             'Economy': (8, [6, 8, 10, 12]), 'Climate': (8, [6, 8, 10, 12]),
             'Agriculture': (8, [6, 8, 10, 12])}
-ORIGINAL_DIR = ROOT.parent / 'output/iadapter-submission-audit-20260929/extracted/iAdapter/data'
+ORIGINAL_DIR = ROOT.parent / 'output/original_timemmd/data'
 
 
 def digest(path):

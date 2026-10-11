@@ -5,12 +5,12 @@
 On-Adapter attaches a lightweight adapter to a frozen iTransformer backbone. The adapter fuses numeric and text information and keeps receiving feedback at test time from labels that arrive with a delay. This repository contains:
 
 - a nine-domain multimodal time-series benchmark shared by all methods;
-- a diagnosis of the On-Adapter of the original paper (**Original On-Adapter**);
+- a diagnosis of the initial version of On-Adapter (**Original On-Adapter**);
 - our improved method, **On-Adapter**;
 - a confirmation experiment on 3 training seeds, run after the method was frozen.
 - the final comparison against nine baselines (including SOLID, ADCSD and COSA on the same frozen backbone), ablations, and the LaTeX tables of the paper.
 
-> **Naming.** On-Adapter here means our improved version. The method from the original paper is called **Original On-Adapter**, and the ablation without the CVaR tail loss is **On-Adapter w/o CVaR loss**. In code and result files (`results.json`, `PLAN.json`, `confirm.py`) the same three appear as `On-Adapter-CV` (tag `cv`), `On-Adapter` and `On-Adapter-TA` (tag `ta`).
+> **Naming.** On-Adapter here means our improved version. The initial version is called **Original On-Adapter**, and the ablation without the CVaR tail loss is **On-Adapter w/o CVaR loss**. In code and result files (`results.json`, `PLAN.json`, `confirm.py`) the same three appear as `On-Adapter-CV` (tag `cv`), `On-Adapter` and `On-Adapter-TA` (tag `ta`).
 
 > All results are **exploratory**; see [Limitations](#8-limitations). The full experimental design, statistical definitions and data sources are in [docs/EXPERIMENT_DESIGN_AND_RESULTS.md](docs/EXPERIMENT_DESIGN_AND_RESULTS.md).
 
@@ -199,7 +199,7 @@ Implemented as `cell_metrics` in [benchmark/score.py](benchmark/score.py):
 | Proceed | SJTU-DMTai/OnlineTSF `0a864619` | Same as above |
 | GPT4MTS | Flora-jia-jfr/GPT4MTS `c85e74b2` | Retrained on V1 |
 | MM-TSFlib | AdityaLab/MM-TSFlib `e789ce78` | Retrained on V1 |
-| Original On-Adapter | Implementation from the original paper's supplement | Retrained on V1 |
+| Original On-Adapter | Initial implementation | Retrained on V1 |
 | SOLID, ADCSD, OGD, COSA | Ports on the frozen V1 iTransformer checkpoints, see [section 2.4](#24-added-baselines) | CPU replay over the test origins |
 
 **Result files:**
@@ -354,17 +354,11 @@ Only the code of the final pipeline is kept; intermediate method packages are no
 
 ---
 
-## 9. Previous version
+## 9. Notes on recorded files
 
-The previous repository contents (the code and data supplement of the original iAdapter paper) are kept under the tag [`legacy-iadapter-supplement`](https://github.com/lmh20050609-beep/on-adapter/tree/legacy-iadapter-supplement):
+The directory layout was simplified after the experiments (for example, `method_comparison_v1conf_20261009/` became `on_adapter/` and `reports/v1conf_20261009/` became `results/confirmation/`). Frozen records such as `PLAN.json`, `execution_lock.json`, `artifact_manifest.json` and the per-round development scripts keep the original relative paths, as they were recorded at the time. The renamed code was checked end to end: one confirmation cell rebuilt from `data/` with the new layout reproduces the saved forecasts bit for bit.
 
-```bash
-git checkout legacy-iadapter-supplement
-```
+Machine-specific absolute paths in configs and records have been replaced with placeholders (`C:\path\to\...`, `/path/to/...`); sha256 values recorded for the affected files were updated accordingly. Documents, report generators and source comments were edited for language after they were first recorded, so:
 
-The directory layout was simplified after the experiments (for example, `method_comparison_v1conf_20261009/` became `on_adapter/` and `reports/v1conf_20261009/` became `results/confirmation/`). Frozen records such as `PLAN.json`, `execution_lock.json`, `artifact_manifest.json` and the per-round development scripts keep the original paths, as they were recorded at the time. The renamed code was checked end to end: one confirmation cell rebuilt from `data/` with the new layout reproduces the saved forecasts bit for bit.
-
-The documents, report generators and source comments in this repository were originally written in Chinese and have been translated into English. The Chinese originals are kept in the git history at commit `d1a8759`. Two consequences of the translation:
-
-- the sha256 values recorded in `results/benchmark/artifact_manifest.json` for `REPORT.md`, `PROTOCOL.md` and `HANDOFF.md` refer to the Chinese originals;
-- in `on_adapter_original/`, only comments, docstrings and messages were translated (the code is unchanged, checked by AST comparison), but the file hashes, and therefore the `source_fingerprint` recorded by the method packages, differ from those of the original runs.
+- the sha256 values recorded in `results/benchmark/artifact_manifest.json` for `REPORT.md`, `PROTOCOL.md` and `HANDOFF.md` refer to earlier versions of those documents;
+- in `on_adapter_original/`, only comments, docstrings and messages were edited (the code is unchanged, checked by AST comparison), but the file hashes, and therefore the `source_fingerprint` recorded by the method packages, differ from those of the original runs.

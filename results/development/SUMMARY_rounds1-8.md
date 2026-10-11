@@ -104,11 +104,11 @@ Notes:
 
 ## 8. Artifact paths
 
-- Goal status and failure log: `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\reports\seed2_goal_20261009\GOAL_STATUS.md`
-- Per-round plans, selections and results: `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\reports\seed2_goal_20261009\round1\` … `round8\` (`PLAN.json`, `PLAN.sha256`, `selection.json`, `results.json`)
-- Results of the best round: `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\reports\seed2_goal_20261009\round5\results.json`
+- Goal status and failure log: `C:\path\to\iadapter-baselines\reports\seed2_goal_20261009\GOAL_STATUS.md`
+- Per-round plans, selections and results: `C:\path\to\iadapter-baselines\reports\seed2_goal_20261009\round1\` … `round8\` (`PLAN.json`, `PLAN.sha256`, `selection.json`, `results.json`)
+- Results of the best round: `C:\path\to\iadapter-baselines\reports\seed2_goal_20261009\round5\results.json`
 - Round-5 per-origin forecasts: `E:\FedNoise\iadapter-baselines\runs\seed2_round5_ta_20261009\<domain>\H<h>\ta_r0_predictions.npz`
 - seed2 baseline main experiment: `E:\FedNoise\iadapter-baselines\runs\method_comparison_seed2_v1_20261009\`
 - Training-variant checkpoints: `E:\FedNoise\iadapter-baselines\runs\method_comparison_seed2_onv3_a0e15_20261009\`
 - Method packages (each with `FORK.json`): `method_comparison_seed2_v1_20261009`, `_onv3_`, `_onv4_`, `_onv5_`
-- Scripts: `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\scripts\seed2_round{1..8}_*.py`, `onadapter_harness_20261008.py`
+- Scripts: `C:\path\to\iadapter-baselines\scripts\seed2_round{1..8}_*.py`, `onadapter_harness_20261008.py`

@@ -16,7 +16,7 @@ BASE = pathlib.Path(__file__).resolve().parent
 ROOT = BASE.parent
 REPORT = ROOT / 'results/data_repair'
 V1_ROOT = ROOT / 'data'
-ORIGINAL = ROOT.parent / 'output/iadapter-submission-audit-20260929/extracted/iAdapter/data'
+ORIGINAL = ROOT.parent / 'output/original_timemmd/data'
 DOMAIN_FILES = {'Agriculture': 'Agriculture.csv', 'Climate': 'Climate.csv',
                 'Economy': 'Economy.csv', 'Energy': 'Energy.csv',
                 'Environment': 'Environment.csv', 'Health_US': 'Health.csv',
