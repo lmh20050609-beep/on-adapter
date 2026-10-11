@@ -1,0 +1,13 @@
+iTransformer         S=1.00000 rank=5.759 better= 0 harm>2%= 0 worst=1.000 mae=1.0628 mse=11.978 seeds 1.0000 1.0000 1.0000
+On-Adapter (ours)    S=1.00050 rank=4.769 better=22 harm>2%= 3 worst=1.058 mae=1.0716 mse=12.100 seeds 1.0008 1.0012 0.9994
+ADCSD                S=1.00082 rank=4.944 better=28 harm>2%= 1 worst=1.046 mae=1.0627 mse=11.977 seeds 1.0008 1.0013 1.0004
+SOLID                S=1.00145 rank=5.250 better=23 harm>2%= 1 worst=1.083 mae=1.0750 mse=12.201 seeds 1.0022 1.0014 1.0007
+MM-TSFlib            S=1.01471 rank=5.630 better=16 harm>2%=11 worst=1.182 mae=1.0690 mse=12.089 seeds 1.0117 1.0177 1.0137
+GPT4MTS              S=1.03598 rank=5.593 better=16 harm>2%=11 worst=1.639 mae=1.0879 mse=12.204 seeds 1.0312 1.0352 1.0393
+ADAPT-Z              S=1.04951 rank=5.120 better=18 harm>2%=12 worst=1.838 mae=1.1421 mse=13.390 seeds 1.0430 1.0539 1.0505
+DSOF                 S=1.05096 rank=5.500 better=15 harm>2%=21 worst=1.579 mae=1.2860 mse=13.904 seeds 1.0398 1.0639 1.0470
+COSA                 S=1.09102 rank=5.389 better=20 harm>2%=10 worst=2.639 mae=1.0944 mse=12.030 seeds 1.0875 1.0906 1.0947
+Original On-Adapter  S=1.09364 rank=5.778 better=17 harm>2%=11 worst=2.533 mae=1.0974 mse=12.210 seeds 1.0676 1.0831 1.1208
+Proceed              S=1.11080 rank=7.046 better=11 harm>2%=16 worst=1.704 mae=1.1752 mse=13.486 seeds 1.1038 1.1165 1.1107
+COSA per-domain: {'Environment': 1.23, 'Energy': 1.866, 'Health_US': 1.028, 'Traffic': 0.954, 'SocialGood': 0.985, 'Security': 1.0, 'Economy': 1.009, 'Climate': 0.999, 'Agriculture': 0.98}
+ours per-domain: {'Environment': 0.99, 'Energy': 1.002, 'Health_US': 1.029, 'Traffic': 0.983, 'SocialGood': 1.006, 'Security': 0.999, 'Economy': 0.998, 'Climate': 1.003, 'Agriculture': 0.995}

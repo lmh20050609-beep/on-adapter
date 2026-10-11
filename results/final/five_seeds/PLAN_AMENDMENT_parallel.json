@@ -1,0 +1,6 @@
+{
+ "amendment": "execution-only change, 2026-10-10 ~23:40, before any seed-5/6 test result was looked at or scored",
+ "change": "seed-5/6 seven-method configs: execution.gpu_compute_workers 1 -> 6 and a unified parallel scheduler (scripts/final5_scheduler_20261010.py) replaces the per-chain serial dispatchers, to shorten wall time",
+ "consequence": "the execution setting is part of each cell's recorded settings, so the seed-5/6 seven-method cells already finished under the old setting (moved unchanged to E:/FedNoise/iadapter-baselines/runs/superseded_parallel_restart_20261010) are retrained; no method, data, statistic or ablation definition changes; the frozen PLAN.json files are unchanged",
+ "plan_sha256": "0e9e943f2a174bc63cefd2ac9b9ae68d2fdfb8274ea5885a8efe967d671ae1a4"
+}

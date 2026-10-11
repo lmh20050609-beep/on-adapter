@@ -8,6 +8,7 @@ On-Adapter attaches a lightweight adapter to a frozen iTransformer backbone. The
 - a diagnosis of the On-Adapter of the original paper (**Original On-Adapter**);
 - our improved method, **On-Adapter**;
 - a confirmation experiment on 3 training seeds, run after the method was frozen.
+- the final comparison against nine baselines (including SOLID, ADCSD and COSA on the same frozen backbone), ablations, and the LaTeX tables of the paper.
 
 > **Naming.** On-Adapter here means our improved version. The method from the original paper is called **Original On-Adapter**, and the ablation without the CVaR tail loss is **On-Adapter w/o CVaR loss**. In code and result files (`results.json`, `PLAN.json`, `confirm.py`) the same three appear as `On-Adapter-CV` (tag `cv`), `On-Adapter` and `On-Adapter-TA` (tag `ta`).
 
@@ -17,58 +18,95 @@ On-Adapter attaches a lightweight adapter to a frozen iTransformer backbone. The
 
 ## 1. Highlights
 
+Ten methods on 9 domains × 4 horizons × 3 training seeds (108 test streams). SOLID, ADCSD and COSA adapt the same frozen iTransformer checkpoints that form the backbone row; the other methods are trained under the same data, split and scoring protocol.
+
 | | |
 |---|---|
-| **Best tail-risk rank** | Mean CVaR₉₀ rank 3.380, the best of 7 methods (static backbone: 3.843) |
-| **Beats every other baseline** | Better main statistic than all online methods (ADAPT-Z, DSOF, Proceed) and multimodal methods (GPT4MTS, MM-TSFlib) |
-| **Large gain over the original method** | Main statistic from 1.0936 to 1.0005; tasks with lower tail risk than the backbone from 17/36 to 22/36 |
-| **Ties the static backbone, does not beat it** | Main statistic 0.05% above iTransformer; the remaining gap is concentrated in Health_US |
+| **Best mean rank of ten methods** | Mean CVaR₉₀ rank 4.77 (ADCSD 4.94, SOLID 5.25, backbone 5.76); in the top five of 66.7% of test streams, the most of any method |
+| **Only method better than the backbone in both average and tail error** | Task-ratio geometric mean 0.9993 on MAE and 0.9992 on CVaR₈₀; all eight other methods are above 1 on both |
+| **Bounded worst case** | No task more than 5.8% worse than the backbone; COSA reaches 2.64×, ADAPT-Z 1.84× |
+| **Highest gain-to-harm ratio** | 0.87 (ADCSD 0.62, SOLID 0.41, COSA and Proceed 0.07) |
+| **Large gain over the original method** | CVaR₉₀ statistic from 1.0936 to 1.0005; worst task from 2.53× to 1.06× |
+| **Ties the backbone on CVaR₉₀** | 1.0005 vs 1.0000; the difference to ADCSD (1.0008) is not significant (60 wins / 48 losses, sign test p = 0.29) |
 
 ---
 
 ## 2. Results
 
-**Confirmation setup:**
-- training seeds 2025 / 2026 / 2027;
-- the method and the plan were frozen before any confirmation result was produced; see [PLAN.json](results/confirmation/PLAN.json);
-- no baseline was tuned.
+### 2.1 Main comparison (seeds 2025 / 2026 / 2027)
 
-| Method | Type | Main statistic S ↓ | Mean CVaR₉₀ rank ↓ | Mean MAE | Mean MSE | Tasks with lower tail than backbone |
-|---|---|---:|---:|---:|---:|---:|
-| iTransformer | static | **1.000000** | 3.843 | **1.0628** | **11.978** | — |
-| **On-Adapter (ours)** | online · multimodal | 1.000495 | **3.380** | 1.0716 | 12.100 | **22/36** |
-| On-Adapter w/o CVaR loss (ablation) | online · multimodal | 1.000108 | 3.481 | 1.0655 | 12.008 | 21/36 |
-| MM-TSFlib | static · multimodal | 1.014709 | 4.009 | 1.0690 | 12.089 | 16/36 |
-| GPT4MTS | static · multimodal | 1.035984 | 4.000 | 1.0879 | 12.205 | 16/36 |
-| ADAPT-Z | online | 1.049515 | 3.731 | 1.1421 | 13.390 | 18/36 |
-| DSOF | online | 1.050956 | 3.972 | 1.2860 | 13.904 | 15/36 |
-| Original On-Adapter | online · multimodal | 1.093644 | — | 1.0974 | 12.210 | 17/36 |
-| Proceed | online | 1.110804 | 5.065 | 1.1752 | 13.486 | 11/36 |
+| Method | S (CVaR₉₀) ↓ | S (CVaR₈₀) ↓ | S (MAE) ↓ | Mean rank ↓ | Top-5 share ↑ | Tasks >2% worse ↓ | Worst task ↓ | Gain/Harm ↑ |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| **On-Adapter (ours)** | 1.0005 | 0.9992 | 0.9993 | 4.77 | 66.7% | 3 | 1.058 | 0.87 |
+| ADCSD | 1.0008 | 1.0016 | 1.0003 | 4.94 | 63.9% | 1 | 1.046 | 0.62 |
+| SOLID | 1.0014 | 1.0023 | 1.0028 | 5.25 | 50.9% | 1 | 1.083 | 0.41 |
+| iTransformer (backbone) | 1.0000 | 1.0000 | 1.0000 | 5.76 | 46.3% | — | — | — |
+| MM-TSFlib | 1.0147 | 1.0100 | 1.0024 | 5.63 | 42.6% | 11 | 1.182 | 0.21 |
+| GPT4MTS | 1.0360 | 1.0389 | 1.0249 | 5.59 | 47.2% | 11 | 1.639 | 0.19 |
+| ADAPT-Z | 1.0495 | 1.0398 | 1.0239 | 5.12 | 52.8% | 12 | 1.838 | 0.18 |
+| DSOF | 1.0510 | 1.0847 | 1.2058 | 5.50 | 44.4% | 21 | 1.579 | 0.46 |
+| COSA | 1.0910 | 1.0764 | 1.0688 | 5.39 | 55.6% | 10 | 2.639 | 0.07 |
+| Proceed | 1.1108 | 1.1016 | 1.0631 | 7.05 | 29.6% | 16 | 1.704 | 0.07 |
+| Original On-Adapter (reference, not ranked) | 1.0936 | | | | | 11 | 2.533 | |
 
-**Notes on the table:**
-- **Main statistic S:** for each cell, take the ratio of its CVaR₉₀ to the CVaR₉₀ of iTransformer in the same cell; average over the 3 seeds; then take the equally weighted geometric mean over the 36 domain/H tasks. Lower is better; iTransformer is 1 by definition.
-- **Mean rank:** the 7 methods are ranked within each of the 108 domain/H/seed cells and the ranks are averaged. The rank of On-Adapter w/o CVaR loss is computed in its own 7-method table.
-- **Per-seed S:**
-  - On-Adapter: 1.00082 / 1.00118 / 0.99938;
-  - On-Adapter w/o CVaR loss: 1.00192 / 0.99972 / 0.99857.
+**Definitions:**
+- **S:** for each of the 36 domain/H tasks, the ratio of a method's metric to the backbone's, averaged over the 3 seeds; then the geometric mean over tasks. Below 1 means better than the backbone.
+- **CVaRα:** the mean of the worst (1 − α) share of per-origin MAEs within a test stream (`cell_metrics` in [benchmark/score.py](benchmark/score.py)).
+- **Mean rank / Top-5 share:** the ten methods are ranked by CVaR₉₀ within each of the 108 streams.
+- **Tasks >2% worse / Worst task:** count of tasks with CVaR₉₀ ratio above 1.02, and the largest task ratio.
+- **Gain/Harm:** Σ max(0, 1 − r) / Σ max(0, r − 1) over the 36 task CVaR₉₀ ratios r.
 
-**Per-domain CVaR₉₀ relative to the backbone** (below 1 means better than iTransformer; averaged over the 3 seeds, then geometric mean over the 4 horizons):
+**Not in our favour, reported for completeness:**
+- on CVaR₉₀, On-Adapter ties the backbone rather than beating it;
+- on CVaR₉₅, ADCSD (0.9999) is better than On-Adapter (1.0036);
+- per dataset (MSE/MAE and CVaR₉₀), several baselines win individual columns, for example DSOF on Climate and SocialGood.
 
-| Domain | On-Adapter | w/o CVaR loss | Share of origins using the adapter (ours / w/o CVaR) |
-|---|---:|---:|---:|
-| Environment | **0.990** | 1.002 | 0.60 / 0.40 |
-| Energy | 1.002 | 1.000 | 0.43 / 0.45 |
-| Health_US | 1.029 | 1.018 | 0.46 / 0.39 |
-| Traffic | **0.983** | **0.985** | 0.81 / 0.72 |
-| SocialGood | 1.006 | 1.000 | 0.12 / 0.47 |
-| Security | **0.999** | 1.000 | 0.23 / 0.35 |
-| Economy | **0.998** | **0.999** | 0.54 / 0.52 |
-| Climate | 1.003 | **0.999** | 0.25 / 0.34 |
-| Agriculture | **0.995** | **0.998** | 0.58 / 0.56 |
+All of these are in [metric_scan.json](results/paper/metric_scan.json) and [table_domain.json](results/paper/table_domain.json), which also hold the pairwise sign tests against every method.
 
-Values are rounded to 3 decimals; per-task results are under `per_task` in [results.json](results/confirmation/results.json).
+**Paper tables** (LaTeX, generated by `paper/`): [table_mse_mae.tex](results/paper/table_mse_mae.tex) (MSE/MAE per dataset), [table_overall.tex](results/paper/table_overall.tex) (the summary metrics above), [table_cvar.tex](results/paper/table_cvar.tex) (CVaR₉₀ per dataset).
 
-**Ablation:** the CVaR tail loss improves the mean rank (3.48 → 3.38) and the results on Environment, Agriculture and Traffic. It also worsens the tail on Health_US (1.018 → 1.029), so the main statistic does not go down. Both versions tie the backbone; neither strictly beats it.
+### 2.2 Ablations (seeds 2025 / 2026 / 2027)
+
+| Variant | S (CVaR₉₀) ↓ | Tasks better than backbone | Tasks >2% worse ↓ | Worst task ↓ |
+|---|---:|---:|---:|---:|
+| L0 Original On-Adapter | 1.0936 | 17 | 11 | 2.533 |
+| L1 + online parameter updates off | 1.0026 | 15 | 0 | 1.018 |
+| L2 + VICReg off, 15 epochs | 1.0035 | 22 | 4 | 1.061 |
+| L3 + backbone-first gate | 1.0001 | 21 | 1 | 1.052 |
+| **On-Adapter (L3 + CVaR loss)** | 1.0005 | 22 | 3 | 1.058 |
+| − gate | 1.0046 | 23 | 8 | 1.070 |
+| static gate (one validation choice per cell) | 1.0047 | 23 | 8 | 1.070 |
+| online updates back on (Adam, lr 3e-4) | 1.0622 | 19 | 11 | 1.988 |
+| Original On-Adapter + gate | 1.0710 | 13 | 10 | 2.232 |
+| feedback off (hg = ge = 0) | 1.0004 | 20 | 2 | 1.060 |
+| VICReg on | 0.9988 | 22 | 2 | 1.027 |
+| 3 epochs | 1.0005 | 21 | 2 | 1.034 |
+| gate γ = 0.8 / 1.0 | 1.0001 / 1.0004 | 21 / 24 | 2 / 3 | 1.058 / 1.057 |
+
+**Reading:**
+- Online parameter updates under delayed feedback are the main source of harm: turning them off removes the large failures, and turning them back on doubles the worst task.
+- The online gate is the dynamic component that matters: removing it, or replacing it with a static per-cell choice, raises the number of tasks >2% worse from 3 to 8.
+- The gradient feedback (hg/ge) has no measurable effect.
+- Two variants score slightly better than the final configuration: VICReg on (0.9988) and L3 without the CVaR loss (1.0001). The final configuration was fixed before these test results were computed.
+
+Results: [results/final/three_seeds/results.json](results/final/three_seeds/results.json).
+
+### 2.3 Five training seeds
+
+With seeds 5 and 6 added (seven-method table, as in the original V1 benchmark), On-Adapter keeps S = 1.0005; per seed 1.0008 / 1.0012 / 0.9994 / 0.9972 / 1.0037. Results: [results/final/five_seeds/](results/final/five_seeds/). A run with seeds 2023 and 2024 was started and then terminated; its plan and termination record are in [results/final/seven_seeds/](results/final/seven_seeds/).
+
+### 2.4 Added baselines
+
+| Method | Source (pinned commit) | Protocol |
+|---|---|---|
+| SOLID (KDD 2024) | SJTU-DMTai/OnlineTSF `exp_solid.py` | Port on the frozen backbone: per origin, select 5 matured past windows (phase-filtered), one SGD step on the output head, predict, restore the head. Online lr chosen on validation from {1e-4, 1e-3, 1e-2} → 1e-2 |
+| ADCSD (2024) | xiannanhuang/ADAPT-Z `ADCSD.py` | Port of the output-correction module on the frozen backbone; one update per origin on the most recent matured batch |
+| COSA (ICLR 2026) | bigbases/COSA_ICLR2026 `527c0feb` | Port of `SimpleOutputAdapter` with the authors' script settings. Forecasts are issued at every origin (batch size 1), because the authors' 48-origin batches with partial labels would read targets that are not yet observed under our protocol |
+| OGD | xiannanhuang/ADAPT-Z `parameter_finetune.py` | Online SGD on the output head. The author code selects the layer `'projectio'` (typo), which would update nothing; we use `projection`. Run, but not in the main table |
+
+The plans (`PLAN*.json` with sha256) were frozen before any result of these methods. TimeXer and SOFTS were also run under the same protocol with their own backbones; they are not part of the frozen-iTransformer comparison, and their results are in [results/new_baselines/results.json](results/new_baselines/results.json). The main-table decision and its changes are recorded in [MAIN_TABLE_DECISION.json](results/new_baselines/MAIN_TABLE_DECISION.json) and [MAIN_TABLE_DECISION_cosa.json](results/new_baselines/MAIN_TABLE_DECISION_cosa.json).
+
+The earlier seven-method confirmation table (On-Adapter vs the six V1 baselines, including the ablation without the CVaR loss) is in [results/confirmation/results.json](results/confirmation/results.json).
 
 ---
 
@@ -162,6 +200,7 @@ Implemented as `cell_metrics` in [benchmark/score.py](benchmark/score.py):
 | GPT4MTS | Flora-jia-jfr/GPT4MTS `c85e74b2` | Retrained on V1 |
 | MM-TSFlib | AdityaLab/MM-TSFlib `e789ce78` | Retrained on V1 |
 | Original On-Adapter | Implementation from the original paper's supplement | Retrained on V1 |
+| SOLID, ADCSD, OGD, COSA | Ports on the frozen V1 iTransformer checkpoints, see [section 2.4](#24-added-baselines) | CPU replay over the test origins |
 
 **Result files:**
 - V1 main table, 3 seeds × 36 tasks × 7 methods = 756 cells: [results.json](results/benchmark/results.json) and [results.csv](results/benchmark/results.csv);
@@ -210,6 +249,38 @@ python confirmation/confirm.py --score
 
 ---
 
+### 5.4 Final comparison, ablations and paper tables
+
+The backbone checkpoints of SOLID, ADCSD and COSA are rebuilt with the package that trained them ([backbones/](backbones/): `periodic_v3` for seeds 2025/2026, `periodic_v4` for 2027); `third_party/code/tslib` must be fetched first.
+
+```bash
+# added baselines: per-cell CPU trajectories, then the main table
+python new_baselines/solid.py --list val 0.01        # lists missing cells; run each with --traj <split> <lr> <domain> <H> <seed>
+python new_baselines/solid.py --select               # online lr on validation
+python new_baselines/adcsd_ogd.py --list             # --traj <ADCSD|OGD> <domain> <H> <seed>
+python new_baselines/cosa.py --list                  # --traj <domain> <H> <seed>
+python new_baselines/score.py                        # 10-method table -> results/new_baselines/results_main_cosa.json
+
+# ablations: train the two training-side variants, build the replay trajectories, score
+python -m confirmation.runner run --config configs/ablation_va.json   # VICReg on
+python -m confirmation.runner run --config configs/ablation_e3.json   # 3 epochs
+python final/ablation_trajectories.py --list orig_lr0                 # kinds: orig_lr0, cv_lr, va, e3; --traj <kind> <domain> <H> <seed>
+python final/online_ablation.py --list nofb                           # kinds: nofb, val; --traj <kind> <domain> <H> <seed>
+python final/three_seeds.py                                           # -> results/final/three_seeds/results.json
+
+# paper tables
+python paper/table_domain.py && python paper/metric_scan.py
+python paper/table_mse_mae.py && python paper/table_overall.py && python paper/table_cvar.py
+```
+
+Checks done for this release:
+- `final/three_seeds.py`, `new_baselines/score.py`, `paper/metric_scan.py`, `paper/table_domain.py` and the three LaTeX generators, run from this repository on the saved trajectories, reproduce the committed result files byte for byte;
+- one SOLID, ADCSD and COSA trajectory per backbone package (Security, H = 6, seeds 2025 and 2027) rebuilt from this repository matches the saved forecasts bit for bit.
+
+The seed 5/6 cells of [results/final/five_seeds/](results/final/five_seeds/) were trained with per-seed copies of the benchmark and method packages; those copies are not included.
+
+---
+
 ## 6. Repository layout
 
 ```
@@ -221,12 +292,20 @@ python confirmation/confirm.py --score
 ├── benchmark/             main experiment: scheduling, audit, frozen scoring (score.py), report
 ├── confirmation/          confirmation experiment: training (runner.py), online replay (harness.py),
 │                          gate (round5_gate.py), trajectories and scoring (confirm.py), dispatch.sh
-├── configs/               benchmark.json, confirmation_cv.json, confirmation_ta.json
+├── final/                 final evaluation: ablation trajectories, online-component ablations, scoring
+│                          (scoring.py), three-seed and five-seed summaries
+├── new_baselines/         SOLID, ADCSD/OGD and COSA ports on the frozen backbone, and the 10-method table (score.py)
+├── paper/                 per-dataset tables, metric scan and LaTeX generators for the paper
+├── backbones/             packages that trained the reused iTransformer checkpoints (periodic_v3, periodic_v4)
+├── configs/               benchmark.json, confirmation_cv.json, confirmation_ta.json, ablation_va.json, ablation_e3.json
 ├── results/
 │   ├── data_repair/       report of the V1 text repair (coverage, token effects)
 │   ├── benchmark/         7-method main table (756 cells), protocol, checks, frozen hashes
 │   ├── development/       12 development rounds on seed 2: plans, selections, results
-│   └── confirmation/      confirmation plan and results
+│   ├── confirmation/      confirmation plan and results
+│   ├── final/             ablations (three_seeds), five-seed results, terminated seven-seed plan
+│   ├── new_baselines/     plans, SOLID lr selection, main tables, main-table decisions
+│   └── paper/             LaTeX tables, per-dataset metrics, metric scan, showcase scan
 ├── third_party/           pinned sources of third-party code (code/) and weights (weights/),
 │                          with download scripts fetch_code.sh and fetch_weights.py
 ├── docs/                  full design and results document
@@ -269,7 +348,9 @@ Only the code of the final pipeline is kept; intermediate method packages are no
 - **Limited online component:** the final method turns off online parameter updates; its online part is only the feedback and the gate.
 - **Backbone numeric difference:** On's internal backbone runs on the CPU; its maximum absolute difference from the main-table iTransformer (GPU) is 0.0101.
 - **Text causality:** V1 only repairs confirmed timing mismatches; we cannot claim the text is entirely leak-free.
-- **Scope of claims:** a 0.05% gap in the main statistic is statistically indistinguishable from a tie. This repository does not claim significance, universal superiority or SOTA.
+- **Ported online baselines:** SOLID, ADCSD, OGD and COSA are re-implementations of the authors' code on our frozen backbone and per-origin protocol. COSA in particular runs with batch size 1 instead of the authors' 48-origin batches (see section 2.4), which makes it update far more often than in its paper.
+- **Showcase scan:** [showcase.json](results/paper/showcase.json) was computed before COSA was added, against the set with OGD instead of COSA.
+- **Scope of claims:** a 0.05% gap in the CVaR₉₀ statistic is statistically indistinguishable from a tie. This repository does not claim significance over every baseline, universal superiority or SOTA.
 
 ---
 

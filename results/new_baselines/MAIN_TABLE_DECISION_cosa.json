@@ -1,0 +1,35 @@
+{
+ "decided_at": "2026-10-11 22:00:41",
+ "decided_by": "user",
+ "supersedes": "MAIN_TABLE_DECISION.json (kept unchanged)",
+ "main_table_methods": [
+  "On-Adapter (ours)",
+  "iTransformer",
+  "ADAPT-Z",
+  "DSOF",
+  "Proceed",
+  "GPT4MTS",
+  "MM-TSFlib",
+  "SOLID",
+  "ADCSD",
+  "COSA"
+ ],
+ "reference_row": "Original On-Adapter (not ranked)",
+ "seeds": [
+  2025,
+  2026,
+  2027
+ ],
+ "result_file": "reports/v1ext_20261011/results_main_cosa.json (sha256 2e722fda57818aadcbb9dc9ef4cda5e44824f4d8abf84ed5b46f49e138a250fa)",
+ "change": "COSA (ICLR 2026) added after the user asked for 2026 baselines; plan PLAN_cosa.json frozen before any COSA result; issued per origin with batch size 1 (see plan)",
+ "also_run_not_in_main_table": [
+  "TimeXer and SOFTS (reports/v1ext_20261011/results.json)",
+  "OGD (reports/v1ext_20261011/results_main10.json)"
+ ],
+ "paper_tables": [
+  "table2.tex (MSE/MAE per dataset)",
+  "table_overall.tex (summary metrics)",
+  "table_cvar.tex (CVaR90 per dataset)",
+  "metric_scan.json (all metrics incl. CVaR95 and pairwise tests)"
+ ]
+}

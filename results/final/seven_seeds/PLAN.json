@@ -1,0 +1,20 @@
+{
+ "title": "Final five-seed run on seeds 2023-2027 (primary), with seeds 5 and 6 reported as supplementary",
+ "frozen_at": "2026-10-11, before any seed-2023 or seed-2024 training cell, trajectory or result",
+ "primary_seeds": [
+  2023,
+  2024,
+  2025,
+  2026,
+  2027
+ ],
+ "supplementary": "seeds 5 and 6 were run first (reports/final5_20261010, results already seen). They are not discarded: all seven seeds {5,6,2023,...,2027} are also reported in full. The switch of the primary set to the contiguous seeds 2023-2027 is for reproducibility and is decided before any 2023/2024 result.",
+ "seed_sources": {
+  "2025-2027": "V1 main table + On-Adapter confirmation (existing)",
+  "2023, 2024": "new campaigns method_comparison_seed{2023,2024}_v1_20261011 and method_comparison_seed{2023,2024}_on_{cv,ta,va,e3}_20261011, identical code to seeds 5/6 (forks of the same frozen packages), gpu_compute_workers 6 from the start",
+  "5, 6": "reports/final5_20261010"
+ },
+ "method_and_ablations": "identical to reports/final5_20261010/PLAN.json (sha256 0e9e943f2a174bc63cefd2ac9b9ae68d2fdfb8274ea5885a8efe967d671ae1a4), ABLATION_PLAN and ONLINE_ABLATION_PLAN (sha256 389a309e5306ab759f59acc864b4d2d7c037b07d14a87cd5b103536e33e10c0f)",
+ "statistics": "as in reports/final5_20261010/PLAN.json; computed for the primary five seeds and for all seven seeds",
+ "reporting": "every result reported whatever its direction"
+}

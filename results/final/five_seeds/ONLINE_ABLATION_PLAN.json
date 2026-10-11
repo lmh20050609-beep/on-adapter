@@ -1,0 +1,19 @@
+{
+ "title": "Online-component ablations of the frozen On-Adapter (five seeds)",
+ "frozen_at": "2026-10-11, after the five-seed main and ablation results, before any trajectory of these two ablations",
+ "question": "With online parameter updates off, are the remaining online components (matured-label gradient feedback hg/ge, per-origin gate) doing work?",
+ "A_feedback_off": "replay the final On-Adapter checkpoints on test with hg = ge = 0 at every origin (no feedback), no parameter updates; then the same backbone-first gate (gs 0.9, mu 0, kmin 4). Reported with and without the gate. The prediction path has no running-statistics layers, so this differs from On-Adapter only by the feedback.",
+ "B_static_gate": "per task and seed, one choice made on the validation segment: adapter if the validation CVaR90 of the adapter (lr 0, with feedback, entry seed 100 x seed) is below that of the backbone, else backbone; the choice is fixed over the whole test segment.",
+ "seeds": [
+  2025,
+  2026,
+  2027,
+  5,
+  6
+ ],
+ "checkpoints": "final On-Adapter (cv): runs/method_comparison_v1conf_cv_20261009 (2025-2027), runs/method_comparison_seed{5,6}_on_cv_20261010",
+ "metrics": "as in PLAN.json: S, mean rank (variant in place of Original On-Adapter), tasks better than backbone, tasks >2% worse, worst task, per seed; compared with On-Adapter and with 'ours - gate'",
+ "reporting": "both results reported whatever their direction",
+ "main_plan_sha256": "0e9e943f2a174bc63cefd2ac9b9ae68d2fdfb8274ea5885a8efe967d671ae1a4",
+ "scripts": "scripts/final5_online_ablation_20261010.py"
+}

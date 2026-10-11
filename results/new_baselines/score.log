@@ -1,0 +1,12 @@
+TimeXer                S=0.967308 rank=3.426 better=26 harm>2%= 3 worst=1.042 mae=1.0488 mse=11.805 seeds 0.9659 0.9637 0.9712
+SOFTS                  S=0.981861 rank=5.046 better=18 harm>2%= 1 worst=1.029 mae=1.0719 mse=12.117 seeds 0.9766 0.9796 0.9887
+iTransformer           S=1.000000 rank=5.750 better= 0 harm>2%= 0 worst=1.000 mae=1.0628 mse=11.978 seeds 1.0000 1.0000 1.0000
+On-Adapter (ours)      S=1.000495 rank=5.028 better=22 harm>2%= 3 worst=1.058 mae=1.0716 mse=12.100 seeds 1.0008 1.0012 0.9994
+SOLID                  S=1.001446 rank=5.435 better=23 harm>2%= 1 worst=1.083 mae=1.0750 mse=12.201 seeds 1.0022 1.0014 1.0007
+MM-TSFlib              S=1.014709 rank=5.880 better=16 harm>2%=11 worst=1.182 mae=1.0690 mse=12.089 seeds 1.0117 1.0177 1.0137
+GPT4MTS                S=1.035984 rank=5.926 better=16 harm>2%=11 worst=1.639 mae=1.0879 mse=12.204 seeds 1.0312 1.0352 1.0393
+ADAPT-Z                S=1.049515 rank=5.556 better=18 harm>2%=12 worst=1.838 mae=1.1421 mse=13.390 seeds 1.0430 1.0539 1.0505
+DSOF                   S=1.050956 rank=5.741 better=15 harm>2%=21 worst=1.579 mae=1.2860 mse=13.904 seeds 1.0398 1.0639 1.0470
+Original On-Adapter    S=1.093644 rank=5.963 better=17 harm>2%=11 worst=2.533 mae=1.0974 mse=12.210 seeds 1.0676 1.0831 1.1208
+Proceed                S=1.110804 rank=7.213 better=11 harm>2%=16 worst=1.704 mae=1.1752 mse=13.486 seeds 1.1038 1.1165 1.1107
+strict first: False | SOLID lr 0.01 | SOLID backbone rebuild max diff 1.03e-02

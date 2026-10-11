@@ -1,0 +1,14 @@
+{
+ "title": "COSA (ICLR 2026) on the V1 benchmark, seeds 2025-2027",
+ "frozen_at": "2026-10-11, before any COSA trajectory or result",
+ "source": "external/cosa = bigbases/COSA_ICLR2026 @ 527c0feb9e997dd85af485ee027616b446e4ae77 (tta/cosa.py, scripts/cosa.sh)",
+ "backbone": "the same seed's V1 main-table iTransformer checkpoint, frozen (rebuilt as for SOLID/ADCSD)",
+ "adapter": "SimpleOutputAdapter, ADAPTER_TYPE Linear, var-wise gating (config default True): per variable Linear(H + 10, H), xavier gain 0.1, bias 0, gate init 0 -> Y = Y0 + tanh(g) * W[Y0; C]",
+ "settings_from_author_script": "BASE_LR 1e-3 (Adam, weight decay 1e-4), BUFFER_CONTEXT_SIZE 10, STEPS 3, FAST_ADAPTATION, ADAPTIVE_LR (CALR, MAX_LR 5e-3, MIN_LR 1e-4), PER_BATCH_LR_RESET, POGT (full-horizon replay once observed), L2_REG 1e-4, grad clip max(0.05, min(0.5, loss))",
+ "protocol_adaptation": "Forecasts are issued at every origin from information available at that origin (batch size 1), as for every other online baseline. The author default issues forecasts in batches (48, PAAS) and, before issuing, adapts on the observed part of the batch's own targets (PARTIAL_ADAPT, ADJUST_PRED); under per-origin issuance that uses data observed after a sample's origin, so with batch size 1 these steps are inactive (n_observed = 0). Context vector = means of observed targets of the 10 most recent fully observed origins (origin_c + H <= t), padded as in the author code. Masked MSE on observed targets.",
+ "reporting": "results recorded in full under reports/v1ext_20261011; inclusion decided by the user",
+ "previous_plans": [
+  "5233f78a2588bd154b9d360f9caee606cdb9452e6a1d1291a873eba194e2bf29",
+  "cec25653a9196f89ed4ef9b0ad7013afc5d1433aa32b4ccf174a4ff3d5f6f0a5"
+ ]
+}

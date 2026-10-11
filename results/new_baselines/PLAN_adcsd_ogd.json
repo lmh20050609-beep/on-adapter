@@ -1,0 +1,10 @@
+{
+ "title": "Two further baselines from the ADAPT-Z paper: ADCSD and OGD, seeds 2025-2027",
+ "frozen_at": "2026-10-11, before any trajectory or result of these methods",
+ "selection_rule": "baselines used in the ADAPT-Z paper (external/adaptz README), online methods applicable to the same frozen iTransformer backbone as On-Adapter, ADAPT-Z, Proceed and SOLID; chosen by the user before any result",
+ "common": "backbone = the same seed's V1 main-table iTransformer checkpoint (rebuilt with the package that trained it, as for SOLID); CPU replay over the test origins in order; entry seed 100 x seed; after each forecast, one update on the batch_size most recent test origins whose H-step targets are fully observed (origin_c + H <= current origin), batch_size = the cell's resolved benchmark batch size; masked MSE on observed targets; no tuning, author code defaults",
+ "ADCSD": "external/adaptz/ADCSD.py: frozen backbone output F(x) (B,H,N,1); y = F(x) + lambda_1*g_1(res) + lambda_2*g_2(trend), series_decomp moving average 5 along the horizon, g = Linear(1,128)-LayerNorm([H,N,128])-GELU-Linear(128,1), lambda per variable initialised at 0; Adam lr 1e-4, eps 1e-8; backbone frozen",
+ "OGD": "external/adaptz/parameter_finetune.py: SGD lr 3e-6, one step per origin (ogd_step 1), on the output projection layer. The pinned code names the layer 'projectio' (typo), which would unfreeze nothing and skip all updates; the intended layer 'projection' (tslib iTransformer) is used. Model in eval mode (no dropout).",
+ "reporting": "results recorded in full under reports/v1ext_20261011; inclusion in the paper decided by the user",
+ "previous_plan_sha256": "5233f78a2588bd154b9d360f9caee606cdb9452e6a1d1291a873eba194e2bf29"
+}

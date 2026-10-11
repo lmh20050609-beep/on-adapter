@@ -1,0 +1,22 @@
+{
+ "title": "Final five-seed run: seven methods + frozen On-Adapter + ablations, original nine-domain L/H table",
+ "frozen_at": "2026-10-10, before any seed-5 or seed-6 result is scored and before any new ablation result",
+ "seeds": [
+  2025,
+  2026,
+  2027,
+  5,
+  6
+ ],
+ "seed_sources": {
+  "2025-2027": "existing: seven-method V1 main table (reports/benchmark_textrepair_v1_20261008) and the On-Adapter confirmation (reports/v1conf_20261009; results already known before this plan)",
+  "5": "new: method_comparison_seed5_v1_20261010 + method_comparison_seed5_on_20261010 (plan reports/seed5_final_20261010/PLAN.json, sha256 8b4cfb72212e3d9f12f855a8a08c27a2260865c31d449c2274c13c351032e473)",
+  "6": "new: method_comparison_seed6_v1_20261010 + method_comparison_seed6_on_20261010 (identical code, seed 6)"
+ },
+ "our_method": "frozen On-Adapter (cv): VICReg off, epochs 15, CVaR90 loss lambda 0.5, online updates off, backbone-first gate gs 0.9 mu 0 kmin 4, entry seed 100 x seed",
+ "primary_statistic": "S = geometric mean over 36 tasks of the seed-mean (5 seeds) CVaR90 ratio to iTransformer",
+ "secondary_metrics": "mean CVaR90 rank over 180 task-seed cells among the 7 methods (ours in place of Original On-Adapter); per-seed S; mean MAE/MSE; tasks better than backbone; tasks >2% worse; worst task ratio; per-domain",
+ "ablations": "the designs of reports/seed5_final_20261010/ABLATION_PLAN.json (sha256 2d41b239385d9561e106b669e5b28a3d40304c15dbc61f169af20649398e19ac), run on all five seeds; for 2025-2027 the w/o-CVaR variant reuses the confirmation On-Adapter-TA checkpoints; va and e3 are trained with the frozen confirmation package (configs method_comparison_v1conf_{va,e3}_20261010.json)",
+ "reporting": "all main and ablation results are reported in full; highlights selected afterwards are labelled as selected",
+ "test_use": "each new test trajectory is computed once; no method change after this plan"
+}

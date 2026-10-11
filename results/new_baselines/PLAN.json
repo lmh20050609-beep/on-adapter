@@ -1,0 +1,16 @@
+{
+ "title": "Three additional baselines (SOLID, TimeXer, SOFTS) on the V1 benchmark, seeds 2025-2027",
+ "frozen_at": "2026-10-11, before any implementation run, smoke cell or result of these methods",
+ "selection_rule": "methods published 2024 or later (same period as the existing baselines), code available at pinned commits; chosen by the user before any result",
+ "seeds": [
+  2025,
+  2026,
+  2027
+ ],
+ "protocol": "identical to the V1 main table: data V1, split 60/20/20, scaler on train, masked targets, origin grid, L/H table, frozen scorer benchmark_textrepair_v1.score.cell_metrics",
+ "TimeXer": "NeurIPS 2024, thuml/Time-Series-Library @ pinned commit (external/tslib); shared benchmark model settings (same as iTransformer: d_model 64 or 32 for <500 rows, e_layers 2, d_ff 256, dropout, lr 3e-4, batch, epochs 15/50, patience 3, checkpoint by validation MSE); features='M' because every selected variable is a target in this protocol; patch_len = gcd(L, 8)",
+ "SOFTS": "NeurIPS 2024, Secilia-Cxy/SOFTS @ f5d35fd (external/softs); same shared settings; d_core = d_model; use_norm",
+ "SOLID": "KDD 2024 (SOLID, not the tuned SOLID++ scripts), algorithm of OnlineTSF exp_solid.py: test-time, per origin, candidates = past windows whose H-step targets are fully observed (origin_c + H <= t) within the last test_train_num windows and phase-filtered by |lag mod period| <= lambda_period*period; select the selected_data_num nearest by L2 distance of input windows; one SGD step on the final linear head (tslib iTransformer `projection`) with the masked MSE of the selected samples; predict; restore the head (non-continual). Argparse defaults: test_train_num 500 (capped at the available history), selected_data_num 5, lambda_period 0.1, head only, non-continual. Period = steps per natural cycle (author convention): monthly 12, weekly 52.142857, daily 7. Backbone = the same seed's iTransformer checkpoint of the V1 main table (SOLID has no own offline training). online_learning_rate (no author default) selected on validation from {1e-4, 1e-3, 1e-2} by the 3-seed, 36-task geometric-mean CVaR90 ratio to iTransformer; ties to the smaller rate; test computed once with the selected rate.",
+ "reporting": "main table extended to ten methods (On-Adapter + 9 baselines); ranks recomputed among the ten; all results reported whatever their direction; no tuning of any method after this plan",
+ "constraints": "local CPU/GPU only; no modification of frozen packages or earlier results"
+}
