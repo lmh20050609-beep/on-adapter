@@ -1,13 +1,13 @@
 # On-Adapter: experimental design, algorithmic improvements and confirmation results
 
 Compiled 2026-10-09. Every number in this document was recomputed from the saved per-origin forecasts; source paths are given in each section and in section 11.
-Paths are relative to the repository root. Training outputs (checkpoints and per-origin forecasts) are not in the repository; on the original machine they were under `E:\FedNoise\iadapter-baselines\runs\`, and `…\` below stands for the original working directory `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines\`.
+Paths are relative to the repository root. Training outputs (checkpoints and per-origin forecasts) are not in the repository; on the original machine they were under `E:\FedNoise\iadapter-baselines\runs\`, and `…\` below stands for the original working directory `C:\path\to\iadapter-baselines\`.
 
 ---
 
 ## 1. Summary
 
-In the confirmation experiment — **frozen method, 3 independent training seeds (2025/2026/2027), baselines not tuned at all** — our improved **On-Adapter** (the method of the original paper is called Original On-Adapter; in code and result files our method is labelled `On-Adapter-CV` and the original `On-Adapter`):
+In the confirmation experiment — **frozen method, 3 independent training seeds (2025/2026/2027), baselines not tuned at all** — our improved **On-Adapter** (the initial version is called Original On-Adapter; in code and result files our method is labelled `On-Adapter-CV` and the original `On-Adapter`):
 
 - has **main statistic S = 1.000495**: essentially tied with its frozen static backbone iTransformer (S = 1.000000), 0.05% behind, **not strictly better**; 2nd of 7 methods;
 - has **mean CVaR₉₀ rank 3.380, the best of the 7 methods** (iTransformer 3.843, the others 3.73–5.07);
@@ -23,8 +23,8 @@ Almost all of the remaining gap is in Health_US (within-domain ratio 1.029).
 
 ### 2.1 Data
 
-- **Source:** Time-MMD multimodal time series (numeric series plus the text `fact` field), taken from the original paper's code and data supplement
-  `C:\Users\18452\Downloads\31817_iAdapter_Adaptive_lightw_Code And Data Supplement (1).zip` and the CSV files of its 9 domains.
+- **Source:** Time-MMD multimodal time series (numeric series plus the text `fact` field), taken from the code and data supplement of the initial version
+  `code_and_data_supplement.zip` and the CSV files of its 9 domains.
 - **Text version: V1 minimal repair.** It masks only the individual entries verified against their sources as postdating the time they describe: 413 of 30,944 entries, 1.34%. Numeric columns, targets and masks are byte-identical.
   - data: `data/`
   - rules: `data_repair/source_evidence/decision_rules_all9.json` (348 rules, sha256 `85152a0e…`)
@@ -63,7 +63,7 @@ Almost all of the remaining gap is in Health_US (within-domain ratio 1.029).
 | Proceed | online | no | SJTU-DMTai/OnlineTSF `0a864619` | Same as above |
 | GPT4MTS | static, multimodal | yes: BERT-base, 512 tokens, CLS pooling | Flora-jia-jfr/GPT4MTS `c85e74b2` | Newly trained in the V1 main experiment |
 | MM-TSFlib | static, multimodal | yes: first 6 layers of GPT-2, 256 tokens | AdityaLab/MM-TSFlib `e789ce78` | Newly trained in the V1 main experiment |
-| Original On-Adapter | online, multimodal | yes: first 6 layers of BERT-base, 64 tokens, mean pooling | Implementation from the original paper's supplement | Newly trained in the V1 main experiment |
+| Original On-Adapter | online, multimodal | yes: first 6 layers of BERT-base, 64 tokens, mean pooling | Initial implementation | Newly trained in the V1 main experiment |
 
 - Pretrained weights: `google-bert/bert-base-uncased@86b5e093`, `openai-community/gpt2@607a30d7`.
 - Source manifests: `third_party/code/*/SOURCE.json`, `third_party/weights/*/SOURCE.json`.

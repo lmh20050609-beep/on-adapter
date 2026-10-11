@@ -19,7 +19,7 @@ BASE = pathlib.Path(__file__).resolve().parent
 ROOT = BASE.parent
 REPORT = ROOT / 'results/benchmark'
 CONFIG = ROOT / 'configs/benchmark.json'
-ORIGINAL = ROOT.parent / 'output/iadapter-submission-audit-20260929/extracted/iAdapter/data'
+ORIGINAL = ROOT.parent / 'output/original_timemmd/data'
 V1_ROOT = ROOT / 'data'
 DOMAIN_FILES = {'Agriculture': 'Agriculture.csv', 'Climate': 'Climate.csv',
                 'Economy': 'Economy.csv', 'Energy': 'Energy.csv',

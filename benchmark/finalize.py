@@ -13,7 +13,7 @@ REPAIR_REPORT = ROOT / 'results/data_repair'
 LEGACY_RUNS = pathlib.Path('E:/FedNoise/iadapter-baselines/runs')
 LEGACY_CAMPAIGNS = ['method_comparison_opt_periodic_v3_seeds3_20261006',
                     'method_comparison_opt_periodic_v4_seeds3_20261007']
-ORIGINAL = ROOT.parent / 'output/iadapter-submission-audit-20260929/extracted/iAdapter/data'
+ORIGINAL = ROOT.parent / 'output/original_timemmd/data'
 PRIOR_REPORTS = ['benchmark_text_pair_v1_20261008', 'encoding_independent_v2_20261008',
                  'benchmark_text_pair_independent_v2_20261008', 'benchmark_text_audit_v1',
                  'text_truncation_audit_20261007', 'periodic_guard_repair_20261007',

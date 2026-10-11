@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Train primary (cv) then control (ta) on seeds 2025-2027 (GPU, serial); test trajectories as cells finish (CPU); score.
 set -u
-B=/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/iadapter-baselines; D=$B/results/confirmation; PY=./.venv/Scripts/python.exe; W=8
+B=/path/to/iadapter-baselines; D=$B/results/confirmation; PY=./.venv/Scripts/python.exe; W=8
 cd "$B" || exit 1; mkdir -p "$D/running" "$D/logs"; echo $$ > "$D/dispatcher.pid"; log() { echo "$(date '+%F %T') $*" >> "$D/dispatcher.log"; }
 ( for t in cv ta; do mkdir -p "$D/campaign_$t"; [ -f "$D/campaign_$t/control.json" ] || echo '{"pause": false}' > "$D/campaign_$t/control.json"
     $PY -m confirmation.runner run --config configs/confirmation_${t}.json < /dev/null >> "$D/logs/train_$t.log" 2>&1; echo "train $t exit=$?" >> "$D/dispatcher.log"; touch "$D/trained_$t"

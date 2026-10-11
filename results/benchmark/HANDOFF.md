@@ -50,8 +50,8 @@ after which the lock was re-frozen to match the code actually run; the reuse man
 
 | Item | Value |
 |---|---|
-| Project root | `C:\Users\18452\Documents\ChatGPT\FedNoise` |
-| Baseline directory | `C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines` |
+| Project root | `C:\path\to` |
+| Baseline directory | `C:\path\to\iadapter-baselines` |
 | Interpreter | `iadapter-baselines\.venv\Scripts\python.exe` (Windows Python, not WSL python3) |
 | How to run | `.\venv\Scripts\python.exe -m <module>` from the `iadapter-baselines` directory |
 | GPU | RTX 4060 Laptop 8GB, torch 2.8.0+cu129, serial execution |
@@ -68,18 +68,18 @@ The CLI runs in WSL, but the project uses **native Windows Python**. Calling acr
 
 ```bash
 # ✅ Correct
-cd /mnt/c/Users/18452/Documents/ChatGPT/FedNoise/iadapter-baselines
+cd /path/to/iadapter-baselines
 ./.venv/Scripts/python.exe -m benchmark_textrepair_v1.runner plan
 
-# ❌ Wrong: calling by absolute path from a WSL cwd (e.g. /home/wuwa)
-/mnt/c/Users/18452/Documents/ChatGPT/FedNoise/iadapter-baselines/.venv/Scripts/python.exe -c "import benchmark_textrepair_v1"
+# ❌ Wrong: calling by absolute path from a WSL cwd (e.g. /home/<user>)
+/path/to/iadapter-baselines/.venv/Scripts/python.exe -c "import benchmark_textrepair_v1"
 # → ModuleNotFoundError
 ```
 
 Reason (verified): Windows Python takes `sys.path[0]` from the current directory; when the cwd is a WSL directory it sees
-`\\wsl.localhost\Ubuntu\home\wuwa`, `sys.path[0]` is empty, and every package import fails.
+`\\wsl.localhost\Ubuntu\home\<user>`, `sys.path[0]` is empty, and every package import fails.
 After `cd` into `/mnt/c/...`, the Windows-side cwd shows as
-`C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines` and imports work.
+`C:\path\to\iadapter-baselines` and imports work.
 
 Other WSL-side details:
 
@@ -92,7 +92,7 @@ Other WSL-side details:
 
 **First instruction for the CLI (can be pasted as is)**
 
-> Read `reports/benchmark_textrepair_v1_20261008/HANDOFF.md` (note the WSL usage section: first `cd /mnt/c/Users/18452/Documents/ChatGPT/FedNoise/iadapter-baselines`, then call `./.venv/Scripts/python.exe`).
+> Read `reports/benchmark_textrepair_v1_20261008/HANDOFF.md` (note the WSL usage section: first `cd /path/to/iadapter-baselines`, then call `./.venv/Scripts/python.exe`).
 > First check the progress of `benchmark_textrepair_v1.runner` and whether anything failed; if the controller has exited before finishing, resume with `runner run` (completed cells are skipped automatically).
 > Once all 324 cells are complete, run audit / tables / compare / score / manifest / build_report in the order of HANDOFF section 5, and write the results into REPORT.md.
 
@@ -122,7 +122,7 @@ Other WSL-side details:
 
 ### Task 2: protocol freeze
 - [PROTOCOL.md](reports/benchmark_textrepair_v1_20261008/PROTOCOL.md)
-- [frozen_matrix_textrepair_v1.json](reports/benchmark_textrepair_v1_20261008/frozen_matrix_textrepair_v1.json) SHA256 `5ab90e412009efb6d8e3e6e7e08f97772f5fe6348d0a57aa3f38e4eaebab0e4c` (756 cells)
+- [frozen_matrix_textrepair_v1.json](reports/benchmark_textrepair_v1_20261008/frozen_matrix_textrepair_v1.json) SHA256 `7c8bd96f6439c0cff33934bc74e8a132560750e8f38fac30cb7cf8a5fd8e5d62` (756 cells)
 - [execution_lock.json](reports/benchmark_textrepair_v1_20261008/execution_lock.json) SHA256 `cf7b935f3c9e56706f2fd0a9c3cb51b1d36f6c2c95cf526ecb794dfbb39a9703` (32 entries)
 - Config: [configs/method_comparison_textrepair_v1_20261008.json](configs/method_comparison_textrepair_v1_20261008.json) SHA256 `013b27a845ec582b51cc046f30f5d5bb678c03fe200ecd60699af75c6fc8cf87`
 - Reuse manifest: [legacy_numeric_reuse_manifest.json](benchmark_textrepair_v1/legacy_numeric_reuse_manifest.json) SHA256 `c3256eb039a50e0be120b79474df53dcb1ea1b22966a387b16a763b9c4c64fc2`
@@ -151,7 +151,7 @@ Other WSL-side details:
 **Resuming** (if the process is interrupted, just run it again; completed cells are skipped automatically after their artifact hashes are verified):
 
 ```powershell
-cd C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines
+cd C:\path\to\iadapter-baselines
 .venv\Scripts\python.exe -m benchmark_textrepair_v1.runner plan     # show what remains
 .venv\Scripts\python.exe -m benchmark_textrepair_v1.runner run      # continue/start
 ```
@@ -159,7 +159,7 @@ cd C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines
 ## 5. Wrap-up sequence after the run
 
 ```powershell
-cd C:\Users\18452\Documents\ChatGPT\FedNoise\iadapter-baselines
+cd C:\path\to\iadapter-baselines
 
 # 1) Completion audit (check result.json and artifact hashes per cell; execution lock unchanged)
 .venv\Scripts\python.exe -m benchmark_textrepair_v1.finalize audit

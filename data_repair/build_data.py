@@ -13,7 +13,7 @@ import shutil
 
 BASE = pathlib.Path(__file__).resolve().parent
 ROOT = BASE.parent
-ORIGINAL = ROOT.parent / 'output/iadapter-submission-audit-20260929/extracted/iAdapter/data'
+ORIGINAL = ROOT.parent / 'output/original_timemmd/data'
 REPORT = ROOT / 'results/data_repair'
 FROZEN_THREE = ROOT / 'reports/benchmark_text_pair_v1_20261008/data/V1'
 DOMAIN_FILES = {'Agriculture': 'Agriculture.csv', 'Climate': 'Climate.csv',
