@@ -1,0 +1,23 @@
+== main
+iTransformer                             S=1.000000 rank=3.844 better= 0 harm>2%= 0 worst=1.000 mae=1.0615 seeds 1.0000 1.0000 1.0000 1.0000 1.0000
+On-Adapter (ours)                        S=1.000495 rank=3.356 better=23 harm>2%= 3 worst=1.072 mae=1.0699 seeds 1.0008 1.0012 0.9994 0.9972 1.0037
+MM-TSFlib                                S=1.013422 rank=4.006 better=14 harm>2%= 9 worst=1.148 mae=1.0665 seeds 1.0117 1.0177 1.0137 1.0074 1.0146
+GPT4MTS                                  S=1.036217 rank=3.989 better=18 harm>2%= 8 worst=1.669 mae=1.0842 seeds 1.0312 1.0352 1.0393 1.0283 1.0415
+ADAPT-Z                                  S=1.050150 rank=3.856 better=17 harm>2%=12 worst=1.826 mae=1.1421 seeds 1.0430 1.0539 1.0505 1.0331 1.0663
+DSOF                                     S=1.054662 rank=3.956 better=15 harm>2%=20 worst=1.620 mae=1.2898 seeds 1.0398 1.0639 1.0470 1.0593 1.0585
+Original On-Adapter                      S=1.079887 rank=4.133 better=15 harm>2%=10 worst=2.272 mae=1.0930 seeds 1.0676 1.0831 1.1208 1.0465 1.0592
+Proceed                                  S=1.111797 rank=4.994 better=11 harm>2%=18 worst=1.701 mae=1.1827 seeds 1.1038 1.1165 1.1107 1.0997 1.1238
+== ablation
+L0 Original On-Adapter                   S=1.079887 rank=4.133 better=15 harm>2%=10 worst=2.272 mae=1.0930 seeds 1.0676 1.0831 1.1208 1.0465 1.0592
+L1 Original + online updates off         S=1.003254 rank=3.856 better=15 harm>2%= 2 worst=1.027 mae=1.0644 seeds 1.0031 1.0029 1.0018 1.0031 1.0053
+L2 + VICReg off, 15 epochs               S=1.004590 rank=3.589 better=20 harm>2%= 5 worst=1.056 mae=1.0648 seeds 1.0048 1.0044 1.0009 1.0015 1.0108
+L3 + backbone-first gate                 S=1.000941 rank=3.561 better=19 harm>2%= 3 worst=1.053 mae=1.0646 seeds 1.0019 0.9997 0.9986 1.0013 1.0029
+On-Adapter (ours)                        S=1.000495 rank=3.356 better=23 harm>2%= 3 worst=1.072 mae=1.0699 seeds 1.0008 1.0012 0.9994 0.9972 1.0037
+ours - gate                              S=1.006087 rank=3.361 better=24 harm>2%= 8 worst=1.079 mae=1.0719 seeds 1.0010 1.0098 1.0026 0.9993 1.0169
+ours - online updates off (lr 3e-4)      S=1.058439 rank=3.950 better=17 harm>2%=10 worst=1.912 mae=1.1110 seeds 1.0438 1.0580 1.0742 1.0367 1.0644
+ours - VICReg off (VICReg on)            S=1.000667 rank=3.433 better=19 harm>2%= 4 worst=1.048 mae=1.0626 seeds 1.0015 0.9982 0.9967 0.9991 1.0073
+ours - 15 epochs (3 epochs)              S=1.000745 rank=3.489 better=22 harm>2%= 3 worst=1.029 mae=1.0633 seeds 1.0018 0.9997 1.0000 1.0005 1.0018
+ours, gate gs 0.8                        S=1.000690 rank=3.433 better=22 harm>2%= 2 worst=1.074 mae=1.0700 seeds 1.0003 1.0029 0.9971 0.9973 1.0057
+ours, gate gs 1.0                        S=1.000084 rank=3.433 better=24 harm>2%= 3 worst=1.065 mae=1.0702 seeds 0.9999 1.0003 1.0007 0.9968 1.0024
+Original On-Adapter + gate               S=1.061115 rank=4.089 better=15 harm>2%= 9 worst=2.051 mae=1.0821 seeds 1.0569 1.0631 1.0886 1.0413 1.0451
+strict first: False

@@ -1,0 +1,27 @@
+\begin{table*}[htbp]
+\centering
+\caption{Overall comparison on the nine Time-MMD datasets (36 dataset--horizon tasks, three random seeds 2025, 2026, 2027; 108 test streams). For each task we average the ratio of each metric to that of the iTransformer backbone over seeds; $S$ is the geometric mean of this ratio over tasks ($S<1$: better than the backbone). CVaR$_{\alpha}$ is the mean of the worst $(1-\alpha)$ fraction of per-origin MAEs within a test stream. Avg.~Rank ranks the ten methods by CVaR$_{90}$ in each stream; Top-5 is the share of streams in which a method ranks among the best five. \#Harm counts tasks whose CVaR$_{90}$ ratio exceeds 1.02 and Worst is the largest task ratio. Gain/Harm is $\sum_t \max(0, 1-r_t)\,/\,\sum_t \max(0, r_t-1)$ over the task CVaR$_{90}$ ratios $r_t$, i.e.\ the total improvement delivered per unit of total degradation. The best result in each column is shown in \textcolor{red}{\textbf{red}} and the second best is \textcolor{blue}{\underline{underlined}}; the backbone is the reference of ratio-based columns and is not ranked there.}
+\label{tab:overall}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.12}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l|cc|ccc|cccc}
+\toprule
+ & \multicolumn{2}{c|}{\textbf{Point accuracy}} & \multicolumn{3}{c|}{\textbf{Tail risk}} & \multicolumn{4}{c}{\textbf{Reliability}} \\
+\textbf{Models} & $S_{\mathrm{MAE}}\downarrow$ & $S_{\mathrm{MSE}}\downarrow$ & $S_{\mathrm{CVaR}_{80}}\downarrow$ & $S_{\mathrm{CVaR}_{90}}\downarrow$ & Avg.~Rank$\downarrow$ & Top-5 (\%)$\uparrow$ & \#Harm$\downarrow$ & Worst$\downarrow$ & Gain/Harm$\uparrow$ \\
+\midrule
+\textbf{On-Adapter (Ours)} & \best{0.9993} & \second{0.9992} & \best{0.9992} & \best{1.0005} & \best{4.77} & \best{66.7} & 3 & \second{1.058} & \best{0.87} \\
+COSA \ry{2026} & 1.0688 & 1.1288 & 1.0764 & 1.0910 & 5.39 & 55.6 & 10 & 2.639 & 0.07 \\
+ADAPT-Z \ry{2025} & 1.0239 & 1.0534 & 1.0398 & 1.0495 & 5.12 & 52.8 & 12 & 1.838 & 0.18 \\
+DSOF \ry{2025} & 1.2058 & 1.2188 & 1.0847 & 1.0510 & 5.50 & 44.4 & 21 & 1.579 & 0.46 \\
+Proceed \ry{2025} & 1.0631 & 1.1442 & 1.1016 & 1.1108 & 7.05 & 29.6 & 16 & 1.704 & 0.07 \\
+SOLID \ry{2024} & 1.0028 & 1.0048 & 1.0023 & 1.0014 & 5.25 & 50.9 & \best{1} & 1.083 & 0.41 \\
+ADCSD \ry{2024} & \second{1.0003} & \best{0.9987} & \second{1.0016} & \second{1.0008} & \second{4.94} & \second{63.9} & \best{1} & \best{1.046} & \second{0.62} \\
+MM-TSFlib \ry{2024} & 1.0024 & 1.0071 & 1.0100 & 1.0147 & 5.63 & 42.6 & 11 & 1.182 & 0.21 \\
+GPT4MTS \ry{2024} & 1.0249 & 1.0523 & 1.0389 & 1.0360 & 5.59 & 47.2 & 11 & 1.639 & 0.19 \\
+\midrule
+iTransformer \ry{2024} (backbone) & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 5.76 & 46.3 & -- & -- & -- \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

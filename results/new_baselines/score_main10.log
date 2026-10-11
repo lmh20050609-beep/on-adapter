@@ -1,0 +1,11 @@
+iTransformer         S=1.0000 rank=5.694 better= 0 harm>2%= 0 worst=1.000 mae=1.0628 mse=11.978
+OGD                  S=1.0000 rank=5.806 better=14 harm>2%= 0 worst=1.000 mae=1.0628 mse=11.978
+On-Adapter (ours)    S=1.0005 rank=4.602 better=22 harm>2%= 3 worst=1.058 mae=1.0716 mse=12.100
+ADCSD                S=1.0008 rank=4.620 better=28 harm>2%= 1 worst=1.046 mae=1.0627 mse=11.977
+SOLID                S=1.0014 rank=5.148 better=23 harm>2%= 1 worst=1.083 mae=1.0750 mse=12.201
+MM-TSFlib            S=1.0147 rank=5.630 better=16 harm>2%=11 worst=1.182 mae=1.0690 mse=12.089
+GPT4MTS              S=1.0360 rank=5.602 better=16 harm>2%=11 worst=1.639 mae=1.0879 mse=12.204
+ADAPT-Z              S=1.0495 rank=5.074 better=18 harm>2%=12 worst=1.838 mae=1.1421 mse=13.390
+DSOF                 S=1.0510 rank=5.685 better=15 harm>2%=21 worst=1.579 mae=1.2860 mse=13.904
+Original On-Adapter  S=1.0936 rank=5.759 better=17 harm>2%=11 worst=2.533 mae=1.0974 mse=12.210
+Proceed              S=1.1108 rank=7.139 better=11 harm>2%=16 worst=1.704 mae=1.1752 mse=13.486

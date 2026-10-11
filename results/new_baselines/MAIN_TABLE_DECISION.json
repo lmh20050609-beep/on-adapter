@@ -1,0 +1,30 @@
+{
+ "decided_at": "2026-10-11 16:18:26",
+ "decided_by": "user",
+ "main_table_methods": [
+  "On-Adapter (ours)",
+  "iTransformer",
+  "ADAPT-Z",
+  "DSOF",
+  "Proceed",
+  "GPT4MTS",
+  "MM-TSFlib",
+  "SOLID",
+  "ADCSD"
+ ],
+ "reference_row": "Original On-Adapter (not ranked)",
+ "seeds": [
+  2025,
+  2026,
+  2027
+ ],
+ "result_file": "reports/v1ext_20261011/results_main10.json (sha256 1aae1930e995fac4cefccc602a5cf59e59455a5518707c86dda63cd5a026b562)",
+ "also_run_not_in_main_table": "TimeXer and SOFTS (results kept in reports/v1ext_20261011/results.json and score.log)",
+ "ablations": "reports/final3_20261011/results.json (seeds 2025-2027)",
+ "changes": [
+  {
+   "time": "2026-10-11 16:25:48",
+   "change": "OGD removed from the main table by the user (classic 2003 method, outside the recency rule); its results stay in reports/v1ext_20261011/results_main10.json"
+  }
+ ]
+}

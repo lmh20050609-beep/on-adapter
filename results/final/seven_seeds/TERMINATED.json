@@ -1,0 +1,7 @@
+{
+ "status": "terminated by the user",
+ "time": "2026-10-11 13:09:33",
+ "progress_at_termination": "seed-2023 seven-method campaign 33/252 cells complete; seed 2024 and all On-Adapter/ablation cells for 2023/2024 not started; 5 test trajectories; no results scored or looked at",
+ "consequence": "the seeds 2023-2027 plan (PLAN.json) was not carried out; the completed five-seed results remain reports/final5_20261010 (seeds 2025, 2026, 2027, 5, 6)",
+ "artifacts_kept": "partial cells under E:/FedNoise/iadapter-baselines/runs/method_comparison_seed2023_v1_20261011 and trajectories are kept unchanged; control files remain paused"
+}

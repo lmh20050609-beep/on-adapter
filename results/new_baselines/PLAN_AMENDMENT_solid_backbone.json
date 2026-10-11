@@ -1,0 +1,6 @@
+{
+ "time": "2026-10-11 15:02:42",
+ "fix": "SOLID backbone rebuild: the seed-2027 iTransformer cells of the V1 main table were trained by method_comparison_periodic_v4 (execution_version periodic-v4), seeds 2025/2026 by periodic_v3. The script accepted only periodic-v3 and refused the 2027 cells; it now selects the package from each cell's recorded execution_version.",
+ "effect": "no change to the computation for seeds 2025/2026 (their validation trajectories are kept); no SOLID result had been scored or selected; plan unchanged",
+ "plan_sha256": "5233f78a2588bd154b9d360f9caee606cdb9452e6a1d1291a873eba194e2bf29"
+}
